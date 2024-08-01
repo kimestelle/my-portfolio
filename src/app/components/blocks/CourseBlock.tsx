@@ -8,10 +8,10 @@ export default function CourseBlock({ course }: CourseProps) {
   return (
     <div className='w-full flex flex-col p-3 rounded-lg border border-gray-300'>
         <div className='flex flex-row gap-2'>
-            <h4>
+            <h4 className='leading-tight'>
                 {course.number}
             </h4>
-            <h5>
+            <h5 className='leading-tight'>
                 {course.name}
             </h5>
         </div>

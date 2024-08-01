@@ -39,7 +39,7 @@ h2 {
 
 h3 {
   font-family: "quincy-cf", serif;
-  font-size: 1.4em;
+  font-size: 1.6em;
   font-weight: 400;
   font-style: normal;
 }
@@ -56,7 +56,7 @@ h5 {
   font-size: 1.2em;
   font-weight: 400;
   font-style: italic;
-  color: red;
+  color: #ef4444;
 }
 
 p {
@@ -79,4 +79,25 @@ button {
   font-style: normal;
   font-size: 1em;
   cursor: url('/cursor/pointer.svg')
+}
+
+/* backgrounds */
+.red-radial-gr {
+  background: radial-gradient(circle at 20% 15%, rgba(255, 0, 0, 0.3), transparent)
+}
+
+.red-radial-gr-2 {
+  background: radial-gradient(circle at 20% 15%, rgba(255, 0, 0, 0.1), transparent)
+}
+
+/* slide carousel */
+.embla {
+  overflow: hidden;
+}
+.embla__container {
+  display: flex;
+}
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
 }
