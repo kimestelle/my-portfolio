@@ -41,7 +41,7 @@ export default function Projects() {
                 </h2>
                 <div className='w-full border-b-2 border-dotted border-gray-700'/>
                 </div>
-            <div id='course-container' className='h-80 flex flex-col gap-2 p-4 m-2 shadow-inner rounded-lg text-black'>
+            <div id='course-container' className='h-80 flex flex-col gap-2 p-4 sm:m-2 shadow-inner rounded-lg text-black'>
                 <ul className='flex flex-col gap-2 clickable'>
                     <li className='flex flex-row items-center gap-1' onClick={() => handleProjectChange('donation-page')}>
                         <div className='w-[1em] h-[1em] rounded-[1em] border border-red-500'/>

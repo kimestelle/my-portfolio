@@ -7,7 +7,7 @@ export default function Creativity() {
                 </h2>
                 <div className='w-full border-b-2 border-dotted border-gray-700'/>
             </div>
-            <div id='course-container' className='h-80 flex flex-col overflow-scroll gap-2 p-2 m-2 shadow-inner rounded-lg'>
+            <div id='course-container' className='h-80 flex flex-col overflow-scroll gap-2 p-2 sm:m-2 shadow-inner rounded-lg'>
 
             </div>
         </div>
