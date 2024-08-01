@@ -4,30 +4,79 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --background: white;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+*,
+*:before,
+*:after {
+  cursor: url('/cursor/cursor.svg')
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+/* * {
+  border: 1px solid red;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+div {
+  border: 1px solid blue;
+} */
+
+h1 {
+  font-family: "quincy-cf", serif;
+  font-size: 8em;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 90%;
+}
+
+h2 {
+  font-family: "quincy-cf", serif;
+  font-size: 2em;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 90%;
+}
+
+h3 {
+  font-family: "quincy-cf", serif;
+  font-size: 1.4em;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h4 {
+  font-family: "greycliff-cf", sans-serif;
+  font-size: 1.2em;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h5 {
+  font-family: "quincy-cf", serif;
+  font-size: 1.2em;
+  font-weight: 400;
+  font-style: italic;
+  color: red;
+}
+
+p {
+  font-family: "greycliff-cf", sans-serif;
+  font-size: 0.8em;
+  line-height: 120%;
+  color: rgb(22, 22, 22);
+}
+
+li {
+  font-family: "greycliff-cf", sans-serif;
+  font-size: 0.7em;
+  line-height: 120%;
+  font-weight: 700;
+}
+
+button {
+  font-family: "greycliff-cf", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1em;
+  cursor: url('/cursor/pointer.svg')
 }
