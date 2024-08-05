@@ -1,6 +1,6 @@
 export default function NavBar() {
     return (
-        <nav className='w-full flex flex-row z-10 gap-5 p-5 px-10 bg-white fixed border-b border-color-gray-400'>
+        <nav className='w-full flex flex-row z-20 gap-5 p-5 px-10 bg-white fixed border-b border-color-gray-400'>
             <a className='sm:hidden' href='/#cover'>
                 <img src='icons/home.svg' className='w-[1.9em]'/>
             </a>
