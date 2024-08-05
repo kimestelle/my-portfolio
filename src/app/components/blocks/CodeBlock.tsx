@@ -12,11 +12,11 @@ export default function CodeBlock({ project }: CodeBlockProps) {
   return (
         <div className='flex flex-col md:flex-row gap-3 md:gap-5'>
             <span className='absolute w-min h-min red text-[1.5rem] inline-block rotate-90 -mt-8 z-10'>&gt;</span>
-            <div className="embla flex-1" ref={emblaRef}>
+            <div className="embla" ref={emblaRef}>
                 <div className="embla__container">
                 {project.imageUrls.map((url, index) => (
-                    <div key={index} className='embla__slide'>
-                    <img src={url} alt={`Project Image ${index + 1}`} className='w-full h-auto object-contain' />
+                    <div key={index} className='embla__slide h-60 sm:h-80 object-contain'>
+                    <img src={url} alt={`Project Image ${index + 1}`} className='w-full h-full object-contain' />
                     </div>
                 ))}
                 </div>

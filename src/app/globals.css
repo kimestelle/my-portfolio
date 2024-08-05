@@ -29,6 +29,14 @@ a, .clickable,
   box-sizing: border-box;
 }
 
+/* * {
+  border: 1px solid red;
+}
+
+div {
+  border: 1px solid blue;
+} */
+
 h1 {
   font-family: "quincy-cf", serif;
   font-size: 8rem;

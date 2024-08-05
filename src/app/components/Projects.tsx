@@ -18,6 +18,15 @@ function buildProject(projectObj: Code): Code {
 
 const projects: Code[] = [
   buildProject({
+    name: 'Skyline Interactive',
+    date: '</> UI/UX',
+    label: 'Web Development',
+    url: 'https://kimestelle.github.io/city-skyline/',
+    languages: ['React', 'Javascript', 'Vite'],
+    description: 'Interactive web experiences',
+    imageUrls: ['/project-images/skyline/image-1.png','/project-images/skyline/image-2.png','/project-images/skyline/image-3.png']
+  }),
+  buildProject({
     name: 'Daily Pennsylvanian Donation Page',
     date: 'Summer 2024',
     label: '</> UI/UX',
@@ -33,15 +42,6 @@ const projects: Code[] = [
     url: 'donationpage.com',
     languages: ['React','Typescript','Python','Django'],
     description: 'skhbksfkau',
-    imageUrls: ['/project-images/sample-1.png','/project-images/sample-2.png','/project-images/sample-3.png']
-  }),
-  buildProject({
-    name: 'Skyline Interactive',
-    date: '</> UI/UX',
-    label: 'Web Development',
-    url: 'skylineinteractive.com',
-    languages: ['React', 'Javascript'],
-    description: 'Interactive web experiences',
     imageUrls: ['/project-images/sample-1.png','/project-images/sample-2.png','/project-images/sample-3.png']
   }),
   buildProject({
