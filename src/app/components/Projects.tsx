@@ -23,7 +23,7 @@ const projects: Code[] = [
     label: 'Web Development',
     url: 'https://kimestelle.github.io/city-skyline/',
     languages: ['React', 'Javascript', 'Vite'],
-    description: 'Interactive web experiences',
+    description: 'A sandbox I built while learning React, used Vite to build.',
     imageUrls: ['/project-images/skyline/image-1.png','/project-images/skyline/image-2.png','/project-images/skyline/image-3.png']
   }),
   buildProject({
