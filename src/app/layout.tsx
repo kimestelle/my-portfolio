@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
+import Script from 'next/script';
 import "./globals.css";
-
-import NavBar from './components/NavBar'
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,9 +16,13 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/qar6hrg.css"/>
+        <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js" strategy="beforeInteractive" />
+        <Script 
+          src="https://unpkg.com/mouse-follower@1/dist/mouse-follower.min.js" 
+          strategy="beforeInteractive"
+        />
       </head>
       <body>
-        <NavBar/>
         {children}
       </body>
     </html>

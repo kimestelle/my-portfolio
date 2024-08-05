@@ -6,7 +6,9 @@ export default function BottomBar() {
             </h2>
             <ol className='list-none'>
                 <li>
+                    <a href='mailto:kestelle@sas.upenn.edu'>
                     kestelle@sas.upenn.edu
+                    </a>
                 </li>
             </ol>
         </div>

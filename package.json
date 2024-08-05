@@ -11,8 +11,11 @@
   "dependencies": {
     "embla-carousel-autoplay": "^8.1.8",
     "embla-carousel-react": "^8.1.8",
+    "gsap": "^3.12.5",
+    "mouse-follower": "^1.1.2",
     "next": "14.2.5",
     "react": "^18",
+    "react-card-flip": "^1.2.3",
     "react-dom": "^18",
     "react-multi-carousel": "^2.8.5",
     "react-slick": "^0.30.2",

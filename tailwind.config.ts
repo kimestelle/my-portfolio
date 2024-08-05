@@ -9,8 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       cursor: {
-        default: 'url(/cursor/cursor.svg), default',
-        pointer: 'url(/cursor/pointer.svg), pointer',
+        custom: 'url(/cursor/pointer.svg), auto',
+        pointer: 'url(/cursor/cursor.svg), pointer',
       },
     },
   },
