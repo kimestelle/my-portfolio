@@ -21,13 +21,13 @@ export default function CodeBlock({ project }: CodeBlockProps) {
                 </div>
             </div>
             <div className='flex flex-1 flex-col'>
-                <h3 className='leading-snug'>{project.name}</h3>
-                <h5 className=' mb-2 font-normal'>{project.label} / {project.date}</h5>
+                <h3 className='leading-snug sm:text-2x text-lg'>{project.name}</h3>
+                <h5 className=' mb-2 font-normal'>{project.label} | {project.date}</h5>
                 <p className='text-sm'>{project.description}</p>
                 <a href={project.url} className='text-sm underline text-red-500' target="_blank" rel="noopener noreferrer">
                     Visit Project
                 </a>
-                <ol className='list-none flex flex-row gap-1 items-center sm:pt-2'>
+                <ol className='list-none flex flex-row gap-1 items-center pt-2'>
                 {project.languages.map((language, index) => (
                     <li key={index} className='md:bg-white bg-gray-200 p-0.5 px-1.5 mb-1 rounded-lg'>{language}</li>
                 ))}
