@@ -9,7 +9,7 @@ export default function Me() {
                 <p className='text-sm'>
                 I&apos;m a rising college sophomore interested in creating beautiful, functional, and intuitive technology that empowers all people.
                 <br/><br/>
-                I&apos;ve always been drawn to designing spaces that transform people and leave long-running impacts, whether through legislative reform or community projects. Technology gave me an unbounded reality to dream in; I want to share that freedom with others while learning as a beginner dev.
+                I&apos;ve always been drawn to designing spaces that transform people and leave long-running impacts through social impact projects. Technology gave me an unbounded canvas; I want to share that freedom with others while learning all I can.
                 <br/><br/>
                 I love learning a little about everything, singing and arranging music with my a capella, playing amateur guitar, all kinds of seafood, and taking odd pictures.
                 <br/><br/>
