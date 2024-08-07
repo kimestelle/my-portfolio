@@ -20,6 +20,7 @@ export default function Playground() {
     };
 
     const goToPreviousPage = () => {
+        console.log(currentIndex)
         setCurrentIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : Pages.length - 1));
     };
 
@@ -61,7 +62,7 @@ export default function Playground() {
                     </ul>
                 )}
             </div>
-            <div className='w-full h-full'>
+            <div className='w-screen h-screen'>
                 <CurrentPage />
             </div>
         </div>
