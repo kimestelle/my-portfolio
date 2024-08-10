@@ -10,6 +10,7 @@ const Pages = [
 export default function Playground() {
     const [sideVisible, setSideVisible] = useState<boolean>(false);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const [fadeIn, setFadeIn] = useState<boolean>(true);
 
     const handleMouseEnter = () => {
         setSideVisible(true);
@@ -20,22 +21,29 @@ export default function Playground() {
     };
 
     const goToPreviousPage = () => {
-        console.log(currentIndex)
-        setCurrentIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : Pages.length - 1));
+        fadeToPage((currentIndex > 0 ? currentIndex - 1 : Pages.length - 1));
     };
 
     const goToNextPage = () => {
-        setCurrentIndex((prevIndex) => (prevIndex < Pages.length - 1 ? prevIndex + 1 : 0));
+        fadeToPage((currentIndex < Pages.length - 1 ? currentIndex + 1 : 0));
     };
 
     const setPage = (index: number) => {
-        setCurrentIndex(index);
+        fadeToPage(index);
+    };
+
+    const fadeToPage = (index: number) => {
+        setFadeIn(false);
+        setTimeout(() => {
+            setCurrentIndex(index);
+            setFadeIn(true);
+        }, 700);
     };
 
     const CurrentPage = Pages[currentIndex];
 
     return (
-        <div className='w-screen h-screens'>
+        <div className='w-[100svw] h-[100svh] bg-stone-900'>
             <nav className='w-full h-12 flex flex-row justify-between items-center z-10 gap-5 p-2 px-10 bg-white fixed border-b border-color-gray-400'>
                 <a href='/#cover'>
                     <img src='icons/home.svg' className='w-[1.5em]' />
@@ -62,7 +70,8 @@ export default function Playground() {
                     </ul>
                 )}
             </div>
-            <iframe className='w-[100svw] h-[100svh] overflow-hidden' src={Pages[currentIndex].url}>
+            <iframe className={`w-[100svw] h-[100svh] overflow-hidden transition-opacity duration-700 ${fadeIn ? 'opacity-100' : 'opacity-0'}`} 
+                src={Pages[currentIndex].url}>
             </iframe>
         </div>
     );
