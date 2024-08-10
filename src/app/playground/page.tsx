@@ -62,7 +62,7 @@ export default function Playground() {
                     </ul>
                 )}
             </div>
-            <iframe className='w-screen h-screen' src={Pages[currentIndex].url}>
+            <iframe className='w-[100svw] h-[100svh] overflow-hidden' src={Pages[currentIndex].url}>
             </iframe>
         </div>
     );
