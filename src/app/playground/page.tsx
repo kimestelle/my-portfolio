@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 
-import PlaygroundCover from './pages/PlaygroundCover';
-import Graph from './pages/Graph';
-
-const Pages = [PlaygroundCover, Graph];
+const Pages = [
+    { name: 'fives', url: 'https://five-pink.vercel.app/' },
+    { name: 'fives', url: 'https://five-pink.vercel.app/' },
+  ];
 
 export default function Playground() {
     const [sideVisible, setSideVisible] = useState<boolean>(false);
@@ -36,9 +36,9 @@ export default function Playground() {
 
     return (
         <div className='w-screen h-screens'>
-            <nav className='w-full flex flex-row justify-between z-10 gap-5 p-5 px-10 bg-white fixed border-b border-color-gray-400'>
+            <nav className='w-full h-12 flex flex-row justify-between items-center z-10 gap-5 p-2 px-10 bg-white fixed border-b border-color-gray-400'>
                 <a href='/#cover'>
-                    <img src='icons/home.svg' className='w-[1.9em]' />
+                    <img src='icons/home.svg' className='w-[1.5em]' />
                 </a>
                 <div className='flex flex-row gap-3 items-center text-xl'>
                     <button onClick={goToPreviousPage}>&lt;</button>
@@ -46,7 +46,7 @@ export default function Playground() {
                     <button onClick={goToNextPage}>&gt;</button>
                 </div>
                 <a onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                    <img className='w-[1.7em]' src='icons/playground.svg' />
+                    <img className='w-[1.5em]' src='icons/playground.svg' />
                 </a>
             </nav>
             <div>
@@ -62,9 +62,8 @@ export default function Playground() {
                     </ul>
                 )}
             </div>
-            <div className='w-screen h-screen'>
-                <CurrentPage />
-            </div>
+            <iframe className='w-screen h-screen' src={Pages[currentIndex].url}>
+            </iframe>
         </div>
     );
 }
