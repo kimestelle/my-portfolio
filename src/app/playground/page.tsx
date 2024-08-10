@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 const Pages = [
     { name: 'fives', url: 'https://five-pink.vercel.app/' },
-    { name: 'fives', url: 'https://five-pink.vercel.app/' },
+    { name: 'skyline', url: 'https://kimestelle.github.io/city-skyline/' },
   ];
 
 export default function Playground() {
