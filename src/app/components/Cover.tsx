@@ -1,6 +1,6 @@
 export default function About() {
     return (
-        <div id='cover' className='relative flex flex-col w-full h-screen justify-center items-start p-10 md:pl-20'>
+        <div id='cover' className='relative flex flex-col w-full h-screen justify-center items-start p-10 md:pl-20 overflow-hidden'>
             <h1 className="relative md:-mt-[35svh] -mt-[30svh] text-[4em] md:text-[8em] z-3">Estelle Kim</h1>
             <h3 className='relative leading-tight mt-2 text-[1em] md:text-[1.5em] z-3'>
                 Digital Media Design & Computer Science <span className='red'>@</span> UPenn
