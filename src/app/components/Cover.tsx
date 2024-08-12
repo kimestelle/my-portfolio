@@ -5,7 +5,7 @@ export default function About() {
             <h3 className='relative leading-tight mt-2 text-[1em] md:text-[1.5em] z-3'>
                 Digital Media Design & Computer Science <span className='red'>@</span> UPenn
             </h3>
-            <img src='coverportrait.png' className='w-60 md:w-60  ml-40 md:ml-[33em] z-1 -mt-6 md:-mt-60'/>
+            <img src='coverportrait.png' className='w-60 md:w-60  ml-40 md:ml-[34em] z-1 -mt-6 md:-mt-60'/>
         </div>
     )
 }
