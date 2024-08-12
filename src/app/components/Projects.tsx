@@ -32,7 +32,7 @@ const projects: Code[] = [
     label: '</> UI/UX',
     url: 'donationpage.com',
     languages: ['React', 'Typescript'],
-    description: 'To make a central starting point for alumni and friends to donate to one of four giving options, I created a site emphasizing the importance of independent journalism while creating a seamless user experience that navigates between three external donation pages without leaving the website using iframes',
+    description: 'COMING SOON',
     imageUrls: ['/project-images/sample-1.png','/project-images/sample-2.png','/project-images/sample-3.png']
   }),
   buildProject({
@@ -41,7 +41,7 @@ const projects: Code[] = [
     label: 'Full Stack & Game Dev',
     url: 'donationpage.com',
     languages: ['React','Typescript','Python','Django'],
-    description: 'skhbksfkau',
+    description: 'COMING SOON',
     imageUrls: ['/project-images/sample-1.png','/project-images/sample-2.png','/project-images/sample-3.png']
   })
 ];
