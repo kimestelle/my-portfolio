@@ -82,7 +82,7 @@ export default function Design() {
         {activePiece ? (
           <CreativityBlock piece={activePiece} onClose={handleClose} />
         ) : (
-          <div id='creativity-container' className='w-full h-max overflow-scroll flex flex-row justify-start items-start gap-2 p-4 red-linear-gr z-1'>
+          <div id='creativity-container' className='w-full h-max overflow-scroll flex flex-row justify-start items-start gap-1 md:gap-2 p-4 red-linear-gr z-1'>
             <span className='absolute red text-[1.5rem] self-start left-[2.2rem] top-[5.6rem] z-10'>&gt;</span>
             {creativePieces.map((piece, index) => (
               <img key={index} src={piece.coverImage} onClick={() => handlePieceChange(piece)} className='w-max h-40 sm:h-52 shadow clickable'/>

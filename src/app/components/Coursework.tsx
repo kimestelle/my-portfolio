@@ -56,9 +56,9 @@ const courses = [
     }),
     buildCourse({
         number: 'VLST 1020',
-        name: 'Form and Meaning',
+        name: 'Visual Studies: Form and Meaning',
         date: 'Fall 2024',
-        description: 'sets, functions, permutations and combinations, discrete probability, expectation, mathematical Induction and graph theory',
+        description: 'Project  & experience-based course on the theory and practice of image making',
         languages: [],
         skills: ['Object-oriented programming', 'Functional programming', 'Programming patters', 'Abstraction']
     }),
@@ -70,7 +70,7 @@ export default function CourseWork() {
             <h2 className='sm:-mb-5'>
                 Coursework
             </h2>
-            <div id='course-container' className='flex flex-col gap-3 sm:gap-1 sm:m-2'>
+            <div id='course-container' className='flex flex-col gap-1 sm:m-2'>
                 {courses.map((course, index) => (
                     <CourseBlock key={index} course={course} />
                 ))}

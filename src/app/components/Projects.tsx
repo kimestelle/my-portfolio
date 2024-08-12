@@ -69,8 +69,8 @@ export default function Code() {
       <div className='flex flex-row gap-2 items-center'>
         <h2>Projects</h2>
         {/* <div className='w-full border-b-2 border-dotted border-gray-700' /> */}
-        <img src='icons/backend.png' className='h-6'/>
-        <img src='icons/frontend.png' className='h-7'/>
+        {/* <img src='icons/backend.png' className='h-6'/> */}
+        {/* <img src='icons/frontend.png' className='h-7'/> */}
       </div>
       <div className='flex flex-col w-full sm:flex-row gap-5'>
         <ul className='flex flex-1 flex-col sm:mt-5 clickable'>
@@ -81,9 +81,9 @@ export default function Code() {
               onClick={() => handleProjectChange(project)}
             >
               <div
-                className={`w-[0.8em] h-[0.8em] rounded-[1em] border border-red-500 ${selectedProjects.has(project.name) ? 'bg-red-500' : 'bg-transparent'}`}
+                className={`w-[0.8em] h-[0.8em] rounded-[1em] border border-[#E70503] ${selectedProjects.has(project.name) ? 'bg-[#E70503]' : 'bg-transparent'}`}
               />
-              <h3 className={` w-max text-sm font-greycliff ${activeProject?.name === project.name ? 'underline decoration-red-500 decoration-1 underline-offset-2' : ''}`}>
+              <h3 className={` w-max text-sm font-greycliff ${activeProject?.name === project.name ? 'underline decoration-[#E70503] decoration-1 underline-offset-2' : ''}`}>
                 {project.name}
               </h3>
             </li>

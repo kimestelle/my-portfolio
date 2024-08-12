@@ -70,7 +70,7 @@ h4 {
 h5 {
   font-family: "greycliff-cf", sans-serif;
   font-weight: 700;
-  color: #c80815;
+  color: #E70503;
 }
 
 p {
@@ -95,7 +95,7 @@ a {
 }
 
 .red {
-  color: #c80815;
+  color: #E70503;
 }
 
 .font-greycliff {
@@ -112,11 +112,11 @@ a {
 
 /* backgrounds */
 .red-radial-gr {
-  background: radial-gradient(circle at 30% 0%, #c808156b, transparent);
+  background: radial-gradient(circle at 30% 0%, #E705036b, transparent);
 }
 
 .red-linear-gr {
-  background: linear-gradient(to right, #c808156b, transparent);
+  background: linear-gradient(to right, #E705036b, transparent);
 }
 
 .blocks-background {

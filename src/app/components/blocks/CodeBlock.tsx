@@ -30,7 +30,7 @@ export default function CodeBlock({ project }: CodeBlockProps) {
                 </a>
                 <ol className='list-none flex flex-row gap-1 items-center pt-2'>
                 {project.languages.map((language, index) => (
-                    <li key={index} className='md:bg-white bg-gray-200 p-0.5 px-1.5 mb-1 rounded-lg'>{language}</li>
+                    <li key={index} className='bg-white p-0.5 px-1.5 mb-1 rounded-lg'>{language}</li>
                 ))}
                 </ol>
             </div>
