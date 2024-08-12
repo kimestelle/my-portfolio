@@ -9,7 +9,7 @@ export default function Me() {
                 <p className='text-sm'>
                 I&apos;m a rising sophomore at UPenn striving to create accessible, intuitive digital spaces that empower people.
                 <br/><br/>
-                Previously, I designed sustainabl and people-oriented solutions for my communities through legislation and grassroots organizing. Technology gave me an unbounded canvas; I&apos;m excited to explore and get involved in the field.
+                Previously, I designed sustainable and people-oriented solutions for my communities through legislation and grassroots organizing. Technology gave me an unbounded canvas; I&apos;m excited to explore and get involved in the field.
                 <br/><br/>
                 I love learning a little about everything, singing and arranging music with my a capella, playing amateur guitar, all kinds of seafood, and taking odd pictures.
                 <br/><br/>
