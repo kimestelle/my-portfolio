@@ -8,10 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      cursor: {
-        custom: 'url(/cursor/pointer.svg), auto',
-        pointer: 'url(/cursor/cursor.svg), pointer',
-      },
+      // cursor: {
+      //   custom: 'url(/cursor/pointer.svg), auto',
+      //   pointer: 'url(/cursor/cursor.svg), pointer',
+      // },
     },
   },
   plugins: [],

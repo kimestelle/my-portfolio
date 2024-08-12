@@ -79,7 +79,7 @@ export default function Code() {
               </h3>
             </li>
           ))}
-          <li><a href='/playground' className='text-sm underline text-gray-500'>stuff I make for fun &gt;</a></li>
+          <li><a href='/playground' className='text-sm underline text-gray-400'>stuff I make for fun &gt;</a></li>
         </ul>
         <div className='h-80 w-full flex flex-grow overflow-scroll flex-col gap-2 p-4 red-radial-gr'>
         {activeProject ? (<CodeBlock project={activeProject} />) : (

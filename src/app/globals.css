@@ -7,20 +7,21 @@
   --background: white;
 }
 
-body *, 
+/* body *, 
 body *:before,
 body *:after {
   cursor: inherit;
-}
+} */
 
 body {
-  @apply cursor-custom;
+  /* @apply cursor-custom; */
 }
 
 button,
 a, .clickable,
 [data-cursor="pointer"] {
-  @apply cursor-pointer;
+  /* @apply cursor-pointer; */
+  cursor: pointer;
 }
 
 * {

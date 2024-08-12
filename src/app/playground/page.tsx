@@ -37,7 +37,7 @@ export default function Playground() {
         setTimeout(() => {
             setCurrentIndex(index);
             setFadeIn(true);
-        }, 700);
+        }, 500);
     };
 
     const CurrentPage = Pages[currentIndex];
@@ -70,7 +70,7 @@ export default function Playground() {
                     </ul>
                 )}
             </div>
-            <iframe className={`w-[100svw] h-[100svh] overflow-hidden transition-opacity duration-700 ${fadeIn ? 'opacity-100' : 'opacity-0'}`} 
+            <iframe className={`w-[100svw] h-[100svh] overflow-hidden transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'}`} 
                 src={Pages[currentIndex].url}>
             </iframe>
         </div>
