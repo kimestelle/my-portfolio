@@ -19,7 +19,7 @@ export default function CourseBlock({ course }: CourseProps) {
   return (
     <div onClick={handleClick} className='w-full h-14 sm:h-12 clickable'>
         <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
-            <div key="front" className='h-14 sm:h-12 flex sm:flex-row flex-col p-2 border-b border-gray-100 items-start justify-center sm:items-center sm:justify-start'>
+            <div key="front" className='h-14 sm:h-12 flex sm:flex-row flex-col p-2 border-b border-gray-100 items-start justify-center sm:items-center sm:justify-start gap-2'>
             <h5 className='leading-tight text-sm font-normal'>&gt; {course.number} <span className='text-black'>{course.name}</span></h5>
             <ol className='list-none flex-row gap-1 items-center sm:pt-2 pb-0.5 hidden sm:flex'>
                 {course.languages.map((skill, index) => (
