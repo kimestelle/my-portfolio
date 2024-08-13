@@ -4,7 +4,10 @@ export default function BottomBar() {
             <h2>
                 Contact Me!
             </h2>
-            <ol className='list-none'>
+            <ol className='list-none flex flex-row gap-2 items-center'>
+                <li>
+                    <img src='icons/mail-icon.svg' className='h-5 w-5'/>
+                </li>
                 <li>
                     <a href='mailto:kestelle@sas.upenn.edu'>
                     kestelle@sas.upenn.edu
