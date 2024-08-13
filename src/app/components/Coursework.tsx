@@ -26,7 +26,7 @@ const courses = [
         number: 'CIS 1600',
         name: 'Mathematical Foundations of Computer Science',
         date: 'Fall 2024',
-        description: 'Sets, functions, permutations/combinations, discrete probability, expectation, mathematical induction, graph theory.',
+        description: 'Sets, functions, permutations/ combinations, discrete probability, expectation, mathematical induction, graph theory.',
         languages: ['Java'],
         skills: ['Object-oriented programming', 'Functional programming', 'Programming patters', 'Abstraction']
     }),
