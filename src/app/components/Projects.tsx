@@ -33,7 +33,7 @@ const projects: Code[] = [
     url: 'donationpage.com',
     languages: ['React', 'Typescript'],
     description: 'COMING SOON',
-    imageUrls: ['/project-images/sample-1.png','/project-images/sample-2.png','/project-images/sample-3.png']
+    imageUrls: ['/project-images/coming-soon-1.png','/project-images/coming-soon-2.png']
   }),
   buildProject({
     name: 'Better-Spelling-Bee',
@@ -42,7 +42,7 @@ const projects: Code[] = [
     url: 'donationpage.com',
     languages: ['React','Typescript','Python','Django'],
     description: 'COMING SOON',
-    imageUrls: ['/project-images/sample-1.png','/project-images/sample-2.png','/project-images/sample-3.png']
+    imageUrls: ['/project-images/coming-soon-2.png','/project-images/coming-soon-1.png']
   })
 ];
 
