@@ -27,6 +27,19 @@ const projects: Code[] = [
   //   imageUrls: ['/project-images/skyline/image-1.png','/project-images/skyline/image-2.png','/project-images/skyline/image-3.png']
   // }),
   buildProject({
+    name: 'Better-Spelling-Bee',
+    date: 'Summer 2024',
+    label: 'Full Stack & Game Dev',
+    url: 'donationpage.com',
+    languages: ['React','Typescript','Python','Django'],
+    description: 'COMING SOON',
+    imageUrls: ['/project-images/better-spelling-bee/image-1.png',
+      '/project-images/better-spelling-bee/image-2.png',
+    '/project-images/better-spelling-bee/image-3.png',
+  '/project-images/better-spelling-bee/image-4.png',
+'/project-images/better-spelling-bee/image-5.png',]
+  }),
+  buildProject({
     name: 'Daily Pennsylvanian Donation Page',
     date: 'Summer 2024',
     label: '</> UI/UX',
@@ -34,15 +47,6 @@ const projects: Code[] = [
     languages: ['React', 'Typescript'],
     description: 'COMING SOON',
     imageUrls: ['/project-images/coming-soon-1.png','/project-images/coming-soon-2.png']
-  }),
-  buildProject({
-    name: 'Better-Spelling-Bee',
-    date: 'Summer 2024',
-    label: 'Full Stack & Game Dev',
-    url: 'donationpage.com',
-    languages: ['React','Typescript','Python','Django'],
-    description: 'COMING SOON',
-    imageUrls: ['/project-images/coming-soon-2.png','/project-images/coming-soon-1.png']
   })
 ];
 
