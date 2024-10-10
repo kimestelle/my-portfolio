@@ -15,21 +15,21 @@ function buildCourse (courseObj: Course) {
 
 const courses = [
     buildCourse({
-        number: 'CIS 1200',
-        name: 'Programming Languages and Techniques',
+        number: 'CIS 5600',
+        name: 'Interactive Computer Graphics',
         date: 'Fall 2024',
-        description: 'Intro to design aspects of programming.',
-        languages: ['OCaml', 'Java'],
+        description: '3d mesh data structures, transformation sequences, rendering algorithms',
+        languages: ['C++', 'GLSL'],
         skills: ['Object-oriented programming', 'Functional programming', 'Programming patters', 'Abstraction']
     }),
     buildCourse({
-        number: 'CIS 1600',
-        name: 'Mathematical Foundations of Computer Science',
+        number: 'CIS 2400',
+        name: 'Introduction to Computer Systems',
         date: 'Fall 2024',
-        description: 'Sets, functions, permutations/ combinations, discrete probability, expectation, mathematical induction, graph theory.',
-        languages: ['Java'],
+        description: 'Transistors and simple computer hardware structures, low-level programming',
+        languages: ['C', 'Assembly'],
         skills: ['Object-oriented programming', 'Functional programming', 'Programming patters', 'Abstraction']
-    }),
+    }),  
     buildCourse({
         number: 'CIS 1210',
         name: 'Data Structures and Algorithms',
@@ -52,14 +52,6 @@ const courses = [
         date: 'Fall 2024',
         description: 'Black-and-white composition, icon design, collage making, 2d animation with Adobe Illustrator, InDesign, Photoshop, Premiere',
         languages: ['Adobe CC'],
-        skills: ['Object-oriented programming', 'Functional programming', 'Programming patters', 'Abstraction']
-    }),
-    buildCourse({
-        number: 'VLST 1020',
-        name: 'Visual Studies: Form and Meaning',
-        date: 'Fall 2024',
-        description: 'Project  & experience-based course on the theory and practice of image making',
-        languages: [],
         skills: ['Object-oriented programming', 'Functional programming', 'Programming patters', 'Abstraction']
     }),
 ]
