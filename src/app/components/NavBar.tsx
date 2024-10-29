@@ -17,14 +17,14 @@ export default function NavBar() {
                 Resume
             </a>
             <div className='w-full flex flex-row justify-end gap-6'>
+                <a href='/playground'>
+                    <img className='w-[1.7em] rattle' src='icons/playground.svg'/>
+                </a>
                 <a target='_blank' href='https://github.com/kimestelle'>
                     <img className='w-[1.7em]' src='icons/gh-logo.svg'/>
                 </a>
-                <a href='/playground'>
-                    <img className='w-[1.7em]' src='icons/playground.svg'/>
-                </a>
-                
             </div>
         </nav>
+        
     )
 }

@@ -44,18 +44,22 @@ export default function Playground() {
 
     return (
         <div className='w-[100svw] h-[100svh] bg-stone-900'>
-            <nav className='w-full h-12 flex flex-row justify-between items-center z-10 gap-5 p-2 px-10 bg-white fixed border-b border-color-gray-400'>
+            <nav className='w-full h-12 flex flex-row items-center z-10 gap-5 p-2 px-10 bg-white fixed border-b border-color-gray-400'>
+            <div className="flex w-full items-center justify-between">
                 <a href='/#cover'>
                     <img src='icons/home.svg' className='w-[1.5em]' />
                 </a>
-                <div className='flex flex-row gap-3 items-center text-xl'>
+
+                {/* Arrow Buttons (Centered) */}
+                <div className='flex flex-row gap-[5svh] items-center justify-center border-red font-bold text-xl rounded-full px-[1svh] pb-[0.4svh]'>
                     <button onClick={goToPreviousPage}>&lt;</button>
-                    /
+                    <span className='font-normal select-none'>/</span>
                     <button onClick={goToNextPage}>&gt;</button>
                 </div>
-                <a onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                    <img className='w-[1.5em]' src='icons/playground.svg' />
-                </a>
+
+                {/* Placeholder to maintain spacing for alignment */}
+                <div className="w-[1.5em]"></div>
+            </div>
             </nav>
             <div>
                 {sideVisible && (

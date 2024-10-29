@@ -99,6 +99,10 @@ a {
   color: #E70503;
 }
 
+.border-red {
+  box-shadow: inset 0 0 0.5svh #00000031;
+}
+
 .font-greycliff {
   font-family: "greycliff-cf", sans-serif;
   font-weight: 400;
@@ -113,11 +117,11 @@ a {
 
 /* backgrounds */
 .red-radial-gr {
-  background: radial-gradient(circle at 30% 0%, #E705036b, transparent);
+  background: radial-gradient(circle at 30% 0%, #e7070346, transparent);
 }
 
 .red-linear-gr {
-  background: linear-gradient(to right, #E705036b, transparent);
+  background: linear-gradient(to right, #e707034a, transparent);
 }
 
 .blocks-background {
@@ -138,3 +142,17 @@ a {
   flex: 0 0 100%;
   min-width: 0;
 }
+
+/* animations */
+@keyframes pivotRotate {
+  0% { transform: rotate(0); }
+  10% { transform: rotate(-15deg); }
+  25% { transform: rotate(360deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.rattle {
+  transform-origin: center;
+  animation: pivotRotate 4s ease-in-out infinite;
+}
+
