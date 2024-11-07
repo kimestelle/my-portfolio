@@ -1,9 +1,11 @@
 "use client"
 
+import { url } from 'inspector';
 import { useState } from 'react';
 
 const Pages = [
     { name: 'skyline', url: 'https://kimestelle.github.io/city-skyline/' },
+    { name: 'musicograph', url: 'https://musicograph.vercel.app/' },
     { name: 'fives', url: 'https://five-pink.vercel.app/' },
   ];
 
