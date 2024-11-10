@@ -28,7 +28,7 @@ export default function CourseBlock({ course }: CourseProps) {
             </ol>
             </div>
 
-            <div key="back" className='w-full h-14 sm:h-12 flex flex-col p-1.5 text-sm sm:text-base bg-gray-100 rounded-sm'>
+            <div key="back" className='w-full h-14 sm:h-12 flex flex-col p-1.5 text-sm sm:text-base bg-white rounded-md'>
             <p>{course.date}: {course.description}</p>
             </div>
         </ReactCardFlip>

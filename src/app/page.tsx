@@ -15,7 +15,7 @@ export default function Portfolio() {
   return (
     <>
     <NavBar/>
-    <div className='flex flex-col'>
+    <div className='flex flex-col gap-20'>
       {sections.map((Section, index) => (
         <Section key={index} />
       ))}
