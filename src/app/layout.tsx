@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="stylesheet" href="https://use.typekit.net/qar6hrg.css"/>
+        <link rel="stylesheet" href="https://use.typekit.net/yef8dto.css"/>
         <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js" strategy="beforeInteractive" />
         <Script 
           src="https://unpkg.com/mouse-follower@1/dist/mouse-follower.min.js" 

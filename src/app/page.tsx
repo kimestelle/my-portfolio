@@ -19,8 +19,8 @@ export default function Portfolio() {
       {sections.map((Section, index) => (
         <Section key={index} />
       ))}
-      <BottomBar/>
     </div>
+    <BottomBar/>
     </>
   )
 }
