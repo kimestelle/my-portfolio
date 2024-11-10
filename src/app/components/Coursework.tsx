@@ -49,7 +49,7 @@ const courses = [
     buildCourse({
         number: 'DSGN 0010',
         name: 'Art, Design, and Digital Culture',
-        date: 'Fall 2024',
+        date: 'Fall 2023',
         description: 'Black-and-white composition, icon design, collage making, 2d animation with Adobe Illustrator, InDesign, Photoshop, Premiere',
         languages: ['Adobe CC'],
         skills: ['Object-oriented programming', 'Functional programming', 'Programming patters', 'Abstraction']

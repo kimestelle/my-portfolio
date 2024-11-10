@@ -1,6 +1,6 @@
 export default function Me() {
     return (
-        <div className='flex flex-[2_2_0%] flex-col gap-5 p-10 bg-gradient-to-b from-gray-100 to-transparent rounded-tr-full'>
+        <div className='flex flex-[2_2_0%] flex-col gap-5 p-10 md:pl-[20%] bg-red'>
             <div className='flex flex-row gap-2'>
                 <h2 className='red font-normal'>
                     Hi!

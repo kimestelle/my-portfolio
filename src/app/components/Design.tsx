@@ -27,7 +27,7 @@ const creativePieces: CreativePiece[] = [
   buildCreativePiece({
     title: 'Futures Campaign 8-Pager',
     date: 'Fall 2024',
-    category: 'Sculpture',
+    category: 'Publication Design',
     description: '500 copies were printed to distribute to potential donors at campaign events.',
     imageUrls: ['/creative-images/8-pager/cover.png', '/creative-images/8-pager/image-1.png', '/creative-images/8-pager/image-2.png', '/creative-images/8-pager/image-3.png'],
     coverImage: '/creative-images/8-pager/cover.png'
@@ -82,10 +82,10 @@ export default function Design() {
         {activePiece ? (
           <CreativityBlock piece={activePiece} onClose={handleClose} />
         ) : (
-          <div id='creativity-container' className='w-full h-max overflow-scroll flex flex-row justify-start items-start gap-1 md:gap-2 p-4 red-linear-gr z-1'>
+          <div id='creativity-container' className='w-full h-max h-[24rem] md:h-[30rem]  overflow-scroll scrollbar-hide flex flex-row justify-start items-start gap-1 md:gap-2 p-4 red-linear-gr z-1'>
             <span className='absolute red text-[1.5rem] self-start left-[2.2rem] top-[5.6rem] z-10'>&gt;</span>
             {creativePieces.map((piece, index) => (
-              <img key={index} src={piece.coverImage} onClick={() => handlePieceChange(piece)} className='w-max h-40 sm:h-52 shadow clickable'/>
+              <img key={index} src={piece.coverImage} onClick={() => handlePieceChange(piece)} className='w-max h-[22rem] md:h-[28rem] shadow clickable'/>
             ))}
           </div>
         )}

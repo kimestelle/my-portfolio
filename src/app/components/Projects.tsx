@@ -60,15 +60,15 @@ export default function Code() {
   };
 
   return (
-    <div className='flex flex-col gap-5 p-10'>
-      <div className='flex flex-row gap-2 items-center'>
+    <div className='flex flex-col gap-5'>
+      <div className='flex flex-row gap-2 items-center px-10 pt-10'>
         <h2>Projects</h2>
         {/* <div className='w-full border-b-2 border-dotted border-gray-700' /> */}
         {/* <img src='icons/backend.png' className='h-6'/> */}
         {/* <img src='icons/frontend.png' className='h-7'/> */}
       </div>
-      <div className='flex flex-col w-full sm:flex-row gap-5'>
-        <ul className='flex flex-1 flex-col sm:mt-5 clickable'>
+      <div className='flex flex-col w-full sm:flex-row gap-5 pl-10'>
+        <ul className='flex flex-1 flex-col sm:mt-5 clickable pr-10'>
           {projects.map((project, index) => (
             <li
               key={index}
@@ -83,11 +83,11 @@ export default function Code() {
               </h3>
             </li>
           ))}
-          <li><a href='/playground' className='text-sm underline text-gray-400'>stuff I make for fun &gt;</a></li>
+          <li><a href='/playground' className='text-sm underline text-gray-400'>stuff I make for fun!</a></li>
         </ul>
-        <div className='h-80 w-full flex flex-grow overflow-scroll flex-col gap-2 p-4 red-radial-gr'>
+        <div className='h-[34rem] md:h-[32rem] md:pr-12 w-full flex flex-grow overflow-scroll scrollbar-hide flex-col gap-2 p-4 red-radial-gr'>
         {activeProject ? (<CodeBlock project={activeProject} />) : (
-          <div className='  w-full h-80 ml-5 -mb-10 mt-3 -mr-2'/>
+          <div className='w-full h-80 ml-5 -mb-10 mt-3 -mr-2'/>
         )}
         </div>
       </div>
