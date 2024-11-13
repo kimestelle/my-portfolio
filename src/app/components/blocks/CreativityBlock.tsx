@@ -12,10 +12,10 @@ export default function CreativityBlock({ piece, onClick, onClose }: CreativityB
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({playOnInit: true, delay: 4000})]);
 
   return (
-    <div id='course-container' className='relative w-full flex flex-col gap-2 p-4 sm:m-2 mt-3 shadow-inner rounded-lg text-black' onClick={onClick}>
+    <div id='course-container' className='relative w-full h-[22rem] md:h-[28rem] flex flex-col gap-2 p-4 sm:m-2 mt-3 shadow-inner rounded-lg text-black' onClick={onClick}>
       <button className="absolute top-2 right-2 text-xl p-2 pr-4 red" onClick={onClose}>×</button>
       <h3>{piece.title}</h3>
-      <div className="embla" ref={emblaRef}>
+      <div className="embla h-[22rem] md:h-[28rem]" ref={emblaRef}>
         <div className="embla__container">
           {piece.imageUrls.map((url, index) => (
             <div key={index} className='embla__slide h-80 object-contain'>

@@ -9,6 +9,11 @@ interface CodeBlockProps {
 export default function CodeBlock({ project }: CodeBlockProps) {
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ playOnInit: true, delay: 3000 })]);
 
+  // Helper function to check if URL is a video file
+  const isVideo = (url: string) => {
+    return url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.ogg');
+  };
+
   return (
     <div className='flex flex-col h-[40rem] md:h-[30rem] md:flex-row gap-3 md:gap-5'>
       <span className='absolute red text-[1.5rem] inline-block rotate-90 -mt-8 z-10'>&gt;</span>
@@ -16,7 +21,11 @@ export default function CodeBlock({ project }: CodeBlockProps) {
         <div className='embla__container h-full'>
           {project.imageUrls.map((url, index) => (
             <div key={index} className='embla__slide h-full flex justify-center items-center'>
-              <img src={url} alt={`Project Image ${index + 1}`} className='h-full w-auto object-cover' />
+              {isVideo(url) ? (
+                <video src={url} controls className='h-full w-auto object-cover' />
+              ) : (
+                <img src={url} alt={`Project Media ${index + 1}`} className='h-full w-auto object-cover' />
+              )}
             </div>
           ))}
         </div>
