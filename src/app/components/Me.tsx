@@ -7,7 +7,7 @@ export default function Me() {
                 </h2>
             </div>
                 <p className='text-sm'>
-                I&apos;m a rising sophomore at UPenn striving to create accessible, intuitive digital spaces that empower people.
+                I&apos;m a rising sophomore at UPenn striving to create <span className='font-bold'>accessible, intuitive digital spaces that empower people</span>.
                 <br/><br/>
                 Previously, I designed sustainable and people-oriented solutions for my communities through legislation and grassroots organizing. Technology gave me an unbounded canvas; I&apos;m excited to explore and get involved in the field.
                 <br/><br/>
@@ -15,7 +15,7 @@ export default function Me() {
                 <br/><br/>
                 Let&apos;s connect! I&apos;d love to hear more about you. 
 
-                <span><a href='https://www.linkedin.com/in/estelle-kim-41b1b7218/' target="_blank" className='text-blue-500 text-[0.8rem]'> LinkedIn</a></span> | <span><a href='https://www.linkedin.com/in/estelle-kim-41b1b7218/' target="_blank" className='text-red-500 text-[0.8rem]'>Email</a></span>
+                <span><a href='https://www.linkedin.com/in/estelle-kim-41b1b7218/' target="_blank" className='font-bold text-[0.8rem]'> LinkedIn</a></span> | <span><a href='https://www.linkedin.com/in/estelle-kim-41b1b7218/' target="_blank" className='font-bold text-[0.8rem]'>Email</a></span>
                 </p>
         </div>
     )
