@@ -31,7 +31,7 @@ const projects: Code[] = [
     date: 'Summer 2024',
     label: 'Full Stack & Game Dev',
     url: 'donationpage.com',
-    languages: ['React','Typescript','Python','Django'],
+    languages: ['React','Typescript','Python','Django', 'PostgreSQL'],
     description: 'COMING SOON',
     imageUrls: ['/project-images/better-spelling-bee/bsb-demo.mp4',
       '/project-images/better-spelling-bee/image-1.png',
