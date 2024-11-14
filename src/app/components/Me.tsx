@@ -13,7 +13,9 @@ export default function Me() {
                 <br/><br/>
                 I love learning a little about everything, singing and arranging music with my a capella, playing amateur guitar, all kinds of seafood, and taking odd pictures.
                 <br/><br/>
-                Let&apos;s connect! I&apos;d love to hear more about you.
+                Let&apos;s connect! I&apos;d love to hear more about you. 
+
+                <span><a href='https://www.linkedin.com/in/estelle-kim-41b1b7218/' target="_blank" className='text-blue-500 text-[0.8rem]'> LinkedIn</a></span> | <span><a href='https://www.linkedin.com/in/estelle-kim-41b1b7218/' target="_blank" className='text-red-500 text-[0.8rem]'>Email</a></span>
                 </p>
         </div>
     )
