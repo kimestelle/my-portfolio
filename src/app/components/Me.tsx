@@ -8,7 +8,7 @@ export default function Me() {
             </div>
                 <p className='text-sm'>
                 I&apos;m a sophomore at UPenn striving to 
-                <span className='font-bold'> change the world through the intersection of finance and tech</span>.
+                <span className='font-bold'> change the world through the intersection of business strategy, finance, and tech</span>.
                 <br/><br/>
                 I previously designed sustainable, people-oriented solutions for my communities through legislation and grassroots organizing. Learning technology and finance in college gave me an unbounded canvas; I&apos;m excited to explore and get involved.
                 <br/><br/>
