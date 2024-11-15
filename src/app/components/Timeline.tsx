@@ -53,7 +53,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
         </ul>
 
         {/* Slideshow */}
-        {imageUrls.length > 0 && (
+        {/* {imageUrls.length > 0 && (
           <div className="overflow-hidden mt-4" ref={emblaRef}>
             <div className="flex gap-4">
               {imageUrls.map((url, index) => (
@@ -66,7 +66,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
               ))}
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
