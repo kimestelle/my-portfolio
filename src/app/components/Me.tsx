@@ -7,9 +7,10 @@ export default function Me() {
                 </h2>
             </div>
                 <p className='text-sm'>
-                I&apos;m a rising sophomore at UPenn striving to create <span className='font-bold'>accessible, intuitive digital spaces that empower people</span>.
+                I&apos;m a sophomore at UPenn striving to 
+                <span className='font-bold'> change the world through the intersection of finance and tech</span>.
                 <br/><br/>
-                Previously, I designed sustainable and people-oriented solutions for my communities through legislation and grassroots organizing. Technology gave me an unbounded canvas; I&apos;m excited to explore and get involved in the field.
+                I previously designed sustainable, people-oriented solutions for my communities through legislation and grassroots organizing. Learning technology and finance in college gave me an unbounded canvas; I&apos;m excited to explore and get involved.
                 <br/><br/>
                 I love learning a little about everything, singing and arranging music with my a capella, playing amateur guitar, all kinds of seafood, and taking odd pictures.
                 <br/><br/>

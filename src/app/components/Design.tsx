@@ -75,7 +75,7 @@ export default function Design() {
   return (
     <div className='relative flex flex-col gap-5 p-10 mt-10'>
       <div className='flex flex-row gap-3 items-center'>
-        <h2>Design</h2>
+        <h2>Creativity</h2>
         <img src='icons/design.svg' className='h-6'/>
         {/* <div className='w-full border-b-2 border-dotted border-gray-700' /> */}
       </div>
