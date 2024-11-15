@@ -62,7 +62,7 @@ export default function CourseWork() {
             <h2 className='sm:-mb-5'>
                 Coursework
             </h2>
-            <div id='course-container' className='flex flex-col max-sm:h-20 max-sm:overflow-scroll max-sm:shadow-inner scrollbar-hide -gap-1 sm:m-2'>
+            <div id='course-container' className='flex flex-col scrollbar-hide -gap-1 sm:m-2'>
                 {courses.map((course, index) => (
                     <CourseBlock key={index} course={course} />
                 ))}

@@ -1,10 +1,13 @@
 export default function Me() {
     return (
         <div className='flex flex-[2_2_0%] flex-col gap-5 p-10 md:pl-[20%]'>
-            <div className='flex flex-row gap-2'>
+            <div className='flex flex-row gap-2 items-center'>
                 <h2 className='red font-normal'>
                     Hi!
                 </h2>
+                    <a href='https://www.linkedin.com/in/estelle-kim-41b1b7218/' target="_blank" className='flex items-center gap-2 font-bold text-[0.8rem]'>
+                        <img src="icons/linkedin.svg" alt="LinkedIn" className="h-5 w-5" />
+                    </a>
             </div>
                 <p className='text-sm'>
                 I&apos;m a sophomore at UPenn striving to 
@@ -15,8 +18,6 @@ export default function Me() {
                 I love learning a little about everything, singing and arranging music with my a capella, playing amateur guitar, all kinds of seafood, and taking odd pictures.
                 <br/><br/>
                 Let&apos;s connect! I&apos;d love to hear more about you. 
-
-                <span><a href='https://www.linkedin.com/in/estelle-kim-41b1b7218/' target="_blank" className='font-bold text-[0.8rem]'> LinkedIn</a></span> | <span><a href='https://www.linkedin.com/in/estelle-kim-41b1b7218/' target="_blank" className='font-bold text-[0.8rem]'>Email</a></span>
                 </p>
         </div>
     )
