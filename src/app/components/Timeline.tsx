@@ -73,8 +73,48 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
 };
 
 const Timeline: React.FC = () => {
-  const timelineItems: TimelineItemProps[] = 
-    [
+    const timelineItems: TimelineItemProps[] = 
+      [
+        {
+          date: "2024",
+          description: "Mobile App Project @ Penn Spark",
+          bulletPoints: [
+            "Pitched an idea for a social exploration app that helps Penn students spontaneously discover events and communities on campus.",
+            "Currently planning deployment and community partnerships.",
+          ],
+          imageUrls: [],
+          iconType: "lightbulb",
+        },
+        {
+          date: "2024",
+          description: "Summer Internship @ FlexIt",
+          bulletPoints: [
+            "Worked at late-stage tech startup alongside founders, team members, and MBA interns.",
+            "Focused on communicating and seeking feedback to deliver quality work, including drafting the Q4 stakeholder report and implementing new ideas like a language filter on the search page and trainer business cards."
+          ],
+          imageUrls: ["/images/flexit-internship.jpg"],
+          iconType: "lightbulb",
+        },
+        {
+          date: "2023~",
+          description: "Wharton Investment & Trading Group",
+          bulletPoints: [
+            "Learned valuation and accounting fundamentals through semester-long accelerator program in Penn’s premier finance club.",
+            "Explored finance by taking thorough notes on finance books, external pitch competitions + internal activities, and upperclassman mentorship.",
+          ],
+          imageUrls: [],
+          iconType: "lightbulb",
+        },
+        {
+          date: "2023-2024",
+          description: "Daily Pennsylvanian Foundation",
+          bulletPoints: [
+            "Contributed to shaping the new Foundation branch of Penn’s independent newspaper with the exec director",
+            "Connected with alumni (met my mentor!), designed an 8-page capital campaign handbook, and engaged with key figures in Philly’s media ecosystem.",
+          ],
+          imageUrls: ["/images/daily-pennsylvanian.jpg"],
+          iconType: "lightbulb",
+        },
         {
             date: "2022-2023",
             description: "California Legislation",
@@ -87,78 +127,38 @@ const Timeline: React.FC = () => {
             imageUrls: ["/images/california-legislation.jpg"],
             iconType: "lightbulb",
           },
-          {
-      date: "2022",
-      description: "CA Menstrual Equity Coalition",
-      bulletPoints: [
-        "Facilitated a coalition of 20+ organizations, including the ACLU, UC Student Association, and Human Rights Watch, to implement a landmark menstrual equity law across K-12 and collegiate institutions.",
-        "Distributed a guide for school administrators with the CA Dept. of Education, and co-wrote a state budget request.",
-        "Learned to respectfully create collaborative spaces where everyone’s expertise shines, even as the youngest member.",
-      ],
-      imageUrls: ["/images/cameco-coalition.jpg"],
-      iconType: "lightbulb",
-    },
-    {
-      date: "2022",
-      description: "Advocacy Training Program @ CA Association of Student Councils",
-      bulletPoints: [
-        "Started in-person legislative advocacy trips to bridge the gap between the nonprofit’s state legislative platform and regional member base.",
-        "Engaged 30-50 students in 1-on-1 conversations with legislators and staffers, as well as smaller targeted lobbying activities.",
-      ],
-      imageUrls: ["/images/advocacy-training.jpg"],
-      iconType: "lightbulb",
-    },
-    {
-      date: "2022",
-      description: "Wharton Essentials of Innovation Summer Camp",
-      bulletPoints: [
-        "Ideated a venture selected as one of five to compete in a business model pitch contest.",
-        "Led the team in developing the model and pitch deck, while exploring the startup scene in SF",
-      ],
-      imageUrls: ["/images/sf-adventure.jpg"],
-      iconType: "lightbulb",
-    },
-    {
-      date: "2023-2024",
-      description: "Daily Pennsylvanian Foundation",
-      bulletPoints: [
-        "Contributed to shaping the new Foundation branch of Penn’s independent newspaper with the exec director",
-        "Connected with alumni (met my mentor!), designed an 8-page capital campaign handbook, and engaged with key figures in Philly’s media ecosystem.",
-      ],
-      imageUrls: ["/images/daily-pennsylvanian.jpg"],
-      iconType: "lightbulb",
-    },
-    {
-      date: "2023~",
-      description: "Wharton Investment & Trading Group",
-      bulletPoints: [
-        "Learned valuation and accounting fundamentals through semester-long accelerator program in Penn’s premier finance club.",
-        "Explored finance by taking thorough notes on finance books, external pitch competitions + internal activities, and upperclassman mentorship.",
-      ],
-      imageUrls: [],
-      iconType: "lightbulb",
-    },
-    {
-      date: "2024",
-      description: "Summer Internship @ FlexIt",
-      bulletPoints: [
-        "Worked at late-stage tech startup alongside founders, team members, and MBA interns.",
-        "Focused on communicating and seeking feedback to deliver quality work, including drafting the Q4 stakeholder report and implementing new ideas like a language filter on the search page and trainer business cards."
-      ],
-      imageUrls: ["/images/flexit-internship.jpg"],
-      iconType: "lightbulb",
-    },
-    {
-      date: "2024",
-      description: "Mobile App Project @ Penn Spark",
-      bulletPoints: [
-        "Pitched an idea for a social exploration app that helps Penn students spontaneously discover events and communities on campus.",
-        "Currently planning deployment and community partnerships.",
-      ],
-      imageUrls: [],
-      iconType: "lightbulb",
-    },
-  ];
+        {
+          date: "2022",
+          description: "Wharton Essentials of Innovation Summer Camp",
+          bulletPoints: [
+            "Ideated a venture selected as one of five to compete in a business model pitch contest.",
+            "Led the team in developing the model and pitch deck, while exploring the startup scene in SF",
+          ],
+          imageUrls: ["/images/sf-adventure.jpg"],
+          iconType: "lightbulb",
+        },
+        {
+          date: "2022",
+          description: "Advocacy Training Program @ CA Association of Student Councils",
+          bulletPoints: [
+            "Started in-person legislative advocacy trips to bridge the gap between the nonprofit’s state legislative platform and regional member base.",
+            "Engaged 30-50 students in 1-on-1 conversations with legislators and staffers, as well as smaller targeted lobbying activities.",
+          ],
+          imageUrls: ["/images/advocacy-training.jpg"],
+          iconType: "lightbulb",
+        },
+        {
+          date: "2022",
+          description: "CA Menstrual Equity Coalition",
+          bulletPoints: [
+            "Facilitated a coalition of 20+ organizations, including the ACLU, UC Student Association, and Human Rights Watch, to implement a landmark menstrual equity law across K-12 and collegiate institutions.",
+            "Distributed a guide for school administrators with the CA Dept. of Education, and co-wrote a state budget request.",
+            "Learned to respectfully create collaborative spaces where everyone’s expertise shines, even as the youngest member.",
+          ],
+          imageUrls: ["/images/cameco-coalition.jpg"],
+          iconType: "lightbulb",
+        },
+      ];
 
   return (
     <div className="timeline-container px-6 md:px-20 py-10">
