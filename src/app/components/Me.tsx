@@ -13,9 +13,9 @@ export default function Me() {
                 I&apos;m a sophomore at UPenn striving to 
                 <span className='font-bold'> change the world through the intersection of business strategy, finance, and tech</span>.
                 <br/><br/>
-                I previously designed sustainable, people-oriented solutions for my communities through legislation and grassroots organizing. Learning technology and finance in college gave me an unbounded canvas; I&apos;m excited to explore and get involved.
+                I love designing solutions that truly resonate with people and working collaboratively to bring them to life. Learning technology in college gave me an unbounded canvas; I&apos;m excited to explore the possibilities.
                 <br/><br/>
-                I love learning a little about everything, singing and arranging music with my a capella, playing amateur guitar, all kinds of seafood, and taking odd pictures.
+                Some of my favorite pastimes are learning a little about everything, singing and arranging music with my a capella group, playing amateur guitar, all kinds of seafood, and taking odd pictures.
                 <br/><br/>
                 Let&apos;s connect! I&apos;d love to hear more about you. 
                 </p>
