@@ -177,7 +177,7 @@ const Timeline: React.FC = () => {
       bulletPoints: [
         "Started in-person legislative advocacy trips to bridge the gap between the nonprofit’s state legislative platform and regional member base.",
         "Designed and implemented a training program for 200 students to learn about the legislative process and how to advocate for their communities.",
-        "Engaged 100+ total students in 1-on-1 conversations with legislators and staffers, as well as targeted lobbying activities.",
+        "Engaged 100+ total students in 1-on-1 on-site conversations with legislators and staffers, as well as targeted lobbying activities.",
       ],
       imageUrls: ["/images/advocacy-training.jpg"],
       iconType: "lightbulb",
