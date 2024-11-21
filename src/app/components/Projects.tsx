@@ -40,15 +40,15 @@ const projects: Code[] = [
   '/project-images/better-spelling-bee/image-4.png',
 '/project-images/better-spelling-bee/image-5.png',]
   }),
-  buildProject({
-    name: 'Daily Pennsylvanian Donation Page',
-    date: 'Summer 2024',
-    label: '</> UI/UX',
-    url: 'donationpage.com',
-    languages: ['React', 'Typescript'],
-    description: 'COMING SOON',
-    imageUrls: ['/project-images/coming-soon-1.png','/project-images/coming-soon-2.png']
-  })
+  // buildProject({
+  //   name: 'Daily Pennsylvanian Donation Page',
+  //   date: 'Summer 2024',
+  //   label: '</> UI/UX',
+  //   url: 'donationpage.com',
+  //   languages: ['React', 'Typescript'],
+  //   description: 'COMING SOON',
+  //   imageUrls: ['/project-images/coming-soon-1.png','/project-images/coming-soon-2.png']
+  // })
 ];
 
 export default function Code() {
