@@ -83,13 +83,12 @@ export default function Design() {
           <CreativityBlock piece={activePiece} onClose={handleClose} />
         ) : (
           <div id='creativity-container' className='w-full h-max h-[24rem] md:h-[30rem]  overflow-scroll scrollbar-hide flex flex-row justify-start items-start gap-1 md:gap-2 p-4 red-linear-gr z-1'>
-            <span className='absolute red text-[1.5rem] self-start left-[2.2rem] top-[5.6rem] z-10'>&gt;</span>
+            {/* <span className='absolute red text-[1.5rem] self-start left-[2.2rem] top-[5.6rem] z-10'>&gt;</span> */}
             {creativePieces.map((piece, index) => (
               <img key={index} src={piece.coverImage} onClick={() => handlePieceChange(piece)} className='w-max h-[22rem] md:h-[28rem] shadow clickable'/>
             ))}
           </div>
         )}
-        <div id='community' className='h-0'/>
     </div>
   );
 }

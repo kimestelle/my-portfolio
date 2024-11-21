@@ -58,8 +58,8 @@ const courses = [
 
 export default function CourseWork() {
     return (
-        <div className='flex flex-col flex-[3_3_0%] gap-5 p-10 bg-red'>
-            <h2 className='sm:-mb-5'>
+        <div className='flex flex-col flex-[3_3_0%] gap-5 p-10 pb-8 bg-red'>
+            <h2 className='sm:-mb-2'>
                 Coursework
             </h2>
             <div id='course-container' className='flex flex-col scrollbar-hide -gap-1 sm:m-2'>

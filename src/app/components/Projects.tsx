@@ -52,7 +52,7 @@ const projects: Code[] = [
 ];
 
 export default function Code() {
-  const [activeProject, setActiveProject] = useState<Code | null>(null);
+  const [activeProject, setActiveProject] = useState<Code | null>(projects[0]);
   const [selectedProjects, setSelectedProjects] = useState<Set<string>>(new Set());
 
   const handleProjectChange = (project: Code) => {
@@ -69,8 +69,7 @@ export default function Code() {
         {/* <img src='icons/frontend.png' className='h-7'/> */}
       </div>
       <div className='flex flex-col w-full sm:flex-row gap-5 pl-10'>
-        <ul className='flex flex-1 flex-col sm:mt-5 clickable pr-10'>
-        <li><a href='/playground' className='text-sm underline red font-bold'>stuff I make for fun!</a></li>
+        <ul className='flex flex-1 flex-col sm:mt-3 clickable pr-10'>
           {projects.map((project, index) => (
             <li
               key={index}
@@ -80,11 +79,12 @@ export default function Code() {
               <div
                 className={`w-[0.8em] h-[0.8em] rounded-[1em] border border-[#E70503] ${selectedProjects.has(project.name) ? 'bg-[#E70503]' : 'bg-transparent'}`}
               />
-              <h3 className={` w-max text-sm font-greycliff ${activeProject?.name === project.name ? 'underline decoration-[#E70503] decoration-1 underline-offset-2' : ''}`}>
+              <h3 className={` w-max text-base font-greycliff ${activeProject?.name === project.name ? 'underline decoration-[#E70503] decoration-1 underline-offset-2' : ''}`}>
                 {project.name}
               </h3>
             </li>
           ))}
+                  <li><a href='/playground' className='text-sm underline red font-bold'>stuff I make for fun!</a></li>
         </ul>
         <div className='h-[34rem] md:h-[32rem] md:pr-12 w-full flex flex-grow overflow-scroll scrollbar-hide flex-col gap-2 p-4 red-radial-gr'>
         {activeProject ? (<CodeBlock project={activeProject} />) : (

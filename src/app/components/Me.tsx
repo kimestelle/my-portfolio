@@ -1,7 +1,7 @@
 export default function Me() {
     return (
         <div className='flex flex-[2_2_0%] flex-col gap-5 p-10 md:pl-[20%]'>
-            <div className='flex flex-row gap-2 items-center'>
+            <div className='flex flex-row gap-2 mb-2 md:mb-5 items-center'>
                 <h2 className='red font-normal'>
                     Hi!
                 </h2>
@@ -9,7 +9,7 @@ export default function Me() {
                         <img src="icons/linkedin.svg" alt="LinkedIn" className="h-5 w-5" />
                     </a>
             </div>
-                <p className='text-sm'>
+                <p>
                 I&apos;m a sophomore at UPenn striving to 
                 <span className='font-bold'> change the world through the intersection of business strategy, finance, and tech</span>.
                 <br/><br/>

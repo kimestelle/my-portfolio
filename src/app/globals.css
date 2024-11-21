@@ -78,14 +78,14 @@ h5 {
 
 p {
   font-family: "calluna-sans", sans-serif;
-  font-size: 0.8rem;
+  font-size: 1rem;
   line-height: 120%;
   color: rgb(22, 22, 22);
 }
 
 li {
   font-family: "calluna-sans", sans-serif;
-  font-size: 0.7rem;
+  font-size: 1rem;
   line-height: 120%;
   font-weight: 700;
 }
@@ -95,6 +95,12 @@ a {
   font-weight: 400;
   font-style: normal;
   font-size: 1rem;
+}
+
+@media (max-width: 767px) {
+  p, li, a {
+    font-size: 0.8rem;
+  }
 }
 
 .red {
@@ -157,9 +163,35 @@ a {
 
 .embla__slide {
   flex: 0 0 100%;
-  min-width: 0;
   height: 100%;
 }
+
+.embla-viewport {
+  overflow: hidden;
+  height: 100%;
+}
+
+.embla__prev,
+.embla__next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.embla__prev {
+  left: 10px;
+}
+
+.embla__next {
+  right: 10px;
+}
+
 
 
 /* animations */

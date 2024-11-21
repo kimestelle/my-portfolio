@@ -1,6 +1,7 @@
 import { CreativePiece } from '../Design';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay'
+import { useCallback } from 'react'
 
 interface CreativityBlockProps {
   piece: CreativePiece;
@@ -9,23 +10,35 @@ interface CreativityBlockProps {
 }
 
 export default function CreativityBlock({ piece, onClick, onClose }: CreativityBlockProps) {
-  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({playOnInit: true, delay: 4000})]);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev()
+  }, [emblaApi])
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext()
+  }, [emblaApi])
 
   return (
-    <div id='course-container' className='relative w-max h-[22rem] md:h-[28rem] flex flex-col gap-2 p-4 sm:m-2 mt-3 shadow-inner rounded-lg text-black' onClick={onClick}>
-      <button className="absolute top-2 right-2 text-xl p-2 pr-4 red" onClick={onClose}>×</button>
-      <h3>{piece.title}</h3>
-      <div className="embla w-max h-[22rem] md:h-[28rem]" ref={emblaRef}>
-        <div className="embla__container">
-          {piece.imageUrls.map((url, index) => (
-            <div key={index} className='embla__slide h-80 object-contain'>
-              <img src={url} alt={`Creative Piece Image ${index + 1}`} className='w-full h-full object-contain' />
-            </div>
-          ))}
-        </div>
+<div id="course-container" className="relative w-full h-[24rem] md:h-[32rem] flex flex-col gap-2 p-4 sm:m-2 mt-3 shadow-inner rounded-lg text-black" onClick={onClick}>
+  <button className="absolute top-2 right-2 text-xl p-2 pr-4 red" onClick={onClose}>×</button>
+  <h3>{piece.title}</h3>
+  <div className="embla">
+    <div className="embla__viewport" ref={emblaRef} style={{ height: "100%" }}>
+      <div className="embla__container">
+        {piece.imageUrls.map((url, index) => (
+          <div key={index} className="embla__slide">
+            <img src={url} alt={`Creative Piece Image ${index + 1}`} className="w-full h-full object-contain" />
+          </div>
+        ))}
       </div>
-      <h5 className='font-normal'>{piece.category} | {piece.date}</h5>
-      <p>{piece.description}</p>
     </div>
+    <button className="embla__prev" onClick={scrollPrev}>&lt;</button>
+    <button className="embla__next" onClick={scrollNext}>&gt;</button>
+  </div>
+  <h5 className="font-normal">{piece.category} | {piece.date}</h5>
+  <p>{piece.description}</p>
+</div>
+
   );
 }

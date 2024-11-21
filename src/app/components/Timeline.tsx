@@ -22,13 +22,13 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
   return (
     <div className="relative flex flex-col md:flex-row items-start gap-2">
       {/* Icon and Date */}
-      <div className="flex flex-row items-center gap-4 md:w-1/6">
+      <div className="flex flex-row items-center md:w-1/6">
         <div className="flex justify-center items-center w-6 h-6 rounded-full">
           {iconType === "lightbulb" ? (
             <img
               src="/icons/lightbulb.svg"
               alt="Lightbulb Icon"
-              className="w-6 h-6"
+              className="w-4 h-4 opacity-40"
             />
           ) : (
             <img
@@ -38,7 +38,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
             />
           )}
         </div>
-        <span className="text-sm font-sans-serif text-gray-500">{date}</span>
+        <span className="font-sans-serif text-gray-500">{date}</span>
       </div>
 
       {/* Content */}
@@ -46,7 +46,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
         <p className="text-lg font-quincy">{description}</p>
         <ul className="mt-2 ml-4 list-disc list-outside">
           {bulletPoints.map((point, index) => (
-            <li key={index} className="text-gray-700 text-sm font-sans-serif">
+            <li key={index} className="text-gray-700 font-sans-serif">
               {point.includes("Penn Spark") ? (
                 <>
                   <a
