@@ -144,7 +144,7 @@ const Timeline: React.FC = () => {
       description: "Daily Pennsylvanian Foundation",
       bulletPoints: [
         "Contributed to shaping the new Foundation branch of Penn’s independent newspaper with the exec director.",
-        "Connected with alumni (met my mentor!), designed an 8-page capital campaign handbook, and engaged with key figures in Philly’s media ecosystem.",
+        "Connected with alumni, designed an 8-page capital campaign handbook, and engaged with key figures in Philly’s media ecosystem.",
       ],
       imageUrls: ["/images/daily-pennsylvanian.jpg"],
       iconType: "lightbulb",
