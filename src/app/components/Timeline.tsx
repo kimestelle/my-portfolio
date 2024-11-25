@@ -171,28 +171,28 @@ const Timeline: React.FC = () => {
       imageUrls: ["/images/sf-adventure.jpg"],
       iconType: "lightbulb",
     },
-    {
-      date: "2022",
-      description: "Advocacy Training Program @ CA Association of Student Councils",
-      bulletPoints: [
-        "Started in-person legislative advocacy trips to bridge the gap between the nonprofit’s state legislative platform and regional member base.",
-        "Designed and implemented a training program for 200 students to learn about the legislative process and how to advocate for their communities.",
-        "Engaged 100+ total students in on-site conversations with legislators and staffers, as well as targeted lobbying activities.",
-      ],
-      imageUrls: ["/images/advocacy-training.jpg"],
-      iconType: "lightbulb",
-    },
-    {
-      date: "2022",
-      description: "CA Menstrual Equity Coalition",
-      bulletPoints: [
-        "Facilitated a coalition of 20+ organizations, including the ACLU, UC Student Association, and Human Rights Watch, to implement a landmark menstrual equity law across K-12 and collegiate institutions.",
-        "Distributed a guide for school administrators with the CA Dept. of Education, and co-wrote a state budget request.",
-        "Learned to respectfully create collaborative spaces where everyone’s expertise shines, even as the youngest member.",
-      ],
-      imageUrls: ["/images/cameco-coalition.jpg"],
-      iconType: "lightbulb",
-    },
+    // {
+    //   date: "2022",
+    //   description: "Advocacy Training Program @ CA Association of Student Councils",
+    //   bulletPoints: [
+    //     "Started in-person legislative advocacy trips to bridge the gap between the nonprofit’s state legislative platform and regional member base.",
+    //     "Designed and implemented a training program for 200 students to learn about the legislative process and how to advocate for their communities.",
+    //     "Engaged 100+ total students in on-site conversations with legislators and staffers, as well as targeted lobbying activities.",
+    //   ],
+    //   imageUrls: ["/images/advocacy-training.jpg"],
+    //   iconType: "lightbulb",
+    // },
+    // {
+    //   date: "2022",
+    //   description: "CA Menstrual Equity Coalition",
+    //   bulletPoints: [
+    //     "Facilitated a coalition of 20+ organizations, including the ACLU, UC Student Association, and Human Rights Watch, to implement a landmark menstrual equity law across K-12 and collegiate institutions.",
+    //     "Distributed a guide for school administrators with the CA Dept. of Education, and co-wrote a state budget request.",
+    //     "Learned to respectfully create collaborative spaces where everyone’s expertise shines, even as the youngest member.",
+    //   ],
+    //   imageUrls: ["/images/cameco-coalition.jpg"],
+    //   iconType: "lightbulb",
+    // },
   ];
 
   return (
