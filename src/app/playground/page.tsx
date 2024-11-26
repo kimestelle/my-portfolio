@@ -46,17 +46,17 @@ export default function Playground() {
 
     return (
         <div className='w-[100svw] h-[100svh] bg-stone-900'>
-            <nav className='w-full h-12 flex flex-row items-center z-10 gap-5 p-2 px-10 bg-white fixed border-b border-color-gray-400'>
+            <nav className='w-full flex flex-row items-center z-10 gap-5 p-5 px-10 md:px-20 bg-white bg-opacity-30 fixed'>
             <div className="flex w-full items-center justify-between">
                 <a href='/#cover'>
-                    <img src='icons/home.svg' className='w-[1.5em]' />
+                    <img src='icons/home.svg' className='w-[1.7em]' />
                 </a>
 
                 {/* Arrow Buttons (Centered) */}
-                <div className='flex flex-row gap-[5svh] items-center justify-center border-red font-bold text-xl rounded-full px-[1svh] pb-[0.4svh]'>
-                    <button onClick={goToPreviousPage}>&lt;</button>
-                    <span className='font-normal select-none'>/</span>
-                    <button onClick={goToNextPage}>&gt;</button>
+                <div className='flex flex-row gap-[3svh] items-center justify-center'>
+                    <img src='icons/triangle-arrow.svg' onClick={goToPreviousPage} className='clickable w-[0.8em]' alt='left'/>
+                    <img src='icons/info.svg' className='clickable w-[1.4em] md:w-[1.7em]' alt='info'/>
+                    <img className='clickable w-[0.8em] rotate-180' src='icons/triangle-arrow.svg' onClick={goToNextPage} alt='right'/>
                 </div>
 
                 {/* Placeholder to maintain spacing for alignment */}
