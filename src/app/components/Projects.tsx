@@ -40,7 +40,10 @@ const projects: Code[] = [
   "- Efficient algorithm to source a dictionary subset from 7 letters, including a pangram, by processing and sorting a large dictionary (46,444 words) and indexing it by letter + creating a separate source of pangrams to pull the letters from.\n" +
   "- Drag-and-drop functionality for the duck graphics, ensuring they could be seamlessly cloned/dragged onto words and reordered dynamically using painstaking CSS details and npm packages.\n" +
   "- Complex game and user data states, appropriate caching to maintain performance across gameplay sessions.\n" +
-  "- JWT token management for secure user authentication and session persistence.\n",
+  "- JWT token management for secure user authentication and session persistence.\n" +
+  "\nNext Steps:\n" +
+  "- Deploy site\n" +
+  "- Recover some animations gone MIA after restructuring app (ducks in pond randomly flapping, fly and sink animations upon entering word).\n",
 
   imageUrls: ['/project-images/better-spelling-bee/bsb-demo.mp4',
       '/project-images/better-spelling-bee/image-1.png',
