@@ -32,8 +32,17 @@ const projects: Code[] = [
     label: 'Full Stack & Game Dev',
     url: 'donationpage.com',
     languages: ['React','Typescript','Python','Django', 'PostgreSQL'],
-    description: 'COMING SOON',
-    imageUrls: ['/project-images/better-spelling-bee/bsb-demo.mp4',
+    description: "My friend and I remade our favorite mobile game (NYT Spelling Bee!), focusing on enhancing user engagement through dynamic interactions and personalized features.\n" +
+  "\nDesign Challenges:\n" +
+  "- Developed a minimal and responsive web interface, ensuring ease of use while incorporating subtle animations to give the screen life.\n" +
+  "- Created a customizable duck avatar and letter block, designed to attract user interaction through playful, tangible draggable objects.\n" +
+  "\nDevelopment Challenges:\n" +
+  "- Efficient algorithm to source a dictionary subset from 7 letters, including a pangram, by processing and sorting a large dictionary (46,444 words) and indexing it by letter + creating a separate source of pangrams to pull the letters from.\n" +
+  "- Drag-and-drop functionality for the duck graphics, ensuring they could be seamlessly cloned/dragged onto words and reordered dynamically using painstaking CSS details and npm packages.\n" +
+  "- Complex game and user data states, appropriate caching to maintain performance across gameplay sessions.\n" +
+  "- JWT token management for secure user authentication and session persistence.\n",
+
+  imageUrls: ['/project-images/better-spelling-bee/bsb-demo.mp4',
       '/project-images/better-spelling-bee/image-1.png',
       '/project-images/better-spelling-bee/image-2.png',
     '/project-images/better-spelling-bee/image-3.png',

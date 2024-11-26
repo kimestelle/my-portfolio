@@ -103,6 +103,10 @@ a {
   }
 }
 
+.split-line {
+  white-space: pre-line;
+}
+
 .red {
   color: #E70503;
 }
