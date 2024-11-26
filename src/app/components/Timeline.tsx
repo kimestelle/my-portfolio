@@ -22,7 +22,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
   return (
     <div className="relative flex flex-col md:flex-row items-start gap-2">
       {/* Icon and Date */}
-      <div className="flex flex-row items-center md:w-1/6">
+      <div className="flex flex-row items-center md:w-28">
         <div className="flex justify-center items-center w-6 h-6 rounded-full">
           {iconType === "lightbulb" ? (
             <img

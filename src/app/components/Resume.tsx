@@ -1,6 +1,6 @@
 export default function Resume() {
     return (
-        <div className='flex flex-col gap-5 p-10'>
+        <div className='flex flex-col gap-5 p-10 md:px-20'>
             <div className='flex flex-row items-center'>
                 <h2>
                     Resume

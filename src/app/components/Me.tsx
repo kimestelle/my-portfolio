@@ -1,6 +1,6 @@
 export default function Me() {
     return (
-        <div className='flex flex-[2_2_0%] flex-col gap-5 p-10 md:pl-[20%]'>
+        <div className='flex flex-[2_2_0%] flex-col gap-5 p-10 md:pl-20'>
             <div className='flex flex-row gap-2 mb-2 md:mb-5 items-center'>
                 <h2 className='red font-normal'>
                     Hi!
