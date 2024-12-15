@@ -12,10 +12,10 @@ export default function Me() {
                 <p>
                 I&apos;m a sophomore at UPenn striving to create <span className='font-bold'>accessible, intuitive digital spaces that empower people</span>.
                 <br/><br/>
-                I love making things with friends, museum hopping, learning a little about everything, singing a capella, learning instruments, all kinds of seafood, and taking odd pictures.
+                I love making things with friends, museum-hopping, learning a little about everything, singing a capella, learning instruments, all kinds of seafood, and taking odd pictures.
                 <br/><br/>
                 Thank you for considering my application!
-                </p>
+                </p> 
         </div>
     )
 }
