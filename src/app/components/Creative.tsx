@@ -5,7 +5,7 @@ import { useState } from "react";
 const categories = [
   {
     name: "Physical",
-    link: "https://photos.app.goo.gl/MrZA62fQ85E98sWG9",
+    link: "https://photos.app.goo.gl/NBK9J7WmrS9NoxKx9",
   },
   {
     name: "Digital",
