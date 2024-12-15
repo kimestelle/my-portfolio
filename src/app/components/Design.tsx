@@ -32,23 +32,23 @@ const creativePieces: CreativePiece[] = [
     imageUrls: ['/creative-images/8-pager/cover.png', '/creative-images/8-pager/image-1.png', '/creative-images/8-pager/image-2.png', '/creative-images/8-pager/image-3.png'],
     coverImage: '/creative-images/8-pager/cover.png'
   }),
-  buildCreativePiece({
-    title: 'Cardboard Installations',
-    date: '2021-2022',
-    category: 'Sculpture',
-    description: '4ft tall installations I made through the pandemic with stuff from my house about mass panic over pandemic supply shortages and the final destination of fast fashion. Entered the first piece in the Scholastic Arts & Writing awards and won a regional gold medal.',
-    imageUrls: [
-      '/creative-images/cardboard-art/cover.png', 
-      '/creative-images/cardboard-art/image-1.png', 
-      '/creative-images/cardboard-art/image-2.png',
-      '/creative-images/cardboard-art/image-3.png', 
-      '/creative-images/cardboard-art/image-4.png', 
-      '/creative-images/cardboard-art/image-5.png', 
-      '/creative-images/cardboard-art/image-6.png', 
-      '/creative-images/cardboard-art/image-7.png'
-    ],
-    coverImage: '/creative-images/cardboard-art/cover.png'
-  }),
+  // buildCreativePiece({
+  //   title: 'Cardboard Installations',
+  //   date: '2021-2022',
+  //   category: 'Sculpture',
+  //   description: '4ft tall installations I made through the pandemic with stuff from my house about mass panic over pandemic supply shortages and the final destination of fast fashion. Entered the first piece in the Scholastic Arts & Writing awards and won a regional gold medal.',
+  //   imageUrls: [
+  //     '/creative-images/cardboard-art/cover.png', 
+  //     '/creative-images/cardboard-art/image-1.png', 
+  //     '/creative-images/cardboard-art/image-2.png',
+  //     '/creative-images/cardboard-art/image-3.png', 
+  //     '/creative-images/cardboard-art/image-4.png', 
+  //     '/creative-images/cardboard-art/image-5.png', 
+  //     '/creative-images/cardboard-art/image-6.png', 
+  //     '/creative-images/cardboard-art/image-7.png'
+  //   ],
+  //   coverImage: '/creative-images/cardboard-art/cover.png'
+  // }),
   buildCreativePiece({
     title: 'Daily Pennsylvanian Foundation',
     date: '2024',

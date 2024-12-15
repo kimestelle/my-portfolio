@@ -16,7 +16,7 @@ export default function CodeBlock({ project }: CodeBlockProps) {
 
   return (
     <div className='flex flex-col h-min md:h-[30rem] md:flex-row gap-3 md:gap-5'>
-      <span className='absolute red text-[1.5rem] inline-block rotate-90 -mt-8 z-10'>&gt;</span>
+      {/* <span className='absolute red text-[1.5rem] inline-block rotate-90 -mt-8 z-10'>&gt;</span> */}
       <div className='embla flex-1 h-[40rem] md:h-[30rem]' ref={emblaRef}>
         <div className='embla__container h-full'>
           {project.imageUrls.map((url, index) => (

@@ -39,12 +39,12 @@ const courses = [
         skills: ['Object-oriented programming', 'Functional programming', 'Programming patters', 'Abstraction']
     }),
     buildCourse({
-        number: 'CIS 2620',
-        name: 'Automata, Computability, and Complexity',
-        date: 'Spring 2024',
-        description: 'Finite automata and regular languages, context-free grammars, Turing machines and undecidability, tractability, NP-completeness',
-        languages: [],
-        skills: ['Object-oriented programming', 'Functional programming', 'Programming patters', 'Abstraction']
+        number: 'FNAR 2100',
+        name: 'Computer Animation',
+        date: 'Fall 2024',
+        description: '3D modeling, rigging, animation, and rendering with Maya',
+        languages: ['Maya', 'Adobe CC'],
+        skills: ['Maya', 'Adobe CC']
     }),
     buildCourse({
         number: 'DSGN 0010',

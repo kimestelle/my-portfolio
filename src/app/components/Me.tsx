@@ -5,19 +5,16 @@ export default function Me() {
                 <h2 className='red font-normal'>
                     Hi!
                 </h2>
-                    <a href='https://www.linkedin.com/in/estelle-kim-41b1b7218/' target="_blank" className='flex items-center gap-2 font-bold text-[0.8rem]'>
+                    {/* <a href='https://www.linkedin.com/in/estelle-kim-41b1b7218/' target="_blank" className='flex items-center gap-2 font-bold text-[0.8rem]'>
                         <img src="icons/linkedin.svg" alt="LinkedIn" className="h-5 w-5" />
-                    </a>
+                    </a> */}
             </div>
                 <p>
-                I&apos;m a sophomore at UPenn striving to 
-                <span className='font-bold'> change the world through the intersection of business strategy, finance, and tech</span>.
+                I&apos;m a sophomore at UPenn striving to create <span className='font-bold'>accessible, intuitive digital spaces that empower people</span>.
                 <br/><br/>
-                I love designing solutions that truly resonate with people and working collaboratively to bring them to life. Learning technology in college gave me an unbounded canvas; I&apos;m excited to explore the possibilities.
+                I love making things with friends, museum hopping, learning a little about everything, singing a capella, learning instruments, all kinds of seafood, and taking odd pictures.
                 <br/><br/>
-                Some of my favorite pastimes are learning a little about everything, singing and arranging music with my a capella group, playing amateur guitar, all kinds of seafood, and taking odd pictures.
-                <br/><br/>
-                Let&apos;s connect! I&apos;d love to hear more about you. 
+                Thank you for considering my application!
                 </p>
         </div>
     )

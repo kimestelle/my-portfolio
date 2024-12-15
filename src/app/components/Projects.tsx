@@ -27,6 +27,15 @@ const projects: Code[] = [
   //   imageUrls: ['/project-images/skyline/image-1.png','/project-images/skyline/image-2.png','/project-images/skyline/image-3.png']
   // }),
   buildProject({
+    name: 'Mini Minecraft',
+    date: 'Fall 2024',
+    label: '3D Graphics Engine',
+    url: 'https://github.com/kimestelle/mini-minecraft-opengl.git',
+    languages: ['OpenGL', 'GLSL', 'C++'],
+    description: 'Mini-Minecraft group project from CIS4600',
+    imageUrls: ['/project-images/coming-soon-1.png','/project-images/coming-soon-2.png']
+  }),
+  buildProject({
     name: 'Better-Spelling-Bee',
     date: 'Summer 2024',
     label: 'Full Stack & Game Dev',
@@ -51,16 +60,7 @@ const projects: Code[] = [
     '/project-images/better-spelling-bee/image-3.png',
   '/project-images/better-spelling-bee/image-4.png',
 '/project-images/better-spelling-bee/image-5.png',]
-  }),
-  // buildProject({
-  //   name: 'Daily Pennsylvanian Donation Page',
-  //   date: 'Summer 2024',
-  //   label: '</> UI/UX',
-  //   url: 'donationpage.com',
-  //   languages: ['React', 'Typescript'],
-  //   description: 'COMING SOON',
-  //   imageUrls: ['/project-images/coming-soon-1.png','/project-images/coming-soon-2.png']
-  // })
+  })
 ];
 
 export default function Code() {
@@ -75,13 +75,14 @@ export default function Code() {
   return (
     <div className='flex flex-col gap-5 md:px-20'>
       <div className='flex flex-row gap-2 items-center max-md:px-10 pt-10'>
-        <h2>Code &lt;/&gt;</h2>
+        <h2>&lt; / &gt;</h2>
         {/* <div className='w-full border-b-2 border-dotted border-gray-700' /> */}
         {/* <img src='icons/backend.png' className='h-6'/> */}
         {/* <img src='icons/frontend.png' className='h-7'/> */}
       </div>
       <div className='flex flex-col w-full sm:flex-row gap-5 max-md:pl-10'>
         <ul className='flex flex-1 flex-col sm:mt-3 clickable pr-10'>
+        <li className='mb-3'><a href='/playground' className='text-[1em] red font-bold'>{"*click me*"}</a></li>
           {projects.map((project, index) => (
             <li
               key={index}
@@ -91,12 +92,12 @@ export default function Code() {
               <div
                 className={`w-[0.8em] h-[0.8em] rounded-[1em] border border-[#E70503] ${selectedProjects.has(project.name) ? 'bg-[#E70503]' : 'bg-transparent'}`}
               />
-              <h3 className={` w-max text-base font-greycliff ${activeProject?.name === project.name ? 'underline decoration-[#E70503] decoration-1 underline-offset-2' : ''}`}>
+              <h3 className={` w-max text-base font-greycliff ${activeProject?.name === project.name ? 'red' : ''}`}>
                 {project.name}
               </h3>
             </li>
           ))}
-                  <li><a href='/playground' className='text-sm underline red font-bold'>stuff I make for fun!</a></li>
+        
         </ul>
         <div className='h-[34rem] md:h-[32rem] md:pr-12 w-full flex flex-grow overflow-scroll scrollbar-hide flex-col gap-2 p-4 red-radial-gr'>
         {activeProject ? (<CodeBlock project={activeProject} />) : (
