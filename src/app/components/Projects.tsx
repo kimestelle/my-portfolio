@@ -75,14 +75,14 @@ export default function Code() {
   return (
     <div className='flex flex-col gap-5 md:px-20'>
       <div className='flex flex-row gap-2 items-center max-md:px-10 pt-10'>
-        <h2>&lt; / &gt;</h2>
+        <h2>Code</h2>
         {/* <div className='w-full border-b-2 border-dotted border-gray-700' /> */}
         {/* <img src='icons/backend.png' className='h-6'/> */}
         {/* <img src='icons/frontend.png' className='h-7'/> */}
       </div>
       <div className='flex flex-col w-full sm:flex-row gap-5 max-md:pl-10'>
         <ul className='flex flex-1 flex-col sm:mt-3 clickable pr-10'>
-        <li className='mb-3'><a href='/playground' className='text-[1em] red font-bold'>{"*click me*"}</a></li>
+        <li className='mb-3'><a href='/playground' className='text-[1em] red font-bold'>{"click me :-)"}</a></li>
           {projects.map((project, index) => (
             <li
               key={index}

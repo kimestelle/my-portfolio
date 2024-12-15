@@ -1,115 +1,54 @@
 "use client";
-import { useState, useEffect } from "react";
-import { Gallery } from "react-grid-gallery";
 
-// Define the CreativePiece interface
-export interface CreativePiece {
-  title: string;
-  date: string;
-  category: string;
-  description: string;
-  imageUrls: Array<string>;
-  coverImage: string;
-}
+import { useState } from "react";
 
-// Sample data for creative pieces
-const creativePieces: CreativePiece[] = [
+const categories = [
   {
-    title: 'Cardboard Installations',
-    date: '2021-2022',
-    category: 'Physical',
-    description: '4ft tall installations I made through the pandemic.',
-    imageUrls: ['https://your-image-url-1.jpg', 'https://your-image-url-2.jpg'],
-    coverImage: 'https://your-cover-image-url-1.jpg',
+    name: "Physical",
+    link: "https://photos.app.goo.gl/MrZA62fQ85E98sWG9",
   },
   {
-    title: 'Digital Artwork Series',
-    date: '2020-2021',
-    category: 'Digital',
-    description: 'A series of abstract digital paintings.',
-    imageUrls: ['https://your-image-url-3.jpg', 'https://your-image-url-4.jpg'],
-    coverImage: 'https://your-cover-image-url-2.jpg',
+    name: "Digital",
+    link: "https://photos.app.goo.gl/MrZA62fQ85E98sWG9",
   },
   {
-    title: 'Music Video Stills',
-    date: '2023',
-    category: 'Music',
-    description: 'Stills from music videos I directed.',
-    imageUrls: ['https://your-image-url-5.jpg', 'https://your-image-url-6.jpg'],
-    coverImage: 'https://your-cover-image-url-3.jpg',
+    name: "Photos",
+    link: "https://photos.app.goo.gl/R226D7cDwiE2MY7e7",
   },
-  {
-    title: 'Photography Collection',
-    date: '2022-2023',
-    category: 'Photo',
-    description: 'A collection of urban photography.',
-    imageUrls: ['https://your-image-url-7.jpg', 'https://your-image-url-8.jpg'],
-    coverImage: 'https://your-cover-image-url-4.jpg',
-  },
+//   {
+//     name: "Music",
+//     link: "https://drive.google.com/drive/folders/YOUR_MUSIC_ALBUM_ID",
+//   },
 ];
 
-function buildCreativePiece(pieceObj: CreativePiece): CreativePiece {
-  return pieceObj;
-}
-
-// Shuffle function to randomize images
-const shuffleArray = (array: any[]) => {
-  let shuffledArray = [...array];
-  for (let i = shuffledArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]]; // Swap
-  }
-  return shuffledArray;
-};
-
 const GalleryComponent = () => {
-  const [filteredCategory, setFilteredCategory] = useState<string>('All');
-  const [shuffledCreativePieces, setShuffledCreativePieces] = useState<CreativePiece[]>([]);
-
-  // Shuffle the creative pieces once when the component mounts
-  useEffect(() => {
-    setShuffledCreativePieces(shuffleArray(creativePieces));
-  }, []);
-
-  // Handle category filtering
-  const handleCategoryToggle = (category: string) => {
-    setFilteredCategory(category);
-  };
-
-  // Filtered images based on selected category
-  const filteredPieces = filteredCategory === 'All' 
-    ? shuffledCreativePieces
-    : shuffledCreativePieces.filter(piece => piece.category === filteredCategory);
-
-  // Flatten all image URLs from the filtered pieces
-  const images = filteredPieces.flatMap(piece => 
-    piece.imageUrls.map(url => ({
-      src: url,
-      thumbnail: url,
-      thumbnailWidth: 200,
-      thumbnailHeight: 200,
-      caption: piece.title,
-      width: 600,
-      height: 600
-    }))
-  );
+  const [filteredCategory, setFilteredCategory] = useState<string>("All");
 
   return (
-    <div className='relative flex flex-col gap-5 p-10 md:px-20'>
-      <div className='flex flex-col gap-3 items-start'>
+    <div className="relative bg-red-solid flex flex-col gap-5 p-10 md:px-20">
+      <div className="flex flex-col gap-3 items-start">
         <h5>I&apos;m not an artist but I like making things</h5>
-        {/* Category toggle buttons */}
-            <div className='flex flex-row gap-3'>
-                <button onClick={() => handleCategoryToggle('All')}>All</button>
-                <button onClick={() => handleCategoryToggle('Physical')}>Physical</button>
-                <button onClick={() => handleCategoryToggle('Digital')}>Digital</button>
-                <button onClick={() => handleCategoryToggle('Music')}>Music</button>
-                <button onClick={() => handleCategoryToggle('Photo')}>Photo</button>
-            </div>
-
-            {/* Display the gallery */}
-            <Gallery images={images} />
+        {/* Category buttons */}
+        <div className="flex flex-row gap-3">
+          {/* <button
+            className="underline text-blue-500"
+            onClick={() => setFilteredCategory("All")}
+          >
+            All
+          </button> */}
+          {categories.map((category) => (
+            <a
+              key={category.name}
+              href={category.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline text-blue-500"
+            >
+              {category.name}
+            </a>
+          ))}
         </div>
+      </div>
     </div>
   );
 };
