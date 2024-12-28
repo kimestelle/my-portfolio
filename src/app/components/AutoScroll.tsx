@@ -12,7 +12,7 @@ const AutoScroll = ({ images }: AutoScrollProps) => {
             key={index}
             src={image}
             alt={`Image ${index + 1}`}
-            className="w-full h-64 object-cover"
+            className="h-28 w-auto object-contain"
           />
         ))}
         {images.map((image, index) => (
@@ -20,7 +20,7 @@ const AutoScroll = ({ images }: AutoScrollProps) => {
             key={`duplicate-${index}`}
             src={image}
             alt={`Image duplicate ${index + 1}`}
-            className="w-full h-64 object-cover"
+            className="h-28 w-auto object-contain"
           />
         ))}
       </div>

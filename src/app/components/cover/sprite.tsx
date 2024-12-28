@@ -15,9 +15,11 @@ interface SpriteProps {
 
 const Sprite = ({ index, x, height, tornado }: SpriteProps) => {
   const [position, setPosition] = useState<number>(x);
-  const [direction, setDirection] = useState<number>(
-    Math.random() < 0.5 ? -1 : 1
-  );
+  // const [direction, setDirection] = useState<number>(
+  //   Math.random() < 0.5 ? -1 : 1
+  // );
+  const [direction, setDirection] = useState<number>(x < 50 ? 1 : -1);
+
   const [speed, setSpeed] = useState<number>(
     ((Math.random() + 1) * height) / 15
   );

@@ -1,5 +1,6 @@
 /* Center Bar */
 .center-bar {
+  position: relative;
   display: flex;
   width: 100svw;
   height: 100svh;
@@ -16,6 +17,21 @@
   width: 80%;
   aspect-ratio: 7/5;
   align-items: flex-end;
+}
+
+.guide-text {
+  color: lightgray;
+  bottom: 15px; 
+  right: 0px;
+  transform: translateX(-50%);
+  z-index: -1;
+  position: absolute;
+  visibility:visible;
+}
+
+.center-bar:hover .guide-text {
+  visibility: visible;
+  opacity: 1;
 }
 
 /* Block Menu */

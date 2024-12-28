@@ -52,7 +52,7 @@ function City() {
   const [blocks, setBlocks] = useState<Block[]>([
     new Block('sprite', '/skyline-images/sprite.svg', 20, 15),
     new Block('sprite', '/skyline-images/sprite.svg', 50, 10),
-    new Block('tree', '/skyline-images/tree.svg', 80, 30),
+    new Block('tree', '/skyline-images/tree.svg', 80, 25),
   ]);
   const [tornado, setTornado] = useState<boolean>(false);
   const currentBlockRef = useRef<Block | null>(null);

@@ -3,9 +3,16 @@ import AutoScroll from "./AutoScroll";
 
 export default function Me() {
     const images = [
-        '/project-images/sample-1.png',
-        '/project-images/sample-2.png',
-        '/project-images/sample-3.png',
+        '/me-images/image-1.png',
+        '/me-images/image-2.png',
+        '/me-images/image-3.png',
+        '/me-images/image-4.png',
+        '/me-images/image-5.png',
+        '/me-images/image-6.png',
+        '/me-images/image-7.png',
+        '/me-images/image-8.png',
+        '/me-images/image-9.png',
+        '/me-images/image-10.png',
       ];
     return (
         <>
@@ -24,9 +31,6 @@ export default function Me() {
                         </li>
                         <li>
                             My guilty pleasure is coercing friends into DoorDashing midnight desserts.
-                        </li>
-                        <li>
-                            You can probably find me on campus chasing down a squirrel for a picture, wandering aimlessly, or taking .5s of the sky.
                         </li>
                     </ol>
                 </div>
