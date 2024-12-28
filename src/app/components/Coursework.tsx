@@ -58,7 +58,7 @@ const courses = [
 
 export default function CourseWork() {
     return (
-        <div className='flex flex-col flex-[3_3_0%] gap-5 p-10 pb-8 bg-red'>
+        <div className='flex flex-col flex-[3_3_0%] gap-5 p-10 md:px-32 pb-0'>
             <h2 className='sm:-mb-2'>
                 Coursework
             </h2>

@@ -20,8 +20,7 @@ export default function CreativityBlock({ piece, onClick, onClose }: CreativityB
   }, [emblaApi])
 
   return (
-<div id="course-container" className="relative w-full h-[24rem] md:h-[32rem] flex flex-col gap-2 p-4 sm:m-2 mt-3 shadow-inner rounded-lg text-black" onClick={onClick}>
-  <button className="absolute top-2 right-2 text-xl p-2 pr-4 red" onClick={onClose}>×</button>
+<div id="course-container" className="relative w-full h-[24rem] md:h-[32rem] flex flex-col gap-2 text-black" onClick={onClick}>
   <h3>{piece.title}</h3>
   <div className="embla">
     <div className="embla__viewport" ref={emblaRef} style={{ height: "100%" }}>

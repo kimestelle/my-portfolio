@@ -28,8 +28,8 @@ export default function CourseBlock({ course }: CourseProps) {
             </ol>
             </div>
 
-            <div key="back" className='w-full h-16 md:h-15 flex flex-col p-1.5 text-sm sm:text-base bg-white rounded-md'>
-            <p className='leading-tight'>{course.date}: {course.description}</p>
+            <div key="back" className='w-full h-16 md:h-15 flex flex-col p-1.5 text-sm sm:text-base'>
+            <p className='leading-tight text-gray-500'>{course.date}: {course.description}</p>
             </div>
         </ReactCardFlip>
     </div>
