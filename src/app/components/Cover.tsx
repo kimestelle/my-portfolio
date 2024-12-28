@@ -18,12 +18,15 @@ export default function About() {
                     Hi! I&apos;m a sophomore at the University of Pennsylvania striving to create personalized, adaptive, and intelligent virtual spaces. I love every part of the process from product development to full-stack engineering, and most of all, the amazing people I get to work with. I&apos;m looking for summer 2025 opportunities; please feel free to reach out if you think I&apos;d be a good fit for your team!
                 </p>
                 <div className='flex flex-row gap-5 mt-5 justify-center items-center'>
-                <a href='https://www.linkedin.com/in/estelle-kim-41b1b7218/' target="_blank" className='flex items-center gap-2 font-bold text-[0.8rem] pointer-events-auto'>
+                    <a href='https://www.linkedin.com/in/estelle-kim-41b1b7218/' target="_blank" className='flex items-center gap-2 font-bold text-[0.8rem] pointer-events-auto'>
                         <img src="icons/linkedin.svg" alt="LinkedIn" className="h-5 w-5" />
                     </a>
                     <a target='_blank' href='https://github.com/kimestelle'>
-                    <img className='h-6 w-6 pointer-events-auto' src='icons/gh-logo.svg'/>
-                </a>
+                        <img className='h-6 w-6 pointer-events-auto' src='icons/gh-logo.svg'/>
+                    </a>
+                    <a href='mailto:kestelle@sas.upenn.edu'>
+                        <img src='icons/mail-icon-black.svg' className='h-6 w-6 pointer-events-auto'/>
+                    </a>
                 </div>
             </div>
         </div>
