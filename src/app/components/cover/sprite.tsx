@@ -90,17 +90,25 @@ const Sprite = ({ index, x, height, tornado }: SpriteProps) => {
   }, [frame, frameDuration, tornado]);
 
   return (
+    <div className='sprite-container'
+    style={{
+      left: `${position}%`,
+      height: `${spriteHeight}%`,
+      width: `${(spriteHeight * 3) / 7}%`,
+      bottom: `${y}%`,
+    }}>
+    <div className='text-popup shadow-inner z-[10] bg-white'
+          style={{
+            bottom: `120%`,
+          }}>
+      <p>i wonder what happens when you press and hold...</p>
+    </div>
     <img
       ref={index as any}
       src={frame}
       className={direction === -1 ? 'sprite' : 'sprite reflect'}
-      style={{
-        left: `${position}%`,
-        height: `${spriteHeight}%`,
-        width: `${(spriteHeight * 3) / 7}%`,
-        bottom: `${y}%`,
-      }}
     />
+    </div>
   );
 };
 

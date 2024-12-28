@@ -15,7 +15,7 @@ export default function About() {
                     Digital Media Design / CS <span className='red'>@</span> UPenn
                 </h3>
                 <p className='text-outline-white text-center max-w-[80svh] mt-8'>
-                    Hi! I&apos;m a sophomore at the University of Pennsylvania striving to create personalized, adaptive, and intelligent virtual spaces. I love every part of the process from product development to full-stack engineering, and most of all, the amazing people I get to work with. I&apos;m looking for summer 2025 opportunities; please feel free to reach out if you think I&apos;d be a good fit for your team!
+                    Hi! I&apos;m a sophomore at the University of Pennsylvania striving to create personalized, adaptive, and intelligent virtual spaces. I love every part of the process from product development to full-stack engineering, and most of all, the amazing people I get to work with. I&apos;m currently looking for summer 2025 opportunities; please feel free to reach out if you think I&apos;d be a good fit for your team!
                 </p>
                 <div className='flex flex-row gap-5 mt-5 justify-center items-center'>
                     <a href='https://www.linkedin.com/in/estelle-kim-41b1b7218/' target="_blank" className='flex items-center gap-2 font-bold text-[0.8rem] pointer-events-auto'>
