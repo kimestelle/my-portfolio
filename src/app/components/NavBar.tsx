@@ -4,16 +4,16 @@ export default function NavBar() {
                 <a href='/playground' className='mr-2'>
                     <img className='w-[1.7em] rattle' src='icons/playground.svg'/>
                 </a>
-                <a href='#me'>
+                <a href='#about'>
                     about
                 </a>
-                <a href='#me'>
+                <a href='#projects'>
                     projects
                 </a>
-                <a href='#me'>
+                <a href='#design'>
                     design
                 </a>
-                <a href='#me'>
+                <a href='#experience'>
                     experience
                 </a>
                 {/* <a target='_blank' href='https://github.com/kimestelle'>

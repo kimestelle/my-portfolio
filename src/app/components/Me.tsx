@@ -16,7 +16,7 @@ export default function Me() {
       ];
     return (
         <>
-        <div className='flex flex-[2_2_0%] flex-col gap-5 p-10 pt-0 pb-3 md:px-32 bg-black border border-black'>
+        <div id='about' className='flex flex-[2_2_0%] flex-col gap-5 p-10 pt-0 pb-3 md:px-32 bg-black border border-black'>
             <h3 className='text-white font-normal z-[2]'>
                 a bit about me...
             </h3>

@@ -25,7 +25,7 @@ const projects: Code[] = [
     url: "https://github.com/kimestelle/mini-minecraft-opengl.git",
     languages: ["OpenGL", "GLSL", "C++"],
     description: "Mini-Minecraft group project from CIS4600",
-    imageUrls: ["/project-images/coming-soon-1.png", "/project-images/coming-soon-2.png"],
+    imageUrls: ["/project-images/minecraft/image-1.png", "/project-images/minecraft/mc-demo.mp4"],
   }),
   buildProject({
     name: "OpenGL Projects",
@@ -34,7 +34,7 @@ const projects: Code[] = [
     url: "https://github.com/kimestelle/mini-minecraft-opengl.git",
     languages: ["OpenGL", "GLSL", "C++"],
     description: "Mini-Minecraft group project from CIS4600",
-    imageUrls: ["/project-images/coming-soon-1.png", "/project-images/coming-soon-2.png"],
+    imageUrls: ["/project-images/4600/image-1.png", "/project-images/4600/4600-demo.mp4"],
   }),
   buildProject({
     name: "Better-Spelling-Bee",
@@ -90,7 +90,7 @@ export default function Code() {
   };
 
   return (
-    <div className="flex flex-col gap-5 px-10 md:px-32">
+    <div id='projects' className="flex flex-col gap-5 px-10 md:px-32">
       <div className="flex flex-row gap-2 items-center pt-10">
         <h2>Projects</h2>
       </div>
@@ -98,7 +98,7 @@ export default function Code() {
         {projects.map((project, index) => (
           <div
             key={index}
-            className="flex flex-col p-4 border border-gray-700 rounded-lg cursor-pointer hover:shadow-lg hover:border-red-500 transition-all duration-300"
+            className="flex flex-col p-4 shadow-inner rounded-lg cursor-pointer hover:shadow-lg transition-all duration-300"
             onClick={() => handleProjectClick(index)}
           >
             <img

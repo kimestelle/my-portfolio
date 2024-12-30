@@ -85,7 +85,7 @@ export default function Design() {
   };
 
   return (
-    <div className='relative flex flex-col gap-5 p-10 md:px-32 mt-10'>
+    <div id='design' className='relative flex flex-col gap-5 p-10 md:px-32 mt-10'>
       <div className='flex flex-row gap-3 items-center'>
         <h2>Design</h2>
         <img src='icons/design.svg' className='h-6' />
@@ -94,7 +94,7 @@ export default function Design() {
         {creativePieces.map((piece, index) => (
           <div
             key={index}
-            className='flex flex-col p-4 border border-gray-700 rounded-lg cursor-pointer hover:shadow-lg hover:border-red-500 transition-all duration-300'
+            className='flex flex-col p-4 shadow-inner rounded-lg cursor-pointer hover:shadow-lg transition-all duration-300'
             onClick={() => handlePieceClick(index)}
           >
             <img

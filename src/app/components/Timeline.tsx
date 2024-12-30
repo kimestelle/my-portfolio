@@ -196,8 +196,8 @@ const Timeline: React.FC = () => {
   ];
 
   return (
-    <div className="timeline-container px-6 md:px-32 py-10">
-      <div className='flex flex-row items-center  w-full mb-8'>
+    <div id='experience' className="timeline-container px-6 md:px-32 py-10">
+      <div className='flex flex-row items-center  w-full mb-10'>
         <h2 className='pl-5'>Experience | Resume</h2>
         <a className='p-2' href='estelle-kim-resume.pdf'>
           <img src='icons/download.svg' className='h-6'/>
