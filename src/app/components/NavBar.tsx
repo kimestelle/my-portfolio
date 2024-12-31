@@ -16,9 +16,6 @@ export default function NavBar() {
                 <a href='#experience'>
                     experience
                 </a>
-                {/* <a target='_blank' href='https://github.com/kimestelle'>
-                    <img className='w-[1.7em]' src='icons/gh-logo.svg'/>
-                </a> */}
         </nav>
         
     )
