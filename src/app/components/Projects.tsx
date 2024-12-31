@@ -110,7 +110,7 @@ const projects: Code[] = [
       databases: [],
       platforms: ["Firebase", "Vercel"],
     },
-    description:"As someone who loves writing handwritten letters but lives far from most of my loved ones, I wanted to capture the warmth, spontaneity, and joy of receiving a handwritten note through a simple text message. To achieve this, I designed a UI that features a custom font based on my own handwriting, hand-drawn graphics, and a 2D physics engine paired with an animated gift box to evoke a sense of physical space. To create a seamless experience (since opening gifts should never be a task) while ensuring each person's information is secure, I stored unique IDs in the URL route to retrieve Firebase documents, preventing unauthorized access to other users' messages while creating a seamless experience for recipients who only need to click on their personalized link.",
+    description:"As someone who loves writing handwritten letters but lives far from most of my loved ones, I wanted to capture the warmth, spontaneity, and joy of receiving a handwritten note through a simple text message. To achieve this, I designed a UI that features a custom font based on my own handwriting, hand-drawn graphics, and a 2D physics engine paired with an animated gift box to evoke a sense of physical space. \n\nTo create a seamless experience (since opening gifts should never be a task) while ensuring each person's information is secure, I stored unique IDs in the URL route directly sent to recipients to retrieve Firebase documents, preventing unauthorized access to other users' messages.",
     imageUrls: [
       "/project-images/gift-box/giftbox-demo.mp4",
       "/project-images/gift-box/image-1.png",
