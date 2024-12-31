@@ -1,0 +1,104 @@
+.city {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    justify-content: center;
+    overflow: hidden;
+    pointer-events: auto;
+
+}
+
+.notouch {
+  pointer-events: none;
+}
+
+.text-popup {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  width: max-content;
+  height: auto;
+  background: white;
+  color: gray;
+  border-radius: 1svw;
+  visibility: hidden;
+}
+
+.sprite-container:hover .text-popup {
+  visibility: visible;
+}
+
+.sprite {
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    top: 0;
+    /* animation: swapSvg 0.7s infinite;
+    content: url('./assets/walk2.svg'), url('./assets/walk4.svg'), url('./assets/walk1.svg'), url('./assets/aah.svg'); */
+    transition: left 0.5s ease-in-out, bottom 0.5s ease-in-out;
+  }
+  .sprite-container {
+    position: absolute;
+    background-repeat: no-repeat;
+    transition: left 0.5s ease-in-out, bottom 0.5s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center
+  }
+
+  .ahh {
+    background-image: url('/skyline-images/aah.svg');
+    animation: none;
+  }
+  
+
+  .reflect {
+    transform: scaleX(-1);
+    }
+  
+  /* @keyframes swapSvg {
+    0% {
+      background-image: url('./assets/walk2.svg');
+    }
+  
+    33% {
+      background-image: url('./assets/walk4.svg');
+    }
+  
+    66% {
+      background-image: url('./assets/walk1.svg');
+    }
+  
+    100% {
+      background-image: url('./assets/walk2.svg');
+    }
+  } */
+
+  .undo {
+    background-color: transparent;
+    color: white;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    height: 2.7vh;
+    aspect-ratio: 1/1;
+    bottom: 0.5%;
+    right: 0;
+
+  }
+
+#button:focus,
+#button:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+} 
+
+@media all and (max-width: 760px) {
+  .undo {
+    height: 2.3vh;
+  }
+}

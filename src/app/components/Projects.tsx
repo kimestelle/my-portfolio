@@ -1,98 +1,204 @@
 "use client";
-import { useState } from 'react';
-import CodeBlock from './blocks/CodeBlock';
+
+import { useState } from "react";
+import CodeBlock from "./blocks/CodeBlock";
+
+export interface TechStack {
+  languages: string[];
+  frameworks: string[];
+  libraries: string[];
+  databases: string[];
+  platforms: string[];
+}
 
 export interface Code {
   name: string;
   date: string;
   label: string;
   url: string;
-  languages: Array<string>;
+  techStack: TechStack;
   description: string;
-  imageUrls: Array<string>;
+  imageUrls: string[];
+  cover: string;
 }
+
+const colorClasses = [
+  "bg-gray-200",
+  "bg-gray-100",
+  "bg-gray-100",
+  "bg-gray-100",
+  "bg-gray-100",
+];
 
 function buildProject(projectObj: Code): Code {
   return projectObj;
 }
 
 const projects: Code[] = [
-  // buildProject({
-  //   name: 'Skyline Interactive',
-  //   date: '</> UI/UX',
-  //   label: 'Web Development',
-  //   url: 'https://kimestelle.github.io/city-skyline/',
-  //   languages: ['React', 'Javascript', 'Vite'],
-  //   description: 'A sandbox I built while learning React, used Vite to build.',
-  //   imageUrls: ['/project-images/skyline/image-1.png','/project-images/skyline/image-2.png','/project-images/skyline/image-3.png']
-  // }),
   buildProject({
-    name: 'Better-Spelling-Bee',
-    date: 'Summer 2024',
-    label: 'Full Stack & Game Dev',
-    url: 'donationpage.com',
-    languages: ['React','Typescript','Python','Django', 'PostgreSQL'],
-    description: 'COMING SOON',
-    imageUrls: ['/project-images/better-spelling-bee/bsb-demo.mp4',
-      '/project-images/better-spelling-bee/image-1.png',
-      '/project-images/better-spelling-bee/image-2.png',
-    '/project-images/better-spelling-bee/image-3.png',
-  '/project-images/better-spelling-bee/image-4.png',
-'/project-images/better-spelling-bee/image-5.png',]
+    name: "Mini Minecraft",
+    date: "Fall 2024",
+    label: "A rendition of Minecraft using OpenGL",
+    url: "https://github.com/kimestelle/mini-minecraft-opengl.git",
+    techStack: {
+      languages: ["C++", "GLSL"],
+      frameworks: [],
+      libraries: [],
+      databases: [],
+      platforms: ["OpenGL"],
+    },
+    description: "Mini-Minecraft group project from CIS4600",
+    imageUrls: ["/project-images/minecraft/mc-demo.mp4"],
+    cover: '/project-images/minecraft/image-1.png'
   }),
   buildProject({
-    name: 'Daily Pennsylvanian Donation Page',
-    date: 'Summer 2024',
-    label: '</> UI/UX',
-    url: 'donationpage.com',
-    languages: ['React', 'Typescript'],
-    description: 'COMING SOON',
-    imageUrls: ['/project-images/coming-soon-1.png','/project-images/coming-soon-2.png']
-  })
+    name: "Mesh Editor",
+    date: "Fall 2024",
+    label: "Half-edge mesh and subdivision",
+    url: "https://github.com/kimestelle/mini-minecraft-opengl.git",
+    techStack: {
+      languages: ["C++"],
+      frameworks: [],
+      libraries: [],
+      databases: [],
+      platforms: ["OpenGL"],
+    },
+    description: "Half-edge mesh and subdivision",
+    imageUrls: ["/project-images/4600/4600-demo.mp4"],
+    cover: "/project-images/4600/image-1.png", 
+  }),
+  buildProject({
+    name: "Better-Spelling-Bee",
+    date: "Summer 2024",
+    label: "Full-stack web app",
+    url: "donationpage.com",
+    techStack: {
+      languages: ["TypeScript", "Python"],
+      frameworks: ["Next.js", "Django"],
+      libraries: ["React"],
+      databases: ["PostgreSQL"],
+      platforms: [],
+    },
+    description: "My friend and I remade our favorite mobile game (NYT Spelling Bee!), focusing on enhancing user engagement through dynamic interactions and personalized features.",
+    imageUrls: [
+      "/project-images/better-spelling-bee/bsb-demo.mp4",
+      "/project-images/better-spelling-bee/image-1.png",
+      "/project-images/better-spelling-bee/image-2.png",
+    ],
+    cover: "/project-images/better-spelling-bee/image-1.png",
+  }),
+  buildProject({
+    name: "Holiday Gift Box",
+    date: "Fall 2024",
+    label: "Virtual gift box with React and Firebase",
+    url: "donationpage.com",
+    techStack: {
+      languages: ["TypeScript"],
+      frameworks: ["Next.js"],
+      libraries: ["React"],
+      databases: [],
+      platforms: ["Firebase", "Vercel"],
+    },
+    description: "My friend and I remade our favorite mobile game (NYT Spelling Bee!), focusing on enhancing user engagement through dynamic interactions and personalized features.",
+    imageUrls: [
+      "/project-images/gift-box/giftbox-demo.mp4",
+      "/project-images/gift-box/image-1.png",
+      "/project-images/gift-box/image-2.png",
+    ],
+    cover: "/project-images/gift-box/image-1.png",
+  }),
 ];
 
-export default function Code() {
-  const [activeProject, setActiveProject] = useState<Code | null>(null);
-  const [selectedProjects, setSelectedProjects] = useState<Set<string>>(new Set());
 
-  const handleProjectChange = (project: Code) => {
-    setActiveProject(project);
-    setSelectedProjects(prevSelectedProjects => new Set(prevSelectedProjects).add(project.name));
+export default function Code() {
+  const [activeProjectIndex, setActiveProjectIndex] = useState<number | null>(null);
+
+  const handleProjectClick = (index: number) => {
+    setActiveProjectIndex(index);
+  };
+
+  const closePopup = () => {
+    setActiveProjectIndex(null);
+  };
+
+  const goToNextProject = () => {
+    if (activeProjectIndex !== null) {
+      setActiveProjectIndex((prevIndex) => ((prevIndex ?? 0) + 1) % projects.length);
+    }
+  };
+
+  const goToPreviousProject = () => {
+    if (activeProjectIndex !== null) {
+      setActiveProjectIndex((prevIndex) =>
+        prevIndex! === 0 ? projects.length - 1 : prevIndex! - 1
+      );
+    }
   };
 
   return (
-    <div className='flex flex-col gap-5'>
-      <div className='flex flex-row gap-2 items-center px-10 pt-10'>
+    <div id='projects' className="flex flex-col gap-5 px-10 md:px-32">
+      <div className="flex flex-row gap-2 items-center pt-10">
         <h2>Projects</h2>
-        {/* <div className='w-full border-b-2 border-dotted border-gray-700' /> */}
-        {/* <img src='icons/backend.png' className='h-6'/> */}
-        {/* <img src='icons/frontend.png' className='h-7'/> */}
       </div>
-      <div className='flex flex-col w-full sm:flex-row gap-5 pl-10'>
-        <ul className='flex flex-1 flex-col sm:mt-5 clickable pr-10'>
-          {projects.map((project, index) => (
-            <li
-              key={index}
-              className='flex flex-row items-center gap-2 cursor-pointer'
-              onClick={() => handleProjectChange(project)}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {projects.map((project, index) => (
+          <div
+            key={index}
+            className="flex flex-col p-4 shadow-inner rounded-lg cursor-pointer hover:shadow-lg transition-all duration-300"
+            onClick={() => handleProjectClick(index)}
+          >
+            <img
+              src={project.cover}
+              alt={project.name}
+              className="w-full aspect-square object-contain rounded-md mb-3 lazy-load"
+              loading="lazy"
+            />
+
+            <h3 className="text-lg font-bold">{project.name}</h3>
+            <ul className="list-none flex flex-wrap gap-1 items-center mt-2">
+                {Object.entries(project.techStack).map(([category, items], index) =>
+                (items as string[]).map((item: string, itemIndex: number) => (
+                  <li
+                  key={`${category}-${itemIndex}`}
+                  className={`${colorClasses[index % colorClasses.length]} text-xs shadow-inner p-0.5 px-1.5 rounded-lg`}
+                  title={category}
+                  >
+                  {item}
+                  </li>
+                ))
+                )}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      {activeProjectIndex !== null && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 px-10 flex justify-center items-center z-50">
+          <div className="bg-white rounded-lg max-w-3xl p-6 relative">
+            <button
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
+              onClick={closePopup}
             >
-              <div
-                className={`w-[0.8em] h-[0.8em] rounded-[1em] border border-[#E70503] ${selectedProjects.has(project.name) ? 'bg-[#E70503]' : 'bg-transparent'}`}
-              />
-              <h3 className={` w-max text-sm font-greycliff ${activeProject?.name === project.name ? 'underline decoration-[#E70503] decoration-1 underline-offset-2' : ''}`}>
-                {project.name}
-              </h3>
-            </li>
-          ))}
-          <li><a href='/playground' className='text-sm underline text-gray-400'>stuff I make for fun!</a></li>
-        </ul>
-        <div className='h-[34rem] md:h-[32rem] md:pr-12 w-full flex flex-grow overflow-scroll scrollbar-hide flex-col gap-2 p-4 red-radial-gr'>
-        {activeProject ? (<CodeBlock project={activeProject} />) : (
-          <div className='w-full h-80 ml-5 -mb-10 mt-3 -mr-2'/>
-        )}
+              ✕
+            </button>
+            <CodeBlock project={projects[activeProjectIndex]} />
+            <div className="flex justify-between mt-5">
+              <button
+                className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                onClick={goToPreviousProject}
+              >
+                Previous
+              </button>
+              <button
+                className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                onClick={goToNextProject}
+              >
+                Next
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-      <div id='creativity' className='h-0'/>
+      )}
     </div>
   );
 }

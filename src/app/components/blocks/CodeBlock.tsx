@@ -1,6 +1,6 @@
-import { Code } from '../Projects';
-import useEmblaCarousel from 'embla-carousel-react';
-import Autoplay from 'embla-carousel-autoplay';
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+import { Code } from "../Projects";
 
 interface CodeBlockProps {
   project: Code;
@@ -9,39 +9,46 @@ interface CodeBlockProps {
 export default function CodeBlock({ project }: CodeBlockProps) {
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ playOnInit: true, delay: 3000 })]);
 
-  // Helper function to check if URL is a video file
   const isVideo = (url: string) => {
-    return url.endsWith('.mp4') || url.endsWith('.webm') || url.endsWith('.ogg');
+    return url.endsWith(".mp4") || url.endsWith(".webm") || url.endsWith(".ogg");
   };
 
   return (
-    <div className='flex flex-col h-[40rem] md:h-[30rem] md:flex-row gap-3 md:gap-5'>
-      <span className='absolute red text-[1.5rem] inline-block rotate-90 -mt-8 z-10'>&gt;</span>
-      <div className='embla flex-1 h-[40rem] md:h-[30rem]' ref={emblaRef}>
-        <div className='embla__container h-full'>
+    <div className="flex flex-col h-[32rem] mt-3 md:flex-row gap-3 md:gap-5">
+      <div className="embla flex-1 md:h-[32rem]" ref={emblaRef}>
+        <div className="embla__container h-full">
           {project.imageUrls.map((url, index) => (
-            <div key={index} className='embla__slide h-full flex justify-center items-center'>
+            <div key={index} className="embla__slide h-full flex justify-center items-center">
               {isVideo(url) ? (
-                <video src={url} controls className='h-full w-auto object-cover' />
+                <video src={url} controls className="h-full w-auto object-contain lazy-load" preload="metadata" />
               ) : (
-                <img src={url} alt={`Project Media ${index + 1}`} className='h-full w-auto object-cover' />
+                <img
+                  src={url}
+                  alt={`Project Media ${index + 1}`}
+                  className="h-full w-auto object-contain lazy-load"
+                  loading="lazy"
+                />
               )}
             </div>
           ))}
         </div>
       </div>
-      <div className='flex flex-1 flex-col'>
-        <h3 className='leading-snug sm:text-2xl text-lg'>{project.name}</h3>
-        <h5 className='mb-2 font-normal'>{project.label} | {project.date}</h5>
-        <p className='text-sm'>{project.description}</p>
-        <a href={project.url} className='text-sm underline text-red-500' target='_blank' rel='noopener noreferrer'>
-          Visit Project
-        </a>
-        <ol className='list-none flex flex-row gap-1 items-center pt-2'>
-          {project.languages.map((language, index) => (
-            <li key={index} className='bg-white p-0.5 px-1.5 mb-1 rounded-lg'>{language}</li>
-          ))}
-        </ol>
+      <div className="flex flex-1 flex-col">
+        <h3>{project.name}</h3>
+        <h5 className="font-normal">
+          {project.date} |{" "}
+          <a
+            href={project.url}
+            className="text-sm underline text-red-500"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Visit Project
+          </a>
+        </h5>
+        <p className="text-sm h-[9rem] mt-2 md:h-[28rem] split-line overflow-y-scroll">
+          {project.description}
+        </p>
       </div>
     </div>
   );

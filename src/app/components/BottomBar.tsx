@@ -1,6 +1,6 @@
 export default function BottomBar() {
     return (
-        <div className='flex flex-col sm:flex-row justify-between gap-5 p-10 bg-gray-900 text-white font-sans-serif'>
+        <div className='flex flex-col sm:flex-row justify-between gap-5 p-10 md:px-32 bg-slate-900 text-white font-sans-serif'>
             <span>made with <span className='red'>&#x2665;</span> by Estelle Kim</span>
             <ol className='list-none flex flex-row gap-2 items-end'>
                 <li>

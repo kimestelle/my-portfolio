@@ -39,12 +39,12 @@ const courses = [
         skills: ['Object-oriented programming', 'Functional programming', 'Programming patters', 'Abstraction']
     }),
     buildCourse({
-        number: 'CIS 2620',
-        name: 'Automata, Computability, and Complexity',
-        date: 'Spring 2024',
-        description: 'Finite automata and regular languages, context-free grammars, Turing machines and undecidability, tractability, NP-completeness',
-        languages: [],
-        skills: ['Object-oriented programming', 'Functional programming', 'Programming patters', 'Abstraction']
+        number: 'FNAR 2100',
+        name: 'Computer Animation',
+        date: 'Fall 2024',
+        description: '3D modeling, rigging, animation, and rendering with Maya',
+        languages: ['Maya', 'Adobe CC'],
+        skills: ['Maya', 'Adobe CC']
     }),
     buildCourse({
         number: 'DSGN 0010',
@@ -58,11 +58,11 @@ const courses = [
 
 export default function CourseWork() {
     return (
-        <div className='flex flex-col flex-[3_3_0%] gap-5 p-10 bg-red'>
-            <h2 className='sm:-mb-5'>
+        <div className='flex flex-col flex-[3_3_0%] gap-5 p-10 md:px-32 pb-0'>
+            <h2 className='sm:-mb-2'>
                 Coursework
             </h2>
-            <div id='course-container' className='flex flex-col gap-1 sm:m-2'>
+            <div id='course-container' className='flex flex-col scrollbar-hide -gap-1 sm:m-2'>
                 {courses.map((course, index) => (
                     <CourseBlock key={index} course={course} />
                 ))}

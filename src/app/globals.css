@@ -51,7 +51,7 @@ h1 {
 h2 {
   font-family: "calluna", serif;
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 600;
   font-style: normal;
   line-height: 90%;
 }
@@ -78,16 +78,27 @@ h5 {
 
 p {
   font-family: "calluna-sans", sans-serif;
-  font-size: 0.8rem;
+  font-size: 1rem;
   line-height: 120%;
   color: rgb(22, 22, 22);
 }
 
 li {
   font-family: "calluna-sans", sans-serif;
-  font-size: 0.7rem;
+  font-size: 1rem;
   line-height: 120%;
   font-weight: 700;
+}
+
+ol li {
+  font-weight: 400;
+}
+
+ol {
+  list-style-type: circle;
+  font-family: "calluna-sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
 }
 
 a {
@@ -97,11 +108,44 @@ a {
   font-size: 1rem;
 }
 
+a:hover {
+  color: gray;
+}
+
+button {
+  font-family: "calluna-sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1rem; 
+}
+
+button:active {
+  color: #E70503;
+}
+
+@media (max-width: 767px) {
+  p, li, a {
+    font-size: 0.8rem;
+  }
+}
+
+.split-line {
+  white-space: pre-line;
+}
+
 .red {
   color: #E70503;
 }
 
+.blue {
+  color: #0331C2;
+}
+
 .bg-red {
+  background: linear-gradient(to left, #e707032f 0%, rgba(231, 5, 3, 0) 100%);
+}
+
+.bg-red-solid {
   background: linear-gradient(to left, #e707032f 0%, rgba(231, 5, 3, 0) 100%);
 }
 
@@ -123,6 +167,14 @@ a {
   font-family: "calluna", serif;
   font-weight: 400;
   font-style: normal;
+}
+
+.text-outline-white {
+  text-shadow: 
+    -1px -1px 3 white, 
+    1px -1px 3 white, 
+    -1px 1px 3 white, 
+    1px 1px 3 white;
 }
 
 /* backgrounds */
@@ -153,10 +205,34 @@ a {
 
 .embla__slide {
   flex: 0 0 100%;
-  min-width: 0;
   height: 100%;
 }
 
+.embla-viewport {
+  overflow: hidden;
+  height: 100%;
+}
+
+.embla__prev,
+.embla__next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.embla__prev {
+  left: 10px;
+}
+
+.embla__next {
+  right: 10px;
+}
 
 /* animations */
 @keyframes pivotRotate {
@@ -170,6 +246,42 @@ a {
   transform-origin: center;
   animation: pivotRotate 4s ease-in-out infinite;
 }
+
+.auto-scroll-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.auto-scroll-track {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  animation: scroll-vertical 30s linear infinite;
+  z-index: 1;
+  will-change: transform;
+}
+
+.linear-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 1) 100%);
+  z-index: 10;
+}
+
+@keyframes scroll-vertical {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.auto-scroll-track img {
+  flex-shrink: 0;
+}
+
 
 /* Hide scrollbar for WebKit-based browsers (Chrome, Safari, Opera) */
 .scrollbar-hide::-webkit-scrollbar {
@@ -185,3 +297,4 @@ a {
 .scrollbar-hide {
   -ms-overflow-style: none; /* IE and Edge */
 }
+

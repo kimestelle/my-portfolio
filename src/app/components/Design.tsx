@@ -19,7 +19,7 @@ const creativePieces: CreativePiece[] = [
   buildCreativePiece({
     title: 'DSGN-0010',
     date: 'Fall 2024',
-    category: 'Coursework',
+    category: 'Adobe Creative Suite',
     description: 'Projects I made while learning to use Adobe tools in my intro design class.',
     imageUrls: ['/creative-images/dsgn-0010/cover.png', '/creative-images/dsgn-0010/image-1.png', '/creative-images/dsgn-0010/image-2.png','/creative-images/dsgn-0010/image-3.png'],
     coverImage: '/creative-images/dsgn-0010/cover.png'
@@ -50,46 +50,91 @@ const creativePieces: CreativePiece[] = [
     coverImage: '/creative-images/cardboard-art/cover.png'
   }),
   buildCreativePiece({
-    title: 'Daily Pennsylvanian Foundation',
+    title: 'DP Foundation',
     date: '2024',
-    category: 'Graphic Design',
+    category: 'Graphic Assets',
     description: 'Graphics I made for the Daily Pennsylvanian Foundation.',
-    imageUrls: ['/creative-images/dp-designs/cover.png', '/creative-images/sample-5.png', '/creative-images/sample-6.png'],
+    imageUrls: ['/creative-images/dp-designs/cover.png', '/creative-images/dp-designs/image-1.png', '/creative-images/dp-designs/image-2.png', '/creative-images/dp-designs/image-3.png'],
     coverImage: '/creative-images/dp-designs/cover.png'
   }),
 ];
 
 export default function Design() {
-  const [activePiece, setActivePiece] = useState<CreativePiece | null>(null);
-  const [selectedPieces, setSelectedPieces] = useState<Set<string>>(new Set());
+  const [activePieceIndex, setActivePieceIndex] = useState<number | null>(null);
 
-  const handlePieceChange = (piece: CreativePiece) => {
-    setActivePiece(piece);
-    setSelectedPieces(prevSelectedPieces => new Set(prevSelectedPieces).add(piece.title));
+  const handlePieceClick = (index: number) => {
+    setActivePieceIndex(index);
   };
 
   const handleClose = () => {
-    setActivePiece(null);
+    setActivePieceIndex(null);
+  };
+
+  const goToNextPiece = () => {
+    if (activePieceIndex !== null) {
+      setActivePieceIndex((prevIndex) => ((prevIndex ?? 0) + 1) % creativePieces.length);
+    }
+  };
+
+  const goToPreviousPiece = () => {
+    if (activePieceIndex !== null) {
+      setActivePieceIndex((prevIndex) =>
+        prevIndex! === 0 ? creativePieces.length - 1 : prevIndex! - 1
+      );
+    }
   };
 
   return (
-    <div className='relative flex flex-col gap-5 p-10 mt-10'>
+    <div id='design' className='relative flex flex-col gap-5 p-10 md:px-32 mt-10'>
       <div className='flex flex-row gap-3 items-center'>
         <h2>Design</h2>
-        <img src='icons/design.svg' className='h-6'/>
-        {/* <div className='w-full border-b-2 border-dotted border-gray-700' /> */}
+        <img src='icons/design.svg' className='h-6' />
       </div>
-        {activePiece ? (
-          <CreativityBlock piece={activePiece} onClose={handleClose} />
-        ) : (
-          <div id='creativity-container' className='w-full h-max h-[24rem] md:h-[30rem]  overflow-scroll scrollbar-hide flex flex-row justify-start items-start gap-1 md:gap-2 p-4 red-linear-gr z-1'>
-            <span className='absolute red text-[1.5rem] self-start left-[2.2rem] top-[5.6rem] z-10'>&gt;</span>
-            {creativePieces.map((piece, index) => (
-              <img key={index} src={piece.coverImage} onClick={() => handlePieceChange(piece)} className='w-max h-[22rem] md:h-[28rem] shadow clickable'/>
-            ))}
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5'>
+        {creativePieces.map((piece, index) => (
+          <div
+            key={index}
+            className='flex flex-col p-4 shadow-inner rounded-lg cursor-pointer hover:shadow-lg transition-all duration-300'
+            onClick={() => handlePieceClick(index)}
+          >
+            <img
+              src={piece.coverImage}
+              alt={piece.title}
+              className='w-full aspect-square object-contain rounded-md mb-3'
+            />
+            <h3 className='text-lg font-bold'>{piece.title}</h3>
+            <p className='text-sm text-gray-500'>{piece.category}</p>
           </div>
-        )}
-        <div id='community' className='h-0'/>
+        ))}
+      </div>
+
+      {activePieceIndex !== null && (
+        <div className='fixed inset-0 bg-black p-5 bg-opacity-50 flex justify-center items-center z-50'>
+          <div className='bg-white rounded-lg max-w-3xl p-6 relative'>
+            <button
+              className='absolute top-4 right-4 text-gray-500 hover:text-gray-800'
+              onClick={handleClose}
+            >
+              ✕
+            </button>
+            <CreativityBlock piece={creativePieces[activePieceIndex]} />
+            <div className='flex justify-between mt-5'>
+              <button
+                className='px-4 py-2 bg-gray-200 rounded hover:bg-gray-300'
+                onClick={goToPreviousPiece}
+              >
+                Previous
+              </button>
+              <button
+                className='px-4 py-2 bg-gray-200 rounded hover:bg-gray-300'
+                onClick={goToNextPiece}
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
