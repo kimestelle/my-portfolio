@@ -102,7 +102,7 @@ const projects: Code[] = [
     name: "Holiday Gift Box",
     date: "Fall 2024",
     label: "Virtual gift box with React and Firebase",
-    url: "donationpage.com",
+    url: "https://estelles-giftbox.vercel.app/6927",
     techStack: {
       languages: ["TypeScript"],
       frameworks: ["Next.js"],
