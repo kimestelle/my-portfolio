@@ -60,6 +60,8 @@ function City() {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [currentBlockHeight, setCurrentBlockHeight] = useState(5);
 
+  
+
   const blocksFly = useCallback(() => {
     console.log('TORNADOOOOO');
   

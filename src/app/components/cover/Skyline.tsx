@@ -1,4 +1,3 @@
-import { useState, useRef } from 'react';
 import './Skyline.css';
 
 import City from './city';
@@ -11,7 +10,6 @@ function Skyline() {
         <div className="city-container">
           <City/>
         </div>
-        {/* <p className='guide-text'>I wonder what happens when you press and hold...</p> */}
       </div>
   );
 }
