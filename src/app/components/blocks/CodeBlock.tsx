@@ -1,6 +1,7 @@
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { Code } from "../Projects";
+import Image from "next/image";
 
 interface CodeBlockProps {
   project: Code;
@@ -22,12 +23,14 @@ export default function CodeBlock({ project }: CodeBlockProps) {
               {isVideo(url) ? (
                 <video src={url} controls className="h-full w-auto object-contain lazy-load" preload="metadata" />
               ) : (
-                <img
-                  src={url}
-                  alt={`Project Media ${index + 1}`}
-                  className="h-full w-auto object-contain lazy-load"
-                  loading="lazy"
-                />
+                  <Image
+                    src={url}
+                    alt={`Project Media ${index + 1}`}
+                    className="h-full w-auto object-contain lazy-load"
+                    width={200} 
+                    height={200}
+                    style={{ objectFit: 'contain' }} 
+                  />
               )}
             </div>
           ))}

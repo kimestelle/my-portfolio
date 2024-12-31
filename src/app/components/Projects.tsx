@@ -79,7 +79,18 @@ const projects: Code[] = [
       databases: ["PostgreSQL"],
       platforms: [],
     },
-    description: "My friend and I remade our favorite mobile game (NYT Spelling Bee!), focusing on enhancing user engagement through dynamic interactions and personalized features.",
+    description: "My friend and I remade our favorite mobile game (NYT Spelling Bee!), focusing on enhancing user engagement through dynamic interactions and personalized features.\n" +
+  "\nDesign Challenges:\n" +
+  "- Developed a minimal and responsive web interface, ensuring ease of use while incorporating subtle animations to give the screen life.\n" +
+  "- Created a customizable duck avatar and letter block, designed to attract user interaction through playful, tangible draggable objects.\n" +
+  "\nDevelopment Challenges:\n" +
+  "- Efficient algorithm to source a dictionary subset from 7 letters, including a pangram, by processing and sorting a large dictionary (46,444 words) and indexing it by letter + creating a separate source of pangrams to pull the letters from.\n" +
+  "- Drag-and-drop functionality for the duck graphics, ensuring they could be seamlessly cloned/dragged onto words and reordered dynamically using painstaking CSS details and npm packages.\n" +
+  "- Complex game and user data states, appropriate caching to maintain performance across gameplay sessions.\n" +
+  "- JWT token management for secure user authentication and session persistence.\n" +
+  "\nNext Steps:\n" +
+  "- Deploy site\n" +
+  "- Recover some animations gone MIA after restructuring app (ducks in pond randomly flapping, fly and sink animations upon entering word).\n",
     imageUrls: [
       "/project-images/better-spelling-bee/bsb-demo.mp4",
       "/project-images/better-spelling-bee/image-1.png",
@@ -99,7 +110,7 @@ const projects: Code[] = [
       databases: [],
       platforms: ["Firebase", "Vercel"],
     },
-    description: "My friend and I remade our favorite mobile game (NYT Spelling Bee!), focusing on enhancing user engagement through dynamic interactions and personalized features.",
+    description:"As someone who loves writing handwritten letters but lives far from most of my loved ones, I wanted to capture the warmth, spontaneity, and joy of receiving a handwritten note through a simple text message. To achieve this, I designed a UI that features a custom font based on my own handwriting, hand-drawn graphics, and a 2D physics engine paired with an animated gift box to evoke a sense of physical space. To create a seamless experience (since opening gifts should never be a task) while ensuring each person's information is secure, I stored unique IDs in the URL route to retrieve Firebase documents, preventing unauthorized access to other users' messages while creating a seamless experience for recipients who only need to click on their personalized link.",
     imageUrls: [
       "/project-images/gift-box/giftbox-demo.mp4",
       "/project-images/gift-box/image-1.png",

@@ -1,5 +1,6 @@
 "use client";
 import { useState } from 'react';
+import Image from 'next/image';
 import CreativityBlock from './blocks/CreativityBlock';
 
 export interface CreativePiece {
@@ -88,7 +89,7 @@ export default function Design() {
     <div id='design' className='relative flex flex-col gap-5 p-10 md:px-32 mt-10'>
       <div className='flex flex-row gap-3 items-center'>
         <h2>Design</h2>
-        <img src='icons/design.svg' className='h-6' />
+        <Image src='/icons/design.svg' className='h-6 w-auto' alt='Design Icon' width={24} height={24} />
       </div>
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5'>
         {creativePieces.map((piece, index) => (
@@ -97,10 +98,12 @@ export default function Design() {
             className='flex flex-col p-4 shadow-inner rounded-lg cursor-pointer hover:shadow-lg transition-all duration-300'
             onClick={() => handlePieceClick(index)}
           >
-            <img
+            <Image
               src={piece.coverImage}
               alt={piece.title}
               className='w-full aspect-square object-contain rounded-md mb-3'
+              width={200}
+              height={200}
             />
             <h3 className='text-lg font-bold'>{piece.title}</h3>
             <p className='text-sm text-gray-500'>{piece.category}</p>

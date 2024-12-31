@@ -1,8 +1,12 @@
+import Image from 'next/image';
+
 export default function NavBar() {
     return (
-        <nav className='w-full flex flex-row z-20 gap-5 p-5 px-10 md:px-32 bg-white fixed border-b border-color-gray-400'>
+        <nav className='w-full flex flex-row justify-between z-20 p-5 px-10 md:px-32 bg-white fixed border-b border-color-gray-400'>
+            <div className='w-full flex flex-row gap-5'>
+
                 <a href='/playground' className='mr-2'>
-                    <img className='w-[1.7em] rattle' src='icons/playground.svg'/>
+                    <Image className='w-[1.7em] rattle' src='icons/playground.svg' width={10} height={10} alt="playground icon"/>
                 </a>
                 <a href='#about'>
                     about
@@ -16,6 +20,10 @@ export default function NavBar() {
                 <a href='#experience'>
                     experience
                 </a>
+            </div>
+                {/* <a href='https://github.com/kimestelle' target='_blank' className='mr-2'>
+                    <Image className='w-[1.7em]' src='icons/gh-logo.svg' width={10} height={10} alt="github icon"/>
+                </a> */}
         </nav>
         
     )
