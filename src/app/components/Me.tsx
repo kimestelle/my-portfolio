@@ -27,10 +27,7 @@ export default function Me() {
                             I was born in Korea and grew up between New York, Seoul, and SoCal.
                         </li>
                         <li>
-                            I love the color red, museum-hopping, singing a capella, and listening to / playing / trying to make all kinds of music.
-                        </li>
-                        <li>
-                            My guilty pleasure is coercing friends into DoorDashing midnight desserts.
+                            I love the color red, museum-hopping, late-night delivery food, singing a capella, and listening to / playing / trying to make all kinds of music.
                         </li>
                     </ol>
                 </div>

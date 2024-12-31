@@ -3,15 +3,32 @@
 import { useState } from "react";
 import CodeBlock from "./blocks/CodeBlock";
 
+export interface TechStack {
+  languages: string[];
+  frameworks: string[];
+  libraries: string[];
+  databases: string[];
+  platforms: string[];
+}
+
 export interface Code {
   name: string;
   date: string;
   label: string;
   url: string;
-  languages: Array<string>;
+  techStack: TechStack;
   description: string;
-  imageUrls: Array<string>;
+  imageUrls: string[];
+  cover: string;
 }
+
+const colorClasses = [
+  "bg-gray-200",
+  "bg-gray-100",
+  "bg-gray-100",
+  "bg-gray-100",
+  "bg-gray-100",
+];
 
 function buildProject(projectObj: Code): Code {
   return projectObj;
@@ -21,48 +38,77 @@ const projects: Code[] = [
   buildProject({
     name: "Mini Minecraft",
     date: "Fall 2024",
-    label: "3D Graphics Engine",
+    label: "A rendition of Minecraft using OpenGL",
     url: "https://github.com/kimestelle/mini-minecraft-opengl.git",
-    languages: ["OpenGL", "GLSL", "C++"],
+    techStack: {
+      languages: ["C++", "GLSL"],
+      frameworks: [],
+      libraries: [],
+      databases: [],
+      platforms: ["OpenGL"],
+    },
     description: "Mini-Minecraft group project from CIS4600",
-    imageUrls: ["/project-images/minecraft/image-1.png", "/project-images/minecraft/mc-demo.mp4"],
+    imageUrls: ["/project-images/minecraft/mc-demo.mp4"],
+    cover: '/project-images/minecraft/image-1.png'
   }),
   buildProject({
-    name: "OpenGL Projects",
+    name: "Mesh Editor",
     date: "Fall 2024",
-    label: "3D Graphics Engine",
+    label: "Half-edge mesh and subdivision",
     url: "https://github.com/kimestelle/mini-minecraft-opengl.git",
-    languages: ["OpenGL", "GLSL", "C++"],
-    description: "Mini-Minecraft group project from CIS4600",
-    imageUrls: ["/project-images/4600/image-1.png", "/project-images/4600/4600-demo.mp4"],
+    techStack: {
+      languages: ["C++"],
+      frameworks: [],
+      libraries: [],
+      databases: [],
+      platforms: ["OpenGL"],
+    },
+    description: "Half-edge mesh and subdivision",
+    imageUrls: ["/project-images/4600/4600-demo.mp4"],
+    cover: "/project-images/4600/image-1.png", 
   }),
   buildProject({
     name: "Better-Spelling-Bee",
     date: "Summer 2024",
-    label: "Full Stack & Game Dev",
+    label: "Full-stack web app",
     url: "donationpage.com",
-    languages: ["React", "Typescript", "Python", "Django", "PostgreSQL"],
+    techStack: {
+      languages: ["TypeScript", "Python"],
+      frameworks: ["Next.js", "Django"],
+      libraries: ["React"],
+      databases: ["PostgreSQL"],
+      platforms: [],
+    },
     description: "My friend and I remade our favorite mobile game (NYT Spelling Bee!), focusing on enhancing user engagement through dynamic interactions and personalized features.",
     imageUrls: [
-      "/project-images/better-spelling-bee/image-1.png",
       "/project-images/better-spelling-bee/bsb-demo.mp4",
+      "/project-images/better-spelling-bee/image-1.png",
       "/project-images/better-spelling-bee/image-2.png",
     ],
+    cover: "/project-images/better-spelling-bee/image-1.png",
   }),
   buildProject({
     name: "Holiday Gift Box",
-    date: "Summer 2024",
-    label: "React & Firebase",
+    date: "Fall 2024",
+    label: "Virtual gift box with React and Firebase",
     url: "donationpage.com",
-    languages: ["React", "Typescript", "Python", "Django", "PostgreSQL"],
+    techStack: {
+      languages: ["TypeScript"],
+      frameworks: ["Next.js"],
+      libraries: ["React"],
+      databases: [],
+      platforms: ["Firebase", "Vercel"],
+    },
     description: "My friend and I remade our favorite mobile game (NYT Spelling Bee!), focusing on enhancing user engagement through dynamic interactions and personalized features.",
     imageUrls: [
-      "/project-images/gift-box/image-1.png",
       "/project-images/gift-box/giftbox-demo.mp4",
+      "/project-images/gift-box/image-1.png",
       "/project-images/gift-box/image-2.png",
     ],
+    cover: "/project-images/gift-box/image-1.png",
   }),
 ];
+
 
 export default function Code() {
   const [activeProjectIndex, setActiveProjectIndex] = useState<number | null>(null);
@@ -102,13 +148,26 @@ export default function Code() {
             onClick={() => handleProjectClick(index)}
           >
             <img
-              src={project.imageUrls[0]}
+              src={project.cover}
               alt={project.name}
               className="w-full aspect-square object-contain rounded-md mb-3 lazy-load"
               loading="lazy"
             />
+
             <h3 className="text-lg font-bold">{project.name}</h3>
-            <p className="text-sm text-gray-500">{project.label}</p>
+            <ul className="list-none flex flex-wrap gap-1 items-center mt-2">
+                {Object.entries(project.techStack).map(([category, items], index) =>
+                (items as string[]).map((item: string, itemIndex: number) => (
+                  <li
+                  key={`${category}-${itemIndex}`}
+                  className={`${colorClasses[index % colorClasses.length]} text-xs shadow-inner p-0.5 px-1.5 rounded-lg`}
+                  title={category}
+                  >
+                  {item}
+                  </li>
+                ))
+                )}
+            </ul>
           </div>
         ))}
       </div>

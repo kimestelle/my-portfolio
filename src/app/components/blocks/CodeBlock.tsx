@@ -1,15 +1,6 @@
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-
-//try to import this again later
-interface Code {
-  imageUrls: string[];
-  name: string;
-  date: string;
-  url: string;
-  languages: string[];
-  description: string;
-}
+import { Code } from "../Projects";
 
 interface CodeBlockProps {
   project: Code;
@@ -55,16 +46,6 @@ export default function CodeBlock({ project }: CodeBlockProps) {
             Visit Project
           </a>
         </h5>
-        <ol className="list-none flex flex-row gap-1 items-center pt-2">
-          {project.languages.map((language, index) => (
-            <li
-              key={index}
-              className="bg-red-100 text-sm p-0.5 px-1.5 mb-2 md:mb-5 rounded-lg"
-            >
-              {language}
-            </li>
-          ))}
-        </ol>
         <p className="text-sm h-[9rem] mt-2 md:h-[28rem] split-line overflow-y-scroll">
           {project.description}
         </p>

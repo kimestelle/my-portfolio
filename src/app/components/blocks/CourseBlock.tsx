@@ -21,9 +21,9 @@ export default function CourseBlock({ course }: CourseProps) {
         <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
             <div key="front" className='h-16 md:h-15 flex flex-col p-2 border-b border-gray-100 items-start gap-1'>
               <h5 className='leading-tight max-md:text-sm font-normal'>&gt; {course.number} <span className='text-black'>{course.name}</span></h5>
-              <ol className='list-none  pl-2 flex flex-row gap-1 items-center pb-0.5'>
+              <ol className='list-none pl-3 flex flex-row gap-1 items-center pb-0.5'>
                   {course.languages.map((skill, index) => (
-                      <li key={index} className='shadow-inner p-0.5 px-1.5 text-sm rounded-lg'>{skill}</li>
+                      <li key={index} className='shadow-inner p-0.5 px-1.5 text-xs font-bold rounded-lg'>{skill}</li>
                   ))}
               </ol>
             </div>

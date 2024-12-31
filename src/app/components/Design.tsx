@@ -19,7 +19,7 @@ const creativePieces: CreativePiece[] = [
   buildCreativePiece({
     title: 'DSGN-0010',
     date: 'Fall 2024',
-    category: 'Coursework',
+    category: 'Adobe Creative Suite',
     description: 'Projects I made while learning to use Adobe tools in my intro design class.',
     imageUrls: ['/creative-images/dsgn-0010/cover.png', '/creative-images/dsgn-0010/image-1.png', '/creative-images/dsgn-0010/image-2.png','/creative-images/dsgn-0010/image-3.png'],
     coverImage: '/creative-images/dsgn-0010/cover.png'
@@ -50,11 +50,11 @@ const creativePieces: CreativePiece[] = [
     coverImage: '/creative-images/cardboard-art/cover.png'
   }),
   buildCreativePiece({
-    title: 'Daily Pennsylvanian Foundation',
+    title: 'DP Foundation',
     date: '2024',
-    category: 'Graphic Design',
+    category: 'Graphic Assets',
     description: 'Graphics I made for the Daily Pennsylvanian Foundation.',
-    imageUrls: ['/creative-images/dp-designs/cover.png', '/creative-images/sample-5.png', '/creative-images/sample-6.png'],
+    imageUrls: ['/creative-images/dp-designs/cover.png', '/creative-images/dp-designs/image-1.png', '/creative-images/dp-designs/image-2.png', '/creative-images/dp-designs/image-3.png'],
     coverImage: '/creative-images/dp-designs/cover.png'
   }),
 ];
