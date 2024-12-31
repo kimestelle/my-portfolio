@@ -151,6 +151,7 @@ export default function Code() {
       <div className="flex flex-row gap-2 items-center pt-10">
         <h2>Projects</h2>
       </div>
+      <a href='/playground'><h4 className='red underline'>stuff I make for fun!</h4></a>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {projects.map((project, index) => (
           <div
