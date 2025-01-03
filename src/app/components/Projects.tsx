@@ -47,7 +47,7 @@ const projects: Code[] = [
       databases: [],
       platforms: ["OpenGL"],
     },
-    description: "Mini-Minecraft group project from CIS4600",
+    description: "Playable minecraft simulation built with OpenGL as final project for CIS4600. The project was completed in with two team members across three milestones, focusing on modularity, optimization, and engaging graphics.\n\nMy Contributions:\n\nTerrain Rendering and Chunking:\n  - Designed a chunk-based system to optimize terrain rendering by dynamically loading and unloading visible chunks based on the player’s position.\n  - Developed interleaved Vertex Buffer Objects (VBOs) to efficiently store and render chunk geometry, ensuring only visible faces were processed, reducing GPU load.\n\nTexture Mapping and Animation:\n  - Mapped block textures with UV coordinates, including distinct faces for blocks like grass (top, sides, bottom).\n  - Implemented animated textures for water and lava using time-dependent transformations, creating smooth, looping motions.\n  - Debugged and refined the texture rendering pipeline, ensuring compatibility with the interleaved VBO structure.\n\nDynamic Sky:\n  - Built a custom sky shader featuring:\n    - A procedurally animated day-night cycle with moving sun.\n    - Animated clouds using Worley noise and fractional Brownian motion.\n\nFluid Surface Waves and Reflection:\n  - Developed realistic water and lava wave simulations by dynamically displacing vertex positions in the shader using sine and cosine functions.\n  - Recalculated normals in the vertex shader to accurately reflect light on moving surfaces.\n  - Enhanced visibility of movement with Blinn-Phong highlights.",
     imageUrls: ["/project-images/minecraft/mc-demo.mp4"],
     cover: '/project-images/minecraft/image-1.png'
   }),
@@ -63,7 +63,7 @@ const projects: Code[] = [
       databases: [],
       platforms: ["OpenGL"],
     },
-    description: "Half-edge mesh and subdivision",
+    description: "Half-edge mesh and subdivision project for CIS4600. \n\n Half-Edge Data Structure: \n- Create interconnected vertex, edge, and face classes for efficient mesh traversal and editing.\n\nMesh Visualization: \n- Use OpenGL to render meshes and highlight selected components.\n\nGUI Integration: \n- Develop a Qt interface for selecting and editing vertices, edges, and faces.\n\nOBJ File Support: \n- Import and convert 3D models into a half-edge representation.\n\nCatmull-Clark Subdivision: \n- Smooth meshes iteratively to refine shapes like spheres from coarse geometries.",
     imageUrls: ["/project-images/4600/4600-demo.mp4"],
     cover: "/project-images/4600/image-1.png", 
   }),
