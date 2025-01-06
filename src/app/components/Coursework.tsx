@@ -31,6 +31,14 @@ const courses = [
         skills: ['Object-oriented programming', 'Functional programming', 'Programming patters', 'Abstraction']
     }),  
     buildCourse({
+        number: 'CIS 2620',
+        name: 'Automata, Computability, and Complexity',
+        date: 'Spring 2024',
+        description: 'Finite automata and regular languages, context-free grammars, Turing machines and undecidability, tractability, NP-completeness',
+        languages: [],
+        skills: ['Object-oriented programming', 'Functional programming', 'Programming patters', 'Abstraction']
+    }),
+    buildCourse({
         number: 'CIS 1210',
         name: 'Data Structures and Algorithms',
         date: 'Spring 2024',
@@ -45,14 +53,6 @@ const courses = [
         description: '3D modeling, rigging, animation, and rendering with Maya',
         languages: ['Maya', 'Adobe CC'],
         skills: ['Maya', 'Adobe CC']
-    }),
-    buildCourse({
-        number: 'DSGN 0010',
-        name: 'Art, Design, and Digital Culture',
-        date: 'Fall 2023',
-        description: 'Black-and-white composition, icon design, collage making, 2d animation with Adobe Illustrator, InDesign, Photoshop, Premiere',
-        languages: ['Adobe CC'],
-        skills: ['Object-oriented programming', 'Functional programming', 'Programming patters', 'Abstraction']
     }),
 ]
 
