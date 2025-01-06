@@ -52,22 +52,6 @@ const projects: Code[] = [
     cover: '/project-images/minecraft/image-1.png'
   }),
   buildProject({
-    name: "Mesh Editor",
-    date: "Fall 2024",
-    label: "Half-edge mesh and subdivision",
-    url: "https://github.com/kimestelle/mini-minecraft-opengl.git",
-    techStack: {
-      languages: ["C++"],
-      frameworks: [],
-      libraries: [],
-      databases: [],
-      platforms: ["OpenGL"],
-    },
-    description: "Half-edge mesh and subdivision project for CIS4600. \n\n Half-Edge Data Structure: \n- Create interconnected vertex, edge, and face classes for efficient mesh traversal and editing.\n\nMesh Visualization: \n- Use OpenGL to render meshes and highlight selected components.\n\nGUI Integration: \n- Develop a Qt interface for selecting and editing vertices, edges, and faces.\n\nOBJ File Support: \n- Import and convert 3D models into a half-edge representation.\n\nCatmull-Clark Subdivision: \n- Smooth meshes iteratively to refine shapes like spheres from coarse geometries.",
-    imageUrls: ["/project-images/4600/4600-demo.mp4"],
-    cover: "/project-images/4600/image-1.png", 
-  }),
-  buildProject({
     name: "Better-Spelling-Bee",
     date: "Summer 2024",
     label: "Full-stack web app",
@@ -117,6 +101,22 @@ const projects: Code[] = [
       "/project-images/gift-box/image-2.png",
     ],
     cover: "/project-images/gift-box/image-1.png",
+  }),
+  buildProject({
+    name: "Aristotle LLM",
+    date: "Summer 2024",
+    label: "An attempt to build a LLaMA machine learning model using as few predefined libraries and functions as possible. My friend and I did research into the inner workings of LLMs, took notes and had discussions, and then took a stab at processing a dataset of Aristotle and Plato quotes from Kaggle and writing a model to generate text from a seed string. The model worked with a lot of debugging and some AI assistance, but I could only train it on a few thousand lines due to hardware limitations. Nevertheless, it did produce some wise-sounding lines before starting to repeat gibberish.",
+    url: "https://github.com/kimestelle/llm-chatbot.git",
+    techStack: { 
+      languages: ["Python"],
+      frameworks: [],
+      libraries: ["PyTorch", "NumPy", "SentencePiece"],
+      databases: [],
+      platforms: []
+    },    
+    description: "An attempt to build a LLaMA machine learning model using as few predefined libraries and functions as possible. \n\nMy friend and I did research into the inner workings of LLMs, took notes and had discussions, and then took a stab at processing a dataset of Aristotle and Plato quotes from Kaggle and training a model to generate text from a seed string. \n\nThe model worked with a lot of debugging and some AI assistance, but I could only train it on a few thousand lines over the course of 10+ hours due to hardware limitations and large parameters. Nevertheless, my overtrained Aristotle-bot did produce some wise-sounding lines before starting to repeat gibberish.",
+    imageUrls: ["/project-images/4600/image-1.png", "/project-images/4600/image-2.png", "/project-images/4600/image-3.png"],
+    cover: "/project-images/4600/image-2.png", 
   }),
 ];
 
