@@ -22,7 +22,7 @@ export default function About() {
                     Digital Media Design / CS <span className='red'>@</span> UPenn
                 </h3>
                 <p className='text-outline-white text-center max-w-[80svh] mt-8'>
-                    Hi! I&apos;m a sophomore at the University of Pennsylvania interested in <span className='font-bold'>human-centered engineering</span>. I love thinking about experiences that resonate with people, as well as cool algorithms and methodologies. I&apos;m currently looking for summer 2025 opportunities; please feel free to reach out if you think I&apos;d be a good fit for your team!
+                    Hi! I&apos;m a sophomore at the University of Pennsylvania interested in <span className='font-bold'>human-centered engineering</span>. I love thinking about experiences that transform people, as well as cool algorithms and systems. I&apos;m currently looking for summer 2025 opportunities; please feel free to reach out if you think I&apos;d be a good fit for your team!
                 </p>
                 <div className='flex flex-row gap-5 mt-5 justify-center items-center'>
                     <a 
