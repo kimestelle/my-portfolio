@@ -49,7 +49,7 @@ export default function CodeBlock({ project }: CodeBlockProps) {
             Visit Project
           </a>
         </h5>
-        <p className="text-sm h-[9rem] mt-2 md:h-[28rem] split-line overflow-y-scroll">
+        <p className="text-sm h-[11rem] mt-2 md:h-[28rem] split-line overflow-y-scroll">
           {project.description}
         </p>
       </div>

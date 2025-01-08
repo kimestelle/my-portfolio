@@ -13,7 +13,8 @@ export default function Me() {
         '/me-images/image-8.png',
         '/me-images/image-9.png',
         '/me-images/image-10.png',
-      ];
+    ];
+
     return (
         <>
         <div id='about' className='flex flex-[2_2_0%] flex-col gap-5 p-10 pt-0 pb-3 md:px-32 bg-black border border-black'>
@@ -22,16 +23,30 @@ export default function Me() {
             </h3>
             <div className='relative flex flex-col gap-2 mb-2 md:mb-5 z-[2]'>
                 <div className='flex flex-col gap-2 text-white mb-3'> 
-                    <ol className='text-regular flex flex-col gap-2'>
+                    <ol className='text-regular list-inside flex flex-col gap-2'>
                         <li>
                             I was born in Korea and grew up between New York, Seoul, and SoCal.
                         </li>
                         <li>
-                            I love the color red, museum-hopping, late-night delivery food, singing a capella, and listening to / playing / trying to make all kinds of music.
+                            I love the color red, museum-hopping, late-night delivery food, singing a capella, and music in all forms.
                         </li>
                     </ol>
                 </div>
                 <AutoScroll images={images} />   
+            </div>
+            <h3 className='text-white font-normal z-[2]'>
+                tech goals
+            </h3>
+            <div className="flex flex-col gap-3 text-white mb-5">
+                <p className='text-white'>
+                    I&apos;d like to have a specialty, but honestly, just learning about how systems work and bridging technical complexity with accessible human solutions excites me. Hopefully a broad but continually deepening skillset will help me do that. In 2025, I want to pursue:
+                </p>
+                <ol className='text-regular list-inside flex flex-col gap-2'>
+                    <li>Clean, interactive, information-forward UIs</li>
+                    <li>Efficient, scalable modular backend systems</li>
+                    <li>Applications of data science and algorithms</li>
+                    <li>Writing beautiful code</li>
+                </ol>
             </div>
         </div>
         <img src="/wave-border.svg" className='h-5 w-auto object-cover'/>

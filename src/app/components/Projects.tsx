@@ -62,17 +62,17 @@ const projects: Code[] = [
       frameworks: ["Next.js", "Django"],
       libraries: ["React"],
       databases: ["PostgreSQL"],
-      platforms: [],
+      platforms: ["Figma"],
     },
     description: "My friend and I remade our favorite mobile game (NYT Spelling Bee!), focusing on enhancing user engagement through dynamic interactions and personalized features.\n" +
-  "\nDesign Challenges:\n" +
-  "- Developed a minimal and responsive web interface, ensuring ease of use while incorporating subtle animations to give the screen life.\n" +
-  "- Created a customizable duck avatar and letter block, designed to attract user interaction through playful, tangible draggable objects.\n" +
-  "\nDevelopment Challenges:\n" +
-  "- Efficient algorithm to source a dictionary subset from 7 letters, including a pangram, by processing and sorting a large dictionary (46,444 words) and indexing it by letter + creating a separate source of pangrams to pull the letters from.\n" +
-  "- Drag-and-drop functionality for the duck graphics, ensuring they could be seamlessly cloned/dragged onto words and reordered dynamically using painstaking CSS details and npm packages.\n" +
-  "- Complex game and user data states, appropriate caching to maintain performance across gameplay sessions.\n" +
-  "- JWT token management for secure user authentication and session persistence.\n" +
+  "\nDesign:\n" +
+  "- Minimal and responsive web interface incorporating subtle animations.\n" +
+  "- Playful, tangible draggable objects including letter blocks and avatars.\n" +
+  "\nDevelopment:\n" +
+  "- Complex state management, caching during gameplay sessions.\n" +
+  "- JWT token management for user auth and session persistence.\n" +
+  "- Efficient system to source a dictionary subset from 7 letters including 1+ pangrams from a subset by processing, sorting, and indexing a 46,444 word dictionary\n" +
+  "- Drag-and-drop ducks, clonning onto words and reordering dynamically with CSS gymnastics and npm libraries.\n" +
   "\nNext Steps:\n" +
   "- Deploy site\n" +
   "- Recover some animations gone MIA after restructuring app (ducks in pond randomly flapping, fly and sink animations upon entering word).\n",
@@ -95,7 +95,10 @@ const projects: Code[] = [
       databases: [],
       platforms: ["Firebase", "Vercel"],
     },
-    description:"As someone who loves writing handwritten letters but lives far from most of my loved ones, I wanted to capture the warmth, spontaneity, and joy of receiving a handwritten note through a simple text message. To achieve this, I designed a UI that features a custom font based on my own handwriting, hand-drawn graphics, and a 2D physics engine paired with an animated gift box to evoke a sense of physical space. \n\nTo create a seamless experience (since opening gifts should never be a task) while ensuring each person's information is secure, I stored unique IDs in the URL route directly sent to recipients to retrieve Firebase documents, preventing unauthorized access to other users' messages.",
+    description:"As someone who loves writing handwritten letters but lives far from most of my loved ones, I wanted to capture the warmth, spontaneity, and joy of receiving a handwritten note through a simple shareable website.\n\n" + 
+    "- Custom font from my own handwriting and hand-drawn graphics\n" +
+    "- 2D physics engine that explodes from an animated gift box to evoke a sense of physical space\n\n" +
+    " To create a seamless experience (since opening gifts should never be a task) while ensuring each person's information is secure, I stored unique IDs in the URL route directly sent to recipients to retrieve Firebase documents, all it takes to open is clicking a secure link sent via text.",
     imageUrls: [
       "/project-images/gift-box/giftbox-demo.mp4",
       "/project-images/gift-box/image-1.png",
@@ -115,7 +118,7 @@ const projects: Code[] = [
       databases: [],
       platforms: []
     },    
-    description: "An attempt to build a LLaMA machine learning model using as few predefined libraries and functions as possible. \n\nMy friend and I did research into the inner workings of LLMs, took notes and had discussions, and then took a stab at processing a dataset of Aristotle and Plato quotes from Kaggle and training a model to generate text from a seed string. \n\nThe model worked with a lot of debugging and some AI assistance, but I could only train it on a few thousand lines over the course of 10+ hours due to hardware limitations and large parameters. Nevertheless, my overtrained Aristotle-bot did produce some wise-sounding lines before starting to repeat gibberish.",
+    description: "An attempt to build a LLaMA machine learning model using as few predefined libraries and functions as possible. \n\nMy friend and I did research into the mathematical workings of LLMs, took notes and had discussions, and then took a stab at processing a dataset of Aristotle and Plato quotes from Kaggle and training a model to generate text from a seed string. \n\nThe model worked with a lot of debugging and some AI assistance, but I could only train it on a few thousand lines over the course of 10+ hours due to hardware limitations and large parameters. Nevertheless, my overtrained Aristotle-bot did produce some wise-sounding lines before starting to repeat gibberish.",
     imageUrls: ["/project-images/4600/image-1.png", "/project-images/4600/image-2.png", "/project-images/4600/image-3.png"],
     cover: "/project-images/4600/image-2.png", 
   }),
