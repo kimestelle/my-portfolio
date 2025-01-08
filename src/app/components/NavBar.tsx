@@ -16,7 +16,7 @@ export default function NavBar() {
                 <a href='#experience'>
                     experience
                 </a>
-                <a href='/playground!' className='red'>
+                <a href='/playground' className='red'>
                     playground
                 </a>
             </div>
