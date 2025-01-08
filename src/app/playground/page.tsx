@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import './markdown.css'
 
 const Pages = [
-    { name: 'skysim', url: 'http://gist-it.appspot.com/https://scattering-sky-sim.vercel.app/', 
+    { name: 'skysim', url: 'https://scattering-sky-sim.vercel.app/', 
         githubUrl: 'https://github.com/kimestelle/scattering-sky-sim', 
         apiUrl: "https://api.github.com/repos/kimestelle/scattering-sky-sim/readme"},
     { name: 'skyline', url: 'https://kimestelle.github.io/city-skyline/', 
