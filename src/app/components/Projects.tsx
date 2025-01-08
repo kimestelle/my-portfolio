@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import CodeBlock from "./blocks/CodeBlock";
-import Image from "next/image";
+// import Image from "next/image";
 
 export interface TechStack {
   languages: string[];
@@ -155,12 +155,12 @@ export default function Code() {
       <div className="flex flex-row gap-2 items-center pt-10">
         <h2>Projects</h2>
       </div>
-      <div className='sm:w-1/2 sm:pr-3 lg:w-1/4 lg:pr-4'>
-        <a href='/playground' className="flex flex-row p-4 gap-2 shadow-inner rounded-lg cursor-pointer hover:shadow-lg transition-all duration-300">
-          <Image className='w-[1rem] pb-[0.1rem]' src='icons/playground.svg' width={10} height={10} alt="playground icon"/>
-            <h3 className='text-lg red font-bold'>Tiny Projects</h3>
+      {/* <div className='sm:w-1/2 sm:pr-3 lg:w-1/4 lg:pr-4'> */}
+        <a href='/playground'>
+          {/* <Image className='w-[1rem] pb-[0.1rem]' src='icons/playground.svg' width={10} height={10} alt="playground icon"/> */}
+            <p className='text-lg red font-bold'>code playground &gt;&gt;</p>
         </a>
-      </div>
+      {/* </div> */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {projects.map((project, index) => (
           <div

@@ -21,7 +21,7 @@ const Pages = [
 export default function Playground() {
     const [sideVisible, setSideVisible] = useState<boolean>(false);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
-    const [isDescriptionOpen, setIsDescriptionOpen] = useState<boolean>(true);
+    const [isDescriptionOpen, setIsDescriptionOpen] = useState<boolean>(false);
     const [fadeIn, setFadeIn] = useState<boolean>(true);
     const [readmeContent, setReadmeContent] = useState<string>("");
 
