@@ -1,7 +1,7 @@
 #markdown h1 {
     font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 0.8rem;
+    margin-bottom: 1.2rem;
     margin-top: 0.8rem;
     line-height: normal;
 }
@@ -9,22 +9,40 @@
 #markdown h2 {
     font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: 0.5rem;
-    margin-top: 0.5rem;
+    margin-bottom: 0.7rem;
+    margin-top: 1.2rem;
     line-height: normal;
 }
 
 #markdown p {
-    margin-bottom: 0.3rem;
-    margin-top: 0.3rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    color:rgb(70, 70, 70);
 }
 
 #markdown ul {
     margin-bottom: 0.3rem;
     margin-top: 0.3rem;
     list-style: circle;
-    list-style-position: inside;
+    list-style-position: outside;
+    padding-left: 1rem;
+    font-weight: 400;
 }
+
+#markdown ol {
+    margin-bottom: 0.3rem;
+    margin-top: 0.3rem;
+    list-style: decimal;
+    list-style-position: outside;
+    font-weight: 400;
+    padding-left: 1rem;
+}
+
+#markdown ol, ul li {
+    font-weight: 400;
+}
+
+
 
 #markdown code {
     font-size: 0.8rem;

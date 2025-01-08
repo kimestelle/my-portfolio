@@ -21,7 +21,7 @@ const Pages = [
 export default function Playground() {
     const [sideVisible, setSideVisible] = useState<boolean>(false);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
-    const [isDescriptionOpen, setIsDescriptionOpen] = useState<boolean>(false);
+    const [isDescriptionOpen, setIsDescriptionOpen] = useState<boolean>(true);
     const [fadeIn, setFadeIn] = useState<boolean>(true);
     const [readmeContent, setReadmeContent] = useState<string>("");
 
@@ -98,7 +98,7 @@ export default function Playground() {
                 {/* Arrow Buttons (Centered) */}
                 <div className='flex flex-row gap-[3svh] items-center justify-center'>
                     <img src='icons/triangle-arrow.svg' onClick={goToPreviousPage} className='clickable w-[0.8em]' alt='left'/>
-                    <img src='icons/info.svg' className='clickable w-[1.4em] md:w-[1.7em]' alt='info'onClick={toggleDescription}/>
+                    <p className='clickable user-select-none font-mono' onClick={toggleDescription}>click here for README</p>
                     <img className='clickable w-[0.8em] rotate-180' src='icons/triangle-arrow.svg' onClick={goToNextPage} alt='right'/>
                 </div>
 
