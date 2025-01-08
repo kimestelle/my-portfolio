@@ -6,7 +6,7 @@ export default function NavBar() {
             <div className='w-full flex flex-row gap-5'>
 
                 <a href='/playground' className='mr-2'>
-                    <Image className='w-[1.7em] rattle' src='icons/playground.svg' width={10} height={10} alt="playground icon"/>
+                    <Image className='w-[1.7em] pb-1 rattle' src='icons/playground.svg' width={10} height={10} alt="playground icon"/>
                 </a>
                 <a href='#about'>
                     about
