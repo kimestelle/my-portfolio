@@ -1,18 +1,55 @@
 "use client"
-
-import { url } from 'inspector';
-import { useState } from 'react';
+import { marked } from "marked";
+import { useState, useEffect } from 'react';
+import './markdown.css'
 
 const Pages = [
-    { name: 'skyline', url: 'https://kimestelle.github.io/city-skyline/' },
-    { name: 'musicograph', url: 'https://musicograph.vercel.app/' },
-    { name: 'fives', url: 'https://five-pink.vercel.app/' },
+    { name: 'skysim', url: 'http://gist-it.appspot.com/https://scattering-sky-sim.vercel.app/', 
+        githubUrl: 'https://github.com/kimestelle/scattering-sky-sim', 
+        apiUrl: "https://api.github.com/repos/kimestelle/scattering-sky-sim/readme"},
+    { name: 'skyline', url: 'https://kimestelle.github.io/city-skyline/', 
+        githubUrl:  'https://github.com/kimestelle/city-skyline',
+        apiUrl: "https://api.github.com/repos/kimestelle/city-skyline/readme",},
+    { name: 'musicograph', url: 'https://musicograph.vercel.app/', 
+        githubUrl: 'https://github.com/kimestelle/musicograph',
+        apiUrl: "https://api.github.com/repos/kimestelle/musicograph/readme",},
+    { name: 'fives', url: 'https://five-pink.vercel.app/', 
+        githubUrl: 'https://github.com/kimestelle/five',
+        apiUrl: "https://api.github.com/repos/kimestelle/five/readme",},
   ];
 
 export default function Playground() {
     const [sideVisible, setSideVisible] = useState<boolean>(false);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const [isDescriptionOpen, setIsDescriptionOpen] = useState<boolean>(true);
     const [fadeIn, setFadeIn] = useState<boolean>(true);
+    const [readmeContent, setReadmeContent] = useState<string>("");
+
+    const fetchReadme = async (apiUrl: string) => {
+        try {
+          const response = await fetch(apiUrl, {
+            headers: {
+              Accept: "application/vnd.github.v3.raw",
+            },
+          });
+          if (!response.ok) {
+            throw new Error(`Failed to fetch README: ${response.status}`);
+          }
+          const markdown = await response.text();
+          const htmlContent = await marked(markdown);
+          setReadmeContent(htmlContent);
+        } catch (error) {
+          console.error(error);
+          setReadmeContent("<p>Failed to load README.</p>");
+        }
+      };
+
+
+    useEffect(() => {
+        if (isDescriptionOpen) {
+        fetchReadme(Pages[currentIndex].apiUrl);
+        }
+    }, [currentIndex, isDescriptionOpen]);
 
     const handleMouseEnter = () => {
         setSideVisible(true);
@@ -23,11 +60,17 @@ export default function Playground() {
     };
 
     const goToPreviousPage = () => {
+        setIsDescriptionOpen(false);
         fadeToPage((currentIndex > 0 ? currentIndex - 1 : Pages.length - 1));
     };
 
     const goToNextPage = () => {
+        setIsDescriptionOpen(false);
         fadeToPage((currentIndex < Pages.length - 1 ? currentIndex + 1 : 0));
+    };
+
+    const toggleDescription = () => {
+        setIsDescriptionOpen(!isDescriptionOpen);
     };
 
     const setPage = (index: number) => {
@@ -55,7 +98,7 @@ export default function Playground() {
                 {/* Arrow Buttons (Centered) */}
                 <div className='flex flex-row gap-[3svh] items-center justify-center'>
                     <img src='icons/triangle-arrow.svg' onClick={goToPreviousPage} className='clickable w-[0.8em]' alt='left'/>
-                    <img src='icons/info.svg' className='clickable w-[1.4em] md:w-[1.7em]' alt='info'/>
+                    <img src='icons/info.svg' className='clickable w-[1.4em] md:w-[1.7em]' alt='info'onClick={toggleDescription}/>
                     <img className='clickable w-[0.8em] rotate-180' src='icons/triangle-arrow.svg' onClick={goToNextPage} alt='right'/>
                 </div>
 
@@ -76,6 +119,14 @@ export default function Playground() {
                     </ul>
                 )}
             </div>
+            {isDescriptionOpen && (
+                <div id='markdown'
+                    className={`absolute top-0 left-0 w-full h-full overflow-scroll transition-opacity duration-500 bg-white text-black p-20 ${
+                    fadeIn ? "opacity-100" : "opacity-0"
+                    }`}
+                    dangerouslySetInnerHTML={{ __html: readmeContent }}
+                />        
+            )}
             <iframe className={`w-[100svw] h-[100svh] overflow-hidden transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'}`} 
                 src={Pages[currentIndex].url}>
             </iframe>

@@ -21,6 +21,8 @@ export default function RootLayout({
           src="https://unpkg.com/mouse-follower@1/dist/mouse-follower.min.js" 
           strategy="beforeInteractive"
         />
+        <Script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"/>
+
       </head>
       <body>
         {children}

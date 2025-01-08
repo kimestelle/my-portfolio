@@ -13,6 +13,7 @@
     "embla-carousel-autoplay": "^8.1.8",
     "embla-carousel-react": "^8.1.8",
     "gsap": "^3.12.5",
+    "marked": "^15.0.6",
     "mouse-follower": "^1.1.2",
     "next": "^14.2.22",
     "pdfjs-dist": "^4.5.136",
@@ -26,6 +27,7 @@
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
+    "@types/marked": "^5.0.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

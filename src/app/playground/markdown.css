@@ -1,0 +1,38 @@
+#markdown h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    margin-top: 0.8rem;
+    line-height: normal;
+}
+
+#markdown h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    line-height: normal;
+}
+
+#markdown p {
+    margin-bottom: 0.3rem;
+    margin-top: 0.3rem;
+}
+
+#markdown ul {
+    margin-bottom: 0.3rem;
+    margin-top: 0.3rem;
+    list-style: circle;
+    list-style-position: inside;
+}
+
+#markdown code {
+    font-size: 0.8rem;
+    line-height: normal;
+}
+
+#markdown pre {
+    margin-bottom: 0.3rem;
+    margin-top: 0.3rem;
+    background-color: rgb(234, 234, 234);
+}
