@@ -56,7 +56,7 @@ const projects: Code[] = [
     name: "Better-Spelling-Bee",
     date: "Summer 2024",
     label: "Full-stack web app",
-    url: "donationpage.com",
+    url: "https://github.com/kimestelle/better-spelling-bee",
     techStack: {
       languages: ["TypeScript", "Python"],
       frameworks: ["Next.js", "Django"],
