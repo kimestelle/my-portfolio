@@ -110,6 +110,15 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
 const Timeline: React.FC = () => {
   const timelineItems: TimelineItemProps[] = [
     {
+      date: "2025",
+      description: "Interactive Museum Experience Project @ Penn Spark",
+      bulletPoints: [
+        "Developer on an immersive, gamified web app for a 9-month exhibition in collaboration with the Penn Museum.",
+      ],
+      imageUrls: [],
+      iconType: "lightbulb",
+    },
+    {
       date: "2024",
       description: "Mobile App Project @ Penn Spark",
       bulletPoints: [
