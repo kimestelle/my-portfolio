@@ -10,6 +10,10 @@ const Pages = [
     { name: 'skyline', url: 'https://kimestelle.github.io/city-skyline/', 
         githubUrl:  'https://github.com/kimestelle/city-skyline',
         apiUrl: "https://api.github.com/repos/kimestelle/city-skyline/readme",},
+    { name: "threejs material sampler", url: "https://threejs-material-sampler.vercel.app/",
+        githubUrl: "https://github.com/kimestelle/threejs-material-sampler",
+        apiUrl: "https://api.github.com/repos/kimestelle/threejs-material-sampler/readme"
+    },
     { name: 'musicograph', url: 'https://musicograph.vercel.app/', 
         githubUrl: 'https://github.com/kimestelle/musicograph',
         apiUrl: "https://api.github.com/repos/kimestelle/musicograph/readme",},
