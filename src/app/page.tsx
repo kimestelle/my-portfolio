@@ -16,7 +16,7 @@ export default function Portfolio() {
   return (
     <>
     <NavBar/>
-    <div className='flex flex-col'>
+    <div className='flex flex-col overflow-x-hidden'>
       {sections.map((Section, index) => (
         <Section key={index} />
       ))}

@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 import './markdown.css'
 
 const Pages = [
+    { name: 'thumb-ball', url: 'https://thumb-ball.vercel.app/', 
+        githubUrl: 'https://github.com/kimestelle/thumb-ball', 
+        apiUrl: "https://api.github.com/repos/kimestelle/thumb-ball/readme",},
     { name: 'skysim', url: 'https://scattering-sky-sim.vercel.app/', 
         githubUrl: 'https://github.com/kimestelle/scattering-sky-sim', 
         apiUrl: "https://api.github.com/repos/kimestelle/scattering-sky-sim/readme"},
@@ -12,8 +15,7 @@ const Pages = [
         apiUrl: "https://api.github.com/repos/kimestelle/city-skyline/readme",},
     { name: "threejs material sampler", url: "https://threejs-material-sampler.vercel.app/",
         githubUrl: "https://github.com/kimestelle/threejs-material-sampler",
-        apiUrl: "https://api.github.com/repos/kimestelle/threejs-material-sampler/readme"
-    },
+        apiUrl: "https://api.github.com/repos/kimestelle/threejs-material-sampler/readme"},
     { name: 'musicograph', url: 'https://musicograph.vercel.app/', 
         githubUrl: 'https://github.com/kimestelle/musicograph',
         apiUrl: "https://api.github.com/repos/kimestelle/musicograph/readme",},
@@ -29,6 +31,12 @@ export default function Playground() {
     const [fadeIn, setFadeIn] = useState<boolean>(true);
     const [readmeContent, setReadmeContent] = useState<string>("");
 
+    const renderer = new marked.Renderer();
+//return empty string for images
+    renderer.image = () => "";
+
+
+
     const fetchReadme = async (apiUrl: string) => {
         try {
           const response = await fetch(apiUrl, {
@@ -39,8 +47,9 @@ export default function Playground() {
           if (!response.ok) {
             throw new Error(`Failed to fetch README: ${response.status}`);
           }
-          const markdown = await response.text();
-          const htmlContent = await marked(markdown);
+        const markdown = await response.text();
+        console.log(markdown);
+        const htmlContent = await marked(markdown, { renderer });
           setReadmeContent(htmlContent);
         } catch (error) {
           console.error(error);

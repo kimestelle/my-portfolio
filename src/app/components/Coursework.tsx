@@ -6,7 +6,6 @@ export interface Course {
     date: string;
     description: string;
     languages: Array<string>;
-    skills: Array<string>;
 }
 
 function buildCourse (courseObj: Course) {
@@ -15,28 +14,25 @@ function buildCourse (courseObj: Course) {
 
 const courses = [
     buildCourse({
-        number: 'CIS 5600',
-        name: 'Interactive Computer Graphics',
-        date: 'Fall 2024',
-        description: '3d mesh data structures, transformation sequences, rendering algorithms',
-        languages: ['C++', 'GLSL'],
-        skills: ['Object-oriented programming', 'Functional programming', 'Programming patters', 'Abstraction']
+        number: 'CIS 5610',
+        name: 'Advanced Computer Graphics',
+        date: 'Spring 2025',
+        description: 'Geometric transformations and algorithms, GPU pipeline, shading, raytracing, Monte Carlo path tracing, photonmapping)',
+        languages: ['C++', 'GLSL']
     }),
     buildCourse({
         number: 'CIS 2400',
         name: 'Introduction to Computer Systems',
         date: 'Fall 2024',
         description: 'Transistors and simple computer hardware structures, low-level programming',
-        languages: ['C', 'Assembly'],
-        skills: ['Object-oriented programming', 'Functional programming', 'Programming patters', 'Abstraction']
+        languages: ['C', 'Assembly']
     }),  
     buildCourse({
         number: 'CIS 2620',
         name: 'Automata, Computability, and Complexity',
         date: 'Spring 2024',
         description: 'Finite automata and regular languages, context-free grammars, Turing machines and undecidability, tractability, NP-completeness',
-        languages: [],
-        skills: ['Object-oriented programming', 'Functional programming', 'Programming patters', 'Abstraction']
+        languages: []
     }),
     buildCourse({
         number: 'CIS 1210',
@@ -44,7 +40,6 @@ const courses = [
         date: 'Spring 2024',
         description: 'Practical uses, advanced variants, runtime, and proofs for stacks, queues, maps, trees, and graphs',
         languages: ['Java'],
-        skills: ['Object-oriented programming', 'Functional programming', 'Programming patters', 'Abstraction']
     }),
     // buildCourse({
     //     number: 'FNAR 2100',
