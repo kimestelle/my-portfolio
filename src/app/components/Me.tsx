@@ -40,13 +40,12 @@ export default function Me() {
             </h3>
             <div className="flex flex-col gap-3 text-white mb-5">
                 <p className='text-white'>
-                    I&apos;d like to have a specialty, but honestly, just learning about how systems work and bridging technical complexity with accessible human solutions excites me. Hopefully a broad but continually deepening skillset will help me do that. In 2025, I want to pursue:
+                To me, technology is an unbounded canvas for creativity and a medium for accessibly communicating abstract solutions. I&apos;m not as concerned about the kind of tools I use than the resulting experience; I love learning and fine-tuning while building collaboratively toward a goal.
                 </p>
                 <ol className='text-regular list-inside flex flex-col gap-2'>
-                    <li>Clean, interactive, information-forward UIs</li>
-                    <li>Efficient, scalable modular backend systems</li>
-                    <li>Applications of data science and algorithms</li>
-                    <li>Writing beautiful code</li>
+                    <li>I obsess over tech that feels tangible and invites you to explore.</li>
+                    <li>I also obsess over products that are information-forward, clear, scalable, and beautifully crafted inside and out.</li>
+                    <li>I love mapping out big-picture systems of humans and information, then diving deep to refine and optimize their inner workings.</li>
                 </ol>
             </div>
         </div>

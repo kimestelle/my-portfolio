@@ -41,14 +41,6 @@ const courses = [
         description: 'Practical uses, advanced variants, runtime, and proofs for stacks, queues, maps, trees, and graphs',
         languages: ['Java'],
     }),
-    // buildCourse({
-    //     number: 'FNAR 2100',
-    //     name: 'Computer Animation',
-    //     date: 'Fall 2024',
-    //     description: '3D modeling, rigging, animation, and rendering with Maya',
-    //     languages: ['Maya', 'Adobe CC'],
-    //     skills: ['Maya', 'Adobe CC']
-    // }),
 ]
 
 export default function CourseWork() {

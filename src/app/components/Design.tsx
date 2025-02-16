@@ -86,7 +86,7 @@ export default function Design() {
   };
 
   return (
-    <div id='design' className='relative flex flex-col gap-5 p-10 md:px-32 mt-10'>
+    <div id='design' className='relative flex flex-col gap-5 p-10 md:px-32 '>
       <div className='flex flex-row gap-3 items-center'>
         <h2>Design</h2>
         <Image src='/icons/design.svg' className='h-6 w-auto' alt='Design Icon' width={24} height={24} />

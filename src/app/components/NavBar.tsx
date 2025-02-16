@@ -10,11 +10,11 @@ export default function NavBar() {
                 <a href='#projects'>
                     projects
                 </a>
-                <a href='#design'>
-                    design
-                </a>
                 <a href='#experience'>
                     experience
+                </a>
+                <a href='#design'>
+                    creative
                 </a>
                 <a href='/playground' className='red'>
                     playground

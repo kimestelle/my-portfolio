@@ -22,23 +22,8 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
   return (
     <div className="relative flex flex-col md:flex-row items-start gap-2">
       {/* Icon and Date */}
-      <div className="flex flex-row items-center md:w-28">
-        <div className="flex justify-center items-center w-6 h-6 rounded-full">
-          {iconType === "lightbulb" ? (
-            <img
-              src="/icons/lightbulb.svg"
-              alt="Lightbulb Icon"
-              className="w-4 h-4 opacity-40"
-            />
-          ) : (
-            <img
-              src="/icons/target.svg"
-              alt="Target Icon"
-              className="w-6 h-6"
-            />
-          )}
-        </div>
-        <span className="font-sans-serif text-gray-500">{date}</span>
+      <div className="flex flex-row items-center md:w-20">
+        <span className="font-sans-serif red">{date}</span>
       </div>
 
       {/* Content */}
@@ -86,22 +71,6 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
             </li>
           ))}
         </ul>
-
-        {/* Slideshow */}
-        {/* {imageUrls.length > 0 && (
-          <div className="overflow-hidden mt-4" ref={emblaRef}>
-            <div className="flex gap-4">
-              {imageUrls.map((url, index) => (
-                <img
-                  key={index}
-                  src={url}
-                  alt={`Slide ${index + 1}`}
-                  className="w-full h-40 object-cover rounded-md"
-                />
-              ))}
-            </div>
-          </div>
-        )} */}
       </div>
     </div>
   );
@@ -110,7 +79,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
 const Timeline: React.FC = () => {
   const timelineItems: TimelineItemProps[] = [
     {
-      date: "2025",
+      date: "2025~",
       description: "Interactive Museum Experience Project @ Penn Spark",
       bulletPoints: [
         "Developer on an immersive, gamified web app for a 9-month exhibition in collaboration with the Penn Museum.",
@@ -119,11 +88,28 @@ const Timeline: React.FC = () => {
       iconType: "lightbulb",
     },
     {
+      date: "2025~",
+      description: "Web Developer @ UPenn xLab",
+      bulletPoints: [
+        "Migrate an HTML website used across 20+ countries to React framework, focused on improving UX and maintainability.",
+      ],
+      imageUrls: [],
+      iconType: "lightbulb",
+    },
+    {
+      date: "2025~",
+      description: "Web Developer @ Children's Hospital of Philadelphia Autism Research Center",
+      bulletPoints: [
+        "On student team developing an online research hub bridging an ML backend/extensive database with information-forward web interface.",
+      ],
+      imageUrls: [],
+      iconType: "lightbulb",
+    },
+    {
       date: "2024",
       description: "Mobile App Project @ Penn Spark",
       bulletPoints: [
-        "Pitched an idea for a social exploration app that helps Penn students spontaneously discover events and communities on campus.",
-        "Co-lead a team of designers + developers to carry out the vision, plan for app launch and community partnerships.",
+        "Co-lead a team of designers + developers to build social exploration app that helps Penn students spontaneously discover events and communities on campus.",
       ],
       imageUrls: [],
       iconType: "lightbulb",
@@ -143,7 +129,7 @@ const Timeline: React.FC = () => {
       description: "Wharton Investment & Trading Group",
       bulletPoints: [
         "Learned valuation and accounting fundamentals through semester-long accelerator program in Penn’s premier finance club.",
-        "Explored finance by taking thorough notes on finance books, external pitch competitions + internal activities, and upperclassman mentorship.",
+        "Explored finance by taking thorough notes on books, external pitch competitions + internal activities, and upperclassman mentorship.",
       ],
       imageUrls: [],
       iconType: "lightbulb",
@@ -163,52 +149,20 @@ const Timeline: React.FC = () => {
       description: "California Legislation",
       bulletPoints: [
         "Acted as a bridge between students’ education policy proposals and actionable systemic solutions.",
-        "Worked with stakeholders, legislators, and lawyers to design sustainable legislation, from pitching ideas to continually amending and gathering support around bills.",
+        "Worked with stakeholders, legislators, and lawyers to design sustainable legislation",
         "Passed AB1867 (sustainable plumbing) & AB748 (mental health) in 2022 and drafted/passed SB857 (dept. of education student committee) in 2023.",
         "Lobbied for/against dozens of education bills based on student-driven stances.",
       ],
       imageUrls: ["/images/california-legislation.jpg"],
       iconType: "lightbulb",
-    },
-    {
-      date: "2022",
-      description: "Wharton Essentials of Innovation Summer Camp",
-      bulletPoints: [
-        "Ideated a venture selected as one of five to compete in a business model pitch contest.",
-        "Led the team in developing the model and pitch deck, while exploring the startup scene in SF",
-      ],
-      imageUrls: ["/images/sf-adventure.jpg"],
-      iconType: "lightbulb",
-    },
-    // {
-    //   date: "2022",
-    //   description: "Advocacy Training Program @ CA Association of Student Councils",
-    //   bulletPoints: [
-    //     "Started in-person legislative advocacy trips to bridge the gap between the nonprofit’s state legislative platform and regional member base.",
-    //     "Designed and implemented a training program for 200 students to learn about the legislative process and how to advocate for their communities.",
-    //     "Engaged 100+ total students in on-site conversations with legislators and staffers, as well as targeted lobbying activities.",
-    //   ],
-    //   imageUrls: ["/images/advocacy-training.jpg"],
-    //   iconType: "lightbulb",
-    // },
-    // {
-    //   date: "2022",
-    //   description: "CA Menstrual Equity Coalition",
-    //   bulletPoints: [
-    //     "Facilitated a coalition of 20+ organizations, including the ACLU, UC Student Association, and Human Rights Watch, to implement a landmark menstrual equity law across K-12 and collegiate institutions.",
-    //     "Distributed a guide for school administrators with the CA Dept. of Education, and co-wrote a state budget request.",
-    //     "Learned to respectfully create collaborative spaces where everyone’s expertise shines, even as the youngest member.",
-    //   ],
-    //   imageUrls: ["/images/cameco-coalition.jpg"],
-    //   iconType: "lightbulb",
-    // },
+    }
   ];
 
   return (
-    <div id='experience' className="timeline-container px-6 md:px-32 py-10">
+    <div id='experience' className="timeline-container mt-10 px-6 md:px-32 py-10">
       <div className='flex flex-row items-center  w-full mb-10'>
         <h2 className='pl-5'>Experience | Resume</h2>
-        <a className='p-2' href='estelle-kim-resume.pdf'>
+        <a className='p-2' href='EUNYUL_KIM_2027.pdf'>
           <img src='icons/download.svg' className='h-6'/>
         </a>
       </div>
