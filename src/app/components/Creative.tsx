@@ -4,15 +4,11 @@ import { useState } from "react";
 
 const categories = [
   {
-    name: "Physical",
+    name: "Handmade",
     link: "https://photos.app.goo.gl/NBK9J7WmrS9NoxKx9",
   },
   {
-    name: "Digital",
-    link: "https://photos.app.goo.gl/MrZA62fQ85E98sWG9",
-  },
-  {
-    name: "Photo",
+    name: "Pics",
     link: "https://photos.app.goo.gl/R226D7cDwiE2MY7e7",
   },
 //   {
