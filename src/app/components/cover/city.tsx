@@ -149,33 +149,33 @@ function City() {
   return (
     <>
       <div
-        className={tornado ? 'city notouch' : 'city'}
+        className={tornado ? 'city notouch' : 'city clickable'}
         ref={containerRef}
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
       >
-{blocks.map((block, index) =>
-  block && block.name && block.src ? (
-    block.name === 'sprite' ? (
-      <Sprite key={index} x={block.x} height={block.height} tornado={tornado} />
-    ) : (
-      <img
-        key={index}
-        src={block.src}
-        style={{
-          position: 'absolute',
-          left: `${block.x}%`,
-          bottom: `${block.y}svh`,
-          height: `${block.height}%`,
-          width: 'auto',
-          transform: 'translateX(-50%)',
-          pointerEvents: 'none',
-          userSelect: 'none',
-        }}
-      />
-    )
-  ) : null // Skip rendering if the block is incomplete
-)}
+        {blocks.map((block, index) =>
+          block && block.name && block.src ? (
+            block.name === 'sprite' ? (
+              <Sprite key={index} x={block.x} height={block.height} tornado={tornado} />
+            ) : (
+              <img
+                key={index}
+                src={block.src}
+                style={{
+                  position: 'absolute',
+                  left: `${block.x}%`,
+                  bottom: `${block.y}svh`,
+                  height: `${block.height}%`,
+                  width: 'auto',
+                  transform: 'translateX(-50%)',
+                  pointerEvents: 'none',
+                  userSelect: 'none',
+                }}
+              />
+            )
+          ) : null // Skip rendering if the block is incomplete
+        )}
 
         {currentBlockRef.current && (
           <img

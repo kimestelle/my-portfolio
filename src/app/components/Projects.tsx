@@ -53,6 +53,22 @@ const projects: Code[] = [
     cover: '/project-images/minecraft/image-1.png'
   }),
   buildProject({
+    name: "roboracer.ai",
+    date: "Spring 2025",
+    label: "Client project migrating and rebranding RoboRacer's website.",
+    url: "https://roboracer.ai",
+    techStack: {
+      languages: ["TypeScript"],
+      frameworks: ["Vite"],
+      libraries: ["React"],
+      databases: [],
+      platforms: ["UI/UX"],
+    },
+    description: "Client project migrating and rebranding RoboRacer's website used by 90+ universities in over 20 countries. I designed and built a React site ground-up, featuring a generative landing page using noise functions (modified from an open-source example), animated SVGs, bibtex/Google Calendar integrations, and modular information structure focused on maintainability and clarity.",
+    imageUrls: ["/project-images/roboracer/image-1.png"],
+    cover: '/project-images/roboracer/image-1.png'
+  }),
+  buildProject({
     name: "Better-Spelling-Bee",
     date: "Summer 2024",
     label: "Full-stack web app",

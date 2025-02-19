@@ -13,6 +13,8 @@ interface SpriteProps {
   tornado: boolean;
 }
 
+const expressions = ["O.o", ">.<", "-.-", "*.*"];
+
 const Sprite = ({ index, x, height, tornado }: SpriteProps) => {
   const [position, setPosition] = useState<number>(x);
   // const [direction, setDirection] = useState<number>(
@@ -28,6 +30,7 @@ const Sprite = ({ index, x, height, tornado }: SpriteProps) => {
   const [frame, setFrame] = useState<string>(walk1);
   const [frameDuration, setFrameDuration] = useState<number>(100);
   const [spriteHeight, setSpriteHeight] = useState<number>(height);
+  const [popupText, setPopupText] = useState<string>("O.o");
 
   useEffect(() => {
     if (tornado) {
@@ -89,6 +92,10 @@ const Sprite = ({ index, x, height, tornado }: SpriteProps) => {
     return () => clearInterval(frameInterval);
   }, [frame, frameDuration, tornado]);
 
+  const randomizeText = () => {
+    setPopupText(expressions[Math.floor(Math.random() * expressions.length)]);
+  };
+
   return (
     <div className='sprite-container'
     style={{
@@ -100,8 +107,9 @@ const Sprite = ({ index, x, height, tornado }: SpriteProps) => {
     <div className='text-popup shadow-inner z-[10] bg-white'
           style={{
             bottom: `120%`,
-          }}>
-      <p>i wonder what happens when you press and hold...</p>
+          }}
+          onMouseEnter={randomizeText}>
+      <p>{popupText}</p>
     </div>
     <img
       ref={index as any}
