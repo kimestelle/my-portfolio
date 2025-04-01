@@ -305,4 +305,24 @@ label {
   -ms-overflow-style: none; /* IE and Edge */
 }
 
+.responsive-padding {
+  padding: 1rem;
+}
 
+@media (min-width: 768px) {
+  .responsive-padding {
+    padding: 1rem 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-padding {
+    padding: 1rem 12rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .responsive-padding {
+    padding: 1rem 16rem;
+  }
+}

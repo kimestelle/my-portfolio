@@ -22,7 +22,7 @@ const courses = [
     }),
     buildCourse({
         number: 'CIS 2400',
-        name: 'Introduction to Computer Systems',
+        name: 'Computer Systems',
         date: 'Fall 2024',
         description: 'Transistors and simple computer hardware structures, low-level programming',
         languages: ['C', 'Assembly']

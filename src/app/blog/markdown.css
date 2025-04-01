@@ -1,0 +1,95 @@
+#markdown h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    margin-top: 0.8rem;
+    line-height: normal;
+}
+
+#markdown h2 {
+    font-size: 1.5rem;
+    color: rgb(227, 118, 118);
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+    margin-top: 1.2rem;
+    line-height: normal;
+}
+
+#markdown h3 {
+    font-family: "calluna-sans", sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    margin-top: 1.2rem;
+    line-height: normal;
+}
+
+#markdown p {
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    color:rgb(70, 70, 70);
+}
+
+#markdown ul {
+    margin-bottom: 0.3rem;
+    margin-top: 0.3rem;
+    list-style: circle;
+    list-style-position: outside;
+    padding-left: 1rem;
+    font-weight: 400;
+}
+
+#markdown ol {
+    margin-bottom: 0.3rem;
+    margin-top: 0.3rem;
+    list-style: decimal;
+    list-style-position: outside;
+    font-weight: 400;
+    padding-left: 1rem;
+}
+
+#markdown ol, ul li {
+    font-weight: 400;
+}
+
+#markdown code {
+    font-size: 0.8rem;
+    line-height: normal;
+}
+
+#markdown pre {
+    margin-bottom: 0.3rem;
+    margin-top: 0.3rem;
+    background-color: rgb(234, 234, 234);
+}
+
+#markdown table {
+    font-family: ;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+    font-family: "calluna-sans", sans-serif;
+  }
+  
+  #markdown thead {
+    background-color: #f3f3f3;
+  }
+  
+  #markdown th,
+  #markdown td {
+    border: 1px solid #ccc;
+    padding: 0.6rem 1rem;
+    text-align: left;
+  }
+  
+  #markdown th {
+    font-weight: 600;
+    background-color: #f9f9f9;
+  }
+  
+  #markdown tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+  

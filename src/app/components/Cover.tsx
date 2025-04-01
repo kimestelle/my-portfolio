@@ -11,18 +11,18 @@ export default function About() {
                 <div className='flex flex-col md:flex-row gap-5 justify-center items-center'>
                     <h1 className="text-outline-white text-center text-[4em] md:text-[6em] z-3">Estelle Kim</h1>
                     <Image 
-                        src='/coverportrait.png' 
+                        src='/cover-portrait.jpg' 
+                        className='rounded-full object-cover w-24 h-24 mb-5'
                         width={200} 
                         height={200} 
-                        className='h-24 w-24 mb-5' 
                         alt='Estelle Kim' 
                     />
                 </div>
                 <h3 className='text-outline-white text-center leading-tight -mt-2 text-[1em] md:text-[1.2em] z-3'>
-                    Digital Media Design / CS <span className='red'>@</span> UPenn
+                     CS / CG <span className='red'>@</span> UPenn
                 </h3>
                 <p className='text-outline-white text-center max-w-[80svh] mt-8'>
-                    Hi! I&apos;m a sophomore at the University of Pennsylvania interested in <span className='font-bold'>human-centered engineering</span>. I love thinking about experiences that transform people, as well as cool algorithms and systems. I&apos;m currently looking for summer 2025 opportunities; please feel free to reach out if you think I&apos;d be a good fit for your team!
+                    Hi! I&apos;m a sophomore in the University of Pennsylvania&apos;s Digital Media Design (Computer Graphics) Program. I&apos;m passionate about building tech that improve lives and shift perspectives, with a deep curiosity for how people interact with technology. 
                 </p>
                 <div className='flex flex-row gap-5 mt-5 justify-center items-center'>
                     <a 
