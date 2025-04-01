@@ -22,7 +22,7 @@ export default function BlogPostPage(props: Props) {
 
   const renderer = useMemo(() => {
     const newRenderer = new marked.Renderer();
-    newRenderer.image = () => ""; // Remove images
+    newRenderer.image = () => "";
     return newRenderer;
   }, []);
 
@@ -50,7 +50,7 @@ export default function BlogPostPage(props: Props) {
           description: data.description || "",
         });
 
-        const htmlContent = marked(content, { renderer });
+        const htmlContent = marked(content, { renderer, async: false });
         setReadmeContent(htmlContent);
       } catch (error) {
         console.error(error);
