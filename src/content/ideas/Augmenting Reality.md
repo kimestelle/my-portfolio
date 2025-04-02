@@ -13,9 +13,6 @@ This collection of micro-interactions explores ways to use real-world interactio
 
 ## Skygazing
 
-- **Diary**  
-  Take a sky photo to add to a shared global collection. Build a timeline of colors and feelings.
-
 - **Compass**  
   create a frame with real world api data of sun position, direction, time until sunset, or moon phase. see the conditions affecting the sky color via light physics using the NOAA weather api.
 

@@ -17,9 +17,9 @@ export default function NavBar() {
                 {/* <a href='#design'>
                     creative
                 </a> */}
-                <a href='/blog' className='red'>
+                {/* <a href='/blog' className='red'>
                     blog
-                </a>
+                </a> */}
             </div>
                 {/* <a href='https://github.com/kimestelle' target='_blank' className='mr-2'>
                     <Image className='w-[1.7em]' src='icons/gh-logo.svg' width={10} height={10} alt="github icon"/>
