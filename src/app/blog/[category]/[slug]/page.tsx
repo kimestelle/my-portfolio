@@ -16,7 +16,7 @@ export default async function BlogPostPage({
   params: { category: string; slug: string };
 }) {
   const { category, slug } = params;
-  const { meta, content } = getBlogPost(category, slug);
+  const { meta, content } = await getBlogPost(category, slug);
   const html = marked(content);
 
   return (

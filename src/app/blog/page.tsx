@@ -1,22 +1,20 @@
 import { fetchAllBlogMeta } from "./localBlog";
+import { headers } from "next/headers";
 import Link from "next/link";
 
-interface BlogListPageProps {
-  searchParams?: {
-    category?: string;
-  };
-}
+export default async function BlogListPage() {
+  const headersList = await headers(); 
+  const fullUrl = headersList.get("x-url") || "";
+  const url = new URL(fullUrl || "/", "http://localhost"); 
+  const selectedCategory = url.searchParams.get("category");
 
-export default async function BlogListPage({ searchParams }: BlogListPageProps) {
-  const selectedCategory = searchParams?.category || null;
   const allGroups = await fetchAllBlogMeta();
-  const allCategories = allGroups.map((group) => group.category);
+  const allCategories = [...new Set(allGroups.map((group) => group.category))];
 
   const filteredGroups = selectedCategory
     ? allGroups.filter((group) => group.category === selectedCategory)
     : allGroups;
 
-  // Flatten and sort all posts by date if "All" is selected
   const allPostsSorted = selectedCategory
     ? []
     : allGroups
@@ -30,7 +28,8 @@ export default async function BlogListPage({ searchParams }: BlogListPageProps) 
       </button>
 
       <h2 className="text-3xl font-semibold mt-4">nerd corner -.-</h2>
-      <p className='mb-4'>noting things i want to remember</p>
+      <p className="mb-4">noting things i want to remember</p>
+
       <div className="flex gap-3 flex-wrap mb-6">
         <Link
           href="/blog"
@@ -78,7 +77,10 @@ export default async function BlogListPage({ searchParams }: BlogListPageProps) 
       ) : (
         <ul className="space-y-4">
           {allPostsSorted.map((blog) => (
-            <li key={`${blog.category}-${blog.slug}`} className="bg-white p-4 rounded shadow hover:opacity-75">
+            <li
+              key={`${blog.category}-${blog.slug}`}
+              className="bg-white p-4 rounded shadow hover:opacity-75"
+            >
               <Link href={`/blog/${blog.category}/${blog.slug}`}>
                 <h4 className="text-xl font-bold">{blog.title}</h4>
                 <p className="text-gray-500">

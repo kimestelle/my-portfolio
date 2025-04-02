@@ -68,7 +68,7 @@ export const fetchAllBlogMeta = async (): Promise<BlogCategoryGroup[]> => {
 };
 
 
-export const getBlogPost = (category: string, slug: string) => {
+export const getBlogPost = async (category: string, slug: string) => {
   const decodedSlug = decodeURIComponent(slug);
   const filePath = path.join(CONTENT_DIR, category, `${decodedSlug}.md`);
 
@@ -78,5 +78,6 @@ export const getBlogPost = (category: string, slug: string) => {
 
   const fileContent = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(fileContent);
+
   return { meta: data, content };
 };
