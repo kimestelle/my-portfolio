@@ -3,18 +3,16 @@ import { marked } from "marked";
 import "../../markdown.css";
 
 export async function generateStaticParams() {
-  const blogs = await fetchAllBlogMeta();
-  return blogs.map((b) => ({
-    category: b.category,
-    slug: b.slug,
-  }));
+  const groups = await fetchAllBlogMeta();
+  return groups.flatMap((group) =>
+    group.posts.map((post) => ({
+      category: post.category,
+      slug: post.slug,
+    }))
+  );
 }
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: { category: string; slug: string };
-}) {
+export default async function BlogPostPage({ params }: { params: { category: string; slug: string } }) {
   const { category, slug } = params;
   const { meta, content } = await getBlogPost(category, slug);
   const html = marked(content);
