@@ -89,7 +89,7 @@ const Timeline: React.FC = () => {
     },
     {
       date: "2025~",
-      description: "Web Developer @ UPenn xLab",
+      description: "Web Developer @ UPenn Autonomous Systems Lab",
       bulletPoints: [
         "Migrate an HTML website used across 20+ countries to React framework, focused on improving UX and maintainability.",
       ],
