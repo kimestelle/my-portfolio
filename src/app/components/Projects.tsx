@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import CodeBlock from "./blocks/CodeBlock";
+import CodeBlock from "../components/blocks/CodeBlock";
 // import Image from "next/image";
 
 export interface TechStack {
@@ -50,13 +50,13 @@ const projects: Code[] = [
     },
     description: "Playable minecraft simulation built with OpenGL as final project for CIS4600. The project was completed in with two team members across three milestones, focusing on modularity, optimization, and engaging graphics.\n\nMy Contributions:\n\nTerrain Rendering and Chunking:\n  - Designed a chunk-based system to optimize terrain rendering by dynamically loading and unloading visible chunks based on the player’s position.\n  - Developed interleaved Vertex Buffer Objects (VBOs) to efficiently store and render chunk geometry, ensuring only visible faces were processed, reducing GPU load.\n\nTexture Mapping and Animation:\n  - Mapped block textures with UV coordinates, including distinct faces for blocks like grass (top, sides, bottom).\n  - Implemented animated textures for water and lava using time-dependent transformations, creating smooth, looping motions.\n  - Debugged and refined the texture rendering pipeline, ensuring compatibility with the interleaved VBO structure.\n\nDynamic Sky:\n  - Built a custom sky shader featuring:\n    - A procedurally animated day-night cycle with moving sun.\n    - Animated clouds using Worley noise and fractional Brownian motion.\n\nFluid Surface Waves and Reflection:\n  - Developed realistic water and lava wave simulations by dynamically displacing vertex positions in the shader using sine and cosine functions.\n  - Recalculated normals in the vertex shader to accurately reflect light on moving surfaces.\n  - Enhanced visibility of movement with Blinn-Phong highlights.",
     imageUrls: ["/project-images/minecraft/mc-demo.mp4"],
-    cover: '/project-images/minecraft/image-1.png'
+    cover: '/project-images/covers/minecraft-cover.png'
   }),
   buildProject({
     name: "Into the Blue",
     date: "Spring 2025",
-    label: "Client project migrating and rebranding RoboRacer's website.",
-    url: "https://roboracer.ai",
+    label: "Virtual explorative experience complementing a 9-month exhibit at the Penn Museum",
+    url: "https://penn.museum/sites/blue/welcome/",
     techStack: {
       languages: ["TypeScript"],
       frameworks: ["NextJS"],
@@ -64,26 +64,26 @@ const projects: Code[] = [
       databases: [],
       platforms: [],
     },
-    description: "Client project migrating and rebranding RoboRacer's website used by 90+ universities in over 20 countries. I designed and built a React site ground-up, featuring a generative landing page using noise functions (modified from an open-source example), animated SVGs, bibtex/Google Calendar integrations, and modular information structure focused on maintainability and clarity.",
+    description: "Virtual experience complementing a 9-month exhibit at the Penn Museum. Description coming soon...",
     imageUrls: ["/project-images/into-the-blue/image-1.png"],
-    cover: '/project-images/into-the-blue/image-1.png'
+    cover: '/project-images/covers/museum-cover.png'
   }),
-  // buildProject({
-  //   name: "roboracer.ai",
-  //   date: "Spring 2025",
-  //   label: "Client project migrating and rebranding RoboRacer's website.",
-  //   url: "https://roboracer.ai",
-  //   techStack: {
-  //     languages: ["TypeScript"],
-  //     frameworks: ["Vite"],
-  //     libraries: ["React"],
-  //     databases: [],
-  //     platforms: ["UI/UX"],
-  //   },
-  //   description: "Client project migrating and rebranding RoboRacer's website used by 90+ universities in over 20 countries. I designed and built a React site ground-up, featuring a generative landing page using noise functions (modified from an open-source example), animated SVGs, bibtex/Google Calendar integrations, and modular information structure focused on maintainability and clarity.",
-  //   imageUrls: ["/project-images/roboracer/image-1.png"],
-  //   cover: '/project-images/roboracer/image-1.png'
-  // }),
+  buildProject({
+    name: "Internet Atlas",
+    date: "Spring 2025",
+    label: "Client project migrating and rebranding RoboRacer's website.",
+    url: "https://the-internet-atlas.com/",
+    techStack: {
+      languages: ["TypeScript"],
+      frameworks: ["Vite", "WebGL"],
+      libraries: ["React", "FastAPI"],
+      databases: ["Supabase"],
+      platforms: [],
+    },
+    description: "Description and full live deployment coming soon...",
+    imageUrls: ['/project-images/covers/atlas-cover.png'],
+    cover: '/project-images/covers/atlas-cover.png'
+  }),
   buildProject({
     name: "Better-Spelling-Bee",
     date: "Summer 2024",
@@ -113,7 +113,39 @@ const projects: Code[] = [
       "/project-images/better-spelling-bee/image-1.png",
       "/project-images/better-spelling-bee/image-2.png",
     ],
-    cover: "/project-images/better-spelling-bee/image-1.png",
+    cover: "/project-images/covers/spellingbee-cover.png",
+  }),
+  buildProject({
+    name: "Raytracing in C++",
+    date: "Spring 2025",
+    label: "Client project migrating and rebranding RoboRacer's website.",
+    url: "",
+    techStack: {
+      languages: ["C++", "GLSL"],
+      frameworks: [],
+      libraries: [],
+      databases: [],
+      platforms: ["OpenGL"],
+    },
+    description: "Description coming soon...",
+    imageUrls: ['/project-images/covers/461-cover.png'],
+    cover: '/project-images/covers/461-cover.png'
+  }),
+  buildProject({
+    name: "Eat or Plant?",
+    date: "Spring 2025",
+    label: "Client project migrating and rebranding RoboRacer's website.",
+    url: "",
+    techStack: {
+      languages: ["C++"],
+      frameworks: ["Arduino"],
+      libraries: [],
+      databases: [],
+      platforms: [],
+    },
+    description: "Description coming soon...",
+    imageUrls: ['/project-images/covers/chocolate-cover.png'],
+    cover: '/project-images/covers/chocolate-cover.png'
   }),
   buildProject({
     name: "Holiday Gift Box",
@@ -136,7 +168,7 @@ const projects: Code[] = [
       "/project-images/gift-box/image-1.png",
       "/project-images/gift-box/image-2.png",
     ],
-    cover: "/project-images/gift-box/image-1.png",
+    cover: "/project-images/covers/giftbox-cover.png",
   }),
   buildProject({
     name: "Aristotle LLM",
@@ -152,7 +184,7 @@ const projects: Code[] = [
     },    
     description: "An attempt to build a LLaMA machine learning model using as few predefined libraries and functions as possible. \n\nMy friend and I did research into the mathematical workings of LLMs, took notes and had discussions, and then took a stab at processing a dataset of Aristotle and Plato quotes from Kaggle and training a model to generate text from a seed string. \n\nThe model worked with a lot of debugging and some AI assistance, but I could only train it on a few thousand lines over the course of 10+ hours due to hardware limitations and large parameters. Nevertheless, my overtrained Aristotle-bot did produce some wise-sounding lines before starting to repeat gibberish.",
     imageUrls: ["/project-images/4600/image-1.png", "/project-images/4600/image-2.png", "/project-images/4600/image-3.png"],
-    cover: "/project-images/4600/image-2.png", 
+    cover: "/project-images/covers/llm-cover.png", 
   }),
 ];
 
@@ -183,16 +215,10 @@ export default function Code() {
   };
 
   return (
-    <div id='projects' className="flex flex-col gap-5 px-10 md:px-32">
-      <div className="flex flex-row gap-2 items-center pt-10">
-        <h2>Projects</h2>
-      </div>
-      {/* <div className='sm:w-1/2 sm:pr-3 lg:w-1/4 lg:pr-4'> */}
-        <a href='/playground'>
-          {/* <Image className='w-[1rem] pb-[0.1rem]' src='icons/playground.svg' width={10} height={10} alt="playground icon"/> */}
-            <p className='text-lg red font-bold'>code playground &gt;&gt;</p>
-        </a>
-      {/* </div> */}
+    <div id='projects' className="flex flex-col gap-5 px-10 md:px-32 py-32">
+      {/* <div className='w-full h-10 flex flex-row gap-2 justify-center items-center'>
+
+      </div> */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {projects.map((project, index) => (
           <div
@@ -203,7 +229,7 @@ export default function Code() {
             <img
               src={project.cover}
               alt={project.name}
-              className="w-full aspect-square object-contain rounded-md mb-3 lazy-load"
+              className="w-full object-contain rounded-md mb-3 lazy-load"
               loading="lazy"
             />
 
@@ -227,7 +253,7 @@ export default function Code() {
 
       {activeProjectIndex !== null && (
         <div className="fixed inset-0 bg-black bg-opacity-50 px-10 flex justify-center items-center z-50">
-          <div className="bg-white rounded-lg max-w-3xl p-6 relative">
+          <div className="w-full h-[80svh] overflow-y-scroll bg-white rounded-lg max-w-3xl p-6 relative">
             <button
               className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
               onClick={closePopup}

@@ -40,8 +40,11 @@ div {
   border: 1px solid blue;
 } */
 
+h1, h2, h3 {
+  font-family: EB Garamond, serif;
+}
+
 h1 {
-  font-family: "calluna", serif;
   font-size: 8rem;
   font-weight: 400;
   font-style: normal;
@@ -49,7 +52,6 @@ h1 {
 }
 
 h2 {
-  font-family: "calluna", serif;
   font-size: 2rem;
   font-weight: 600;
   font-style: normal;
@@ -57,55 +59,48 @@ h2 {
 }
 
 h3 {
-  font-family: "calluna", serif;
   font-size: 1.6rem;
   font-weight: 400;
   font-style: normal;
 }
 
+h4, h5, p, li, ol, a, button, label {
+  font-family: Ysabeau Office, sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
 h4 {
-  font-family: "calluna-sans", sans-serif;
   font-size: 1rem;
   font-weight: 700;
   font-style: normal;
 }
 
 h5 {
-  font-family: "calluna-sans", sans-serif;
   font-weight: 700;
   color: #E70503;
 }
 
 p {
-  font-family: "calluna-sans", sans-serif;
-  font-size: 1rem;
   line-height: 120%;
   color: rgb(22, 22, 22);
 }
 
-li {
-  font-family: "calluna-sans", sans-serif;
-  font-size: 1rem;
-  line-height: 120%;
-  font-weight: 700;
+.font-calluna {
+  font-family: "calluna", serif;
 }
 
-ol li {
-  font-weight: 400;
+.font-roboto {
+  font-family: Ysabeau Office, sans-serif;
 }
 
 ol {
   list-style-type: circle;
-  font-family: "calluna-sans", sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
 }
 
 a {
-  font-family: "calluna-sans", sans-serif;
-  font-weight: 400;
+  font-weight: 200;
   font-style: normal;
-  font-size: 1rem;
 }
 
 a:hover {
@@ -113,7 +108,6 @@ a:hover {
 }
 
 button {
-  font-family: "calluna-sans", sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: 1rem; 
@@ -124,8 +118,6 @@ button:active {
 }
 
 label {
-  font-family: "calluna-sans", sans-serif;
-  font-weight: 400;
   font-style: normal;
   font-size: 1rem;
 }
@@ -162,18 +154,6 @@ label {
 
 .border-red {
   box-shadow: inset 0 0 0.5svh #00000031;
-}
-
-.font-sans-serif {
-  font-family: "calluna-sans", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.font-quincy {
-  font-family: "calluna", serif;
-  font-weight: 400;
-  font-style: normal;
 }
 
 .text-outline-white {
@@ -285,6 +265,15 @@ label {
   }
 }
 
+@keyframes blink {
+  0%, 100% { opacity: 1 }
+  50% { opacity: 0 }
+}
+.animate-blink {
+  animation: blink 1s step-start infinite;
+}
+
+
 .auto-scroll-track img {
   flex-shrink: 0;
 }
@@ -306,23 +295,23 @@ label {
 }
 
 .responsive-padding {
-  padding: 1rem;
+  padding: 5rem 1rem;
 }
 
 @media (min-width: 768px) {
   .responsive-padding {
-    padding: 1rem 5rem;
+    padding: 5rem 5rem;
   }
 }
 
 @media (min-width: 1024px) {
   .responsive-padding {
-    padding: 1rem 12rem;
+    padding: 5rem 12rem;
   }
 }
 
 @media (min-width: 1280px) {
   .responsive-padding {
-    padding: 1rem 16rem;
+    padding: 5rem 16rem;
   }
 }

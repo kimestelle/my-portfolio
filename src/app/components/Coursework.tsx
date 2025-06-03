@@ -32,7 +32,7 @@ const courses = [
         name: 'Automata, Computability, and Complexity',
         date: 'Spring 2024',
         description: 'Finite automata and regular languages, context-free grammars, Turing machines and undecidability, tractability, NP-completeness',
-        languages: []
+        languages: ['LaTeX']
     }),
     buildCourse({
         number: 'CIS 1210',
@@ -45,11 +45,13 @@ const courses = [
 
 export default function CourseWork() {
     return (
-        <div className='flex flex-col flex-[3_3_0%] gap-5 p-10 md:px-32 pb-0'>
-            <h2 className='sm:-mb-2'>
+        <div className='flex flex-col items-center bg-neutral-100 responsive-padding mt-24'>
+            <div className='flex pb-10 flex-row border-b items-center justify-center w-full mb-5'>
+            <h3>
                 Coursework
-            </h2>
-            <div id='course-container' className='flex flex-col scrollbar-hide -gap-1 sm:m-2'>
+            </h3>
+            </div>
+            <div id='course-container' className='w-full flex flex-col scrollbar-hide gap-1 sm:m-2'>
                 {courses.map((course, index) => (
                     <CourseBlock key={index} course={course} />
                 ))}

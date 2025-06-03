@@ -17,13 +17,16 @@ export default function CourseBlock({ course }: CourseProps) {
   }
 
   return (
-    <div onClick={handleClick} className='w-full h-16 md:h-15 clickable'>
+    <div onClick={handleClick} 
+    onMouseEnter={() => setIsFlipped(true)}
+    onMouseLeave={() => setIsFlipped(false)}
+    className='w-full px-10 clickable'>
         <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
-            <div key="front" className='h-16 md:h-15 flex flex-col p-2 border-b border-gray-100 items-start gap-1'>
-              <h5 className='leading-tight max-md:text-sm font-normal'>&gt; {course.number} <span className='text-black'>{course.name}</span></h5>
-              <ol className='list-none pl-3 flex flex-row gap-1 items-center pb-0.5'>
+            <div key="front" className='w-full h-16 md:h-15 flex flex-col p-1.5 border-b border-gray-100 items-start gap-2'>
+              <h3 className='leading-tight text-lg max-md:text-sm font-normal'> <span className="text-sm text-neutral-500">[{course.number}]</span> {course.name}</h3>
+              <ol className='list-none flex flex-row gap-1 items-center pb-0.5'>
                   {course.languages.map((skill, index) => (
-                      <li key={index} className='shadow-inner p-0.5 px-1.5 text-xs font-bold rounded-lg'>{skill}</li>
+                      <li key={index} className='shadow-inner p-0.5 px-1.5 text-xs rounded-lg'>{skill}</li>
                   ))}
               </ol>
             </div>

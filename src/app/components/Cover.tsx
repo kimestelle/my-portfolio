@@ -5,10 +5,10 @@ import Image from 'next/image';
 
 export default function About() {
     return (
-        <div id='cover' className='relative flex flex-col w-full h-[100svh] justify-center items-start overflow-hidden'>
-            <Skyline />
-            <div className='absolute w-full p-8 flex flex-col justify-center items-center pointer-events-none'>
-                <div className='flex flex-col md:flex-row gap-5 justify-center items-center'>
+        <div id='cover' className='relative flex flex-col w-full justify-center'>
+            {/* <Skyline /> */}
+            <div className=' w-full p-8 flex flex-col gap-5 justify-start items-center pointer-events-none'>
+                <div className='pt-36 flex flex-col md:flex-row gap-5 justify-center items-center'>
                     <h1 className="text-outline-white text-center text-[4em] md:text-[6em] z-3">Estelle Kim</h1>
                     <Image 
                         src='/cover-portrait.jpg' 
@@ -18,11 +18,11 @@ export default function About() {
                         alt='Estelle Kim' 
                     />
                 </div>
-                <h3 className='text-outline-white text-center leading-tight -mt-2 text-[1em] md:text-[1.2em] z-3'>
-                     CS / CG <span className='red'>@</span> UPenn
+                <h3 className='font-roboto text-center -mt-2 text-[1.2em] md:text-[1.8em] z-3'>
+                     CS + CG <span className='red'>@</span> UPenn
                 </h3>
-                <p className='text-outline-white text-center max-w-[80svh] mt-8'>
-                    Hi! I&apos;m a sophomore in the University of Pennsylvania&apos;s Digital Media Design (Computer Graphics) Program. I&apos;m passionate about building tech that improve lives and shift perspectives, with a deep curiosity for how people interact with technology. 
+                <p className='text-center'>
+                creative engineer | building experiences to inspire people
                 </p>
                 <div className='flex flex-row gap-5 mt-5 justify-center items-center'>
                     <a 
@@ -58,6 +58,7 @@ export default function About() {
                     </a>
                 </div>
             </div>
+                    {/* <Image src="/wave-border.svg" alt="wave border" width={700} height={100} className='scale-[1.05] h-auto w-full border-black object-contain'/> */}
         </div>
     );
 }
