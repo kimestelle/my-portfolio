@@ -1,3 +1,4 @@
+import { type Metadata } from 'next';
 import { getBlogPost, fetchAllBlogMeta } from "../../localBlog";
 import { marked } from "marked";
 import "../../markdown.css";
@@ -12,8 +13,15 @@ export async function generateStaticParams() {
   );
 }
 
-export default async function BlogPostPage({ params }: { params: { category: string; slug: string } }) {
-  const { category, slug } = params;
+type BlogPostPageProps = {
+  params: {
+    category: string;
+    slug: string;
+  };
+};
+
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { category, slug } = await params;
   const { meta, content } = await getBlogPost(category, slug);
   const html = marked(content);
 
@@ -30,4 +38,3 @@ export default async function BlogPostPage({ params }: { params: { category: str
     </div>
   );
 }
-
