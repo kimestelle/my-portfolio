@@ -1,5 +1,4 @@
 'use client';
-import AutoScroll from "./AutoScroll";
 import Image from "next/image";
 
 export default function Me() {
@@ -33,7 +32,6 @@ export default function Me() {
                         </li>
                     </ol>
                 </div> */}
-                <AutoScroll images={images} />   
             </div>
         </div>
         <Image src="/wave-border.svg" alt="wave border" width={700} height={100} className='scale-[1.05] h-auto w-full border-black object-contain'/>
