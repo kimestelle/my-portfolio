@@ -15,11 +15,11 @@ export default function CodeBlock({ project }: CodeBlockProps) {
   };
 
   return (
-    <div className="flex flex-col h-[32rem] mt-3 md:flex-row gap-3 md:gap-5">
+    <div className="flex flex-col w-full pt-[4rem]">
       <div className="embla flex-1 md:h-[32rem]" ref={emblaRef}>
         <div className="embla__container h-full">
           {project.imageUrls.map((url, index) => (
-            <div key={index} className="embla__slide h-full flex justify-center items-center">
+            <div key={index} className="embla__slide h-full flex justify-start items-center">
               {isVideo(url) ? (
                 <video src={url} controls className="h-full w-auto object-contain lazy-load" preload="metadata" />
               ) : (
@@ -36,8 +36,7 @@ export default function CodeBlock({ project }: CodeBlockProps) {
           ))}
         </div>
       </div>
-      <div className="flex flex-1 flex-col">
-        <h3>{project.name}</h3>
+        <h3 className="mt-5">{project.name}</h3>
         <h5 className="font-normal">
           {project.date} |{" "}
           <a
@@ -49,10 +48,9 @@ export default function CodeBlock({ project }: CodeBlockProps) {
             Visit Project
           </a>
         </h5>
-        <p className="text-sm h-[11rem] mt-2 md:h-[28rem] split-line overflow-y-scroll">
+        <p className="text-sm pt-3 pb-10 split-line">
           {project.description}
         </p>
-      </div>
     </div>
   );
 }

@@ -25,7 +25,7 @@ const Sprite = ({ index, x, height, tornado }: SpriteProps) => {
   const [speed, setSpeed] = useState<number>(
     ((Math.random() + 1) * height) / 15
   );
-  const [turn, setTurn] = useState<number>((Math.random() + 1) * 30);
+  const [turn, setTurn] = useState<number>((Math.random() + 1) * 20);
   const [y, setY] = useState<number>(0);
   const [frame, setFrame] = useState<string>(walk1);
   const [frameDuration, setFrameDuration] = useState<number>(100);

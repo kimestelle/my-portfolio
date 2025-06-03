@@ -154,6 +154,10 @@ function City() {
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
       >
+    <p className="absolute left-1/2 -bottom-[6px] text-[1.5rem] -translate-x-1/2 z-0 bg-gradient-to-b from-neutral-100 to-black bg-clip-text text-transparent text-center">
+      click or scroll...
+    </p>
+
         {blocks.map((block, index) =>
           block && block.name && block.src ? (
             block.name === 'sprite' ? (

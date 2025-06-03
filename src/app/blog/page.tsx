@@ -1,6 +1,7 @@
 import { fetchAllBlogMeta } from "./localBlog";
 import { headers } from "next/headers";
 import Link from "next/link";
+import NavBar from "../components/NavBar";
 
 export default async function BlogListPage() {
   const headersList = await headers(); 
@@ -23,12 +24,11 @@ export default async function BlogListPage() {
 
   return (
     <div className="responsive-padding">
-      <button>
-        <Link href="/">← back to home</Link>
-      </button>
+      <NavBar />
+      
 
       <h2 className="text-3xl font-semibold mt-4">nerd corner -.-</h2>
-      <p className="mb-4">noting things i want to remember</p>
+      <p className="mb-4">silly things i want to remember</p>
 
       <div className="flex gap-3 flex-wrap mb-6">
         <Link
