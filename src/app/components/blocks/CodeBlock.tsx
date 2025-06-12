@@ -15,28 +15,36 @@ export default function CodeBlock({ project }: CodeBlockProps) {
   };
 
   return (
-    <div className="flex flex-col w-full pt-[4rem]">
-      <div className="embla flex-1 md:h-[32rem]" ref={emblaRef}>
-        <div className="embla__container h-full">
-          {project.imageUrls.map((url, index) => (
-            <div key={index} className="embla__slide h-full flex justify-start items-center">
-              {isVideo(url) ? (
-                <video src={url} controls className="h-full w-auto object-contain lazy-load" preload="metadata" />
-              ) : (
-                  <Image
-                    src={url}
-                    alt={`Project Media ${index + 1}`}
-                    className="h-full w-auto object-contain lazy-load"
-                    width={200} 
-                    height={200}
-                    style={{ objectFit: 'contain' }} 
-                  />
-              )}
-            </div>
-          ))}
-        </div>
+    <div className="flex flex-col gap-3">
+    <div className="embla max-h-[22rem] h-full" ref={emblaRef}>
+      <div className="embla__container h-full max-h-[22rem]">
+        {project.imageUrls.map((url, index) => (
+          <div
+            key={index}
+            className="embla__slide h-full max-h-[22rem] flex justify-center items-center"
+          >
+            {isVideo(url) ? (
+              <video
+                src={url}
+                autoPlay
+                className="h-full max-h-[22rem] object-contain"
+              />
+            ) : (
+              <Image
+                width={800}
+                height={600}
+                src={url}
+                alt={`Slide ${index}`}
+                className="h-full max-h-[22rem] w-auto object-contain"
+              />
+            )}
+          </div>
+        ))}
       </div>
-        <h3 className="mt-5">{project.name}</h3>
+    </div>
+
+      <div className="flex flex-1 flex-col">
+        <h3>{project.name}</h3>
         <h5 className="font-normal">
           {project.date} |{" "}
           <a
@@ -48,9 +56,10 @@ export default function CodeBlock({ project }: CodeBlockProps) {
             Visit Project
           </a>
         </h5>
-        <p className="text-sm pt-3 pb-10 split-line">
+        <p className="text-sm h-[9rem] mt-2 split-line">
           {project.description}
         </p>
+      </div>
     </div>
   );
 }

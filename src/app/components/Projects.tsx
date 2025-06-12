@@ -48,14 +48,14 @@ const projects: Code[] = [
       databases: [],
       platforms: ["OpenGL"],
     },
-    description: "Playable minecraft simulation built with OpenGL as final project for CIS4600. The project was completed in with two team members across three milestones, focusing on modularity, optimization, and engaging graphics.\n\nMy Contributions:\n\nTerrain Rendering and Chunking:\n  - Designed a chunk-based system to optimize terrain rendering by dynamically loading and unloading visible chunks based on the player’s position.\n  - Developed interleaved Vertex Buffer Objects (VBOs) to efficiently store and render chunk geometry, ensuring only visible faces were processed, reducing GPU load.\n\nTexture Mapping and Animation:\n  - Mapped block textures with UV coordinates, including distinct faces for blocks like grass (top, sides, bottom).\n  - Implemented animated textures for water and lava using time-dependent transformations, creating smooth, looping motions.\n  - Debugged and refined the texture rendering pipeline, ensuring compatibility with the interleaved VBO structure.\n\nDynamic Sky:\n  - Built a custom sky shader featuring:\n    - A procedurally animated day-night cycle with moving sun.\n    - Animated clouds using Worley noise and fractional Brownian motion.\n\nFluid Surface Waves and Reflection:\n  - Developed realistic water and lava wave simulations by dynamically displacing vertex positions in the shader using sine and cosine functions.\n  - Recalculated normals in the vertex shader to accurately reflect light on moving surfaces.\n  - Enhanced visibility of movement with Blinn-Phong highlights.",
+    description: "OpenGL Minecraft simulation, all components of the rendering pipeline built from scratch. Final team project for CIS4600.\n\nMy Contributions:\n\nTerrain Rendering and Chunking:\n  - Designed a system to optimize infinite terrain rendering by dynamically loading and unloading visible chunks based on the player’s position.\n  - Developed interleaved Vertex Buffer Objects (VBOs) to efficiently store and render chunk geometry, ensuring only visible faces were processed, reducing GPU load.\n\nTexture Mapping and Animation:\n  - Mapped block textures with UV coordinates, including distinct faces for blocks like grass (top, sides, bottom).\n  - Implemented animated textures for water and lava using time-dependent transformations, creating smooth, looping motions.\n\nDynamic Sky:\n  - Built a GLSL sky shader featuring:\n    - A procedurally animated day-night cycle with moving sun and halo.\n    - Procedural clouds using Worley noise-based fractional Brownian motion.\n\nFluid Surface Waves and Reflection:\n  - Dynamically displaced water geometry to create realistic wave motion.\n  - Recalculated normals in the vertex shader to accurately reflect light on moving surfaces.\n  - Enhanced light reflections with Blinn-Phong highlights.",
     imageUrls: ["/project-images/minecraft/mc-demo.mp4"],
     cover: '/project-images/covers/minecraft-cover.png'
   }),
   buildProject({
-    name: "Into the Blue",
+    name: "Into the Blue Museum Experience",
     date: "Spring 2025",
-    label: "Virtual explorative experience complementing a 9-month exhibit at the Penn Museum",
+    label: "",
     url: "https://penn.museum/sites/blue/welcome/",
     techStack: {
       languages: ["TypeScript"],
@@ -64,7 +64,14 @@ const projects: Code[] = [
       databases: [],
       platforms: [],
     },
-    description: "Virtual experience complementing a 9-month exhibit at the Penn Museum. Description coming soon...",
+    description: "Virtual experience built and maintained for a 9-month-long feature at the Penn Museum, delivered under an 8-week deadline."
+    + "\n\nMy Contributions:\n\n" +
+    "IndexedDB Data Storage:\n" +
+    "  - Proposed using IndexedDB when faced with the problem of storing various forms of user data online, allowing the site to function like an app with the convenience of a frontend-only website.\n" +
+    "\nSticker Generation and Sharing Pipeline:\n" +
+    "  - Designed and built core feature to capture webcam input, clip it along varying SVG paths with an animated cutting effect, apply a sticker-style outline, and store one sticker image per object in IndexedDB.\n" +
+    "\nDrag-&-Drop Stickerboard:\n" +
+    "  - Created a stickerboard interface with draggable stickers, modals, and rasterizing compositions as shareable PNGs\n",
     imageUrls: ["/project-images/into-the-blue/image-1.png"],
     cover: '/project-images/covers/museum-cover.png'
   }),
@@ -116,7 +123,7 @@ const projects: Code[] = [
     cover: "/project-images/covers/spellingbee-cover.png",
   }),
   buildProject({
-    name: "Raytracing in C++",
+    name: "Advanced Raytracing in C++",
     date: "Spring 2025",
     label: "Client project migrating and rebranding RoboRacer's website.",
     url: "",
@@ -252,8 +259,8 @@ export default function Code() {
       </div>
 
       {activeProjectIndex !== null && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 px-10 flex justify-center items-center z-50">
-          <div className="w-full h-[80svh] overflow-y-scroll bg-white rounded-lg max-w-3xl p-6 relative">
+        <div className="fixed flex flex-col  gap-5 inset-0 bg-black bg-opacity-50 px-10 flex justify-center items-center z-50">
+          <div className="w-full flex flex-col items-end h-[80svh] overflow-y-scroll bg-white rounded-lg max-w-3xl p-6 py-10 relative">
             <button
               className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
               onClick={closePopup}
@@ -261,21 +268,21 @@ export default function Code() {
               ✕
             </button>
             <CodeBlock project={projects[activeProjectIndex]} />
-            <div className="flex justify-between mt-5">
+          </div>
+            <div className="w-full gap-3 flex justify-center">
               <button
                 className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
                 onClick={goToPreviousProject}
               >
-                Previous
+                &lt;
               </button>
               <button
                 className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
                 onClick={goToNextProject}
               >
-                Next
+                &gt;
               </button>
             </div>
-          </div>
         </div>
       )}
     </div>
