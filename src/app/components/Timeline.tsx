@@ -32,84 +32,59 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
 
 const Timeline: React.FC = () => {
   const timelineItems: TimelineItemProps[] = [
-    {
-      date: "2025",
-      description: "Data Engineering & Systems Planning Intern @ Southern California Edison",
-      bulletPoints: [
-
-      ],
-    },
-    {
-      date: "2025",
-      description: "Technical Project Lead @ Internet Atlas (Penn Spark)",
-      bulletPoints: [
-        "Led team of 6 developers to iterate on and deploy an ML & ThreeJS-based website mapping users’ digital journeys as a networked force-directed graph.",
-      ],
-    },
-    {
-      date: "2025",
-      description: "Front-End Dev @ Penn Museum Into The Blue Exhibition (Penn Spark)",
-      bulletPoints: [
-        "Developer on an immersive, gamified web app for a 9-month exhibition in collaboration with the Penn Museum.",
-      ],
-    },
-    {
-      date: "2025~",
-      description: "Web Dev @ UPenn Autonomous Systems Lab",
-      bulletPoints: [
-        "Migrate an HTML website used across 20+ countries to React framework, focused on improving UX and maintainability.",
-      ],
-    },
-    {
-      date: "2025~",
-      description: "Web Dev @ Children's Hospital of Philadelphia Autism Research Center",
-      bulletPoints: [
-        "On student team developing an online research hub bridging an ML backend/extensive database with information-forward web interface.",
-      ],
-    },
-    {
-      date: "2024",
-      description: "Project Lead & Back-End Dev @ Penn Pins (Penn Spark)",
-      bulletPoints: [
-        "Co-lead a team of designers + developers to build social exploration app that helps Penn students spontaneously discover events and communities on campus.",
-      ],
-    },
-    {
-      date: "2024",
-      description: "Summer Internship @ FlexIt",
-      bulletPoints: [
-        "Worked at late-stage tech startup alongside founders, team members, and MBA interns.",
-        "Focused on communicating and seeking feedback to deliver quality work, including drafting the Q4 stakeholder report and implementing new ideas like a language filter on the search page and trainer business cards.",
-      ],
-    },
-    {
-      date: "2023~",
-      description: "Wharton Investment & Trading Group",
-      bulletPoints: [
-        "Learned valuation and accounting fundamentals through semester-long accelerator program in Penn’s premier finance club.",
-        "Explored finance by taking thorough notes on books, external pitch competitions + internal activities, and upperclassman mentorship.",
-      ],
-    },
-    {
-      date: "2023-2024",
-      description: "Daily Pennsylvanian Foundation",
-      bulletPoints: [
-        "Contributed to shaping the new Foundation branch of Penn’s independent newspaper with the exec director.",
-        "Connected with alumni, designed an 8-page capital campaign handbook, and engaged with key figures in Philly’s media ecosystem.",
-      ],
-    },
-    {
-      date: "2022-2023",
-      description: "California Legislation",
-      bulletPoints: [
-        "Acted as a bridge between students’ education policy proposals and actionable systemic solutions.",
-        "Worked with stakeholders, legislators, and lawyers to design sustainable legislation",
-        "Passed AB1867 (sustainable plumbing) & AB748 (mental health) in 2022 and drafted/passed SB857 (dept. of education student committee) in 2023.",
-        "Lobbied for/against dozens of education bills based on student-driven stances.",
-      ],
-    }
-  ];
-
+  {
+    date: "2025",
+    description: "Data Engineering Intern @ Southern California Edison",
+    bulletPoints: [
+      "Build data pipelines and manage databases for Southern California’s largest utility serving 15 million residents."
+    ]
+  },
+  {
+    date: "2025~",
+    description: "Frontend Web Developer @ Children’s Hospital of Philadelphia Center for Autism Research",
+    bulletPoints: [
+      "Developing an ML-driven data + project management hub for autism researchers using React, Vite, and JavaScript."
+    ]
+  },
+  {
+    date: "2024~",
+    description: "Vice President External, 2x Project Lead, Full-Stack Developer @ Penn Spark",
+    bulletPoints: [
+      "Manage corporate relationships and events for Penn’s largest community of creative technologists and designers.",
+      "2-time technical/product lead for web and app dev projects, manage cross-functional team and external partnerships."
+    ]
+  },
+  {
+    date: "2024",
+    description: "Undergraduate Business Development & Marketing Intern @ FlexIt Inc.",
+    bulletPoints: [
+      "Draft Q4 stakeholder report and investor communications for late-stage startup.",
+      "Propose and implement UI and marketing improvements such as improved search features and promotional cards."
+    ]
+  },
+  {
+    date: "2024~",
+    description: "Industrials Committee @ Wharton Investment & Trading Group",
+    bulletPoints: [
+      "Applied financial modeling and business analysis skills in a semester-long training program, internal pitch debates, and the Dartmouth Stock Pitch Competition."
+    ]
+  },
+  {
+    date: "2024",
+    description: "Board Member @ UPenn Women in Computer Science Residential Program",
+    bulletPoints: [
+      "Plan and implement tech-oriented events on campus, start a biweekly speakers program with esteemed faculty."
+    ]
+  },
+  {
+    date: "2024",
+    description: "Governmental Affairs Director @ California Association of Student Councils",
+    bulletPoints: [
+      "Pass 3 CA laws by working with legislators, lawyers, organizations, and bureaucrats and coordinating lobbying events."
+    ]
+  }
+];
+    
   return (
     <div id='experience' className="responsive-padding">
       <div className='flex pb-10 flex-row border-b items-center justify-center w-full mb-5'>

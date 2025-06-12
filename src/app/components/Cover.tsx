@@ -19,7 +19,7 @@ export default function About() {
                     />
                 </div>
                 <h3 className='font-roboto text-center -mt-2 text-[1.2em] md:text-[1.8em] z-3'>
-                     CS + CG <span className='red'>@</span> UPenn
+                     CS + CG &apos;27 <span className='red'>@</span> UPenn
                 </h3>
                 <p className='text-center'>
                 creative engineer | building experiences to inspire people
