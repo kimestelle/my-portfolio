@@ -52,6 +52,22 @@ const projects: Code[] = [
     imageUrls: ["/project-images/minecraft/mc-demo.mp4"],
     cover: '/project-images/covers/minecraft-cover.png'
   }),
+    buildProject({
+    name: "Advanced Raytracing in C++",
+    date: "Spring 2025",
+    label: "Client project migrating and rebranding RoboRacer's website.",
+    url: "",
+    techStack: {
+      languages: ["C++", "GLSL"],
+      frameworks: [],
+      libraries: [],
+      databases: [],
+      platforms: ["OpenGL"],
+    },
+    description: "Implemented real-time 3D rendering pipelines using modern OpenGL and GLSL in C++. Built a mesh viewer supporting OBJ parsing, normal visualization, interactive camera controls, and scene graph hierarchies. Developed a deferred shading renderer with G-buffer composition (albedo, normal, depth, material masks), screen-space reflection, and physically-based lighting (Cook-Torrance BRDF). Integrated post-processing effects (e.g. Gaussian blur, tone mapping), matcap shading, and sky models (Hosek-Wilkie). Applied shader-based ray marching, subsurface scattering, and domain repetition using signed distance fields (SDFs).",
+    imageUrls: ['/project-images/covers/461-cover.png'],
+    cover: '/project-images/covers/461-cover.png'
+  }),
   buildProject({
     name: "Into the Blue Museum Experience",
     date: "Spring 2025",
@@ -121,22 +137,6 @@ const projects: Code[] = [
       "/project-images/better-spelling-bee/image-2.png",
     ],
     cover: "/project-images/covers/spellingbee-cover.png",
-  }),
-  buildProject({
-    name: "Advanced Raytracing in C++",
-    date: "Spring 2025",
-    label: "Client project migrating and rebranding RoboRacer's website.",
-    url: "",
-    techStack: {
-      languages: ["C++", "GLSL"],
-      frameworks: [],
-      libraries: [],
-      databases: [],
-      platforms: ["OpenGL"],
-    },
-    description: "Implemented real-time 3D rendering pipelines using modern OpenGL and GLSL in C++. Built a mesh viewer supporting OBJ parsing, normal visualization, interactive camera controls, and scene graph hierarchies. Developed a deferred shading renderer with G-buffer composition (albedo, normal, depth, material masks), screen-space reflection, and physically-based lighting (Cook-Torrance BRDF). Integrated post-processing effects (e.g. Gaussian blur, tone mapping), matcap shading, and sky models (Hosek-Wilkie). Applied shader-based ray marching, subsurface scattering, and domain repetition using signed distance fields (SDFs).",
-    imageUrls: ['/project-images/covers/461-cover.png'],
-    cover: '/project-images/covers/461-cover.png'
   }),
   buildProject({
     name: "Eat or Plant?",
