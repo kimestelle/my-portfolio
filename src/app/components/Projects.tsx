@@ -134,7 +134,7 @@ const projects: Code[] = [
       databases: [],
       platforms: ["OpenGL"],
     },
-    description: "Description coming soon...",
+    description: "Implemented real-time 3D rendering pipelines using modern OpenGL and GLSL in C++. Built a mesh viewer supporting OBJ parsing, normal visualization, interactive camera controls, and scene graph hierarchies. Developed a deferred shading renderer with G-buffer composition (albedo, normal, depth, material masks), screen-space reflection, and physically-based lighting (Cook-Torrance BRDF). Integrated post-processing effects (e.g. Gaussian blur, tone mapping), matcap shading, and sky models (Hosek-Wilkie). Applied shader-based ray marching, subsurface scattering, and domain repetition using signed distance fields (SDFs).",
     imageUrls: ['/project-images/covers/461-cover.png'],
     cover: '/project-images/covers/461-cover.png'
   }),

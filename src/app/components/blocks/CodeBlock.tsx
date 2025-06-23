@@ -15,7 +15,7 @@ export default function CodeBlock({ project }: CodeBlockProps) {
   };
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="w-full h-full flex flex-col gap-3">
     <div className="embla max-h-[22rem] h-full" ref={emblaRef}>
       <div className="embla__container h-full max-h-[22rem]">
         {project.imageUrls.map((url, index) => (
