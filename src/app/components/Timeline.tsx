@@ -50,8 +50,19 @@ const Timeline: React.FC = () => {
     date: "2024~",
     description: "Vice President External, 2x Project Lead, Full-Stack Developer @ Penn Spark",
     bulletPoints: [
-      "Manage corporate relationships and events for Penn’s largest community of creative technologists and designers.",
+      "Executive board for Penn’s largest community of creative technologists and designers.",
+      "Organize a top-down rebrand of the club and new community program involving alumni mentorship and corporate partnerships.",
       "2-time technical/product lead for web and app dev projects, manage cross-functional team and external partnerships."
+    ]
+  },
+  {
+    date: "2025",
+    description: "Front-End Developer @ Penn Spark x Penn Museum Virtual Exhibition",
+    bulletPoints: [
+    "Built and maintained an interactive museum experience seen by 180K+ visitors/year under an 8-week deadline.",
+    "Implemented IndexedDB architecture to persist images, metadata, and UI state for offline-first behavior.",
+    "Owned webcam-to-sticker pipeline with dynamic SVG clipping, generative styling, and IndexedDB storage.",
+    "Co-developed a drag-and-drop stickerboard with precise mouse/touch handling and export-to-PNG support."
     ]
   },
   {

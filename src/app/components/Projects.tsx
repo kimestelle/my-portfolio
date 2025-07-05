@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import CodeBlock from "../components/blocks/CodeBlock";
-// import Image from "next/image";
+import Image from "next/image";
 
 export interface TechStack {
   languages: string[];
@@ -88,7 +88,7 @@ const projects: Code[] = [
     "  - Designed and built core feature to capture webcam input, clip it along varying SVG paths with an animated cutting effect, apply a sticker-style outline, and store one sticker image per object in IndexedDB.\n" +
     "\nDrag-&-Drop Stickerboard:\n" +
     "  - Created a stickerboard interface with draggable stickers, modals, and rasterizing compositions as shareable PNGs\n",
-    imageUrls: ["/project-images/into-the-blue/image-1.png"],
+    imageUrls: ["/project-images/into-the-blue/blue-demo.mp4"],
     cover: '/project-images/covers/museum-cover.png'
   }),
   buildProject({
@@ -103,8 +103,17 @@ const projects: Code[] = [
       databases: ["Supabase"],
       platforms: [],
     },
-    description: "Description and full live deployment coming soon...",
-    imageUrls: ['/project-images/covers/atlas-cover.png'],
+    description:
+    "Interactive 3D graph interface designed to map digital pathways and explore web browsing behavior, built to empower Internet users with greater visibility into data flows and autonomy.\n\n" +
+
+    "Frontend Development:\n" +
+    "  - Led design and engineering of a 3D force-directed graph using React Three Fiber with dynamic camera transitions, animated SVG overlays, and WebGL shader effects.\n" +
+    "  - Built interactive node/edge highlighting, camera zoom-to-node behavior, and a path-following mechanism for exploring browsing journeys.\n\n" +
+
+    "Backend + Infrastructure:\n" +
+    "  - Led technical discussions and contributed core logic to an ML-backed pipeline involving LLM-optimized web scraping, Pinecone vector embeddings, and API querying via FastAPI.\n" +
+    "  - Designed architecture to combine textual and image data into a shared embedding space and support real-time semantic similarity queries through Supabase.\n",
+    imageUrls: ['/project-images/internet-atlas/atlas-demo.mp4'],
     cover: '/project-images/covers/atlas-cover.png'
   }),
   buildProject({
@@ -148,10 +157,34 @@ const projects: Code[] = [
       frameworks: ["Arduino"],
       libraries: [],
       databases: [],
-      platforms: [],
+      platforms: ["Rhino", "Adobe Illustrator"],
     },
-    description: "Description coming soon...",
-    imageUrls: ['/project-images/covers/chocolate-cover.png'],
+    description:
+    "Interactive art installation blending physical interaction and environmental data to raise awareness about deforestation in the Amazon through the metaphor of chocolate consumption. Worked as an engineer & contributed to design with a group of architecture masters students.\n\n" +
+
+    "Hardware System:\n" +
+    "  - Used copper touch sensors and LED strips to detect tree removal and display real-time rainforest air quality.\n" +
+    "  - LED animations respond dynamically: trees removed turn off lights; thresholds trigger red flashing alerts.\n\n" +
+
+    "Software Logic:\n" +
+    "  - Connected to the AirNow API to fetch Amazon rainforest AQI data every 5 minutes.\n" +
+    "  - Managed 3 LED matrix arrays for tree positions, AQI-based background gradients, and color behaviors.\n" +
+    "  - Programmed real-time feedback loop between physical chocolate trees and LED visuals.\n\n" +
+    
+    "Physical Fabrication:\n" +
+    "  - 3D printed and laser-cut using Rhino and Adobe Illustrator\n" +
+    "  - Hand-made chocolates (and taste-tested a good portion of them)\n" +
+    "  **later slides show some of the work I designed and printed with Rhino!\n",
+    imageUrls: ['/project-images/chocolate/chocolate-demo.mp4',
+      "/project-images/chocolate/image-1.png",
+      "/project-images/chocolate/image-2.png",
+      "/project-images/chocolate/image-3.png",
+      "/project-images/chocolate/image-4.png",
+      "/project-images/chocolate/image-5.png",
+      "/project-images/chocolate/image-6.png",
+      "/project-images/chocolate/image-7.png",
+      "/project-images/chocolate/image-8.png",
+    ],
     cover: '/project-images/covers/chocolate-cover.png'
   }),
   buildProject({
@@ -233,11 +266,12 @@ export default function Code() {
             className="flex flex-col p-4 shadow-inner rounded-lg cursor-pointer hover:shadow-lg transition-all duration-300"
             onClick={() => handleProjectClick(index)}
           >
-            <img
+            <Image
               src={project.cover}
               alt={project.name}
               className="w-full object-contain rounded-md mb-3 lazy-load"
-              loading="lazy"
+              width={450}
+              height={300}
             />
 
             <h3 className="text-lg font-bold">{project.name}</h3>
@@ -259,28 +293,28 @@ export default function Code() {
       </div>
 
       {activeProjectIndex !== null && (
-        <div className="fixed flex flex-col  gap-5 inset-0 bg-black bg-opacity-50 px-10 flex justify-center items-center z-50">
-          <div className="w-full flex flex-col items-end h-[80svh] overflow-y-scroll bg-white rounded-lg max-w-3xl p-6 py-10 relative">
+        <div className="fixed flex flex-col inset-0 bg-black bg-opacity-50 px-10 flex justify-center items-center z-50">
+          <div className="w-full scrollbar-hide flex flex-col items-end h-[80svh] overflow-y-scroll bg-white rounded-t-lg max-w-3xl p-6 pt-16 relative">
             <button
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
+              className="absolute red text-2xl top-3 right-6 hover:text-gray-800"
               onClick={closePopup}
             >
-              ✕
+              &times;
             </button>
             <CodeBlock project={projects[activeProjectIndex]} />
           </div>
-            <div className="w-full gap-3 flex justify-center">
+            <div className="w-full max-w-3xl gap-[1px] flex justify-center">
               <button
-                className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                className="w-full px-4 py-1 text-white bg-neutral-800 rounded-bl-lg hover:bg-neutral-500"
                 onClick={goToPreviousProject}
               >
-                &lt;
+                &larr;
               </button>
               <button
-                className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                className="w-full px-4 py-1 text-white bg-neutral-800 rounded-br-lg  hover:bg-neutral-500"
                 onClick={goToNextProject}
               >
-                &gt;
+                &rarr;
               </button>
             </div>
         </div>

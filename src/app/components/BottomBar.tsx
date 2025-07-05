@@ -1,6 +1,7 @@
 export default function BottomBar() {
     return (
-        <div className='flex flex-col sm:flex-row responsive-padding justify-between gap-5 p-10 bg-black text-white'>
+        <div className='flex flex-col sm:flex-row responsive-padding justify-between gap-5 bg-black text-white'
+        style={{ paddingTop: '3rem' }}>
             <p className='text-white'>made with <span className='red'>&#x2665;</span> by Estelle Kim</p>
             <p className='text-white'>[currently under construction :-)]</p>
             <ol className='list-none flex flex-row gap-2 items-end'>

@@ -141,7 +141,7 @@ label {
 }
 
 .bg-red {
-  background: linear-gradient(to right, #e7070362 0%, #e7070300 100%);
+  background-color: #e70703d6;
 }
 
 .bg-red-solid {
