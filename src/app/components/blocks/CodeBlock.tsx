@@ -25,6 +25,8 @@ export default function CodeBlock({ project }: CodeBlockProps) {
     return url.endsWith(".mp4") || url.endsWith(".webm") || url.endsWith(".ogg");
   };
 
+  const isMobile = typeof navigator !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
   return (
     <div className="w-full flex flex-col gap-3">
     <div className="relative w-full h-[22rem] flex justify-center items-center mb-5">
@@ -32,10 +34,10 @@ export default function CodeBlock({ project }: CodeBlockProps) {
           <video
             src={project.imageUrls[currentIndex]}
             preload="none"
-            controls
-            muted
-            playsInline
-            autoPlay
+              controls
+              muted
+              playsInline
+              autoPlay={!isMobile}
             className="h-full max-h-[22rem] object-contain"
           />
         ) : (
