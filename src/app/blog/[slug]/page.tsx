@@ -1,13 +1,14 @@
 'use client';
-
 import { useParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import BottomBar from '@/app/components/BottomBar';
 
 const postMap: Record<string, any> = {
   'compressed-thinking': dynamic(() => import('../pages/compressed-thinking')),
   'litter-removal': dynamic(() => import('../pages/litter-removal')),
   'magnet-poetry': dynamic(() => import('../pages/magnet-poetry')),
+  'new-portfolio': dynamic(() => import('../pages/new-portfolio')),
 };
 
 export default function BlogPostPage() {
@@ -22,6 +23,7 @@ export default function BlogPostPage() {
         ← Back to blog
       </Link>
       <PostComponent />
+      <BottomBar />
     </div>
   );
 }

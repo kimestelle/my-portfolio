@@ -45,7 +45,7 @@ export default function Home() {
       <section className="w-full max-w-2xl mx-auto">
         <h2 className="mb-5">Recent Posts</h2>
         <ul className="space-y-4">
-          {allPostsSorted.slice(0, 2).map(({ title, slug, description }) => (
+          {allPostsSorted.slice(0, 3).map(({ title, slug, description }) => (
             <li key={title}>
               <a href={`/blog/${slug}`} className="block hover:underline">
                 <h3>{title}</h3>

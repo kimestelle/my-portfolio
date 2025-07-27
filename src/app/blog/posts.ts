@@ -7,6 +7,12 @@ export type BlogPost = {
 
 export const allPostsSorted: BlogPost[] = [
     {
+        title: "another portfolio update",
+        date: "2025-06-26",
+        slug: "new-portfolio",
+        description: "version 4.0",
+    },
+    {
         title: "designing a magnetic poetry board",
         date: "2025-06-26",
         slug: "magnet-poetry",
