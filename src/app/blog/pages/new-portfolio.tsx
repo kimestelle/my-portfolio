@@ -3,7 +3,7 @@ export default function NewPortfolioPage() {
   return (
     <div className="blog-formatting responsive-padding">
       <h1 className="text-3xl font-bold">another portfolio update</h1>
-      <p className="text-gray-500 mt-1 half-margin">June 25, 2025</p>
+      <p className="text-gray-500 mt-1 half-margin">June 26, 2025</p>
       <p className="text-gray-600 italic half-margin">version 4.0</p>
       <hr className="mb-4"/>
       <p>
