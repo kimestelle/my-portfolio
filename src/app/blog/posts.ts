@@ -10,7 +10,7 @@ export const allPostsSorted: BlogPost[] = [
         title: "designing a magnetic poetry board",
         date: "2025-06-26",
         slug: "magnet-poetry",
-        description: " physicalness",
+        description: "wip",
     },
     {
         title: "on compressing thought",

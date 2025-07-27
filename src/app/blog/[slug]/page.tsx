@@ -7,6 +7,7 @@ import Link from 'next/link';
 const postMap: Record<string, any> = {
   'compressed-thinking': dynamic(() => import('../pages/compressed-thinking')),
   'litter-removal': dynamic(() => import('../pages/litter-removal')),
+  'magnet-poetry': dynamic(() => import('../pages/magnet-poetry')),
 };
 
 export default function BlogPostPage() {
