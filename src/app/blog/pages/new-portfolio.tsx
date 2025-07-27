@@ -34,7 +34,7 @@ export default function NewPortfolioPage() {
             Some elements stayed throughout, like the flipping cards in the coursework section and my favorite color red, but most of it changed.
         </p>
         <p>
-            This one has a blog, and it focuses more on the kind of work I want to do. It’s not the most polished or universal design, but every detail means something.
+            This one has a cool blog, and it focuses more on the kind of work I want to do. It’s not the most polished or universal design, but every detail means something.
         </p>
         <p>***</p>
         <p>
