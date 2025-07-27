@@ -12,6 +12,7 @@ export default function MoodRingBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const heatSpots = useRef<HeatSpot[]>([]);
   const elapsedTimeRef = useRef(0);
+  const lastTouchTimeRef = useRef(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -117,7 +118,8 @@ export default function MoodRingBackground() {
       renderer.setSize(width, height, false); // <- false disables style resize
       canvas.width = width * window.devicePixelRatio;
       canvas.height = height * window.devicePixelRatio;
-      renderer.setPixelRatio(window.devicePixelRatio);
+      const maxDPR = 1.5;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxDPR));
       uniforms.uResolution.value.set(width, height);
       uniforms.uAspect.value = window.innerWidth / window.innerHeight;
     };
@@ -125,6 +127,11 @@ export default function MoodRingBackground() {
     onResize();
 
     const handleTouch = (clientX: number, clientY: number) => {
+      //prevent performance issues
+      const now = elapsedTimeRef.current;
+      if (now - lastTouchTimeRef.current < 0.05) return;
+      lastTouchTimeRef.current = now;
+
       const x = clientX / window.innerWidth;
       const y = 1 - clientY / window.innerHeight;
 
@@ -152,7 +159,7 @@ export default function MoodRingBackground() {
 
       const updatedSpots = heatSpots.current
         .filter((s) => now - s.createdAt < 10) // Decay after 10s
-        .slice(-maxSpots);
+        .slice(-maxSpots); //keep maxspots from accumulating
 
       uniforms.uSpotCount.value = updatedSpots.length;
       for (let i = 0; i < maxSpots; i++) {
@@ -176,6 +183,9 @@ export default function MoodRingBackground() {
       window.removeEventListener('pointermove', handleTouch as any);
       window.removeEventListener('pointerdown', handleTouch as any);
       window.removeEventListener('touchstart', handleTouch as any);
+      renderer.dispose();
+      material.dispose();
+      geometry.dispose();
     };
   }, []);
 
