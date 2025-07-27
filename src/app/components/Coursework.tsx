@@ -45,18 +45,15 @@ const courses = [
 
 export default function CourseWork() {
     return (
-        <div className='flex flex-col items-center bg-neutral-100 responsive-padding mt-24'>
-            <div className='flex pb-10 flex-row border-b items-center justify-center w-full mb-5'>
-            <h3>
+        <div className='flex flex-col items-start'>
+            <h2 className='mb-5'>
                 Coursework
-            </h3>
-            </div>
-            <div id='course-container' className='w-full flex flex-col scrollbar-hide gap-1 sm:m-2'>
+            </h2>
+            <div id='course-container' className='w-full flex flex-col scrollbar-hide'>
                 {courses.map((course, index) => (
                     <CourseBlock key={index} course={course} />
                 ))}
             </div>
-            <div id='code' className='h-0'/>
         </div>
     )
 }

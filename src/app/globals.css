@@ -45,23 +45,21 @@ h1, h2, h3 {
 }
 
 h1 {
-  font-size: 8rem;
-  font-weight: 400;
+  font-size: 3rem;
+  font-weight: 600;
   font-style: normal;
-  line-height: 90%;
 }
 
 h2 {
   font-size: 2rem;
-  font-weight: 600;
+  font-weight: 500;
   font-style: normal;
-  line-height: 90%;
 }
 
 h3 {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   font-weight: 400;
-  font-style: normal;
+  font-style: black;
 }
 
 h4, h5, p, li, ol, a, button, label {
@@ -122,11 +120,6 @@ label {
   font-size: 1rem;
 }
 
-@media (max-width: 767px) {
-  p, li, a, label {
-    font-size: 0.8rem;
-  }
-}
 
 .split-line {
   white-space: pre-line;
@@ -266,10 +259,20 @@ label {
   0%, 100% { opacity: 1 }
   50% { opacity: 0 }
 }
+
 .animate-blink {
   animation: blink 1s step-start infinite;
 }
 
+.pop-on-touch {
+  display: inline-block; 
+  transition: transform 0.2s ease-in-out;
+}
+
+.pop-on-touch:hover,
+.pop-on-touch:active {
+  transform: scale(15); 
+}
 
 .auto-scroll-track img {
   flex-shrink: 0;
@@ -311,4 +314,14 @@ label {
   .responsive-padding {
     padding: 5rem 16rem;
   }
+}
+
+/* blog formatting */
+.blog-formatting p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.blog-formatting .half-margin {
+  margin-bottom: 0.6rem;
 }

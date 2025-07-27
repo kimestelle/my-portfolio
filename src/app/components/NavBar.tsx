@@ -8,7 +8,7 @@ export default function NavBar() {
     const links = [
       { href: '/', label: 'home' },
       { href: '/projects', label: 'projects' },
-      { href: '/playground', label: 'playground' },
+      // { href: '/playground', label: 'playground' },
       { href: '/blog', label: 'blog' },
     ];
   

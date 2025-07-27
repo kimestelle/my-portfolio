@@ -3,6 +3,7 @@
 import { useState } from "react";
 import CodeBlock from "../components/blocks/CodeBlock";
 import Image from "next/image";
+import Link from "next/link";
 
 export interface TechStack {
   languages: string[];
@@ -291,6 +292,10 @@ export default function Code() {
           </div>
         ))}
       </div>
+
+      <Link href="/playground" className="p-4 shadow-inner rounded-lg cursor-pointer hover:shadow-lg red w-full mx-auto text-start">
+          <h4>&lt;/&gt; playground</h4>
+      </Link>
 
       {activeProjectIndex !== null && (
         <div className="fixed flex flex-col inset-0 bg-black bg-opacity-50 px-10 flex justify-center items-center z-50">

@@ -14,11 +14,11 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
   bulletPoints,
 }) => {
   return (
-    <div className="relative flex flex-col items-start gap-2">
-      <h3 className="text-lg">{description} <span className="text-sm text-neutral-500">[{date}]</span></h3>
+    <div className="relative flex flex-col items-start ">
+      <h3>{description} <span className="text-sm text-neutral-500">[{date}]</span></h3>
 
       <div className="flex-1">
-        <ul className="list-disc list-inside font-sans-serif text-sm text-neutral-500">
+        <ul className="list-disc list-inside font-sans-serif text-neutral-500">
           {bulletPoints.map((point, index) => (
             <li key={index} className="text-neutral-600">
                 {point}
@@ -41,7 +41,7 @@ const Timeline: React.FC = () => {
   },
   {
     date: "2025~",
-    description: "Frontend Web Developer @ Children’s Hospital of Philadelphia Center for Autism Research",
+    description: "Frontend Web Developer @ Children’s Hospital of Philadelphia",
     bulletPoints: [
       "Developing an ML-driven data + project management hub for autism researchers using React, Vite, and JavaScript."
     ]
@@ -97,16 +97,16 @@ const Timeline: React.FC = () => {
 ];
     
   return (
-    <div id='experience' className="responsive-padding">
-      <div className='flex pb-10 flex-row border-b items-center justify-center w-full mb-5'>
-        <h3 className='pl-5'>Experience</h3>
+    <div id='experience' >
+      <div className='flex flex-row mb-5 items-center justify-start w-full'>
+        <h2>Experience</h2>
         <a className='p-2' href='EUNYUL_KIM_2027.pdf' target="_blank">
-          <Image src='icons/download.svg' className='h-5 w-5' width={200} height={200} alt="resume download button"/>
+          <Image src='icons/download.svg' className='h-6 w-6' width={200} height={200} alt="resume download button"/>
         </a>
       </div>
-      <div className="relative px-10">
+      <div>
         {timelineItems.map((item, index) => (
-          <div key={index} className="mb-10">
+          <div key={index} className="mb-6">
             <TimelineItem {...item} />
           </div>
         ))}

@@ -1,97 +1,44 @@
-import { fetchAllBlogMeta } from "./localBlog";
-import { headers } from "next/headers";
-import Link from "next/link";
 import NavBar from "../components/NavBar";
+import Link from "next/link";
+import MoodRingBackground from "../components/MoodRingShader";
 
-export default async function BlogListPage() {
-  const headersList = await headers(); 
-  const fullUrl = headersList.get("x-url") || "";
-  const url = new URL(fullUrl || "/", "http://localhost"); 
-  const selectedCategory = url.searchParams.get("category");
+import { allPostsSorted } from "./posts";
 
-  const allGroups = await fetchAllBlogMeta();
-  const allCategories = [...new Set(allGroups.map((group) => group.category))];
-
-  const filteredGroups = selectedCategory
-    ? allGroups.filter((group) => group.category === selectedCategory)
-    : allGroups;
-
-  const allPostsSorted = selectedCategory
-    ? []
-    : allGroups
-        .flatMap((group) => group.posts)
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
+export default function BlogListPage() {
   return (
     <div className="responsive-padding">
       <NavBar />
-      
 
-      <h2 className="text-3xl font-semibold mt-4">nerd corner -.-</h2>
-      <p className="mb-4">silly things i want to remember</p>
-
-      <div className="flex gap-3 flex-wrap mb-6">
-        <Link
-          href="/blog"
-          className={`px-4 py-1 rounded text-sm ${
-            !selectedCategory ? "bg-black text-white" : "bg-gray-200"
-          }`}
-        >
-          All
-        </Link>
-        {allCategories.map((cat) => (
-          <Link
-            key={cat}
-            href={`/blog?category=${encodeURIComponent(cat)}`}
-            className={`px-4 py-1 rounded text-sm ${
-              selectedCategory === cat ? "bg-black text-white" : "bg-gray-200"
-            }`}
+      <h2 className="mt-4">posts</h2>
+      <h3 className="mb-4 italic">writing without points</h3>
+      <ul className="space-y-4 mb-10">
+        {allPostsSorted.map((blog) => (
+          <li
+            key={blog.slug}
+            className="pl-2 border-l border-neutral-200 bg-white/50 hover:opacity-75"
           >
-            {cat}
-          </Link>
+            <Link href={`/blog/${blog.slug}`}>
+              <h3>{blog.title}</h3>
+              <p> 
+                <span className="text-neutral-500 mr-2">
+                  {blog.date}
+                </span>
+              {blog.description}</p>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
 
-      {selectedCategory ? (
-        filteredGroups.map((group) => (
-          <div key={group.category} className="mb-10">
-            <h3 className="text-2xl font-semibold mb-2">{group.category}</h3>
-            {group.description && (
-              <p className="text-gray-600 mb-4">{group.description}</p>
-            )}
-            <ul className="space-y-4">
-              {group.posts.map((blog) => (
-                <li key={blog.slug} className="bg-white p-4 rounded shadow hover:opacity-75">
-                  <Link href={`/blog/${blog.category}/${blog.slug}`}>
-                    <h4 className="text-xl font-bold">{blog.title}</h4>
-                    <p className="text-gray-500">
-                      {blog.date} — <span className="italic">{blog.category}</span>
-                    </p>
-                    <p>{blog.description}</p>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))
-      ) : (
-        <ul className="space-y-4">
-          {allPostsSorted.map((blog) => (
-            <li
-              key={`${blog.category}-${blog.slug}`}
-              className="bg-white p-4 rounded shadow hover:opacity-75"
-            >
-              <Link href={`/blog/${blog.category}/${blog.slug}`}>
-                <h4 className="text-xl font-bold">{blog.title}</h4>
-                <p className="text-gray-500">
-                  {blog.date} — <span className="italic">{blog.category}</span>
-                </p>
-                <p>{blog.description}</p>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      <h2 className="my-4">memos</h2>
+      <ul className="space-y-4 mb-10">
+        <li className='p-2 bg-yellow-100/50 rounded-lg'>
+          The webgl shader on this website was inspired by mood rings; the mouse impacts the screen like a finger.
+        </li>
+        <li className='p-2 bg-yellow-100/50 rounded-lg'>
+          fixed rules, open variables, and a shared understanding of how things are allowed to move
+        </li>
+      </ul>
+      <MoodRingBackground />
     </div>
   );
 }
