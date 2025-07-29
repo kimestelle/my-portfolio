@@ -100,7 +100,7 @@ export default function MoodRingBackground() {
 
           heat = clamp(heat, 0.0, 1.0);
 
-          vec3 base = vec3(1.00, 1.00, 1.00); // blue base
+          vec3 base = vec3(1.00, 1.00, 1.00); // white base
           vec3 glow = moodPalette(heat);
           vec3 color = mix(base, glow, smoothstep(0.0, 0.65, heat));
 

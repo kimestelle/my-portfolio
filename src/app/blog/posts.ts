@@ -6,6 +6,12 @@ export type BlogPost = {
 };
 
 export const allPostsSorted: BlogPost[] = [
+    // {
+    //     title: "</> webGL mood ring shader",
+    //     date: "2025-06-26",
+    //     slug: "mood-shader",
+    //     description: "version 4.0",
+    // },
     {
         title: "another portfolio update",
         date: "2025-06-26",
@@ -13,7 +19,7 @@ export const allPostsSorted: BlogPost[] = [
         description: "version 4.0",
     },
     {
-        title: "designing a magnetic poetry board",
+        title: "</> magnetic poetry board",
         date: "2025-06-26",
         slug: "magnet-poetry",
         description: "wip",

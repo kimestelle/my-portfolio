@@ -1,0 +1,39 @@
+#gradient-field::before,
+#gradient-field::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: lighten;
+  transition: opacity 2s ease-in-out;
+}
+
+#gradient-field::before {
+  background: radial-gradient(circle,
+    #ffd1d1 0%,
+    #ffe0e0 40%,
+    #faf2e6 75%,
+    #ccfff280 100%
+    );
+  opacity: 1;
+}
+
+/* Hover gradient (hidden by default) */
+#gradient-field::after {
+  background: radial-gradient(circle,
+    #ffd1d1 0%,
+    #ffe0e0 40%,
+    #faf2e6aa 45%,
+    #ccfff24d 60%,
+    white 90%);
+  opacity: 0;
+}
+
+/* Fade between gradients on hover */
+#gradient-field:hover::before {
+  opacity: 0;
+}
+
+#gradient-field:hover::after {
+  opacity: 1;
+}

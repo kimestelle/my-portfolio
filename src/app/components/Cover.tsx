@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image';
 import { allPostsSorted } from '../blog/posts';
 import MoodRingBackground from './MoodRingShader';
 import CourseWork from "./Coursework";
@@ -8,7 +9,7 @@ export default function Home() {
   return (
     <>
     <MoodRingBackground />
-    <main className="min-h-screen w-full text-gray-900 p-6 md:p-12 flex flex-col justify-center gap-12 md:gap-24">
+    <main className="min-h-screen w-full text-gray-900 p-6 md:p-12 py-12 flex flex-col justify-center gap-12 md:gap-24">
       <section className="w-full max-w-2xl mx-auto">
         <br />
         <br />
@@ -19,7 +20,7 @@ export default function Home() {
         <br />
         <p>
         Undergrad studying Computer Science, Graphics Engineering, and Design through UPenn’s Digital Media Design (BSE) program
-        <img src="/me-sticker.png" alt="me sticker" className="inline pop-on-touch w-4 h-4 ml-1 align-middle" />
+        <Image src="/me-sticker.png" alt="me sticker" width={400} height={400} className="inline pop-on-touch w-4 h-4 ml-1 align-middle" />
         </p>
 
         <br />
@@ -32,7 +33,7 @@ export default function Home() {
         </p>
         <br/>
         <p>
-            <img src="/heart.png" alt="me sticker" className="inline pop-on-touch w-4 h-4 mr-1 mb-1 align-middle" />
+            <Image src="/heart.png" alt="me sticker" width={400} height={400} className="inline pop-on-touch w-4 h-4 mr-1 mb-1 align-middle" />
             Thanks for visiting!
         </p>
       </section>

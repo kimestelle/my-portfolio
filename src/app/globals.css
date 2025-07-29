@@ -84,6 +84,12 @@ p {
   color: rgb(22, 22, 22);
 }
 
+code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.9rem;
+  color: rgb(22, 22, 22);
+}
+
 .font-calluna {
   font-family: "calluna", serif;
 }
@@ -318,10 +324,26 @@ label {
 
 /* blog formatting */
 .blog-formatting p {
-  font-size: 1.2rem;
   margin-bottom: 1.5rem;
 }
 
 .blog-formatting .half-margin {
   margin-bottom: 0.6rem;
+}
+
+.blog-formatting h2 {
+  margin-top: 2rem;
+  margin-bottom: 0.3rem;
+  font-size: 1.5rem;
+}
+
+.blog-formatting li::marker {
+  content: "✶ ";
+  color: inherit;
+  font-size: 0.8rem;
+}
+
+.blog-formatting li {
+  list-style: inside;
+  margin-left: 0.5rem;
 }

@@ -22,7 +22,7 @@ export default function CourseBlock({ course }: CourseProps) {
     onMouseLeave={() => setIsFlipped(false)}
     className='w-full clickable'>
         <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
-            <div key="front" className='w-full h-16 md:h-15 flex flex-col py-1.5 border-b border-neutral-100 items-start gap-2'>
+            <div key="front" className='w-full h-16 md:h-15 flex flex-col py-1.5 pl-2 border-l border-neutral-200 items-start gap-2'>
               <h3 className='leading-tight max-md:text-sm font-normal'> <span className="text-sm">[{course.number}]</span> {course.name}</h3>
               <ol className='list-none flex flex-row gap-1 items-center pb-0.5'>
                   {course.languages.map((skill, index) => (

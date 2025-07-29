@@ -9,6 +9,7 @@ const postMap: Record<string, any> = {
   'litter-removal': dynamic(() => import('../pages/litter-removal')),
   'magnet-poetry': dynamic(() => import('../pages/magnet-poetry')),
   'new-portfolio': dynamic(() => import('../pages/new-portfolio')),
+  'mood-shader': dynamic(() => import('../pages/mood-shader')),
 };
 
 export default function BlogPostPage() {

@@ -32,9 +32,6 @@ export default function BlogListPage() {
       <h2 className="my-4">memos</h2>
       <ul className="space-y-4 mb-10">
         <li className='p-2 bg-yellow-100/50 rounded-lg'>
-          The webgl shader on this website was inspired by mood rings; the mouse impacts the screen like a finger.
-        </li>
-        <li className='p-2 bg-yellow-100/50 rounded-lg'>
           fixed rules, open variables, and a shared understanding of how things are allowed to move
         </li>
       </ul>

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import {useState} from "react";
 import Image from "next/image";
 
 interface TimelineItemProps {
@@ -13,11 +13,21 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
   description,
   bulletPoints,
 }) => {
-  return (
-    <div className="relative flex flex-col items-start ">
-      <h3>{description} <span className="text-sm text-neutral-500">[{date}]</span></h3>
+  const [isOpen, setIsOpen] = useState(false);
 
-      <div className="flex-1">
+  return (
+    <div className="relative group flex flex-col items-start pl-2 border-l border-neutral-200"
+      onClick={() => setIsOpen(!isOpen)}
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
+      <h3>{description} {' '} <span className="text-sm text-neutral-500">[{date}]</span></h3>
+
+      <div 
+          className={`flex-1 transition-all duration-500 ease-in-out overflow-hidden ${
+          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        }`}
+      >
         <ul className="list-disc list-inside font-sans-serif text-neutral-500">
           {bulletPoints.map((point, index) => (
             <li key={index} className="text-neutral-600">

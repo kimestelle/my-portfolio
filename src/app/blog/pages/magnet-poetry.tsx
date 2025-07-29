@@ -1,7 +1,7 @@
 export default function MagnetPoetryPage() {
   return (
     <div className="blog-formatting responsive-padding">
-      <h1 className="text-3xl font-bold">designing a magnet poetry board</h1>
+      <h1 className="text-3xl font-bold">{'</>'} magnetic poetry board</h1>
       <p className="text-gray-500 half-margin">June 26, 2025</p>
       <p className="text-gray-600 italic half-margin">wip</p>
       <hr className="my-4" />
