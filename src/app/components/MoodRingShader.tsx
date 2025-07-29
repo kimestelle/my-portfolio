@@ -32,7 +32,6 @@ export default function MoodRingBackground() {
       uResolution: { value: new THREE.Vector2() },
       uSpots: { value: Array(maxSpots).fill(new THREE.Vector3(0, 0, 0)) },
       uSpotCount: { value: 0 },
-      uAspect: { value: window.innerWidth / window.innerHeight }
     };
 
     const material = new THREE.ShaderMaterial({
@@ -52,11 +51,6 @@ export default function MoodRingBackground() {
         uniform vec2 uResolution;
         uniform vec3 uSpots[50];
         uniform int uSpotCount;
-        uniform float uAspect;
-
-        vec2 correctAspect(vec2 uv, float aspect) {
-          return vec2((uv.x - 0.5) * aspect + 0.5, uv.y);
-        }
 
         float heatFalloff(vec2 uv, vec2 center, float age) {
           float radius = 0.02 + age * 0.05;  // expands over time
@@ -89,7 +83,7 @@ export default function MoodRingBackground() {
 
         void main() {
           vec2 uv = vUv;
-          vec2 acUv = correctAspect(vUv, uAspect);
+          vec2 acUv = vec2(vUv.x, (vUv.y - 0.5) * (uResolution.y / uResolution.x) + 0.5);
 
           float heat = 0.0;
           for (int i = 0; i < 50; i++) {
@@ -121,7 +115,6 @@ export default function MoodRingBackground() {
       const maxDPR = 1.5;
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxDPR));
       uniforms.uResolution.value.set(width, height);
-      uniforms.uAspect.value = window.innerWidth / window.innerHeight;
     };
     window.addEventListener('resize', onResize);
     onResize();
@@ -134,9 +127,10 @@ export default function MoodRingBackground() {
 
       const x = clientX / window.innerWidth;
       const y = 1 - clientY / window.innerHeight;
+      const stretchedY = (y - 0.5) * (window.innerHeight / window.innerWidth) + 0.5;
 
       const createdAt = elapsedTimeRef.current; // use synced animation time
-      heatSpots.current.push({ position: new THREE.Vector2(x, y), createdAt });
+      heatSpots.current.push({ position: new THREE.Vector2(x, stretchedY), createdAt });
 
       if (heatSpots.current.length > maxSpots) {
         heatSpots.current.shift(); // Remove oldest
