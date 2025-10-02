@@ -36,6 +36,55 @@ function buildProject(projectObj: Code): Code {
   return projectObj;
 }
 
+const inProgressProjects: Code[] = [
+  buildProject({
+    name: "magnetic poetry board",
+    date: "Summer 2025",
+    label: "Virtual gift box with React and Firebase",
+    url: "https://estelles-giftbox.vercel.app/6927",
+    techStack: {
+      languages: ["TypeScript"],
+      frameworks: ["Next.js"],
+      libraries: ["React"],
+      databases: [],
+      platforms: ["Firebase", "Vercel"],
+    },
+    description:"As someone who loves writing handwritten letters but lives far from most of my loved ones, I wanted to capture the warmth, spontaneity, and joy of receiving a handwritten note through a simple shareable website.\n\n" + 
+    "- Custom font from my own handwriting and hand-drawn graphics\n" +
+    "- 2D physics engine that explodes from an animated gift box to evoke a sense of physical space\n\n" +
+    " To create a seamless experience (since opening gifts should never be a task) while ensuring each person's information is secure, I stored unique IDs in the URL route directly sent to recipients to retrieve Firebase documents, all it takes to open is clicking a secure link sent via text.",
+    imageUrls: [
+      "/project-images/gift-box/giftbox-demo.mp4",
+      "/project-images/gift-box/image-1.png",
+      "/project-images/gift-box/image-2.png",
+    ],
+    cover: "/project-images/covers/giftbox-cover.png",
+  }),
+  buildProject({
+    name: "microclarity toolkit",
+    date: "Summer 2025",
+    label: "Virtual gift box with React and Firebase",
+    url: "https://estelles-giftbox.vercel.app/6927",
+    techStack: {
+      languages: ["TypeScript"],
+      frameworks: ["Next.js"],
+      libraries: ["React"],
+      databases: [],
+      platforms: ["Firebase", "Vercel"],
+    },
+    description:"As someone who loves writing handwritten letters but lives far from most of my loved ones, I wanted to capture the warmth, spontaneity, and joy of receiving a handwritten note through a simple shareable website.\n\n" + 
+    "- Custom font from my own handwriting and hand-drawn graphics\n" +
+    "- 2D physics engine that explodes from an animated gift box to evoke a sense of physical space\n\n" +
+    " To create a seamless experience (since opening gifts should never be a task) while ensuring each person's information is secure, I stored unique IDs in the URL route directly sent to recipients to retrieve Firebase documents, all it takes to open is clicking a secure link sent via text.",
+    imageUrls: [
+      "/project-images/gift-box/giftbox-demo.mp4",
+      "/project-images/gift-box/image-1.png",
+      "/project-images/gift-box/image-2.png",
+    ],
+    cover: "/project-images/covers/giftbox-cover.png",
+  }),
+];
+
 const projects: Code[] = [
   buildProject({
     name: "Mini Minecraft",
@@ -101,7 +150,7 @@ const projects: Code[] = [
       languages: ["TypeScript"],
       frameworks: ["Vite", "WebGL"],
       libraries: ["React", "FastAPI"],
-      databases: ["Supabase"],
+      databases: ["Supabase", "Pinecone"],
       platforms: [],
     },
     description:
@@ -257,9 +306,7 @@ export default function Code() {
 
   return (
     <div id='projects' className="flex flex-col gap-5 px-10 md:px-32 py-32">
-      {/* <div className='w-full h-10 flex flex-row gap-2 justify-center items-center'>
 
-      </div> */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {projects.map((project, index) => (
           <div
@@ -292,10 +339,6 @@ export default function Code() {
           </div>
         ))}
       </div>
-
-      <Link href="/playground" className="p-4 shadow-inner rounded-lg cursor-pointer hover:shadow-lg red w-full mx-auto text-start">
-          <h4>&lt;/&gt; playground</h4>
-      </Link>
 
       {activeProjectIndex !== null && (
         <div className="fixed flex flex-col inset-0 bg-black bg-opacity-50 px-10 flex justify-center items-center z-50">

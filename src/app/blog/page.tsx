@@ -1,3 +1,5 @@
+'use client'
+import { useState, useEffect } from 'react'
 import NavBar from "../components/NavBar";
 import Link from "next/link";
 import MoodRingBackground from "../components/MoodRingShader";
@@ -5,12 +7,12 @@ import MoodRingBackground from "../components/MoodRingShader";
 import { allPostsSorted } from "./posts";
 
 export default function BlogListPage() {
+
   return (
     <div className="responsive-padding">
       <NavBar />
 
       <h2 className="mt-4">posts</h2>
-      <h3 className="mb-4 italic">writing without points</h3>
       <ul className="space-y-4 mb-10">
         {allPostsSorted.map((blog) => (
           <li
