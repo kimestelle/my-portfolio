@@ -44,7 +44,7 @@ export default function Home() {
       </section>
 
       <section className='w-full max-w-2xl mx-auto overflow-hidden'>
-        <h2 className='mb-5'>{'</>'}</h2>
+        <p className='mb-2 text-white bg-black w-fit'>{'building for the web </>'}</p>
         <div className='relative w-full h-52 flex-row overflow-x-scroll flex gap-4 snap-x snap-mandatory scrollbar-hide'>
           <label className='relative snap-start shrink-0 w-52 h-52 bg-gray-200 shadow overflow-hidden cursor-pointer'>
             <a href='https://2d-softbody-lathe.vercel.app/' target='_blank' rel='noopener noreferrer'>
