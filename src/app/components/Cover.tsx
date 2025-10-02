@@ -16,7 +16,12 @@ export default function Home() {
         <h1>Estelle Kim</h1>
         <h3>
             Creative Engineer // CS + CG @ UPenn 
-            {/* / <img src='/icons/linkedin.svg' className='inline w-[1rem] h-[1rem] mb-1'/> */}
+            <a href='https://www.linkedin.com/in/estelle-kim-41b1b7218/' target='_blank' rel='noopener noreferrer' className='ml-2'>
+              <img src='/icons/linkedin.svg' className='inline w-[1rem] h-[1rem] mb-1'/>
+            </a>
+            <a href='https://github.com/kimestelle' target='_blank' rel='noopener noreferrer' className='ml-2'>
+              <img src='/icons/gh-logo.svg' className='inline w-[1rem] h-[1rem] mb-1'/>
+            </a>
         </h3>
         <br />
         <p>
