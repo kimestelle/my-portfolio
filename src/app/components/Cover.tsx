@@ -48,9 +48,19 @@ export default function Home() {
         </p>
       </section>
 
-      <section className='w-full max-w-2xl mx-auto overflow-hidden'>
+      <section className='w-full max-w-2xl mx-auto'>
         <p className='mb-2 text-white bg-black w-fit'>{'building for the web </>'}</p>
         <div className='relative w-full h-52 flex-row overflow-x-scroll flex gap-4 snap-x snap-mandatory scrollbar-hide'>
+          <label className='relative snap-start shrink-0 w-52 h-52 bg-gray-200 shadow overflow-hidden cursor-pointer'>
+            <a href='https://watercolor-drip-shader.vercel.app/' target='_blank' rel='noopener noreferrer'>
+              <Image src='/cover-images/watercolor-image.png' alt='Watercolor Shader' width={400} height={400} className='w-full h-full object-cover'/>
+              <div className='absolute w-full h-full opacity-0 hover:opacity-100 bg-white/80 top-0 left-0 flex flex-col justify-center items-center transition-opacity transition-duration-400'>
+                <p>
+                  Watercolor Shader
+                </p>
+              </div>
+            </a>
+          </label>
           <label className='relative snap-start shrink-0 w-52 h-52 bg-gray-200 shadow overflow-hidden cursor-pointer'>
             <a href='https://2d-softbody-lathe.vercel.app/' target='_blank' rel='noopener noreferrer'>
               <Image src='/cover-images/blob-image.png' alt='2D/3D Blob' width={400} height={400} className='w-full h-full object-cover'/>
