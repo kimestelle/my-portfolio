@@ -38,7 +38,7 @@ export default function Home() {
 
         <br />
         <p>
-          From web graphics to full-stack dev and databases, I enjoy picking up new skills on the job. I aspire to work at the edge of technology and human-centered design in a digital agency or creative lab.
+          From web graphics to full-stack dev and databases, I enjoy picking up new skills on the job. I aspire to work at the edge of technology and human-centered design in a digital agency, creative lab, or design-engineering role.
         </p>
         <br/>
         <p>
