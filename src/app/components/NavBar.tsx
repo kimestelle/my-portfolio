@@ -7,7 +7,8 @@ export default function NavBar() {
   
     const links = [
       { href: '/', label: 'home' },
-      { href: '/projects', label: 'projects' },
+      { href: '/projects', label: '</>' },
+      { href: '/design', label: '[: :]' },
       // { href: '/playground', label: 'playground' },
       { href: '/blog', label: 'blog' },
     ];
@@ -18,7 +19,7 @@ export default function NavBar() {
           <Link
             key={href}
             href={href}
-            className={`transition-all duration-200 ${
+            className={`transition-all duration-200 backdrop-filter backdrop-blur ${
               pathname === href ? 'red' : ''
             }`}
           >
