@@ -25,20 +25,20 @@ export default function Home() {
         </h3>
         <br />
         <p>
-          Studying Computer Science, Graphics Engineering, and Design through UPenn’s Digital Media Design (BSE) program, c/o 2027
+          Studying Computer Science, Graphics Engineering, and Design through UPenn’s Digital Media Design program, c/o 2027
         <Image src="/me-sticker.png" alt="me sticker" width={400} height={400} sizes="400px" 
         className="inline pop-on-touch w-4 h-4 ml-1 align-middle" />
         </p>
 
         <br />
         <p>
-          I’m drawn to building tools that reshape how people think, notice, and create. 
-          I focus on coherence and craft, making sure every detail creates an intentional experience.
+          I build software focused on coherence and craft, where every detail creates an intentional experience. I&apos;ve led cross-functional project teams & developed interactive experiences for clients. 
         </p>
 
         <br />
         <p>
-          From web graphics to full-stack dev and databases, I enjoy picking up new skills on the job. I aspire to work at the edge of technology and human-centered design in a digital agency, creative lab, or design-engineering role.
+          From full-stack dev to databases, I enjoy picking up new skills on the job.
+          I aspire to work at the edge of technology and human-centered design in a digital agency, creative lab, or design-engineering role.
         </p>
         <br/>
         <p>
