@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
     <MoodRingBackground />
-    <main className="min-h-screen w-full text-gray-900 p-6 md:p-12 py-12 flex flex-col justify-center gap-12 md:gap-24">
+    <main className="min-h-screen w-full text-gray-900 p-6 md:p-12 py-12 flex flex-col justify-center gap-16 md:gap-28">
       <section className="w-full max-w-2xl mx-auto">
         <br />
         <br />
@@ -84,13 +84,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="w-full max-w-2xl mx-auto">
-            <CourseWork />
-        </section>
-
       {/* Blog Preview */}
       <section className="w-full max-w-2xl mx-auto">
-        <h2 className="mb-5">Recent Posts</h2>
+        <h2 className="mb-5">latest from the blog</h2>
         <ul className="space-y-4">
           {allPostsSorted.slice(0, 3).map(({ title, slug, description }) => (
             <li key={title}>
@@ -102,6 +98,10 @@ export default function Home() {
           ))}
         </ul>
       </section>
+
+      <section className="w-full max-w-2xl mx-auto">
+            <CourseWork />
+        </section>
 
       {/* Experience */}
       <section className="w-full max-w-2xl mx-auto">

@@ -344,7 +344,7 @@ label {
 
 @media (min-width: 1280px) {
   .responsive-padding {
-    padding: 5rem 16rem;
+    padding: 5rem 14rem;
   }
 }
 
@@ -366,7 +366,10 @@ label {
 .blog-formatting li::marker {
   content: "✶ ";
   color: inherit;
-  font-size: 0.8rem;
+  font-size: 60%;
+  /* center marker vertically */
+  height: 100%;
+  padding-bottom: 40%;
 }
 
 .blog-formatting li {

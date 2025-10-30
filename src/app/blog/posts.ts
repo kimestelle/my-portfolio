@@ -14,6 +14,13 @@ export const allPostsSorted: BlogPost[] = [
     //     description: "version 4.0",
     // },
     {
+        title: "</> into the blue",
+        date: "2025-10-30",
+        slug: "into-the-blue",
+        description: "~ case study (coming soon) ~",
+        category: 'building'
+    },
+    {
         title: "another portfolio update",
         date: "2025-06-26",
         slug: "new-portfolio",
@@ -24,7 +31,7 @@ export const allPostsSorted: BlogPost[] = [
         title: "</> magnetic poetry board",
         date: "2025-06-26",
         slug: "magnet-poetry",
-        description: "wip",
+        description: "~ case study ~",
         category: "building"
     },
     {

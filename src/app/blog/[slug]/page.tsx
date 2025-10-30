@@ -5,6 +5,7 @@ import Link from 'next/link';
 import BottomBar from '@/app/components/BottomBar';
 
 const postMap: Record<string, any> = {
+  'into-the-blue': dynamic(() => import('../pages/into-the-blue')),
   'compressed-thinking': dynamic(() => import('../pages/compressed-thinking')),
   'litter-removal': dynamic(() => import('../pages/litter-removal')),
   'magnet-poetry': dynamic(() => import('../pages/magnet-poetry')),
