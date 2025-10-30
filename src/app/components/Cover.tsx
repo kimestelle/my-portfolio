@@ -4,6 +4,7 @@ import { allPostsSorted } from '../blog/posts';
 import MoodRingBackground from './MoodRingShader';
 import CourseWork from "./Coursework";
 import Timeline from './Timeline';
+import BouncingText from './BouncingText';
 
 export default function Home() {
   return (
@@ -106,6 +107,10 @@ export default function Home() {
       {/* Experience */}
       <section className="w-full max-w-2xl mx-auto">
         <Timeline/>
+      </section>
+
+      <section className="w-full max-w-2xl mx-auto mb-16">
+        <BouncingText>{"thanks for stopping by :-)"}</BouncingText>
       </section>
     </main>
     </>
