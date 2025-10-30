@@ -97,7 +97,7 @@ PoemBoard() {(
       id: '04',
       title: '04 — delete (only on drop)',
       blurb:
-        'the dock glows while you hover with a drag. nothing happens until you drop.',
+        'magnet gets smaller when you drag it downwards, and deletes on drop.',
       demo: (
           <video
             src="/blog/magnetic-poetry/delete-demo.mp4"
@@ -107,7 +107,7 @@ PoemBoard() {(
             className="rounded-md w-full"
           />
       ),
-      notices: ['feedback ≠ action (glow is only a hint)', 'drop to confirm deletion', 'forgiving target area'],
+      notices: ['feedback ≠ action (scaling is only a hint)', "'trash box' doesn't interfere with user experience", '*however, lack of clear visual cue may confuse users who want to delete an item*'],
       codeTitle: 'core idea (tiny code)',
     },
     {
