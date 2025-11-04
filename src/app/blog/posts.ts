@@ -14,25 +14,32 @@ export const allPostsSorted: BlogPost[] = [
     //     description: "version 4.0",
     // },
     {
-        title: "</> into the blue",
+        title: "</> Scavenger Hunt in the Penn Museum",
         date: "2025-10-30",
         slug: "into-the-blue",
-        description: "~ case study (coming soon) ~",
+        description: "~ Into the Blue: case study ~",
         category: 'building'
     },
-    {
-        title: "another portfolio update",
-        date: "2025-06-26",
-        slug: "new-portfolio",
-        description: "version 4.0",
-        category: 'building'
-    },
+    // {
+    //     title: '</> watercolor drip shader',
+    //     date: "2025-11-1",
+    //     slug: "watercolor-shader",
+    //     description: "~ case study ~",
+    //     category: "building"
+    // },
     {
         title: "</> magnetic poetry board",
         date: "2025-06-26",
         slug: "magnet-poetry",
         description: "~ case study ~",
         category: "building"
+    },
+        {
+        title: "another portfolio update",
+        date: "2025-06-26",
+        slug: "new-portfolio",
+        description: "version 4.0",
+        category: 'building'
     },
     {
         title: "on compressing thought",

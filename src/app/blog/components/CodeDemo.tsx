@@ -46,7 +46,7 @@ const CodeDemo: React.FC<CodeDemoProps> = ({
         {/* demo area */}
         {demo && 
         <div className="sm:col-span-8">
-          <div className="rounded-md h-64 md:h-120 flex border bg-white p-2">
+          <div className="rounded-md h-64 md:h-120 flex justify-center items-center border bg-white p-2">
               {demo}
           </div>
         </div>

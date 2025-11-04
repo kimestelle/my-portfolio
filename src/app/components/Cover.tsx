@@ -87,7 +87,7 @@ export default function Home() {
 
       {/* Blog Preview */}
       <section className="w-full max-w-2xl mx-auto">
-        <h2 className="mb-5">latest from the blog</h2>
+        <h2 className="mb-5">case studies + blog</h2>
         <ul className="space-y-4">
           {allPostsSorted.slice(0, 3).map(({ title, slug, description }) => (
             <li key={title}>

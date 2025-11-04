@@ -18,7 +18,7 @@ export default function MagneticPoetry_DemoNotes() {
       title: '02 — board setup',
       blurb: 'centered, 3:4, soft noise and depth using layered and blurred animated svg + noise texture.',
       demo: (
-            <div className="max-w-full h-full flex flex-col items-center justify-center py-2 user-select-none">
+            <div className="w-full h-full flex flex-col items-center justify-center py-2 user-select-none">
               <div
                 style={{
                   position: 'relative',
@@ -88,7 +88,7 @@ PoemBoard() {(
             autoPlay
             loop
             muted
-            className="rounded-md max-w-full h-full"
+            className="rounded-md w-full"
           />
       ),
       notices: ['subtle lifting effect when pressed', 'word stays centered under finger', "consistent size / positions after window resize", 'mouse and touch feel the same'],
@@ -104,7 +104,7 @@ PoemBoard() {(
             autoPlay
             loop
             muted
-            className="rounded-md max-w-full h-full"
+            className="rounded-md w-full"
           />
       ),
       notices: ['feedback ≠ action (scaling is only a hint)', "'trash box' doesn't interfere with user experience", '*however, lack of clear visual cue may confuse users who want to delete an item*'],
@@ -149,125 +149,21 @@ PoemBoard() {(
     'Capture guard (ref) prevents duplicate downloads.',
   ],
   codeTitle: 'tiny code',
-code: `// inside useEffect of <PoemSnapshot/>
-// HiDPI sizing
-canvas.width = width * dpr;
-canvas.height = height * dpr;
-canvas.style.width = width + 'px';
-canvas.style.height = height + 'px';
-ctx.scale(dpr, dpr);
-
-// draw background (image | webcam | white)
-function drawCoverImage(
-  source: HTMLImageElement | HTMLVideoElement | HTMLCanvasElement,
-  mirror = false
-) {
-  const rawW = source instanceof HTMLVideoElement ? source.videoWidth  : source.width;
-  const rawH = source instanceof HTMLVideoElement ? source.videoHeight : source.height;
-  const imgR = rawW / rawH, canR = width / height;
-
-  let sx = 0, sy = 0, sw = rawW, sh = rawH;
-  if (imgR > canR) { sw = sh * canR; sx = (rawW - sw) / 2; }
-  else { sh = sw / canR; sy = (rawH - sh) / 2; }
-
-  const off = document.createElement('canvas');
-  off.width = width; off.height = height;
-  const octx = off.getContext('2d')!;
-
-  if (mirror) { octx.translate(width, 0); octx.scale(-1, 1); }
-  octx.drawImage(source, sx, sy, sw, sh, 0, 0, width, height);
-
-  ctx.save();
-  ctx.filter = 'blur(' + 18 * dpr + 'px)';
-  ctx.drawImage(off, 0, 0);
-  ctx.restore();
-}
-
-function drawNoise() {
-  const img = new Image();
-  img.onload = () => {
-    const tile = document.createElement('canvas');
-    tile.width = img.width * 2; tile.height = img.height * 2;
-    tile.getContext('2d')!.drawImage(img, 0, 0, tile.width, tile.height);
-    const pat = ctx.createPattern(tile, 'repeat')!;
-    ctx.save(); ctx.globalCompositeOperation = 'screen';
-    ctx.fillStyle = pat; ctx.fillRect(0, 0, width, height);
-    ctx.restore();
-    drawWords();
-  };
-  img.src = '/noise.png';
-}
-
-function drawWords() {
-  const fontSize = Math.min(width * 0.03, height * 0.0225) * 1.1;
-  const padX = fontSize * 0.2, padY = fontSize * 0.3;
-
-  ctx.font = fontSize + 'px "EB Garamond", serif';
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-
-  for (const w of words) {
-    const x = (w.xPercent / 100) * width;
-    const y = (w.yPercent / 100) * height;
-
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate((w.rotate * Math.PI) / 180);
-
-    const tw = ctx.measureText(w.text).width;
-    const bw = tw + 2 * padX, bh = fontSize + 2 * padY;
-
-    ctx.fillStyle = '#fff';
-    ctx.shadowColor = 'rgba(0,0,0,.5)';
-    ctx.shadowOffsetX = 0.1 * fontSize * dpr;
-    ctx.shadowOffsetY = 0.15 * fontSize * dpr;
-    ctx.fillRect(-bw/2, -bh/2, bw, bh);
-
-    ctx.shadowColor = 'transparent';
-    ctx.strokeStyle = '#ededed';
-    ctx.lineWidth = 0.1 * fontSize;
-    ctx.strokeRect(-bw/2, -bh/2, bw, bh);
-
-    ctx.fillStyle = '#000';
-    ctx.fillText(w.text, 0, 0);
-    ctx.restore();
-  }
-
-  if (onCapture && !hasCapturedRef.current) {
-    hasCapturedRef.current = true;
-    onCapture(canvas.toDataURL('image/png'));
-  }
-}
-
-// draw bg -> noise -> words in order
-if (webcamVideo && webcamVideo.readyState >= 2 && webcamVideo.videoWidth && webcamVideo.videoHeight) {
-  drawCoverImage(webcamVideo, visualMode === 'front-camera');
-  drawNoise();
-} else if ((visualMode === 'front-camera' || visualMode === 'back-camera') && webcamVideo) {
-  setTimeout(() => {/* retry */}, 100);
-} else if (backgroundImage) {
-  const bg = new Image();
-  bg.onload = () => { drawCoverImage(bg); drawNoise(); };
-  bg.crossOrigin = 'anonymous';
-  bg.src = backgroundImage;
-} else {
-  ctx.fillStyle = '#f5f5f5';
-  ctx.fillRect(0, 0, width, height);
-  drawNoise();
-}`,
+code: ``,
     }
   ] as const;
 
   return (
     <div className="blog-formatting responsive-padding">
-      <h1 className="text-3xl font-bold">magnet poetry board</h1>
-      <p className="text-gray-500 mt-1 half-margin"><span className='italic text-gray-600'>~ case study ~ </span>July 22, 2025</p>
+      <h1 className="text-3xl font-bold">watercolor drip shader</h1>
+      <p className="text-gray-500 mt-1 half-margin"><span className='italic text-gray-600'>~ case study ~ </span>November 1, 2025</p>
       <hr className="mb-4" />
 
-      <a href="https://magnetic-poetry.vercel.app/" target="_blank">
+      <a href="https://watercolor-drip-shader.vercel.app/" target="_blank">
         <p className="blue text-underline">{'<'}link to demo{'/>'}</p>
       </a>
 
-      <p>I wanted to build a quiet writing surface where composing words feels physical: thoughts move into shape and save as shareable snapshots.</p>
+      <p>I&apos;ve wanted to build a watercolor shader for a long time, but struggled to find a good use or </p>
       <ul>
         <li>Simple, intuitive interface like a pocket of physical space inside a screen</li>
         <li>Board that remains consistent and reliable while I move words around</li>
