@@ -106,6 +106,10 @@ ol {
   list-style-type: circle;
 }
 
+ol li::marker {
+  content: "- ";
+}
+
 a {
   font-weight: 200;
   font-style: normal;
@@ -150,28 +154,6 @@ label {
 .bg-red-solid {
   background: linear-gradient(to right, #e707032f 0%, rgba(231, 5, 3, 0) 100%);
 }
-
-.bg-birds {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(to bottom, rgba(40, 105, 166, 0.5), rgba(255, 255, 255, 0.5))
-  /* radial-gradient(circle at 50% 120%, #d8f3ff, transparent) */
-  ;
-}
-
-.bg-birds::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 2000px; 
-  height: 2000px;
-  transform: translate(-50%, -50%);
-  background-image: url('/textures/foggy-birds.png');
-  background-repeat: repeat;
-  background-size: 400px 400px;
-}
-
 
 .underline-red {
   text-decoration: underline 0.1rem #E70503;

@@ -93,6 +93,7 @@ export default function MagnifierImage({
       onPointerDown={handleMove}
       onPointerUp={handleLeave}
     >
+      <div className="absolute -top-8 -left-12 w-8 h-[1px] bg-red-500"></div>
       <Image
         ref={imgRef as any}
         src={src}
@@ -102,7 +103,6 @@ export default function MagnifierImage({
         sizes={sizes}
         priority={priority}
         className="w-full h-auto block"
-        // Next/Image will pick an appropriately large srcset; we’ll read it via currentSrc
       />
 
       {/* Lens */}
