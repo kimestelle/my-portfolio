@@ -39,9 +39,9 @@ export default function BottomBar() {
 
   return (
     <>
-      <div className="fixed bottom-8 right-6 bg-white/30 backdrop-blur-sm border border-white/40 shadow-xl rounded-full px-4 py-3 flex flex-row gap-2 items-center text-sm z-50">
+      <div className="fixed backdrop-hue-rotate-[3rad] bottom-8 right-6 bg-white/50  shadow-xl rounded-full px-4 py-3 flex flex-row gap-2 items-center text-sm z-50">
         <button
-          className="text-gray-800 hover:underline"
+          className="text-neutral-800 hover:underline transition-all duration-300"
           onClick={() => setShowPopup(true)}
         >
           let&apos;s connect!

@@ -45,6 +45,7 @@ export default function BouncingText({
       {letters.map((ch, i) => (
         <span
           key={i}
+          className='select-none'
           // @ts-ignore
           style={{ "--i": i } as React.CSSProperties}
           aria-hidden="true"

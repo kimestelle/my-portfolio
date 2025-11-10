@@ -17,7 +17,7 @@ export default function BlogListPage() {
         {allPostsSorted.map((blog) => (
           <li
             key={blog.slug}
-            className="pl-2 border-l border-neutral-200 bg-white/50 hover:opacity-75"
+            className="pl-2 border-l border-neutral-200 bg-white/50 backdrop-hue-rotate-[3rad] hover:opacity-75"
           >
             <Link href={`/blog/${blog.slug}`}>
               <h3>{blog.title}</h3>
