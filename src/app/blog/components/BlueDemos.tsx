@@ -201,8 +201,8 @@ export function MiniCameraCutout({
           </button>
         )}
         {!image && (
-          <button onClick={capture} className="rounded-full px-2 py-1 bg-white/90 text-black text-xs">
-            ●
+          <button onClick={capture} className="rounded-full px-2 py-1 bg-red-500 text-white font--bold text-xs">
+            cut
           </button>
         )}
         {image && (
