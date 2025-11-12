@@ -14,7 +14,7 @@ export default function Home() {
       <section className="w-fit h-fit flex-shrink-0">
         <h1>Estelle Kim</h1>
         <h3>
-            Interactive Developer<br/>
+            Creative Developer<br/>
             CS + CG @ UPenn 
             <a href='https://www.linkedin.com/in/estelle-kim-41b1b7218/' target='_blank' rel='noopener noreferrer' className='ml-2'>
               <img src='/icons/linkedin.svg' className='inline w-[1rem] h-[1rem] mb-1'/>
