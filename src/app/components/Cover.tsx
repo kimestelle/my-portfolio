@@ -26,9 +26,16 @@ export default function Home() {
               <img src='/icons/x-logo.svg' className='inline w-[1rem] h-[1rem] mb-1'/>
             </a>
         </h3>
+        <p className='px-1 mt-1 w-fit bg-neutral-100/50 backdrop-hue-rotate-[3rad] border border-0.5 text-light/800 rounded-sm shadow-inner text-sm select-none cursor-pointer hover:bg-neutral-200 transition-duration-300'
+          onClick={() => {
+            window.open('/EUNYUL_KIM_2027.pdf', '_blank');
+          }}
+        >
+          view resume!
+        </p>
       </section>
 
-      <section className='w-full mx-auto border bg-white/50 backdrop-hue-rotate-[3rad] shadow-inner rounded-sm p-2 overflow-hidden flex flex-col gap-2 justify-center md:justify-start'>
+      <section className='w-full mx-auto border border-0.5 bg-neutral-100/50 backdrop-hue-rotate-[3rad] shadow-inner rounded-sm p-2 overflow-hidden flex flex-col gap-2 justify-center md:justify-start'>
         <div className='relative w-full flex-row flex gap-2 md:gap-1'>
           <label className='relative snap-start shrink-0 w-16 h-16 md:w-24 md:h-24 bg-gray-200 shadow overflow-hidden cursor-pointer'>
             <a href='https://watercolor-drip-shader.vercel.app/' target='_blank' rel='noopener noreferrer'>
