@@ -26,12 +26,12 @@ export default function Home() {
               <img src='/icons/x-logo.svg' className='inline w-[1rem] h-[1rem] mb-1'/>
             </a>
         </h3>
-        <p className='px-1 mt-1 w-fit bg-neutral-100/50 backdrop-hue-rotate-[3rad] border border-0.5 text-light/800 rounded-sm shadow-inner text-sm select-none cursor-pointer hover:bg-neutral-200 transition-duration-300'
+        <p className='px-1 mt-1 w-fit text-light/800 text-neutral-600 rounded-sm shadow-inner text-sm select-none cursor-pointer hover:bg-neutral-200 transition-duration-300'
           onClick={() => {
             window.open('/EUNYUL_KIM_2027.pdf', '_blank');
           }}
         >
-          view resume!
+          {'<'}resume link{'>'}
         </p>
       </section>
 
