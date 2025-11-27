@@ -36,56 +36,7 @@ function buildProject(projectObj: Code): Code {
   return projectObj;
 }
 
-const inProgressProjects: Code[] = [
-  buildProject({
-    name: "magnetic poetry board",
-    date: "Summer 2025",
-    label: "Virtual gift box with React and Firebase",
-    url: "https://estelles-giftbox.vercel.app/6927",
-    techStack: {
-      languages: ["TypeScript"],
-      frameworks: ["Next.js"],
-      libraries: ["React"],
-      databases: [],
-      platforms: ["Firebase", "Vercel"],
-    },
-    description:"As someone who loves writing handwritten letters but lives far from most of my loved ones, I wanted to capture the warmth, spontaneity, and joy of receiving a handwritten note through a simple shareable website.\n\n" + 
-    "- Custom font from my own handwriting and hand-drawn graphics\n" +
-    "- 2D physics engine that explodes from an animated gift box to evoke a sense of physical space\n\n" +
-    " To create a seamless experience (since opening gifts should never be a task) while ensuring each person's information is secure, I stored unique IDs in the URL route directly sent to recipients to retrieve Firebase documents, all it takes to open is clicking a secure link sent via text.",
-    imageUrls: [
-      "/project-images/gift-box/giftbox-demo.mp4",
-      "/project-images/gift-box/image-1.png",
-      "/project-images/gift-box/image-2.png",
-    ],
-    cover: "/project-images/covers/giftbox-cover.png",
-  }),
-  buildProject({
-    name: "microclarity toolkit",
-    date: "Summer 2025",
-    label: "Virtual gift box with React and Firebase",
-    url: "https://estelles-giftbox.vercel.app/6927",
-    techStack: {
-      languages: ["TypeScript"],
-      frameworks: ["Next.js"],
-      libraries: ["React"],
-      databases: [],
-      platforms: ["Firebase", "Vercel"],
-    },
-    description:"As someone who loves writing handwritten letters but lives far from most of my loved ones, I wanted to capture the warmth, spontaneity, and joy of receiving a handwritten note through a simple shareable website.\n\n" + 
-    "- Custom font from my own handwriting and hand-drawn graphics\n" +
-    "- 2D physics engine that explodes from an animated gift box to evoke a sense of physical space\n\n" +
-    " To create a seamless experience (since opening gifts should never be a task) while ensuring each person's information is secure, I stored unique IDs in the URL route directly sent to recipients to retrieve Firebase documents, all it takes to open is clicking a secure link sent via text.",
-    imageUrls: [
-      "/project-images/gift-box/giftbox-demo.mp4",
-      "/project-images/gift-box/image-1.png",
-      "/project-images/gift-box/image-2.png",
-    ],
-    cover: "/project-images/covers/giftbox-cover.png",
-  }),
-];
-
-const projects: Code[] = [
+export const projects: Code[] = [
   buildProject({
     name: "Mini Minecraft",
     date: "Fall 2024",

@@ -3,15 +3,20 @@ import Image from 'next/image';
 import { allPostsSorted } from '../blog/posts';
 import MoodRingBackground from './MoodRingShader';
 import CoverCarousel from './CoverCarousel';
+import ProjectsScroll from './ProjectsScroll';
 import BouncingText from './BouncingText';
 
-export default function Home() {
+type CoverProps = {
+  onScrollZoneActive?: (active: boolean) => void;
+};
+
+export default function Home({ onScrollZoneActive }: CoverProps) {
   return (
     <>
     <MoodRingBackground />
-    <main className="h-screen w-[100svw] text-gray-900 p-10 pb-12 pt-24 md:pt-48 flex flex-col justify-start items-center gap-8">
-      <div className='w-full max-w-2xl flex flex-col md:flex-row gap-5 md:gap-8 justify-start items-start md:items-center'>
-      <section className="w-fit h-fit flex-shrink-0">
+    <main className="w-[100svw] text-gray-900 flex flex-col justify-start items-start gap-8">
+      <section className="w-full max-w-2xl mx-auto p-10 pt-24 pb-48 -mb-40 max-h-[100svh] min-h-[100svh] flex flex-col gap-10 items-between">
+        <div className='w-full h-full flex flex-col justify-start items-start gap-1'>
         <h1>Estelle Kim</h1>
         <h3>
             Creative Developer<br/>
@@ -33,9 +38,7 @@ export default function Home() {
         >
           {'<'}resume link{'>'}
         </p>
-      </section>
-
-      <section className='w-full mx-auto border border-0.5 bg-neutral-100/50 backdrop-hue-rotate-[3rad] shadow-inner rounded-sm p-2 overflow-hidden flex flex-col gap-2 justify-center md:justify-start'>
+              <section className='w-full mx-auto border border-0.5 bg-neutral-100/50 backdrop-hue-rotate-[3rad] shadow-inner rounded-sm p-2 overflow-hidden flex flex-col gap-2 justify-center md:justify-start'>
         <div className='relative w-full flex-row flex gap-2 md:gap-1'>
           <label className='relative snap-start shrink-0 w-16 h-16 md:w-24 md:h-24 bg-gray-200 shadow overflow-hidden cursor-pointer'>
             <a href='https://watercolor-drip-shader.vercel.app/' target='_blank' rel='noopener noreferrer'>
@@ -91,10 +94,9 @@ export default function Home() {
         </ul>
       </section>
       </section>
-      </div>
-
-      <CoverCarousel />
-      <section className="hidden md:flex w-full max-w-2xl mx-auto flex-row gap-5 md:gap-10">
+        </div>
+        <CoverCarousel />
+        <section className="hidden md:flex w-full mx-auto flex-row gap-5 md:gap-10">
         <div className='flex flex-1 flex-col justify-start items-start'>
           <h3>I build:</h3>
           <ol>
@@ -126,10 +128,13 @@ export default function Home() {
           </ol>
         </div>
       </section>
-
-      <section className="w-full max-w-2xl mx-auto mt-8 flex flex-col items-start md:items-end">
-        <BouncingText>{"thanks for stopping by :-)"}</BouncingText>
       </section>
+
+      <ProjectsScroll onActiveChange={onScrollZoneActive}/>
+
+      {/* <section className="w-full max-w-2xl mx-auto mt-8 flex flex-col items-start md:items-end">
+        <BouncingText>{"thanks for stopping by :-)"}</BouncingText>
+      </section> */}
     </main>
     </>
   );

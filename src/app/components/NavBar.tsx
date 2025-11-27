@@ -2,7 +2,11 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-export default function NavBar() {
+export interface NavBarProps {
+  hide?: boolean;
+}
+
+export default function NavBar({ hide }: NavBarProps) {
     const pathname = usePathname();
   
     const links = [
@@ -14,7 +18,7 @@ export default function NavBar() {
     ];
   
     return (
-      <nav className='w-full top-0 left-0 flex flex-row justify-center z-20 p-10 fixed gap-5 md:gap-8'>
+      <nav className={`${hide ? ('hidden') : ('')} w-full top-0 left-0 flex flex-row justify-center z-20 p-10 fixed gap-5 md:gap-8`}>
         {links.map(({ href, label }) => (
           <Link
             key={href}
