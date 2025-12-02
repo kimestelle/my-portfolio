@@ -15,6 +15,7 @@ export default function ProjectsScrollSection({ onActiveChange }: ProjectsScroll
 
   // one ref per card so we can observe them
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const currentIndexRef = useRef(0);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollActive, setScrollActive] = useState(false);
@@ -46,9 +47,10 @@ export default function ProjectsScrollSection({ onActiveChange }: ProjectsScroll
   // cards grow height with scroll
   const cardHeight = useTransform(scrollYProgress, [0, 1], ['40vh', '100vh']);
 
-  // scroll when hover
-  const handleHoverThumb = (index: number) => {
+  // scroll when thumb is activated (hover on desktop, tap/click on mobile)
+  const activateThumb = (index: number) => {
     setActiveIndex(index);
+    currentIndexRef.current = index;
 
     const el = cardRefs.current[index];
     if (!el) return;
@@ -59,28 +61,42 @@ export default function ProjectsScrollSection({ onActiveChange }: ProjectsScroll
     });
   };
 
+  // keep ref in sync if activeIndex changes from IO
   useEffect(() => {
-    const currentIndexRef = { current: activeIndex };
+    currentIndexRef.current = activeIndex;
+  }, [activeIndex]);
+
+  // vertical scroll sync: viewport visibility → wheel activeIndex (smoothed)
+  useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') return;
 
     const observer = new IntersectionObserver(
       (entries) => {
+        // find the card with the highest intersectionRatio above a threshold
+        let bestIdx: number | null = null;
+        let bestRatio = 0;
+
         entries.forEach((entry) => {
           const idxAttr = (entry.target as HTMLElement).dataset.cardIndex;
           if (idxAttr == null) return;
           const idx = Number(idxAttr);
 
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
-            if (currentIndexRef.current !== idx) {
-              currentIndexRef.current = idx;
-              setActiveIndex(idx);
-            }
+          if (entry.isIntersecting && entry.intersectionRatio > bestRatio) {
+            bestRatio = entry.intersectionRatio;
+            bestIdx = idx;
           }
         });
+
+        // only update if we clearly "see" one card and it's different
+        if (bestIdx != null && bestRatio >= 0.55 && currentIndexRef.current !== bestIdx) {
+          currentIndexRef.current = bestIdx;
+          setActiveIndex(bestIdx);
+        }
       },
       {
         root: null, // viewport
-        threshold: [0.3, 0.6, 0.9],
-        rootMargin: '-10% 0px -10% 0px', // shrink the visible band a bit
+        threshold: [0.3, 0.55, 0.8],
+        rootMargin: '-10% 0px -10% 0px',
       }
     );
 
@@ -89,8 +105,7 @@ export default function ProjectsScrollSection({ onActiveChange }: ProjectsScroll
     });
 
     return () => observer.disconnect();
-  }, [activeIndex]);
-
+  }, []);
 
   // wheel layout
   const stepDeg = 26;
@@ -107,65 +122,67 @@ export default function ProjectsScrollSection({ onActiveChange }: ProjectsScroll
 
         {/* sticky wheel */}
         <div className="sticky z-[10] top-0 h-32 flex items-center justify-center border-b border-dotted border-black/20">
-            <div
-                className="relative w-[360px] h-20 flex items-center justify-center overflow-visible"
-                style={{ perspective: '900px' }}
-            >
-                {scrollActive &&
-                <div className="absolute bg-black w-2 h-2 left-1/2 bottom-0 -translate-x-1 translate-y-2 rounded-full shadow-lg"/>
-                }
-                <div
-                className="relative w-full h-full"
-                style={{
-                    transformStyle: 'preserve-3d',
-                    transform: scrollActive ? `translateZ(-${radius}px)` : '',
-                }}
-                >
-                {!scrollActive &&
-                // arrow gradient
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-16 rounded-full bg-gradient-to-b from-black/0 via-black/20 to-black/40 flex items-center justify-center pointer-events-none z-10">
-                    <div className="w-0 h-0 border-l-6 border-l-transparent border-r-6 border-r-transparent border-b-8 border-b-black"/>
-                </div>
-                }
-                {projects.map((project, index) => {
-                    const rel = index - activeIndex;
-                    const angle = rel * stepDeg;
-                    const isActive = index === activeIndex;
+          <div
+            className="relative w-[360px] h-20 flex items-center justify-center overflow-visible"
+            style={{ perspective: '900px' }}
+          >
+            {scrollActive && (
+              <div className="absolute bg-black w-2 h-2 left-1/2 bottom-0 -translate-x-1 translate-y-2 rounded-full shadow-lg" />
+            )}
 
-                    return (
+            <div
+              className="relative w-full h-full"
+              style={{
+                transformStyle: 'preserve-3d',
+                transform: scrollActive ? `translateZ(-${radius}px)` : '',
+              }}
+            >
+              {!scrollActive && (
+                // arrow gradient
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-16 flex items-center justify-center pointer-events-none z-10">
+                  <Image src='/icons/down-arrow.svg' alt='down arrow' width={24} height={24} className=' animate-bounce'/>
+                </div>
+              )}
+
+                {projects.map((project, index) => {
+                  const rel = index - activeIndex;
+                  const angle = rel * stepDeg;
+                  const isActive = index === activeIndex;
+
+                  return (
                     <button
-                        key={project.name}
-                        type="button"
-                        onMouseEnter={() => handleHoverThumb(index)}
-                        className="absolute left-1/2 top-1/2 w-12 h-16 rounded-full overflow-hidden"
-                        style={{
+                      key={project.name}
+                      type="button"
+                      onMouseEnter={() => activateThumb(index)}
+                      onClick={() => activateThumb(index)}
+                      className="absolute left-1/2 top-1/2 w-12 h-16 rounded-full overflow-hidden"
+                      style={{
                         transform: `
-                            rotateY(${scrollActive ? angle : 0}deg)
-                            translateZ(${scrollActive ? radius : 0}px)
-                            translate(-50%, -50%)
+                          rotateY(${scrollActive ? angle : 0}deg)
+                          translateZ(${scrollActive ? radius : 0}px)
+                          translate(-50%, -50%)
                         `,
+                        opacity: scrollActive ? 1 : 0,
                         transformStyle: 'preserve-3d',
-                        opacity: Math.abs(rel) > 5 ? 0 : 1,
-                        filter: isActive ? 'brightness(1.1)' : 'brightness(0.8)',
                         boxShadow: isActive
-                            ? '0 0 16px rgba(255,255,255,0.6)'
-                            : '0 0 8px rgba(0,0,0,0.1)',
+                          ? '0 0 16px rgba(255,255,255,0.6)'
+                          : '0 0 8px rgba(0,0,0,0.1)',
                         transition:
-                            'transform 320ms ease, opacity 200ms ease, filter 200ms ease, box-shadow 200ms ease',
-                        }}
+                          'transform 320ms ease, opacity 200ms ease, filter 200ms ease, box-shadow 200ms ease',
+                      }}
                     >
-                        <Image
+                      <Image
                         src={project.cover}
                         alt={project.name}
                         fill
                         sizes="48px"
                         className="object-cover"
-                        />
+                      />
                     </button>
-                    );
+                  );
                 })}
-                </div>
             </div>
+          </div>
         </div>
 
         {/* scrolling cards */}
@@ -205,18 +222,18 @@ export default function ProjectsScrollSection({ onActiveChange }: ProjectsScroll
                       <div>
                         <h2 className="text-xl font-medium mb-2">
                           {project.name}
-                           {project.url && (
+                          {project.url && (
                             <span>
-                            <a
-                            href={project.url}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-xs ml-2 mb-2 text-red-500 uppercase tracking-wide hover:bg-white hover:text-black transition-colors"
-                            >
-                            View project
-                            </a>
+                              <a
+                                href={project.url}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-xs ml-2 mb-2 text-red-500 uppercase tracking-wide hover:bg-white hover:text-black transition-colors"
+                              >
+                                View project
+                              </a>
                             </span>
-                        )}
+                          )}
                         </h2>
 
                         {project.techStack && (

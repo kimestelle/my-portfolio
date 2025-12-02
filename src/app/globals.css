@@ -361,3 +361,22 @@ span {
   list-style: inside;
   margin-left: 0.5rem;
 }
+
+@keyframes head-squish {
+  0% {
+    transform: translateY(0) scaleX(1) scaleY(1);
+  }
+  35% {
+    transform: translateY(3px) scaleX(1.08) scaleY(0.85); /* squish */
+  }
+  65% {
+    transform: translateY(-1px) scaleX(0.96) scaleY(1.05); /* little rebound */
+  }
+  100% {
+    transform: translateY(0) scaleX(1) scaleY(1);
+  }
+}
+
+.head:hover {
+  animation: head-squish 0.45s ease-out;
+}

@@ -6,15 +6,13 @@ export default function CoverCarousel() {
     {
       title: 'I build',
       items: [
-        'WebGL/WebGPU + frontend UI',
-        'Full-stack websites & apps',
-        'Pixel-perfect graphics that run on mobile',
+        'End-to-end, pixel-perfect software solutions'
       ],
     },
     {
       title: 'I work with',
       items: [
-        'Modern web: TS/JS, React',
+        'React, WebGL/WebGPU',
         'Graphics & shader programming',
         'APIs, databases, client-side storage',
       ],
@@ -60,7 +58,7 @@ export default function CoverCarousel() {
 
   return (
     <div
-      className="md:hidden w-full max-w-2xl mx-auto"
+      className="md:hidden w-full h-full max-w-2xl mx-auto"
       onMouseEnter={stop}
       onMouseLeave={start}
       onTouchStart={stop}
