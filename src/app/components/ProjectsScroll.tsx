@@ -66,7 +66,6 @@ export default function ProjectsScrollSection({ onActiveChange }: ProjectsScroll
     currentIndexRef.current = activeIndex;
   }, [activeIndex]);
 
-  // vertical scroll sync: viewport visibility → wheel activeIndex (smoothed)
   useEffect(() => {
     if (typeof IntersectionObserver === 'undefined') return;
 
@@ -218,7 +217,12 @@ export default function ProjectsScrollSection({ onActiveChange }: ProjectsScroll
                       />
                     </div>
 
-                    <div className="w-full h-1/2 md:w-1/2 md:h-full flex md:p-6 pt-0 overflow-y-scroll scrollbar-hide">
+                    <div
+                      className="w-full md:w-1/2 md:h-full flex md:p-6 pt-0
+                                h-auto overflow-visible
+                                md:overflow-y-auto scrollbar-hide"
+                      style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-y' }}
+                    >
                       <div>
                         <h2 className="text-xl font-medium mb-2">
                           {project.name}
