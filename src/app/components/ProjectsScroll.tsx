@@ -117,7 +117,7 @@ return (
       <div ref={sentinelRef} aria-hidden="true" className="h-px w-full" />
 
       {/* sticky wheel */}
-      <div className="sticky z-[10] top-0 h-32 flex items-center justify-center border-b border-dotted border-black/20 bg-white/80 backdrop-blur">
+      <div className="sticky z-[10] top-0 h-32 flex items-center justify-center border-b border-dotted border-black/20">
         <div
           className="relative w-[360px] h-20 flex items-center justify-center overflow-visible"
           style={{ perspective: '900px', touchAction: 'pan-y' }}
