@@ -1,65 +1,114 @@
 'use client';
+import Image from "next/image";
+import { CursorTooltip } from "../components/Tooltip";
 
-import React, { useState } from 'react';
-
-export default function AboutMeBlurb() {
-  const [version, setVersion] = useState<'technical' | 'personal'>('technical');
-
-  const toggleVersion = () => {
-    setVersion((prev) => (prev === 'technical' ? 'personal' : 'technical'));
-  };
-
+export default function About() {
   return (
-    <section className="max-w-xl mx-auto px-4 py-8 text-gray-800">
-      <button
-        onClick={toggleVersion}
-        className="mb-6 text-sm text-blue-600 underline hover:text-blue-800 transition"
-      >
-        Switch to {version === 'technical' ? 'personal' : 'technical'} version
-      </button>
+    <div className="responsive-padding flex flex-col justify-start items-center">
+      <div className="w-full max-w-2xl flex flex-col gap-5 pt-8">
+        <h2 className="mb-4">Hi — I’m Estelle {':-)'}</h2>
 
-      {version === 'technical' ? (
-        <div className="space-y-4 text-base leading-relaxed">
-          <p>
-            I like building things that feel intentional — responsive interfaces,
-            custom data flows, or full-stack systems that leave room for play.
-            I&apos;m drawn to interaction models that make people pause, explore, or
-            reflect without friction.
-          </p>
-          <p>
-            I think deeply about systems — how rendering pipelines behave, how
-            memory conventions shape performance, how to scale something while
-            keeping it personal. But beyond the technical, I care just as much
-            about how tools feel in someone&apos;s hands. I write code with that
-            balance in mind: structural, efficient, and grounded in human
-            experience.
-          </p>
-          <p>
-            To me, good engineering is quiet — it shows up in the moments where
-            everything just works, and the user never has to think about why.
-          </p>
+        <p>
+          I build tools that feel physical: interfaces that feel structured, tactile, and real.
+        </p>
+
+        <p>
+          I’m a CS + Computer Graphics student at UPenn. I like using tech to solve all kinds of problems where design decisions are also systems decisions.
+        </p>
+
+        <p>
+          Lately that means: full-stack products (from data model to UI), 3D/graphics in WebGL and OpenGL, web experiences that feel like apps,
+          and occasional hardware dabbles.
+        </p>
+
+        <p>
+          I care about clarity over polish. If something isn't legible or clean, I’ll happily spend more nights re-building it.
+        </p>
+
+        <p>
+          A lot is in progress here, but you might find these particularly fun:
+        </p>
+
+        <div className='relative w-full flex-row flex gap-2'>
+          <CursorTooltip content="cloudy with a chance of..." placement="right-start">
+            <a
+              className="glass-card cursor-pointer shrink-0 w-16 h-16 md:w-24 md:h-24"
+              href="https://watercolor-drip-shader.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/cover-images/watercolor-image.png"
+                alt="Watercolor Shader"
+                width={400}
+                height={400}
+                className="w-full h-full object-cover"
+              />
+            </a>
+          </CursorTooltip>
+
+          <CursorTooltip content="textellation_.*🟅" placement="right-start">
+            <a
+              className="glass-card cursor-pointer shrink-0 w-16 h-16 md:w-24 md:h-24"
+              href="https://textellation.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/cover-images/textellation-image.png"
+                alt="Textellation"
+                width={400}
+                height={400}
+                className="w-full h-full object-cover"
+              />
+            </a>
+          </CursorTooltip>
+
+          <CursorTooltip content="make a softbody jelly" placement="right-start">
+            <a
+              className="glass-card cursor-pointer shrink-0 w-16 h-16 md:w-24 md:h-24"
+              href="https://2d-softbody-lathe.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/cover-images/blob-image.png"
+                alt="3D/2D Softbody"
+                width={400}
+                height={400}
+                className="w-full h-full object-cover"
+              />
+            </a>
+          </CursorTooltip>
+
+          <CursorTooltip content="magnetic poetry board" placement="right-start">
+            <a
+              className="glass-card cursor-pointer shrink-0 w-16 h-16 md:w-24 md:h-24"
+              href="https://magnetic-poetry.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/cover-images/poetry-image.png"
+                alt="Magnetic Poetry"
+                width={400}
+                height={400}
+                className="w-full h-full object-cover"
+              />
+            </a>
+          </CursorTooltip>
         </div>
-      ) : (
-        <div className="space-y-4 text-base leading-relaxed">
-          <p>
-            I care about how things feel — not just how they look or work. I’m
-            drawn to ideas that hold emotion, memory, or meaning, especially
-            when they unfold through interaction. The projects I love most invite
-            people in gently, and give them space to make something their own.
-          </p>
-          <p>
-            I think in layers — visual, structural, emotional — and I like
-            connecting them in ways that feel effortless. Whether I’m building a
-            journaling app, writing an application statement, or sketching a
-            sound interface, I’m always asking: <em>what does this feel like to
-            use?</em>
-          </p>
-          <p>
-            My work isn’t about impressing people. It’s about helping them feel
-            something real — even if it’s subtle, even if it’s small.
-          </p>
-        </div>
-      )}
-    </section>
+
+
+        <p>
+          Feel free to reach out at {' '} 
+          <a href="mailto:kestelle@sas.upenn.edu">
+            kestelle@sas.upenn.edu, I always love meeting new people!
+          </a>
+        </p>
+
+        
+      </div>
+    </div>
   );
 }

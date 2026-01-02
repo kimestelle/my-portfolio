@@ -1,7 +1,7 @@
 import './mood-shader.css'
 export default function MoodShaderPage() {
   return (
-    <div className="blog-formatting responsive-padding">
+    <div className="blog-formatting max-w-2xl">
         <h1 className="text-3xl font-bold">{'</>'} webGL mood ring shader</h1>
         <p className="text-gray-500 half-margin">June 27, 2025</p>
         <p className="text-gray-600 italic half-margin">wip</p>

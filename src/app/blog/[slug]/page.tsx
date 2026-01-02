@@ -2,7 +2,6 @@
 import { useParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import BottomBar from '@/app/components/BottomBar';
 
 const postMap: Record<string, any> = {
   'into-the-blue': dynamic(() => import('../pages/into-the-blue')),
@@ -21,12 +20,8 @@ export default function BlogPostPage() {
   if (!PostComponent) return <div>Not found.</div>;
 
   return (
-    <div className="responsive-padding">
-      <Link href="/blog" className="red">
-        ← Back to blog
-      </Link>
+    <div className="responsive-padding flex justify-center">
       <PostComponent />
-      <BottomBar />
     </div>
   );
 }

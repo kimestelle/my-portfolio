@@ -1,6 +1,6 @@
 export default function SlowTechPage() {
   return (
-    <div className="blog-formatting responsive-padding">
+    <div className="blog-formatting max-w-2xl">
       <h1 className="text-3xl font-bold">on compressing thought</h1>
       <p className="text-gray-500 mt-1 half-margin">June 25, 2025</p>
       <p className="text-gray-600 italic half-margin">before it means something</p>

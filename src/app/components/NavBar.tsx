@@ -4,38 +4,37 @@ import Link from "next/link";
 
 export interface NavBarProps {
   hide?: boolean;
+  fps?: number;
+  shaderOn: boolean;
+  onToggleShader?: () => void;
 }
 
-export default function NavBar({ hide }: NavBarProps) {
-    const pathname = usePathname();
+export default function NavBar({ hide, fps = 0, shaderOn = true, onToggleShader }: NavBarProps) {
   
-    const links = [
-      { href: '/', label: 'home' },
-      { href: '/projects', label: 'projects' },
-      { href: '/design', label: 'design' },
-      // { href: '/playground', label: 'playground' },
-      { href: '/blog', label: 'blog' },
-    ];
-  
-    return (
-      <nav className={`${hide ? ('hidden') : ('')} w-full top-0 left-0 flex flex-row justify-center z-20 p-10 fixed gap-5 md:gap-8`}>
-        {links.map(({ href, label }) => (
-          <Link
-            key={href}
-            href={href}
-            className={`transition-all duration-200 backdrop-filter backdrop-blur ${
-              pathname === href ? 'red' : ''
-            }`}
+  return (
+    <nav className={`${hide ? ('hidden') : ('')} navbar w-fit fixed top-6 left-1/2 -translate-x-2/3 flex flex-row`}>
+      <Link className="mr-5 md:mr-8" href="/">.*✦</Link>
+      <Link className="mr-5 md:mr-8" href="/projects">projects</Link>
+      <Link className="mr-5 md:mr-8" href="/about">about</Link>
+      <Link href="/blog">blog</Link>
+      <div className='w-0 h-px relative'>
+          <span className='w-max cursor-pointer select-none absolute top-0.5 -right-10 translate-x-[100%]'
+            style={{
+              color: 'rgb(20, 20, 20)',
+            }}
+            onClick={onToggleShader}
           >
-            {label}
-          </Link>
-        ))}
-      </nav>
-    );
-  }
-  
-  
-  
-  
-  
-  
+            {shaderOn ? `fps ${fps.toFixed(0)}: ` : 'shader '} 
+            <span
+              style={{
+                backgroundColor: 'rgb(20, 20, 20, 0.5)',
+                color: 'white',
+                padding: '4px 6px',
+                borderRadius: '4px',
+              }}
+            >{shaderOn ? 'on' : 'off'}</span>
+          </span>
+      </div>
+    </nav>
+  );
+}

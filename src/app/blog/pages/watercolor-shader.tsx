@@ -154,7 +154,7 @@ code: ``,
   ] as const;
 
   return (
-    <div className="blog-formatting responsive-padding">
+    <div className="blog-formatting max-w-2xl">
       <h1 className="text-3xl font-bold">watercolor drip shader</h1>
       <p className="text-gray-500 mt-1 half-margin"><span className='italic text-gray-600'>~ case study ~ </span>November 1, 2025</p>
       <hr className="mb-4" />

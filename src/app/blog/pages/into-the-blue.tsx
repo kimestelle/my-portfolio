@@ -54,7 +54,7 @@ export default function Blue_DemoNotes() {
   ] as const;
 
   return (
-    <div className="blog-formatting responsive-padding">
+    <div className="blog-formatting max-w-2xl">
       <h1 className="text-3xl font-bold">Scavenger Hunt in the Penn Museum</h1>
       <p className="text-gray-500 mt-1 half-margin">
         <span className='italic text-gray-600'>~ Into the Blue: case study ~ </span>October 30, 2025

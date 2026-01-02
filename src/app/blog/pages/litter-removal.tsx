@@ -1,6 +1,6 @@
 export default function LitterRemovalPage() {
   return (
-    <div className="blog-formatting responsive-padding">
+    <div className="blog-formatting max-w-2xl">
       <h1 className="text-3xl font-bold">litter removal</h1>
       <p className="text-gray-500 half-margin">June 23, 2025</p>
       <p className="text-gray-600 italic half-margin">what happens when goodness becomes easier</p>

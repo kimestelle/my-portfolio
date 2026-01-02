@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Ysabeau_Office, EB_Garamond } from "next/font/google";
-import Script from 'next/script';
+import LayoutShell from "./LayoutShell";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -33,7 +33,7 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://use.typekit.net/yef8dto.css"/> 
       </head>
       <body>
-        {children}
+        <LayoutShell>{children}</LayoutShell>
       </body>
     </html>
   );
