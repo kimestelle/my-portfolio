@@ -22,7 +22,7 @@ export default function About() {
         </p>
 
         <p>
-          I care about clarity over polish. If something isn't legible or clean, I’ll happily spend more nights re-building it.
+          I care about clarity over polish. If something isn&apos;t legible or clean, I&apos;ll happily spend more nights re-building it.
         </p>
 
         <p>
