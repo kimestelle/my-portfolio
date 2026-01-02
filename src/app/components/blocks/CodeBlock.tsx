@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Code } from "../Projects";
+import { Code } from "../../projects/page";
 import Image from "next/image";
 
 interface CodeBlockProps {

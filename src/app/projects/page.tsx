@@ -3,7 +3,6 @@
 import { useState } from "react";
 import CodeBlock from "../components/blocks/CodeBlock";
 import Image from "next/image";
-import Link from "next/link";
 
 export interface TechStack {
   languages: string[];
@@ -36,7 +35,7 @@ function buildProject(projectObj: Code): Code {
   return projectObj;
 }
 
-export const projects: Code[] = [
+const projects: Code[] = [
   buildProject({
     name: "Mini Minecraft",
     date: "Fall 2024",
@@ -230,7 +229,7 @@ export const projects: Code[] = [
 ];
 
 
-export default function Code() {
+export default function Projects() {
   const [activeProjectIndex, setActiveProjectIndex] = useState<number | null>(null);
 
   const handleProjectClick = (index: number) => {
@@ -256,7 +255,7 @@ export default function Code() {
   };
 
   return (
-    <div id='projects' className="flex flex-col gap-5 px-10 md:px-32 py-32">
+    <div className="flex flex-col gap-5 px-10 md:px-32 py-32">
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {projects.map((project, index) => (
