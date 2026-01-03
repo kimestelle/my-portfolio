@@ -20,7 +20,7 @@ const FRAME_MS = 1000 / TARGET_FPS;
 export default function MoodRingBackground({ enabled = true, onFps }: MoodRingProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const backgroundRef = useRef<HTMLCanvasElement>(null);
-  const viewportRef = useRef({ w: window.innerWidth, h: window.innerHeight });
+  const viewportRef = useRef({ w: 0, h: 0 });
 
 
   const heatSpots = useRef<HeatSpot[]>([]);
@@ -35,6 +35,11 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
   const stopRef = useRef<null | (() => void)>(null);
 
   useEffect(() => {
+    const v = window.visualViewport;
+    viewportRef.current = v
+      ? { w: Math.round(v.width), h: Math.round(v.height) }
+      : { w: window.innerWidth, h: window.innerHeight };
+      
     const canvas = canvasRef.current;
     const background = backgroundRef.current;
     if (!canvas || !background) return;
