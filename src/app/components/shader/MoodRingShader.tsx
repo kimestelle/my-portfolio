@@ -20,6 +20,8 @@ const FRAME_MS = 1000 / TARGET_FPS;
 export default function MoodRingBackground({ enabled = true, onFps }: MoodRingProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const backgroundRef = useRef<HTMLCanvasElement>(null);
+  const viewportRef = useRef({ w: window.innerWidth, h: window.innerHeight });
+
 
   const heatSpots = useRef<HeatSpot[]>([]);
   const asciiStars = useRef<string[][]>([]);
@@ -59,9 +61,7 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
       } catch {}
     })();
 
-    const drawAll = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
+    const drawAll = (width: number, height:number) => {
       asciiCtx.clearRect(0, 0, width, height);
 
       const g = asciiStars.current;
@@ -86,10 +86,8 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
       }
     };
 
-    const resizeAscii = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const resizeAscii = (width: number, height: number) => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);      
 
       background.width = Math.floor(width * dpr);
       background.height = Math.floor(height * dpr);
@@ -116,25 +114,11 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
     const maxSpots = 50;
     const spotsArray = Array.from({ length: maxSpots }, () => new THREE.Vector3(0, 0, -999));
 
-    const loader = new THREE.TextureLoader();
-    const paperTex = loader.load(
-      '/textures/clean-gray-paper.png',
-      (tex) => {
-        tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
-        tex.colorSpace = THREE.NoColorSpace;
-        tex.needsUpdate = true;
-      },
-      undefined,
-      () => {}
-    );
-
     const uniforms = {
       uTime: { value: 0 },
       uResolution: { value: new THREE.Vector2() },
       uSpots: { value: spotsArray },
       uSpotCount: { value: 0 },
-      uPaperTex: { value: paperTex },
-      uTexStrength: { value: 1.0 },
     };
 
     const material = new THREE.ShaderMaterial({
@@ -154,8 +138,6 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
         uniform vec2 uResolution;
         uniform vec3 uSpots[50];
         uniform int uSpotCount;
-        uniform sampler2D uPaperTex;
-        uniform float uTexStrength;
 
         float heatFalloff(vec2 uv, vec2 center, float age) {
           float radius = 0.02 + age * 0.05;
@@ -201,11 +183,8 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
           vec3 glow = moodPalette(heat);
           vec3 color = mix(base, glow, smoothstep(0.0, 0.65, heat));
 
-          float a = 1.0 - smoothstep(0.0, 1.0, heat);
-          vec2 paperUv = uv * uResolution.xy / 256.0;
-
-          float paperAlpha = texture2D(uPaperTex, paperUv).r + 0.1;
-          a *= mix(0.0, 1.0, paperAlpha) * uTexStrength;
+          float t = smoothstep(0.0, 1.0, heat);
+          float a = 1.0 - pow(t, 2.5);
 
           gl_FragColor = vec4(color, a);
         }
@@ -217,17 +196,20 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
     renderer.setClearColor(0x000000, 0);
     scene.add(new THREE.Mesh(geometry, material));
 
-    const onResize = async () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-
+    const onResize = async (w: number, h: number) => {
       await ensureFont;
-      resizeAscii();
-      drawAll();
+      viewportRef.current.w = w;
+      viewportRef.current.h = h;
+      
+      resizeAscii(w, h);
+      drawAll(w, h);
 
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
-      renderer.setSize(width, height, false);
-      uniforms.uResolution.value.set(width, height);
+      renderer.setSize(w, h, false);
+
+      const buf = new THREE.Vector2();
+      renderer.getDrawingBufferSize(buf);
+      uniforms.uResolution.value.copy(buf);
     };
 
     const handleTouch = (clientX: number, clientY: number) => {
@@ -235,9 +217,9 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
       if (now - lastTouchTimeRef.current < 0.05) return;
       lastTouchTimeRef.current = now;
 
-      const x = clientX / window.innerWidth;
-      const y = 1 - clientY / window.innerHeight;
-      const stretchedY = (y - 0.5) * (window.innerHeight / window.innerWidth) + 0.5;
+      const x = clientX / viewportRef.current.w;
+      const y = 1 - clientY / viewportRef.current.h;
+      const stretchedY = (y - 0.5) * (viewportRef.current.h / viewportRef.current.w) + 0.5;
 
       heatSpots.current.push({ position: new THREE.Vector2(x, stretchedY), createdAt: now });
       if (heatSpots.current.length > maxSpots) heatSpots.current.shift();
@@ -253,15 +235,36 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
       }
     };
 
-    window.addEventListener('resize', onResize);
+    const getViewport = () => {
+      const vv = window.visualViewport;
+      if (vv) return { w: Math.round(vv.width), h: Math.round(vv.height) };
+      return { w: window.innerWidth, h: window.innerHeight };
+    };
+
+    // 
+    let resizeT: number | null = null;
+    const handleResize = () => {
+      if (resizeT) clearTimeout(resizeT);
+      resizeT = window.setTimeout(() => {
+        const { w, h } = getViewport();
+        onResize(w, h);
+      }, 120);
+    };
+
+    window.addEventListener("resize", handleResize);
+    window.visualViewport?.addEventListener("resize", handleResize);
+    window.visualViewport?.addEventListener("scroll", handleResize);
     window.addEventListener('pointermove', onPointerMove);
     window.addEventListener('pointerdown', onPointerDown);
     window.addEventListener('touchstart', onTouchStart, { passive: true });
 
-    onResize();
+    onResize(viewportRef.current.w, viewportRef.current.h);
 
     let startTime = 0;
     let lastRender = 0
+    let lastNow = 0;
+    let conwayAcc = 0;
+    const CONWAY_STEP = 0.12;
 
     const animate = (t: number) => {
       if (!runningRef.current) return;
@@ -285,6 +288,10 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
       elapsedTimeRef.current = now;
       uniforms.uTime.value = now;
 
+      const dt = lastNow === 0 ? 0 : (now - lastNow);
+      lastNow = now;
+      conwayAcc += dt;
+
       const src = heatSpots.current;
       let k = 0;
       for (let i = 0; i < src.length; i++) {
@@ -303,11 +310,14 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
         }
       }
 
-      if (now - lastAsciiStep > 0.12) {
-        lastAsciiStep = now;
+      const MAX_STEPS_PER_FRAME = 4;
+      let steps = 0;
+      while (conwayAcc >= CONWAY_STEP && steps < MAX_STEPS_PER_FRAME) {
+        conwayAcc -= CONWAY_STEP;
         const res = updateStarConwayDirty(asciiStars.current);
         asciiStars.current = res.grid;
         drawDirty(res.dirty);
+        steps++;
       }
 
       renderer.render(scene, camera);
@@ -351,7 +361,7 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
       fpsLast = 0;
       startTime = 0;
       // clear canvas on off
-      const w = window.innerWidth, h = window.innerHeight;
+      const w = viewportRef.current.w, h = viewportRef.current.h;
       asciiCtx.clearRect(0, 0, w, h);
       renderer.clear();
     };
@@ -364,13 +374,15 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
 
     return () => {
       stop();
-      window.removeEventListener('resize', onResize);
+      if (resizeT) clearTimeout(resizeT);
+      window.removeEventListener('resize', handleResize);
+      window.visualViewport?.removeEventListener('resize', handleResize);
+      window.visualViewport?.removeEventListener('scroll', handleResize);
       window.removeEventListener('pointermove', onPointerMove);
       window.removeEventListener('pointerdown', onPointerDown);
       window.removeEventListener('touchstart', onTouchStart as any);
 
       renderer.dispose();
-      paperTex.dispose();
       material.dispose();
       geometry.dispose();
     };
@@ -388,12 +400,23 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
       <canvas
         ref={backgroundRef}
         className="fixed top-0 left-0 w-full h-full z-[-2] pointer-events-none"
-        style={{ opacity: enabled ? 1 : 0, transition: 'opacity 140ms ease' }}
+        style={{
+          opacity: enabled ? 1 : 0,
+          transition: 'opacity 140ms ease',
+
+          backgroundColor: 'rgba(255, 255, 255, 1)',
+          backgroundImage: 'url(/textures/tiny-grid.png)',
+          backgroundRepeat: 'repeat',
+          backgroundSize: '20px 20px',
+        }}
       />
       <canvas
         ref={canvasRef}
         className="fixed top-0 left-0 w-full h-full z-[-1] pointer-events-none"
-        style={{ opacity: enabled ? 1 : 0, transition: 'opacity 140ms ease' }}
+        style={{ 
+          opacity: enabled ? 1 : 0, 
+          transition: 'opacity 140ms ease',
+        }}
       />
     </>
   );
