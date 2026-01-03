@@ -30,7 +30,7 @@ export default function ProjectHTML() {
             title: 'Internet Atlas',
             href: 'https://www.figma.com/deck/hBWnB1ibfek3EVAF1d3vZM/Estelle-Kim-Portfolio-Slides?node-id=16-72',
             imageSrc: '/project-images/covers/atlas-cover.png',
-            blurb: '3D graph interface + pipeline',
+            blurb: '3D graph interface + ML pipeline',
         },
         {
             title: 'Penn Spark Website',
