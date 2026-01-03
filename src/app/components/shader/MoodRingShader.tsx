@@ -39,7 +39,7 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
     viewportRef.current = v
       ? { w: Math.round(v.width), h: Math.round(v.height) }
       : { w: window.innerWidth, h: window.innerHeight };
-      
+
     const canvas = canvasRef.current;
     const background = backgroundRef.current;
     if (!canvas || !background) return;
@@ -346,6 +346,13 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
       fpsFrames = 0;
       fpsLast = 0;
       startTime = 0;
+      if (cols > 0 && rows > 0) {
+        asciiStars.current = starConwayPattern(cols, rows);
+        drawAll(viewportRef.current.w, viewportRef.current.h);
+      } else {
+        // try resizing again if cols/rows not ready
+        onResize(viewportRef.current.w, viewportRef.current.h);
+      }
 
       runningRef.current = true;
       rafIdRef.current = requestAnimationFrame(animate);
