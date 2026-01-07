@@ -285,7 +285,7 @@ export const PROJECTS: Project[] = [
     cover: {
       imageSrc: '/cover-images/watercolor-image.png',
       blurb: 'Custom real-time fluid drip sim',
-      engineering: 'Ping-pong buffer technique for fluid state simulation. Hybrid CPU/GPU pipeline with minimal diffuse system for real-time watercolor effects in GLSL.',
+      engineering: 'Ping-pong buffer, minimal diffusion operations, and two-canvas optimization for real-time watercolor effects in GLSL.',
       tags: ['GLSL', 'WebGL', 'Shaders'],
     },
     

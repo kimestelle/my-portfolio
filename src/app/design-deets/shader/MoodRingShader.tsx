@@ -150,7 +150,7 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
         }
 
         float heatFalloff(vec2 uv, vec2 center, float age) {
-          float radius = pxToUv(24.0) + age * pxToUv(90.0);
+          float radius = pxToUv(14.0) + age * pxToUv(60.0);
 
           float dist = distance(uv, center);
           float d = dist / radius;

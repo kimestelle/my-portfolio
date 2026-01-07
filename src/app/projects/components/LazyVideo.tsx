@@ -47,7 +47,7 @@ export default function LazyVideo({
 
   return (
     <span ref={targetRef as any} style={{ position: "relative", minHeight: 50, height: "100%" }}>
-      <MuxPlayer
+      {/* <MuxPlayer
         ref={playerRef}
         playbackId={playbackId}
         poster={poster}
@@ -59,7 +59,7 @@ export default function LazyVideo({
         autoPlay={false}
         className={className}
         aria-label={alt || "video"}
-      />
+      /> */}
     </span>
   );
 }

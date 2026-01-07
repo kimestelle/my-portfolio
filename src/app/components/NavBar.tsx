@@ -13,18 +13,18 @@ export interface NavBarProps {
 export default function NavBar({ hide, fps = 0, shaderOn = true, shaderDisabled, onToggleShader }: NavBarProps) {
   
   return (
-    <nav className={`${hide ? ('hidden') : ('')} navbar w-fit fixed top-6 left-1/2 -translate-x-2/3 flex flex-row z-[10]`}>
-      <Link className="mr-5 md:mr-8" href="/">.*✦</Link>
-      <Link className="mr-5 md:mr-8" href="/projects">projects</Link>
-      <Link className="mr-5 md:mr-8" href="/about">about</Link>
-      <Link href="/lab">lab!</Link>
+    <nav className={`${hide ? ('hidden') : ('')} navbar px-4 py-2 md:px-5 w-fit fixed top-6 left-1/2 -translate-x-2/3 flex flex-row z-[10]`}>
+      <Link className="mr-4 md:mr-8" href="/">.*✦</Link>
+      <Link className="mr-4 md:mr-8" href="/projects">projects</Link>
+      <Link className="mr-4 md:mr-8" href="/about">about</Link>
+      <Link href="/playground">playground</Link>
       <div className='w-0 h-px relative'>
         <CursorTooltip 
           content={shaderDisabled ? "shader is disabled on this page :-(": "cool shader? click to toggle!"}
           placement="bottom"
 
         >
-          <span className='w-max cursor-pointer select-none absolute top-0.5 -right-10 translate-x-[100%]'
+          <span className='w-max cursor-pointer select-none absolute top-0.5 -right-8 md:-right-10 translate-x-[100%]'
             style={{
               color: 'rgb(20, 20, 20)',
             }}

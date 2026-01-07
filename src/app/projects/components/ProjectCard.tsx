@@ -27,9 +27,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               {project.cover.blurb}
             </div>
           </div>
-          <span className="shrink-0 text-neutral-400 group-hover:text-neutral-700 transition-colors">
-            ↗
-          </span>
         </div>
 
         {project.cover.tags?.length ? (

@@ -3,10 +3,6 @@ import { CursorTooltip } from './Tooltip';
 import Image from 'next/image';
 import ProjectHTML from './ProjectHTML';
 
-type CoverProps = {
-  onScrollZoneActive?: (active: boolean) => void;
-};
-
 export default function Home() {
 
   return (
@@ -65,6 +61,10 @@ export default function Home() {
           I build interactive experiences that ship to production, including
           real-time graphics, full-stack engineering, physical computing, and ML pipelines. I 
           love collaborating with designers to make ambitious ideas actually work at scale.
+        </p>
+
+        <p className='mt-3'>
+          Currently seeking summer 2026 internships in creative studios & experiential design.
         </p>
 
         <ProjectHTML />

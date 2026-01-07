@@ -81,9 +81,9 @@ export default function Projects() {
           </button>
 
           <Link 
-            href="/lab"
+            href="/playground"
           >
-            tiny experiments
+            playground →
           </Link>
         </div>
 
