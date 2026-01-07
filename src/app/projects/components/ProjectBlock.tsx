@@ -23,7 +23,8 @@ export default function ProjectBlock({ project }: ProjectBlockProps) {
   };
 
   const isVideo = (url: string) => {
-    return url.endsWith(".mp4") || url.endsWith(".webm") || url.endsWith(".ogg");
+    const u = url.toLowerCase();
+    return !u.endsWith(".png") && !u.endsWith(".jpg") && !u.endsWith(".jpeg");
   };
 
   const isMobile = typeof navigator !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -60,8 +61,8 @@ export default function ProjectBlock({ project }: ProjectBlockProps) {
       <div className="relative w-full h-[22rem] flex justify-center items-center my-5 p-2 rounded-md bg-neutral-100 shadow-inner">
         {isVideo(project.details.imageUrls[currentIndex]) ? (
           <LazyVideo
-            src={project.details.imageUrls[currentIndex]}
-            style="h-full max-h-[22rem] object-contain"
+            playbackId={project.details.imageUrls[currentIndex]}
+            className="h-full max-h-[22rem] object-contain"
           />
         ) : (
           <Image

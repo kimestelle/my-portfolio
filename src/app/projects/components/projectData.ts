@@ -101,7 +101,7 @@ export const PROJECTS: Project[] = [
         },
       ],
       imageUrls: [
-        '/project-images/into-the-blue/blue-demo.mp4',
+        'GASgNQMNNJ016tzUTngLXSXFZ000228UTfdlfs5007gD8Y4',
         '/project-images/into-the-blue/image-1.png',
         '/project-images/into-the-blue/image-2.png',
       ],
@@ -161,7 +161,7 @@ export const PROJECTS: Project[] = [
           ],
         },
       ],
-      imageUrls: ['/project-images/internet-atlas/atlas-demo.mp4',
+      imageUrls: ['aDL519jpf01J01rs1fZqqXPHw996LWwx9UD6Jh4ecZ9Xk',
         '/project-images/internet-atlas/image-1.png',
         '/project-images/internet-atlas/image-2.png'
       ],
@@ -214,7 +214,7 @@ export const PROJECTS: Project[] = [
           ],
         }
       ],
-      imageUrls: ['/project-images/minecraft/mc-demo.mp4'],
+      imageUrls: ['Upynws87FCaT1Bgu1KXND012VF4x02pUW4UqgfZA2u9TQ'],
     },
   },
   
@@ -328,7 +328,7 @@ export const PROJECTS: Project[] = [
         },
       ],
       imageUrls: [
-        '/project-images/watercolor/watercolor-demo.mp4',
+        'Q6vpA2hHh4wYGgeMfJx2uQ7TeQP4521W01PPKnjuhg4o',
       ],
     },
   },
@@ -389,7 +389,7 @@ export const PROJECTS: Project[] = [
         },
       ],
       imageUrls: [
-        '/project-images/jelly/jelly-demo.mp4'
+        'GZdl1cDfK9NOsulE9mAQ9UkLMYa49hifCeAKGZlI01RQ'
       ],
     },
   },
@@ -460,7 +460,7 @@ export const PROJECTS: Project[] = [
         },
       ],
       imageUrls: [
-        '/project-images/textellation/demo.mp4',
+        '01602whjZXp79w6lGOpvB00w12dlNUucu8xxA55Pezrxhk',
         '/project-images/textellation/image-1.png',
         '/project-images/textellation/image-2.png',
         '/project-images/textellation/image-3.png',
@@ -524,7 +524,7 @@ export const PROJECTS: Project[] = [
         },
       ],
       imageUrls: [
-        '/project-images/poetry/poetry-demo.mp4',
+        'VfkS2WKIky8RS6hS3GO6vLHVAfJnbfYrTuSWv5jk57g',
       ],
     },
   },
@@ -582,7 +582,7 @@ export const PROJECTS: Project[] = [
         },
       ],
       imageUrls: [
-        '/project-images/better-spelling-bee/bsb-demo.mp4',
+        'MoJuRZd5h6vDizNCa7IA6PAdFv02401APHwtxT6Zc34dk',
         '/project-images/better-spelling-bee/image-1.png',
         '/project-images/better-spelling-bee/image-2.png',
       ],
@@ -642,7 +642,7 @@ export const PROJECTS: Project[] = [
         },
       ],
       imageUrls: [
-        '/project-images/gift-box/giftbox-demo.mp4',
+        'a00AFc4Ppdzh9qScLuldQUKHv028dT681zlcB1ubKF7Qs',
         '/project-images/gift-box/image-1.png',
         '/project-images/gift-box/image-2.png',
       ],
@@ -704,7 +704,7 @@ export const PROJECTS: Project[] = [
         },
       ],
       imageUrls: [
-        '/project-images/chocolate/chocolate-demo.mp4',
+        'E02DJOgUseJ9BPDxRzFQCMN3uCAsNPo02p2rj00OfWc00LI',
         '/project-images/chocolate/image-1.png',
         '/project-images/chocolate/image-2.png',
       ],

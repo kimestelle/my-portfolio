@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Project } from './projectData';
 
 interface ProjectCardProps {
@@ -8,12 +9,12 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <figure className="group relative overflow-hidden rounded-xl border bg-white/60 backdrop-blur">
       <div className="relative w-full aspect-[16/10] overflow-hidden bg-neutral-100">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={project.cover.imageSrc}
           alt={project.name}
+          width={1000}
+          height={625}
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-          loading="lazy"
         />
         <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-gradient-to-t from-white/45 via-white/0 to-white/0" />
       </div>

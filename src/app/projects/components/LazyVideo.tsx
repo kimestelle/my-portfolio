@@ -1,79 +1,65 @@
+"use client";
 
-import { CSSProperties, useCallback, useEffect, useRef } from "react";
-
+import { useCallback, useEffect, useRef } from "react";
+import MuxPlayer, { MuxPlayerRefAttributes } from "@mux/mux-player-react";
 import { useIsVisible } from "../../hooks/use-is-visible";
 
-type VideoComponentProps = {
-  src: string;
+type LazyVideoProps = {
+  playbackId: string;
   poster?: string;
   alt?: string;
-  style?: string;
+  className?: string;
+  muted?: boolean;
+  loop?: boolean;
 };
-export default function LazyVideo ({
-  src,
+
+export default function LazyVideo({
+  playbackId,
   poster,
-  style,
   alt,
-}: VideoComponentProps) {
+  className,
+  muted = true,
+  loop = true,
+}: LazyVideoProps) {
   const { isVisible, targetRef } = useIsVisible(
-    {
-      root: null,
-      rootMargin: "200px",
-      threshold: 0.1,
-    },
-    false,
+    { root: null, rootMargin: "200px", threshold: 0.1 },
+    false
   );
 
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const playerRef = useRef<MuxPlayerRefAttributes>(null);
 
-  const startVideoOnMouseMove = useCallback(async () => {
+  const play = useCallback(async () => {
     try {
-      await videoRef.current?.play();
-    } catch (e) {
-      // do nothing
-    }
+      await playerRef.current?.play();
+    } catch {}
   }, []);
 
-  const stopVideoOnMove = useCallback(() => {
+  const pause = useCallback(() => {
     try {
-      videoRef.current?.pause();
-    } catch (e) {
-      // do nothing
-    }
+      playerRef.current?.pause();
+    } catch {}
   }, []);
 
   useEffect(() => {
-    if (isVisible) {
-      startVideoOnMouseMove();
-    } else {
-      stopVideoOnMove();
-    }
-  }, [isVisible, startVideoOnMouseMove, stopVideoOnMove]);
+    if (isVisible) play();
+    else pause();
+  }, [isVisible, play, pause]);
 
   return (
-    <span
-      ref={targetRef as any}
-      style={{
-        position: "relative",
-        minHeight: "50px",
-        height: "100%",
-      }}
-    >
-      <video
-        ref={videoRef}
-        loop
-        muted
-        autoPlay={false}
-        preload="none"
-        playsInline
+    <span ref={targetRef as any} style={{ position: "relative", minHeight: 50, height: "100%" }}>
+      <MuxPlayer
+        ref={playerRef}
+        playbackId={playbackId}
         poster={poster}
-        aria-label={alt}
-        className={style}
-      >
-        <source src={src} type="video/mp4" />
-        Your browser does not support the video tag. Please try viewing this
-        page in a modern browser.
-      </video>
+        streamType="on-demand"
+        muted={muted}
+        loop={loop}
+        playsInline
+        preload="metadata"
+        autoPlay={false}
+        className={className}
+        aria-label={alt || "video"}
+      />
     </span>
   );
-};
+}
