@@ -1,26 +1,43 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState, ReactNode } from 'react';
+import { usePathname } from 'next/navigation';
 import NavBar from './components/NavBar';
-import MoodRingBackground from './components/shader/MoodRingShader';
+import MoodRingBackground from './design-deets/shader/MoodRingShader';
 
-export default function LayoutShell({ children }: { children: React.ReactNode }) {
-  const [shaderOn, setShaderOn] = useState(true);
+export default function LayoutShell({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+
+  const shaderDisabled = useMemo(
+    () => pathname.startsWith('/lab'),
+    [pathname]
+  );
+
+  // user shader preference
+  const [shaderPref, setShaderPref] = useState(true);
   const [fps, setFps] = useState(0);
 
-  const onToggleShader = useCallback(() => {
-    setShaderOn((v) => !v);
-  }, []);
+  // decide if shader is enabled
+  const shaderEnabled = shaderPref && !shaderDisabled;
 
-  const onFps = useCallback((v: number) => {
-    setFps(v);
-  }, []);
+  const onToggleShader = useCallback(() => {
+    if (shaderDisabled) return;
+    setShaderPref((v) => !v);
+  }, [shaderDisabled]);
+
+  const onFps = useCallback((v: number) => setFps(v), []);
 
   return (
     <>
-      <NavBar fps={fps} shaderOn={shaderOn} onToggleShader={onToggleShader} />
+      <NavBar
+        fps={fps}
+        shaderOn={shaderEnabled}
+        shaderDisabled={shaderDisabled}
+        onToggleShader={onToggleShader}
+      />
+
       {children}
-      <MoodRingBackground enabled={shaderOn} onFps={onFps} />
+      <MoodRingBackground enabled={shaderEnabled} onFps={onFps} />
     </>
   );
 }

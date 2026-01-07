@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import CodeDemo, { CodeDemoProps } from '../components/CodeDemo';
 import { MiniCameraCutout } from '../components/BlueDemos';
-import BouncingText from '@/app/components/BouncingText';
+import BouncingText from '@/app/design-deets/BouncingText';
 
 export default function Blue_DemoNotes() {
   const demos: readonly CodeDemoProps[] = [

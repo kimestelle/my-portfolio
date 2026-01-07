@@ -1,322 +1,185 @@
 "use client";
 
-import { useState } from "react";
-import CodeBlock from "../components/blocks/CodeBlock";
-import Image from "next/image";
+import { useMemo, useState } from "react";
+import Link from "next/link";
+import ProjectBlock from "./components/ProjectBlock";
+import ProjectCard from "./components/ProjectCard";
+import {
+  PROJECTS,
+  type Project,
+  type ProjectCategory,
+} from "../projects/components/projectData";
 
-export interface TechStack {
-  languages: string[];
-  frameworks: string[];
-  libraries: string[];
-  databases: string[];
-  platforms: string[];
-}
-
-export interface Code {
-  name: string;
-  date: string;
-  label: string;
-  url: string;
-  techStack: TechStack;
-  description: string;
-  imageUrls: string[];
-  cover: string;
-}
-
-const colorClasses = [
-  "bg-gray-200",
-  "bg-gray-100",
-  "bg-gray-100",
-  "bg-gray-100",
-  "bg-gray-100",
+const CATEGORIES: ProjectCategory[] = [
+  "production experience",
+  "graphics & simulation",
+  "creative tools",
+  "technical explorations",
 ];
-
-function buildProject(projectObj: Code): Code {
-  return projectObj;
-}
-
-const projects: Code[] = [
-  buildProject({
-    name: "Mini Minecraft",
-    date: "Fall 2024",
-    label: "A rendition of Minecraft using OpenGL",
-    url: "https://github.com/kimestelle/mini-minecraft-opengl.git",
-    techStack: {
-      languages: ["C++", "GLSL"],
-      frameworks: [],
-      libraries: [],
-      databases: [],
-      platforms: ["OpenGL"],
-    },
-    description: "OpenGL Minecraft simulation, all components of the rendering pipeline built from scratch. Final team project for CIS4600.\n\nMy Contributions:\n\nTerrain Rendering and Chunking:\n  - Designed a system to optimize infinite terrain rendering by dynamically loading and unloading visible chunks based on the player’s position.\n  - Developed interleaved Vertex Buffer Objects (VBOs) to efficiently store and render chunk geometry, ensuring only visible faces were processed, reducing GPU load.\n\nTexture Mapping and Animation:\n  - Mapped block textures with UV coordinates, including distinct faces for blocks like grass (top, sides, bottom).\n  - Implemented animated textures for water and lava using time-dependent transformations, creating smooth, looping motions.\n\nDynamic Sky:\n  - Built a GLSL sky shader featuring:\n    - A procedurally animated day-night cycle with moving sun and halo.\n    - Procedural clouds using Worley noise-based fractional Brownian motion.\n\nFluid Surface Waves and Reflection:\n  - Dynamically displaced water geometry to create realistic wave motion.\n  - Recalculated normals in the vertex shader to accurately reflect light on moving surfaces.\n  - Enhanced light reflections with Blinn-Phong highlights.",
-    imageUrls: ["/project-images/minecraft/mc-demo.mp4"],
-    cover: '/project-images/covers/minecraft-cover.png'
-  }),
-    buildProject({
-    name: "Advanced Raytracing in C++",
-    date: "Spring 2025",
-    label: "Client project migrating and rebranding RoboRacer's website.",
-    url: "",
-    techStack: {
-      languages: ["C++", "GLSL"],
-      frameworks: [],
-      libraries: [],
-      databases: [],
-      platforms: ["OpenGL"],
-    },
-    description: "Implemented real-time 3D rendering pipelines using modern OpenGL and GLSL in C++. Built a mesh viewer supporting OBJ parsing, normal visualization, interactive camera controls, and scene graph hierarchies. Developed a deferred shading renderer with G-buffer composition (albedo, normal, depth, material masks), screen-space reflection, and physically-based lighting (Cook-Torrance BRDF). Integrated post-processing effects (e.g. Gaussian blur, tone mapping), matcap shading, and sky models (Hosek-Wilkie). Applied shader-based ray marching, subsurface scattering, and domain repetition using signed distance fields (SDFs).",
-    imageUrls: ['/project-images/covers/461-cover.png'],
-    cover: '/project-images/covers/461-cover.png'
-  }),
-  buildProject({
-    name: "Into the Blue Museum Experience",
-    date: "Spring 2025",
-    label: "",
-    url: "https://penn.museum/sites/blue/welcome/",
-    techStack: {
-      languages: ["TypeScript"],
-      frameworks: ["NextJS"],
-      libraries: ["React"],
-      databases: [],
-      platforms: [],
-    },
-    description: "Virtual experience built and maintained for a 9-month-long feature at the Penn Museum, delivered under an 8-week deadline."
-    + "\n\nMy Contributions:\n\n" +
-    "IndexedDB Data Storage:\n" +
-    "  - Proposed using IndexedDB when faced with the problem of storing various forms of user data online, allowing the site to function like an app with the convenience of a frontend-only website.\n" +
-    "\nSticker Generation and Sharing Pipeline:\n" +
-    "  - Designed and built core feature to capture webcam input, clip it along varying SVG paths with an animated cutting effect, apply a sticker-style outline, and store one sticker image per object in IndexedDB.\n" +
-    "\nDrag-&-Drop Stickerboard:\n" +
-    "  - Created a stickerboard interface with draggable stickers, modals, and rasterizing compositions as shareable PNGs\n",
-    imageUrls: ["/project-images/into-the-blue/blue-demo.mp4"],
-    cover: '/project-images/covers/museum-cover.png'
-  }),
-  buildProject({
-    name: "Internet Atlas",
-    date: "Spring 2025",
-    label: "Client project migrating and rebranding RoboRacer's website.",
-    url: "https://the-internet-atlas.com/",
-    techStack: {
-      languages: ["TypeScript"],
-      frameworks: ["Vite", "WebGL"],
-      libraries: ["React", "FastAPI"],
-      databases: ["Supabase", "Pinecone"],
-      platforms: [],
-    },
-    description:
-    "Interactive 3D graph interface designed to map digital pathways and explore web browsing behavior, built to empower Internet users with greater visibility into data flows and autonomy.\n\n" +
-
-    "Frontend Development:\n" +
-    "  - Led design and engineering of a 3D force-directed graph using React Three Fiber with dynamic camera transitions, animated SVG overlays, and WebGL shader effects.\n" +
-    "  - Built interactive node/edge highlighting, camera zoom-to-node behavior, and a path-following mechanism for exploring browsing journeys.\n\n" +
-
-    "Backend + Infrastructure:\n" +
-    "  - Led technical discussions and contributed core logic to an ML-backed pipeline involving LLM-optimized web scraping, Pinecone vector embeddings, and API querying via FastAPI.\n" +
-    "  - Designed architecture to combine textual and image data into a shared embedding space and support real-time semantic similarity queries through Supabase.\n",
-    imageUrls: ['/project-images/internet-atlas/atlas-demo.mp4'],
-    cover: '/project-images/covers/atlas-cover.png'
-  }),
-  buildProject({
-    name: "Better-Spelling-Bee",
-    date: "Summer 2024",
-    label: "Full-stack web app",
-    url: "https://github.com/kimestelle/better-spelling-bee",
-    techStack: {
-      languages: ["TypeScript", "Python"],
-      frameworks: ["Next.js", "Django"],
-      libraries: ["React"],
-      databases: ["PostgreSQL"],
-      platforms: ["Figma"],
-    },
-    description: "My friend and I remade our favorite mobile game (NYT Spelling Bee!), focusing on enhancing user engagement through dynamic interactions and personalized features.\n" +
-  "\nDesign:\n" +
-  "- Minimal and responsive web interface incorporating subtle animations.\n" +
-  "- Playful, tangible draggable objects including letter blocks and avatars.\n" +
-  "\nDevelopment:\n" +
-  "- Complex state management, caching during gameplay sessions.\n" +
-  "- JWT token management for user auth and session persistence.\n" +
-  "- Efficient system to source a dictionary subset from 7 letters including 1+ pangrams from a subset by processing, sorting, and indexing a 46,444 word dictionary\n" +
-  "- Drag-and-drop ducks, clonning onto words and reordering dynamically with CSS gymnastics and npm libraries.\n" +
-  "\nNext Steps:\n" +
-  "- Deploy site\n" +
-  "- Recover some animations gone MIA after restructuring app (ducks in pond randomly flapping, fly and sink animations upon entering word).\n",
-    imageUrls: [
-      "/project-images/better-spelling-bee/bsb-demo.mp4",
-      "/project-images/better-spelling-bee/image-1.png",
-      "/project-images/better-spelling-bee/image-2.png",
-    ],
-    cover: "/project-images/covers/spellingbee-cover.png",
-  }),
-  buildProject({
-    name: "Eat or Plant?",
-    date: "Spring 2025",
-    label: "Client project migrating and rebranding RoboRacer's website.",
-    url: "",
-    techStack: {
-      languages: ["C++"],
-      frameworks: ["Arduino"],
-      libraries: [],
-      databases: [],
-      platforms: ["Rhino", "Adobe Illustrator"],
-    },
-    description:
-    "Interactive art installation blending physical interaction and environmental data to raise awareness about deforestation in the Amazon through the metaphor of chocolate consumption. Worked as an engineer & contributed to design with a group of architecture masters students.\n\n" +
-
-    "Hardware System:\n" +
-    "  - Used copper touch sensors and LED strips to detect tree removal and display real-time rainforest air quality.\n" +
-    "  - LED animations respond dynamically: trees removed turn off lights; thresholds trigger red flashing alerts.\n\n" +
-
-    "Software Logic:\n" +
-    "  - Connected to the AirNow API to fetch Amazon rainforest AQI data every 5 minutes.\n" +
-    "  - Managed 3 LED matrix arrays for tree positions, AQI-based background gradients, and color behaviors.\n" +
-    "  - Programmed real-time feedback loop between physical chocolate trees and LED visuals.\n\n" +
-    
-    "Physical Fabrication:\n" +
-    "  - 3D printed and laser-cut using Rhino and Adobe Illustrator\n" +
-    "  - Hand-made chocolates (and taste-tested a good portion of them)\n" +
-    "  **later slides show some of the work I designed and printed with Rhino!\n",
-    imageUrls: ['/project-images/chocolate/chocolate-demo.mp4',
-      "/project-images/chocolate/image-1.png",
-      "/project-images/chocolate/image-2.png",
-      "/project-images/chocolate/image-3.png",
-      "/project-images/chocolate/image-4.png",
-      "/project-images/chocolate/image-5.png",
-      "/project-images/chocolate/image-6.png",
-      "/project-images/chocolate/image-7.png",
-      "/project-images/chocolate/image-8.png",
-    ],
-    cover: '/project-images/covers/chocolate-cover.png'
-  }),
-  buildProject({
-    name: "Holiday Gift Box",
-    date: "Fall 2024",
-    label: "Virtual gift box with React and Firebase",
-    url: "https://estelles-giftbox.vercel.app/6927",
-    techStack: {
-      languages: ["TypeScript"],
-      frameworks: ["Next.js"],
-      libraries: ["React"],
-      databases: [],
-      platforms: ["Firebase", "Vercel"],
-    },
-    description:"As someone who loves writing handwritten letters but lives far from most of my loved ones, I wanted to capture the warmth, spontaneity, and joy of receiving a handwritten note through a simple shareable website.\n\n" + 
-    "- Custom font from my own handwriting and hand-drawn graphics\n" +
-    "- 2D physics engine that explodes from an animated gift box to evoke a sense of physical space\n\n" +
-    " To create a seamless experience (since opening gifts should never be a task) while ensuring each person's information is secure, I stored unique IDs in the URL route directly sent to recipients to retrieve Firebase documents, all it takes to open is clicking a secure link sent via text.",
-    imageUrls: [
-      "/project-images/gift-box/giftbox-demo.mp4",
-      "/project-images/gift-box/image-1.png",
-      "/project-images/gift-box/image-2.png",
-    ],
-    cover: "/project-images/covers/giftbox-cover.png",
-  }),
-  buildProject({
-    name: "Aristotle LLM",
-    date: "Summer 2024",
-    label: "An attempt to build a LLaMA machine learning model using as few predefined libraries and functions as possible. My friend and I did research into the inner workings of LLMs, took notes and had discussions, and then took a stab at processing a dataset of Aristotle and Plato quotes from Kaggle and writing a model to generate text from a seed string. The model worked with a lot of debugging and some AI assistance, but I could only train it on a few thousand lines due to hardware limitations. Nevertheless, it did produce some wise-sounding lines before starting to repeat gibberish.",
-    url: "https://github.com/kimestelle/llm-chatbot.git",
-    techStack: { 
-      languages: ["Python"],
-      frameworks: [],
-      libraries: ["PyTorch", "NumPy", "SentencePiece"],
-      databases: [],
-      platforms: []
-    },    
-    description: "An attempt to build a LLaMA machine learning model using as few predefined libraries and functions as possible. \n\nMy friend and I did research into the mathematical workings of LLMs, took notes and had discussions, and then took a stab at processing a dataset of Aristotle and Plato quotes from Kaggle and training a model to generate text from a seed string. \n\nThe model worked with a lot of debugging and some AI assistance, but I could only train it on a few thousand lines over the course of 10+ hours due to hardware limitations and large parameters. Nevertheless, my overtrained Aristotle-bot did produce some wise-sounding lines before starting to repeat gibberish.",
-    imageUrls: ["/project-images/4600/image-1.png", "/project-images/4600/image-2.png", "/project-images/4600/image-3.png"],
-    cover: "/project-images/covers/llm-cover.png", 
-  }),
-];
-
 
 export default function Projects() {
   const [activeProjectIndex, setActiveProjectIndex] = useState<number | null>(null);
+  const [viewMode, setViewMode] = useState<"grid" | "list">("list");
 
-  const handleProjectClick = (index: number) => {
-    setActiveProjectIndex(index);
-  };
+  //flat lst of projects grouped by category
+  const orderedProjects: Project[] = useMemo(() => {
+    const byCat = new Map<ProjectCategory, Project[]>();
+    for (const cat of CATEGORIES) byCat.set(cat, []);
+    for (const p of PROJECTS) byCat.get(p.category)!.push(p);
 
-  const closePopup = () => {
-    setActiveProjectIndex(null);
-  };
+    return CATEGORIES.flatMap((cat) => byCat.get(cat)!);
+  }, []);
+
+  // grouped projects for views
+  const grouped: Record<ProjectCategory, Project[]> = useMemo(() => {
+    const out: Record<ProjectCategory, Project[]> = {
+      "production experience": [],
+      "graphics & simulation": [],
+      "creative tools": [],
+      "technical explorations": [],
+    };
+    for (const p of PROJECTS) out[p.category].push(p);
+    return out;
+  }, []);
+
+  const handleProjectClick = (index: number) => setActiveProjectIndex(index);
+  const closePopup = () => setActiveProjectIndex(null);
 
   const goToNextProject = () => {
     if (activeProjectIndex !== null) {
-      setActiveProjectIndex((prevIndex) => ((prevIndex ?? 0) + 1) % projects.length);
+      setActiveProjectIndex((prev) => ((prev ?? 0) + 1) % orderedProjects.length);
     }
   };
 
   const goToPreviousProject = () => {
     if (activeProjectIndex !== null) {
-      setActiveProjectIndex((prevIndex) =>
-        prevIndex! === 0 ? projects.length - 1 : prevIndex! - 1
+      setActiveProjectIndex((prev) =>
+        prev! === 0 ? orderedProjects.length - 1 : prev! - 1
       );
     }
   };
 
+  const prevName =
+    activeProjectIndex === null
+      ? ""
+      : orderedProjects[(activeProjectIndex - 1 + orderedProjects.length) % orderedProjects.length].name;
+
+  const nextName =
+    activeProjectIndex === null
+      ? ""
+      : orderedProjects[(activeProjectIndex + 1) % orderedProjects.length].name;
+
   return (
-    <div className="flex flex-col gap-5 px-10 md:px-32 py-32">
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {projects.map((project, index) => (
-          <div
-            key={index}
-            className="flex flex-col glass-card big-glass-card cursor-pointer"
-            onClick={() => handleProjectClick(index)}
+    <div className="flex flex-col responsive-padding justify-center items-center">
+      <div className="flex flex-col w-full max-w-6xl">
+        <div className='w-full flex flex-row justify-between items-center mb-6'>
+          <button
+            className="glass-card w-fit"
+            onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
           >
-            <Image
-              src={project.cover}
-              alt={project.name}
-              className="w-full object-contain rounded-md mb-3 lazy-load"
-              width={450}
-              height={300}
-            />
+            {viewMode === "grid" ? "switch to list view" : "switch to grid view"}
+          </button>
 
-            <h3 className="text-lg font-bold">{project.name}</h3>
-            <ul className="list-none flex flex-wrap gap-1 items-center mt-2">
-                {Object.entries(project.techStack).map(([category, items], index) =>
-                (items as string[]).map((item: string, itemIndex: number) => (
-                  <li
-                  key={`${category}-${itemIndex}`}
-                  className={`${colorClasses[index % colorClasses.length]} text-xs shadow-inner p-0.5 px-1.5 rounded-lg`}
-                  title={category}
-                  >
-                  {item}
-                  </li>
-                ))
-                )}
-            </ul>
-          </div>
-        ))}
-      </div>
+          <Link 
+            href="/lab"
+          >
+            tiny experiments
+          </Link>
+        </div>
 
-      {activeProjectIndex !== null && (
-        <div className="fixed flex flex-col inset-0 bg-black bg-opacity-50 px-10 flex justify-center items-center z-50">
-          <div className="w-full scrollbar-hide flex flex-col items-end h-[80svh] overflow-y-scroll bg-white rounded-t-lg max-w-3xl p-6 pt-16 relative">
-            <button
-              className="absolute red text-2xl top-3 right-6 hover:text-gray-800"
-              onClick={closePopup}
-            >
-              &times;
-            </button>
-            <CodeBlock project={projects[activeProjectIndex]} />
+      {viewMode === "grid" ? (
+        <>
+          <div className="flex flex-col gap-10">
+            {CATEGORIES.map((cat) => {
+              const list = grouped[cat];
+
+              return (
+                <div key={cat} className="flex flex-col gap-3 mt-10">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <h3>{cat}</h3>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {list.map((project) => {
+                      const modalIndex = orderedProjects.findIndex((p) => p.id === project.id);
+                      return (
+                        <div
+                          key={project.id}
+                          id={project.id}
+                          className="cursor-pointer"
+                          onClick={() => handleProjectClick(modalIndex)}
+                        >
+                          <ProjectCard project={project} />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
           </div>
-            <div className="w-full max-w-3xl gap-[1px] flex justify-center">
-              <button
-                className="w-full px-4 py-1 text-white bg-neutral-800 rounded-bl-lg hover:bg-neutral-500"
-                onClick={goToPreviousProject}
-              >
-                &larr;
-              </button>
-              <button
-                className="w-full px-4 py-1 text-white bg-neutral-800 rounded-br-lg  hover:bg-neutral-500"
-                onClick={goToNextProject}
-              >
-                &rarr;
-              </button>
+
+          {activeProjectIndex !== null && (
+            <div className="fixed flex flex-col inset-0 bg-white/50 backdrop-blur-md px-10 flex justify-center items-center z-50">
+              <div className="w-full h-px relative max-w-3xl gap-[1px] flex justify-end z-[51]">
+                <button
+                  className="absolute text-2xl top-3 right-6 text-red-500 hover:text-red-200"
+                  onClick={closePopup}
+                >
+                  &times;
+                </button>
+              </div>
+
+              <div className="w-full scrollbar-small flex flex-col items-end h-[80svh] overflow-y-scroll bg-white rounded-t-lg max-w-3xl p-6 md:pt-10 relative">
+                <ProjectBlock project={orderedProjects[activeProjectIndex]} />
+              </div>
+
+              <div className="w-full max-w-3xl gap-[1px] flex justify-center">
+                <button
+                  className="group w-full px-4 py-1 bg-neutral-800 rounded-bl-lg hover:bg-neutral-500"
+                  onClick={goToPreviousProject}
+                >
+                  <span className="text-white group-hover:hidden">{"< "}</span>
+                  <span className="text-white hidden group-hover:inline-block max-w-full align-middle truncate">
+                    {prevName}
+                  </span>
+                </button>
+
+                <button
+                  className="group w-full px-4 py-1 text-white bg-neutral-800 rounded-br-lg hover:bg-neutral-500"
+                  onClick={goToNextProject}
+                >
+                  <span className="text-white group-hover:hidden">{" >"}</span>
+                  <span className="text-white hidden group-hover:inline-block max-w-full align-middle truncate">
+                    {nextName}
+                  </span>
+                </button>
+              </div>
             </div>
+          )}
+        </>
+      ) : (
+        <div className="relative flex flex-col -mt-10">
+          {CATEGORIES.map((cat) => (
+            <div key={cat} id={cat} className="flex flex-col">
+              {grouped[cat].map((project) => {
+                const modalIndex = orderedProjects.findIndex((p) => p.id === project.id);
+                return (
+                  <div
+                    key={project.id}
+                    id={project.id}
+                    className="cursor-pointer pt-20"
+                    onClick={() => handleProjectClick(modalIndex)}
+                  >
+                    <ProjectBlock project={project} />
+                  </div>
+                );
+              })}
+            </div>
+          ))}
         </div>
       )}
+      </div>
     </div>
   );
 }

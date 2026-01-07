@@ -12,12 +12,29 @@
 :root {
   --foreground-rgb:  22, 22, 22;
   --background: white;
+  --purple: rgb(84, 38, 112);
+}
+
+html {
+  /* for shader stability */
+  scrollbar-gutter: stable;
 }
 
 html, body {
   overscroll-behavior-x: contain;
   font-family: 'Star Glyphs', Ysabeau Office, serif;
-  color: var(--foreground-rgb)
+  color: var(--foreground-rgb);
+
+  /* scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgb(200, 200, 200) transparent;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 body {
@@ -25,6 +42,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: start;
+  overflow-y: scroll;
 }
 
 button,
@@ -66,6 +84,7 @@ h3 {
   font-size: 1.2rem;
   font-weight: 400;
   font-style: black;
+  margin-bottom: 0.8rem;
 }
 
 h4, h5, p, ol, a, button, label {
@@ -75,12 +94,11 @@ h4, h5, p, ol, a, button, label {
 h4 {
   font-size: 1rem;
   font-weight: 500;
-  margin-bottom: 0.3rem;
 }
 
 h5 {
   font-size: 1rem;
-  color: rgb(125, 84, 143);
+  color: var(--purple);
   font-weight: 300;
 }
 
@@ -134,23 +152,34 @@ label {
   font-size: 1rem;
 }
 
+summary::marker {
+  /* no marker */
+  content: "";
+}
+
+.pill {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
+  background-color: #eeeeee;
+  border-radius: 5rem;
+}
+
 .split-line {
   white-space: pre-line;
 }
 
 .glass-card{
   border-radius: 0.5rem;
-  background: rgba(255,255,255,0.0);
-  border-bottom: 1px solid rgba(0,0,0,0.10);
+  background:  rgb(84, 38, 112, 0);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.55),
-    inset 0 0 18px rgba(255,255,255,0.22);
-  padding: 0.5rem 0.8rem;
+    inset 0 0 18px rgba(255, 255, 255, 0.2);
+  padding: 0.2rem 0.5rem;
   transition: background-color 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
 }
 
 .glass-card:hover{
-  background: rgba(192, 159, 206, 0.1);
+  background: rgb(84, 38, 112, 0.05);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow:
@@ -160,7 +189,7 @@ label {
 }
 
 .big-glass-card{
-  padding: 1.2rem 1.5rem;
+  padding: 1rem;
 }
 
 .navbar {
@@ -169,14 +198,7 @@ label {
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.55),
     inset 0 0 18px rgba(255,255,255,0.22);
   border-bottom: 1px solid rgba(0,0,0,0.10);
-  background: rgba(255,255,255,0.0);
-}
-
-.navbar:hover {
-  background: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  transition: box-shadow 180ms ease, border-color 180ms ease;
+  backdrop-filter: blur(10px);
 }
 
 
@@ -207,7 +229,7 @@ label {
   border: none;
   padding: 0.5rem 1rem;
   cursor: pointer;
-  z-index: 10;
+  z-index: 1;
 }
 
 .embla__prev {

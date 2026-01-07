@@ -6,21 +6,19 @@ import { allPostsSorted } from "./posts";
 export default function BlogListPage() {
 
   return (
-    <div className="responsive-padding flex flex-col">
-        <div className="mb-2 mt-6 flex items-center gap-3">
-        <h4>
-            {'<posts/>'}
-        </h4>
-        <div className="h-px flex-1 bg-black/10" />
-        </div>
-      <ul className="space-y-4 mb-10">
+    <div className="flex flex-col responsive-padding justify-center items-center">
+      <div className="flex flex-col w-full max-w-2xl">
+        <h3>
+            bits & snippets
+        </h3>
+      <ul className="space-y-2">
         {allPostsSorted.map((blog) => (
           <li
             key={blog.slug}
             className="glass-card"
           >
             <Link href={`/blog/${blog.slug}`}>
-              <h5>{blog.title}</h5>
+              <h4>{blog.title}</h4>
               <span> 
                 <span className="mr-2">
                   {blog.date}
@@ -31,7 +29,7 @@ export default function BlogListPage() {
         ))}
       </ul>
 
-        <div className="mb-2 flex items-center gap-3">
+        {/* <div className="mb-2 flex items-center gap-3">
         <h4>
             {'<memos/>'}
         </h4>
@@ -41,7 +39,8 @@ export default function BlogListPage() {
         <li className='p-2 px-3 bg-yellow-100/50 rounded-lg'>
           fixed rules, open variables, and a shared understanding of how things are allowed to move
         </li>
-      </ul>
+      </ul> */}
+      </div>
     </div>
   );
 }

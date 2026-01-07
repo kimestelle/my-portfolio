@@ -1,6 +1,7 @@
 'use client';
 import Image from "next/image";
 import { CursorTooltip } from "../components/Tooltip";
+import BouncingText from "../design-deets/BouncingText";
 
 export default function About() {
   return (
@@ -24,6 +25,8 @@ export default function About() {
         <p>
           I care about clarity over polish. If something isn&apos;t legible or clean, I&apos;ll happily spend more nights re-building it.
         </p>
+
+        <hr/>
 
         <p>
           A lot is in progress here, but you might find these particularly fun:
@@ -99,15 +102,41 @@ export default function About() {
           </CursorTooltip>
         </div>
 
-
         <p>
           Feel free to reach out at {' '} 
           <a href="mailto:kestelle@sas.upenn.edu">
             kestelle@sas.upenn.edu, I always love meeting new people!
           </a>
         </p>
+        <details
+          className="glass-card"
+        >
+          <summary className="cursor-pointer">
+            ✶ tmi corner
+          </summary>
 
-        
+          <section className="flex flex-col gap-2">
+            <ul>
+              <li>
+                on repeat: 
+                <div className='inline flex flex-row flex-wrap gap-1 ml-1'>
+                  <a href='https://open.spotify.com/track/7ouMYWpwJ422jRcDASZB7P?si=bb1f2acb6df04e3f' target='_blank' rel='noopener noreferrer'>
+                    bad guy
+                  </a>,
+                  <a href='https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC?si=8f6f2f6f3c6741e5' target='_blank' rel='noopener noreferrer'>
+                    someone you loved
+                  </a>,
+                  <a href='https://open.spotify.com/track/0VjIjW4GlUZAMYd2vXMi3b?si=3c8b1f2f5e8645e2' target='_blank' rel='noopener noreferrer'>
+                    blinding lights
+                  </a>
+                </div>
+              </li>
+              <li>
+                currently obsessed with: the color orange, scallops, knitting
+              </li>
+            </ul>
+          </section>
+        </details>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import CodeDemo, {CodeDemoProps} from '../components/CodeDemo';
-import BouncingText from '@/app/components/BouncingText';
+import BouncingText from '@/app/design-deets/BouncingText';
 
 export default function MagneticPoetry_DemoNotes() {
   const demos: readonly CodeDemoProps[] = [
