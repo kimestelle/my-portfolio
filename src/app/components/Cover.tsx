@@ -12,7 +12,7 @@ export default function Home() {
           Estelle Kim
         </h1>
         <h3>
-          creative technologist, CS + CG @ UPenn
+          Product / Graphics Engineer, CS + CG @ UPenn
         </h3>
         <div className="w-full my-4 flex items-center gap-3">      
           <CursorTooltip content={'download resume'} placement='bottom'>
@@ -64,7 +64,7 @@ export default function Home() {
         </p>
 
         <p className='mt-3'>
-          Currently seeking summer 2026 internships in creative studios & experiential design.
+          Currently seeking summer 2026 internships!
         </p>
 
         <ProjectHTML />
