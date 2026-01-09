@@ -169,6 +169,79 @@ export const PROJECTS: Project[] = [
         '/project-images/internet-atlas/image-2.png'
       ],
     },
+},
+  
+  {
+    id: 'sce-data-engineering',
+    name: 'Data Engineer Intern @ SCE',
+    category: 'production experience',
+    date: 'Summer 2024',
+    role: 'Data Engineering Intern',
+    impact: 'Serving 15m residents across Southern California',
+
+    cover: {
+      imageSrc: '/cover-images/edison-image.png',
+      blurb: 'ETL systems for utility serving 15m residents',
+      engineering:
+        'Worked independently with 9+ internal teams to design + optimize cross-platform data pipelines and visualizations.',
+      tags: ['SQL', 'Data Engineering', 'Python'],
+    },
+
+    details: {
+      label: 'Enterprise Data Infrastructure',
+      overview:
+        'Designed and optimized SQL-based data pipelines serving utility infrastructure at scale for Southern California Edison.',
+      techStack: {
+        languages: ['SQL', 'Python'],
+        frameworks: [],
+        libraries: [],
+        databases: ['Enterprise SQL'],
+        platforms: [],
+      },
+
+      sections: [
+        {
+          title: 'Data Pipeline Design',
+          items: [
+            'Designed SQL-based ETL pipelines for cross-platform data integration',
+            'Optimized query performance for real-time monitoring systems',
+            'Collaborated with 9+ internal teams on data requirements and validation',
+          ],
+        },
+        {
+          title: 'System Optimization',
+          items: [
+            'Improved query performance across enterprise database',
+            'Built data visualizations for operational insights',
+            'Ensured data quality and consistency across multiple sources',
+          ],
+        },
+        {
+          title: 'Manager Recommendation',
+          items: [`To Whom It May Concern,
+
+            I am writing to provide a strong recommendation for Estelle Kim, who has recently completed a summer internship in data engineering and visualization at SCE under my supervision. Throughout her time with us, Estelle has demonstrated exceptional skills, dedication, and a remarkable ability to grasp complex concepts quickly.
+
+            Estelle has consistently shown a high level of proficiency in data engineering tasks, including data modeling, SQL and Python code optimization, ETL processes, and data management.
+
+            During her internship, Estelle worked on several impactful projects and initiatives involving data pipeline optimization, dashboard development, and data analysis. She has become proficient in tools such as Python, SQL, Power BI, Power Apps and Power Automate. One of her standout contributions was redesigning and fixing our internal reporting dashboard, which significantly improved usability. 
+
+            Furthermore, Estelle's work ethic and enthusiasm for learning have been evident in all her projects. She approaches each task with a positive attitude and a commitment to excellence, often going above and beyond what is expected. Her collaborative nature has made her a valuable team member, always willing to share her knowledge and assist others.
+
+            In conclusion, I believe Estelle Kim possesses the skills, dedication, and potential to excel in any data engineering and visualization role she pursues. I highly recommend her for any future opportunities and am confident that she will be an invaluable asset to your team.
+
+            Sincerely,
+            Aleksandr Dmitriev
+
+            Aleksandr (Alex) Dmitriev| Southern California Edison
+
+            Data Engineering Manager| Date Engineering and Visualization Team`
+]
+        }
+      ],
+
+      imageUrls: ['/cover-images/edison-image.png'],
+    },
   },
   
   // GRAPHICS
