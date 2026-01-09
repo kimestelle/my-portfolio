@@ -14,6 +14,7 @@ export type Project = {
   role: string;
   impact?: string;
   url?: string;
+  githubUrl?: string;
   
   // brief cover card
   cover: {
@@ -53,6 +54,7 @@ export const PROJECTS: Project[] = [
     role: 'Frontend Developer',
     impact: '180,000+ visitors / 9 months continuous deployment',
     url: 'https://penn.museum/sites/blue/welcome/',
+    githubUrl: 'https://github.com/PennSpark/into-the-blue',
     
     cover: {
       imageSrc: '/project-images/covers/museum-cover.png',
@@ -116,6 +118,7 @@ export const PROJECTS: Project[] = [
     role: 'Technical Lead',
     impact: 'Team of 7 / 300 nodes, 1000+ edges',
     url: 'https://the-internet-atlas.com/',
+    githubUrl: 'https://github.com/PennSpark/sp25-internet-atlas',
     
     cover: {
       imageSrc: '/project-images/covers/atlas-cover.png',
@@ -176,7 +179,7 @@ export const PROJECTS: Project[] = [
     date: 'Fall 2024',
     role: 'Graphics Engineer',
     impact: 'Custom OpenGL engine / Team of 3',
-    url: 'https://github.com/kimestelle/mini-minecraft-opengl',
+    githubUrl: 'https://github.com/kimestelle/mini-minecraft-opengl',
     
     cover: {
       imageSrc: '/project-images/covers/minecraft-cover.png',
@@ -280,7 +283,8 @@ export const PROJECTS: Project[] = [
     date: 'Fall 2024',
     role: 'Graphics Engineer & Designer',
     impact: 'Custom shader system / Hybrid CPU/GPU pipeline',
-    url: 'https://github.com/kimestelle/watercolor-drip-shader',
+    url: 'https://watercolor-drip-shader.vercel.app/',
+    githubUrl: 'https://github.com/kimestelle/watercolor-drip-shader',
     
     cover: {
       imageSrc: '/cover-images/watercolor-image.png',
@@ -340,7 +344,8 @@ export const PROJECTS: Project[] = [
     date: 'Fall 2024',
     role: 'Personal Project',
     impact: 'Custom particle physics / Procedural mesh generation',
-    url: 'https://github.com/kimestelle/2d-softbody-lathe',
+    url: 'https://2d-softbody-lathe.vercel.app/',
+    githubUrl: 'https://github.com/kimestelle/2d-softbody-lathe',
     
     cover: {
       imageSrc: '/cover-images/blob-image.png',
@@ -403,6 +408,7 @@ export const PROJECTS: Project[] = [
     role: 'Personal Project',
     impact: 'Multi-format export / POS-driven typography',
     url: 'https://www.textellation.com/',
+    githubUrl: 'https://github.com/kimestelle/textellation',
     
     cover: {
       imageSrc: '/cover-images/textellation-image.png',
@@ -475,7 +481,8 @@ export const PROJECTS: Project[] = [
     date: 'Fall 2024',
     role: 'Personal Project',
     impact: '15k+ word corpus / Custom drag-drop physics',
-    url: 'https://github.com/kimestelle/magnetic-poetry',
+    url: 'https://magnetic-poetry.vercel.app/',
+    githubUrl: 'https://github.com/kimestelle/magnetic-poetry',
     
     cover: {
       imageSrc: '/cover-images/poetry-image.png',
@@ -536,7 +543,7 @@ export const PROJECTS: Project[] = [
     date: 'Summer 2024',
     role: 'Full-Stack Developer & Designer',
     impact: 'End-to-end system / Custom gameplay logic / Team of 2',
-    url: 'https://github.com/kimestelle/better-spelling-bee',
+    githubUrl: 'https://github.com/kimestelle/better-spelling-bee',
     
     cover: {
       imageSrc: '/project-images/covers/spellingbee-cover.png',

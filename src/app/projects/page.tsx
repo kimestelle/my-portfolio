@@ -168,7 +168,7 @@ export default function Projects() {
                   <div
                     key={project.id}
                     id={project.id}
-                    className="cursor-pointer pt-20"
+                    className="pt-20"
                     onClick={() => handleProjectClick(modalIndex)}
                   >
                     <ProjectBlock project={project} />

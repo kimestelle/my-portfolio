@@ -36,6 +36,22 @@ export default function ProjectBlock({ project }: ProjectBlockProps) {
         <div className='w-full flex flex-row flex-wrap gap-2 items-end'>
         <h2>{project.name}</h2>
           <div className="h-px flex-1 shrink-1 bg-black/10 mb-2" />
+          {
+            project.githubUrl && (
+              <>
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex shrink-0 mb-1"
+              >
+                <Image src="/icons/gh-logo.svg" alt="GitHub" width={16} height={16} className="mb-1"/>
+                <span className="ml-1"> ↗</span>
+              </a>
+              <div className="h-px w-1 bg-black/10 mb-2" />
+              </>
+            )
+          }
           {project.url && (
             <a
               href={project.url}
