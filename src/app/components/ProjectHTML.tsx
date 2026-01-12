@@ -7,10 +7,9 @@ import {
 import ProjectCard from '../projects/components/ProjectCard';
 
 const SECTIONS: { category: ProjectCategory; featured: string[] }[] = [
-  { category: 'production experience', featured: ['into-the-blue', 'sce-data-engineering'] },
+  { category: 'production experience', featured: ['into-the-blue', 'sce-data-engineering', 'internet-atlas'] },
   { category: 'graphics & simulation', featured: ['mini-minecraft', 'watercolor-shader'] },
   { category: 'creative tools', featured: ['textellation', 'magnetic-poetry'] },
-  { category: 'technical explorations', featured: ['eat-or-plant'] },
 ];
 
 function pickById(category: ProjectCategory, ids: string[]) {
