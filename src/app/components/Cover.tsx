@@ -12,7 +12,7 @@ export default function Home() {
           Estelle Kim
         </h1>
         <h3>
-          Product / Graphics Engineer, CS + CG @ UPenn
+          Graphics / Software Engineer, CS + CG @ UPenn
         </h3>
         <div className="w-full my-4 flex items-center gap-3">      
           <CursorTooltip content={'download resume'} placement='bottom'>

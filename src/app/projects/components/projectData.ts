@@ -219,7 +219,7 @@ export const PROJECTS: Project[] = [
         {
           title: 'Manager Recommendation',
           items: [`To Whom It May Concern,
-
+            
             I am writing to provide a strong recommendation for Estelle Kim, who has recently completed a summer internship in data engineering and visualization at SCE under my supervision. Throughout her time with us, Estelle has demonstrated exceptional skills, dedication, and a remarkable ability to grasp complex concepts quickly.
 
             Estelle has consistently shown a high level of proficiency in data engineering tasks, including data modeling, SQL and Python code optimization, ETL processes, and data management.
