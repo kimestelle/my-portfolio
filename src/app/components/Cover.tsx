@@ -58,9 +58,9 @@ export default function Home() {
           <div className="h-px flex-1 bg-black/10" />
         </div>
         <p>
-          I build interactive experiences that ship to production, including
-          real-time graphics, full-stack engineering, physical computing, and ML pipelines. I 
-          love collaborating with designers to make ambitious ideas actually work at scale.
+          I build interaction systems that ship to production, including
+          real-time graphics, full-stack engineering, and ML pipelines. I 
+          love collaborating with designers to make ambitious ideas work at scale.
         </p>
 
         <p className='mt-3'>

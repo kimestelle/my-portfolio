@@ -8,7 +8,7 @@ import ProjectCard from '../projects/components/ProjectCard';
 
 const SECTIONS: { category: ProjectCategory; featured: string[] }[] = [
   { category: 'production experience', featured: ['into-the-blue', 'sce-data-engineering', 'internet-atlas'] },
-  { category: 'graphics & simulation', featured: ['mini-minecraft', 'watercolor-shader'] },
+  { category: 'graphics & simulation', featured: ['mini-minecraft', 'softbody-jelly'] },
   { category: 'creative tools', featured: ['textellation', 'magnetic-poetry'] },
 ];
 
