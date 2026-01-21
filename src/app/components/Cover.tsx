@@ -58,8 +58,8 @@ export default function Home() {
           <div className="h-px flex-1 bg-black/10" />
         </div>
         <p>
-          I build user-facing tools that ship to production, using real-time graphics, full-stack engineering, and data to make complex systems easier to understand. 
-          I love collaborating with designers to make ambitious ideas work at scale.
+          I build user-facing tools that ship to production, combining real-time graphics, full-stack engineering, and data.
+          I love collaborating with designers to to turn complex ideas into reliable, scalable systems.
         </p>
 
         <p className='mt-3'>
