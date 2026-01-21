@@ -9,7 +9,7 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   const shaderDisabled = useMemo(
-    () => pathname.startsWith('/lab'),
+    () => pathname.startsWith('/playground'),
     [pathname]
   );
 

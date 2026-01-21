@@ -10,11 +10,11 @@ export default function About() {
         <h2 className="mb-4">Hi — I’m Estelle {':-)'}</h2>
 
         <p>
-          I build tools that feel physical: interfaces that feel structured, tactile, and real.
+          I’m a CS + Computer Graphics student at UPenn building tools and interfaces that reflect the mechanisms underneath.
         </p>
 
         <p>
-          I’m a CS + Computer Graphics student at UPenn. I like using tech to solve all kinds of problems where design decisions are also systems decisions.
+          I like working with cool teams to solve all kinds of problems where design decisions are also systems decisions.
         </p>
 
         <p>

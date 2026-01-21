@@ -138,43 +138,23 @@ export const PROJECTS: Project[] = [
       },
 
       sections: [
-        {
-          title: 'Data Pipeline Design',
-          items: [
-            'Designed SQL-based ETL pipelines for cross-platform data integration',
-            'Optimized query performance for real-time monitoring systems',
-            'Collaborated with 9+ internal teams on data requirements and validation',
-          ],
-        },
-        {
-          title: 'System Optimization',
-          items: [
-            'Improved query performance across enterprise database',
-            'Built data visualizations for operational insights',
-            'Ensured data quality and consistency across multiple sources',
-          ],
-        },
+
+        // {
+        //   title: 'System Optimization',
+        //   items: [
+        //     'Improved query performance across enterprise database',
+        //     'Built data visualizations for operational insights',
+        //     'Ensured data quality and consistency across multiple sources',
+        //   ],
+        // },
         {
           title: 'Manager Recommendation',
-          items: [`To Whom It May Concern,
-            
-            I am writing to provide a strong recommendation for Estelle Kim, who has recently completed a summer internship in data engineering and visualization at SCE under my supervision. Throughout her time with us, Estelle has demonstrated exceptional skills, dedication, and a remarkable ability to grasp complex concepts quickly.
-
-            Estelle has consistently shown a high level of proficiency in data engineering tasks, including data modeling, SQL and Python code optimization, ETL processes, and data management.
-
-            During her internship, Estelle worked on several impactful projects and initiatives involving data pipeline optimization, dashboard development, and data analysis. She has become proficient in tools such as Python, SQL, Power BI, Power Apps and Power Automate. One of her standout contributions was redesigning and fixing our internal reporting dashboard, which significantly improved usability. 
-
-            Furthermore, Estelle's work ethic and enthusiasm for learning have been evident in all her projects. She approaches each task with a positive attitude and a commitment to excellence, often going above and beyond what is expected. Her collaborative nature has made her a valuable team member, always willing to share her knowledge and assist others.
-
-            In conclusion, I believe Estelle Kim possesses the skills, dedication, and potential to excel in any data engineering and visualization role she pursues. I highly recommend her for any future opportunities and am confident that she will be an invaluable asset to your team.
-
-            Sincerely,
-            Aleksandr Dmitriev
-
-            Aleksandr (Alex) Dmitriev| Southern California Edison
-
-            Data Engineering Manager| Date Engineering and Visualization Team`
-]
+          items: ['I am writing to provide a strong recommendation for Estelle Kim, who has recently completed a summer internship in data engineering and visualization at SCE under my supervision. Throughout her time with us, Estelle has demonstrated exceptional skills, dedication, and a remarkable ability to grasp complex concepts quickly.',
+            'Estelle has consistently shown a high level of proficiency in data engineering tasks, including data modeling, SQL and Python code optimization, ETL processes, and data management.',
+            'During her internship, Estelle worked on several impactful projects and initiatives involving data pipeline optimization, dashboard development, and data analysis. She has become proficient in tools such as Python, SQL, Power BI, Power Apps and Power Automate. One of her standout contributions was redesigning and fixing our internal reporting dashboard, which significantly improved usability.',
+            "Furthermore, Estelle's work ethic and enthusiasm for learning have been evident in all her projects. She approaches each task with a positive attitude and a commitment to excellence, often going above and beyond what is expected. Her collaborative nature has made her a valuable team member, always willing to share her knowledge and assist others.",
+            'In conclusion, I believe Estelle Kim possesses the skills, dedication, and potential to excel in any data engineering and visualization role she pursues. I highly recommend her for any future opportunities and am confident that she will be an invaluable asset to your team.'
+          ]
         }
       ],
 
@@ -249,7 +229,7 @@ export const PROJECTS: Project[] = [
     name: 'Mini Minecraft',
     category: 'graphics & simulation',
     date: 'Fall 2024',
-    role: 'Graphics Engineer',
+    role: 'Class Project',
     impact: 'Custom OpenGL engine / Team of 3',
     githubUrl: 'https://github.com/kimestelle/mini-minecraft-opengl',
     
@@ -298,7 +278,7 @@ export const PROJECTS: Project[] = [
     name: 'Advanced Raytracing in C++',
     category: 'graphics & simulation',
     date: 'Spring 2025',
-    role: 'Graphics Engineer',
+    role: 'Class Project',
     impact: 'Custom renderer / Advanced shading models',
     
     cover: {
@@ -438,30 +418,26 @@ export const PROJECTS: Project[] = [
       },
       sections: [
         {
-          title: 'Physics Simulation',
+          title: "'3D' Softbody Physics in Real-Time?",
           items: [
-            'Implemented Verlet integration for stable particle dynamics',
-            'Built spring constraint system for soft-body deformation',
-            'Designed collision detection with ground plane and boundaries',
-            'Balanced restitution and damping for believable jelly behavior',
+            'Real 3D softbody physics are too expensive for the web',
+            'Wanted to build a lightweight, modular material people can experience without compromising on speed or realism',
           ],
         },
         {
-          title: 'Procedural Mesh Generation',
+          title: 'Solution: Hybrid 2D/3D Approach',
           items: [
-            'Created lathe algorithm converting 2D bezier curves to 3D meshes',
-            'Implemented dynamic vertex buffer updates for real-time shape changes',
-            'Built UV mapping system for consistent texture application',
-            'Optimized mesh topology for smooth deformation',
+            'Built a lathe algorithm constructing the front view of a 3D mesh from 2D bezier curves',
+            'Implemented simple 2D particle physics with spring and damping forces to simulate soft-body behavior',
           ],
         },
         {
-          title: 'Hybrid Rendering Pipeline',
+          title: 'Graphics & Shader Tricks',
           items: [
-            'Synchronized 2D canvas bezier editor with 3D Three.js viewport',
-            'Implemented custom shader for subsurface scattering effects',
-            'Added dynamic lighting responding to jelly movement',
-            'Created particle trail system for motion feedback',
+            'Fixed normals, texture mapping, vertex z positions, and lighting for efficiency',
+            'Updated vertex x/y positions based on particle simulation',
+            'Custom shaders for specular and rim lighting to enhance jelly-like appearance',
+            'if/then branching in fragment shader to differentiate facial features from body',
           ],
         },
       ],
@@ -503,36 +479,30 @@ export const PROJECTS: Project[] = [
         {
           title: 'Layout Algorithms',
           items: [
-            'Built custom tight-packing algorithm with reading-order bias',
-            'Implemented ellipse sizing model balancing word count and canvas area',
-            'Designed paragraph placement using rect-packing with scanline optimization',
-            'Added micro-nudging system for visually balanced composition',
+            'Rectangle packing algorithm with reading-order bias for paragraph ellipses',
+            'Ellipse sizing model balancing word count and canvas area',
+            'Iterative adjustment of ellipse positions to minimize overlaps',
           ],
         },
         {
-          title: 'Physics Simulation',
+          title: 'Force Graph Dispersion',
           items: [
-            'Engineered d3-force simulation for organic word positioning',
+            'd3-force simulation for organic word positioning',
             'Created sentence centers using sunflower seed distribution pattern',
-            'Built custom force system: charge repulsion, collision, link constraints',
-            'Implemented ellipse boundary clamping with velocity-based correction',
           ],
         },
         {
           title: 'Typographic Intelligence',
           items: [
             'Integrated POS tagging (wink-pos-tagger) for grammatical analysis',
-            'Applied distinct styling to nouns, verbs, adjectives, first words',
-            'Created visual hierarchy through font weight and style variation',
-            'Built multi-format export (2000×2800 posters to phone wallpapers)',
+            'Applied distinct styling and link structure to nouns, verbs, adjectives, first words',
           ],
         },
         {
           title: 'Visual Design',
           items: [
             'Canvas-based rendering with radial gradient backgrounds',
-            'ASCII particle system avoiding ellipse boundaries',
-            'Interactive 3x zoom magnification with smooth transitions',
+            'ASCII star scatter avoiding ellipse boundaries',
             'Decorative elements: grid patterns, radial graphs, Roman numerals',
           ],
         },
@@ -575,30 +545,18 @@ export const PROJECTS: Project[] = [
       },
       sections: [
         {
-          title: 'Data Pipeline',
+          title: 'Data Curation',
           items: [
-            'Processed 15k+ word poetry corpus with frequency analysis',
-            'Implemented POS tagging to curate balanced word categories',
-            'Built semantic clustering for contextual word grouping',
-            'Designed word distribution algorithm favoring poetic potential',
+            'Parsed and processed 15k+ word poetry corpus with frequency analysis'
           ],
         },
         {
           title: 'Interaction Design',
           items: [
             'Built custom drag-drop system without external physics libraries',
-            'Implemented magnetic snapping behavior for natural arrangement',
-            'Added subtle rotation and scale on hover for tactile feedback',
-            'Created multi-touch support for tablet/mobile composition',
-          ],
-        },
-        {
-          title: 'Technical Features',
-          items: [
-            'Real-time collision detection preventing word overlap',
-            'Persistent layout saving with browser storage',
-            'Export system generating shareable composition images',
-            'Responsive grid adapting to viewport dimensions',
+            'Slight random rotation and mouse hover response for tactile feedback',
+            'Subtle cue for deleting words by dragging off-canvas',
+            'Supports both click-drag and touch-drag interactions',
           ],
         },
       ],
@@ -698,25 +656,15 @@ export const PROJECTS: Project[] = [
         {
           title: 'Emotional Interaction Design',
           items: [
-            'Designed opening sequence using 2D physics to simulate spatial surprise',
+            'Animated opening sequence using to simulate surprise',
             'Used hand-drawn graphics and custom handwriting font',
-            'Focused on immediacy—no logins, no friction, single-click access',
+            'Focused on immediate, single-click access for recipients',
           ],
         },
         {
-          title: 'Technical Architecture',
+          title: 'Minimal Data Handling',
           items: [
-            'Encoded gift identity directly in URL routes for secure access',
-            'Fetched recipient-specific data from Firebase via unique IDs',
-            'Avoided account systems to preserve intimacy and ease',
-          ],
-        },
-        {
-          title: 'Craft & Presentation',
-          items: [
-            'Balanced playful animation with restraint',
-            'Designed for emotional clarity over feature density',
-            'Optimized for mobile-first sharing',
+            'Encoded Firebase document ID directly in URL routes for easy, invisible personalized data fetching',
           ],
         },
       ],

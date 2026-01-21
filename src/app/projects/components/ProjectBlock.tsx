@@ -113,9 +113,9 @@ export default function ProjectBlock({ project }: ProjectBlockProps) {
       </h3>
       {project.details.sections.map((section, idx) => (
         <details key={idx} className="group glass-card">
-          <summary className="cursor-pointer list-none flex flex-row items-center justify-between">
-            <h4>{section.title}</h4>
+          <summary className="cursor-pointer list-none flex flex-row items-center justify-start gap-2">
             <span className="text-neutral-400 group-open:rotate-90 transition-transform">›</span>
+            <h4>{section.title}</h4>
           </summary>
 
           <div className="px-2 pt-2">
