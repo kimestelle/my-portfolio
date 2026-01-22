@@ -138,24 +138,31 @@ export const PROJECTS: Project[] = [
       },
 
       sections: [
-
+        {
+          title: 'Internal Tooling',
+          items: [
+            'Worked independently with 9+ internal departments to create data visualizations, optimize legacy ETL pipelines, and build new data models',
+            'Funneled data between multiple enterprise SQL databases to create unified reporting views',
+            'Received positive performance reviews and return offer',
+          ],
+        },
         // {
-        //   title: 'System Optimization',
+        //   title: 'Internal Tooling',
         //   items: [
         //     'Improved query performance across enterprise database',
         //     'Built data visualizations for operational insights',
         //     'Ensured data quality and consistency across multiple sources',
         //   ],
         // },
-        {
-          title: 'Manager Recommendation',
-          items: ['I am writing to provide a strong recommendation for Estelle Kim, who has recently completed a summer internship in data engineering and visualization at SCE under my supervision. Throughout her time with us, Estelle has demonstrated exceptional skills, dedication, and a remarkable ability to grasp complex concepts quickly.',
-            'Estelle has consistently shown a high level of proficiency in data engineering tasks, including data modeling, SQL and Python code optimization, ETL processes, and data management.',
-            'During her internship, Estelle worked on several impactful projects and initiatives involving data pipeline optimization, dashboard development, and data analysis. She has become proficient in tools such as Python, SQL, Power BI, Power Apps and Power Automate. One of her standout contributions was redesigning and fixing our internal reporting dashboard, which significantly improved usability.',
-            "Furthermore, Estelle's work ethic and enthusiasm for learning have been evident in all her projects. She approaches each task with a positive attitude and a commitment to excellence, often going above and beyond what is expected. Her collaborative nature has made her a valuable team member, always willing to share her knowledge and assist others.",
-            'In conclusion, I believe Estelle Kim possesses the skills, dedication, and potential to excel in any data engineering and visualization role she pursues. I highly recommend her for any future opportunities and am confident that she will be an invaluable asset to your team.'
-          ]
-        }
+        // {
+        //   title: 'Manager Recommendation',
+        //   items: ['I am writing to provide a strong recommendation for Estelle Kim, who has recently completed a summer internship in data engineering and visualization at SCE under my supervision. Throughout her time with us, Estelle has demonstrated exceptional skills, dedication, and a remarkable ability to grasp complex concepts quickly.',
+        //     'Estelle has consistently shown a high level of proficiency in data engineering tasks, including data modeling, SQL and Python code optimization, ETL processes, and data management.',
+        //     'During her internship, Estelle worked on several impactful projects and initiatives involving data pipeline optimization, dashboard development, and data analysis. She has become proficient in tools such as Python, SQL, Power BI, Power Apps and Power Automate. One of her standout contributions was redesigning and fixing our internal reporting dashboard, which significantly improved usability.',
+        //     "Furthermore, Estelle's work ethic and enthusiasm for learning have been evident in all her projects. She approaches each task with a positive attitude and a commitment to excellence, often going above and beyond what is expected. Her collaborative nature has made her a valuable team member, always willing to share her knowledge and assist others.",
+        //     'In conclusion, I believe Estelle Kim possesses the skills, dedication, and potential to excel in any data engineering and visualization role she pursues. I highly recommend her for any future opportunities and am confident that she will be an invaluable asset to your team.'
+        //   ]
+        // }
       ],
 
       imageUrls: ['/cover-images/edison-image.png'],
