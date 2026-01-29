@@ -48,7 +48,7 @@ export default function Home() {
             </a>
           </CursorTooltip>
           <CursorTooltip content={'X handle'} placement='bottom'>
-            <a href='https://x.com/estelleeykim' target='_blank' rel='noopener noreferrer' className='ml-2'>
+            <a href='https://x.com/estellespace' target='_blank' rel='noopener noreferrer' className='ml-2'>
               <Image src='/icons/x-logo.svg' className='inline w-[0.9rem] h-[0.9rem] mb-1'
                   alt='X icon'
                   width={50} height={50}
