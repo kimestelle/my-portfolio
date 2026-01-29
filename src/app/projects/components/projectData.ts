@@ -111,7 +111,7 @@ export const PROJECTS: Project[] = [
   },
     {
     id: 'sce-data-engineering',
-    name: 'Data Engineer Intern @ SCE',
+    name: 'Data Viz Engineer Intern @ SCE',
     category: 'production experience',
     date: 'Summer 2024',
     role: 'Data Engineering Intern',
@@ -143,7 +143,7 @@ export const PROJECTS: Project[] = [
           items: [
             'Worked independently with 9+ internal departments to create data visualizations, optimize legacy ETL pipelines, and build new data models',
             'Funneled data between multiple enterprise SQL databases to create unified reporting views',
-            'Received positive performance reviews and return offer',
+            'Received positive performance reviews and return offer, please contact for manager recommendation!',
           ],
         },
         // {
@@ -529,13 +529,13 @@ export const PROJECTS: Project[] = [
     category: 'creative tools',
     date: 'Fall 2024',
     role: 'Personal Project',
-    impact: '15k+ word corpus / Custom drag-drop physics',
+    impact: '15k+ word corpus / Collaborative drag-drop UI',
     url: 'https://magnetic-poetry.vercel.app/',
     githubUrl: 'https://github.com/kimestelle/magnetic-poetry',
     
     cover: {
       imageSrc: '/cover-images/poetry-image.png',
-      blurb: 'Interactive word magnets, drag-drop UI',
+      blurb: 'Real-time collaborative poetry board',
       engineering: 'Tactile poetry board made by pre-processing a poetry dataset and implementing custom responsive drag-drop UI.',
       tags: ['React', 'Data Processing'],
     },
@@ -566,6 +566,13 @@ export const PROJECTS: Project[] = [
             'Supports both click-drag and touch-drag interactions',
           ],
         },
+        {
+          title: 'Real-time Collaboration',
+          items: [
+            'Implemented WebSocket-based real-time sync for multi-user editing',
+            'Optimized data payloads to only send position and word changes',
+          ],
+        }
       ],
       imageUrls: [
         'VfkS2WKIky8RS6hS3GO6vLHVAfJnbfYrTuSWv5jk57g',
