@@ -44,6 +44,13 @@ export type Project = {
   };
 };
 
+// UTILITY FUNCTIONS
+export const getCategoryProjects = (category: ProjectCategory) => 
+  PROJECTS.filter(p => p.category === category);
+
+export const getProjectById = (id: string) => 
+  PROJECTS.find(p => p.id === id);
+
 //DATA
 export const PROJECTS: Project[] = [
   {
@@ -57,7 +64,7 @@ export const PROJECTS: Project[] = [
     githubUrl: 'https://github.com/PennSpark/into-the-blue',
     
     cover: {
-      imageSrc: '/project-images/covers/museum-cover.png',
+      imageSrc: '/project-images/covers/museum-cover.webp',
       blurb: 'Offline-first artifact hunt for museum visitors',
       engineering: 'Deployed for 9+ months to 180k visitors. IndexedDB storage pipeline + artifact cutout feature with SVG masking and even-odd clipping for complex paths. Coordinated with team of 8 across design, dev, and museum stakeholders.',
       tags: ['React', 'IndexedDB', 'System Design'],
@@ -104,12 +111,13 @@ export const PROJECTS: Project[] = [
       ],
       imageUrls: [
         'GASgNQMNNJ016tzUTngLXSXFZ000228UTfdlfs5007gD8Y4',
-        '/project-images/into-the-blue/image-1.png',
-        '/project-images/into-the-blue/image-2.png',
+        '/project-images/into-the-blue/image-1.webp',
+        '/project-images/into-the-blue/image-2.webp',
       ],
     },
   },
-    {
+
+  {
     id: 'sce-data-engineering',
     name: 'Data Viz Engineer Intern @ SCE',
     category: 'production experience',
@@ -118,7 +126,7 @@ export const PROJECTS: Project[] = [
     impact: 'Serving 15m residents across Southern California',
 
     cover: {
-      imageSrc: '/cover-images/edison-image.png',
+      imageSrc: '/project-images/covers/edison-cover.webp',
       blurb: 'ETL systems for utility serving 15m residents',
       engineering:
         'Worked independently with 9+ internal teams to design + optimize cross-platform data pipelines and visualizations.',
@@ -165,9 +173,10 @@ export const PROJECTS: Project[] = [
         // }
       ],
 
-      imageUrls: ['/cover-images/edison-image.png'],
+      imageUrls: ['/project-images/covers/edison-cover.webp'],
     },
   },
+
   {
     id: 'internet-atlas',
     name: 'Internet Atlas',
@@ -179,7 +188,7 @@ export const PROJECTS: Project[] = [
     githubUrl: 'https://github.com/PennSpark/sp25-internet-atlas',
     
     cover: {
-      imageSrc: '/project-images/covers/atlas-cover.png',
+      imageSrc: '/project-images/covers/atlas-cover.webp',
       blurb: 'Helping humans play with web browsing data',
       engineering: 'Technical Lead for 3D force-directed graph and ML pipeline to embed visual/textual ambience into spatial coordinates.',
       tags: ['Three.js', 'Supabase', 'FastAPI', 'AI/ML'],
@@ -223,13 +232,73 @@ export const PROJECTS: Project[] = [
         },
       ],
       imageUrls: ['aDL519jpf01J01rs1fZqqXPHw996LWwx9UD6Jh4ecZ9Xk',
-        '/project-images/internet-atlas/image-1.png',
-        '/project-images/internet-atlas/image-2.png'
+        '/project-images/internet-atlas/image-1.webp',
+        '/project-images/internet-atlas/image-2.webp'
       ],
     },
-},
+  },
 
-  
+  {
+    id: 'spark-website',
+    name: 'Penn Spark Website',
+    category: 'production experience',
+    date: 'Fall 2024 - Present',
+    role: 'Technical Lead',
+    impact: 'Deployed Live / Actively Maintained',
+    url: 'https://pennspark.org/',
+    githubUrl: 'https://github.com/PennSpark/pennspark.github.io',
+
+    cover: {
+      imageSrc: '/project-images/covers/spark-cover.webp',
+      blurb: "Leading redesign focused on maintainability over speed",
+      engineering: 'Incremental consolidation preserving brand identity while establishing sustainable development practices for future maintainers.',
+      tags: ['Next.js', 'Tailwind CSS', 'TypeScript'],
+    },
+    
+    details: {
+      label: 'Student Organization Website - Technical Leadership',
+      overview: 'Leading redesign of Penn Spark\'s website with focus on sustainability and future maintainability. Chose incremental improvement over rebuild to preserve brand identity from past designers while consolidating architecture and establishing proper development standards.',
+      techStack: {
+        languages: ['TypeScript', 'JavaScript'],
+        frameworks: ['Next.js'],
+        libraries: ['React', 'Tailwind CSS'],
+        databases: [],
+        platforms: ['Vercel'],
+      },
+
+      sections: [
+        // {
+        //   title: 'Sustainable Architecture',
+        //   items: [
+        //     "Preserved existing brand identity rather than rebuilding from scratch - prioritizing long-term sustainability over rapid deployment.",
+        //     'Consolidated fragmented codebase into maintainable structure that future developers can understand and extend.',
+        //     'Established test deployment workflow before production changes, introducing proper development practices to team.',
+        //   ],
+        // },
+        // {
+        //   title: 'Current Focus: Standards & Accessibility',
+        //   items: [
+        //     'Implementing rigorous web standards and accessibility guidelines now that stable foundation is established.',
+        //     'Building translation layer - clean user experience backed by understandable codebase structure for future maintainers.',
+        //     'Creating documentation and component patterns that enable smooth leadership transitions.',
+        //   ],
+        // },
+        // {
+        //   title: 'Technical Implementation',
+        //   items: [
+        //     'Responsive design with Tailwind CSS for consistent cross-device experience.',
+        //     'Next.js and TypeScript for type safety and improved developer experience.',
+        //     'Performance optimization and SEO improvements for broader reach.',
+        //   ],
+        // },
+      ],
+
+      imageUrls: [
+        'aCsuOGEkaXZUc600zfyrz182UMBPlzSCyNfUGIEDZtm00',
+      ],
+    },
+  },
+
   // GRAPHICS
   {
     id: 'mini-minecraft',
@@ -241,7 +310,7 @@ export const PROJECTS: Project[] = [
     githubUrl: 'https://github.com/kimestelle/mini-minecraft-opengl',
     
     cover: {
-      imageSrc: '/project-images/covers/minecraft-cover.png',
+      imageSrc: '/project-images/covers/minecraft-cover.webp',
       blurb: 'Real-time rendering voxel engine from scratch',
       engineering: 'Built ground-up in C++/OpenGL with VBO-based terrain rendering, Perlin noise procedural generation, custom water shaders with reflections, multithreaded chunk loading.',
       tags: ['C++', 'OpenGL', 'Team Project'],
@@ -289,7 +358,7 @@ export const PROJECTS: Project[] = [
     impact: 'Custom renderer / Advanced shading models',
     
     cover: {
-      imageSrc: '/project-images/covers/461-cover.png',
+      imageSrc: '/project-images/covers/461-cover.webp',
       blurb: 'Physically-based rendering with deferred shading',
       engineering: 'Deferred rendering pipeline with Cook–Torrance BRDF, ray marching with SDFs, subsurface scattering, and Hosek–Wilkie sky models.',
       tags: ['C++', 'GLSL', 'PBR'],
@@ -331,7 +400,7 @@ export const PROJECTS: Project[] = [
           ],
         },
       ],
-      imageUrls: ['/project-images/covers/461-cover.png'],
+      imageUrls: ['/project-images/covers/461-cover.webp'],
     },
   },
   
@@ -346,7 +415,7 @@ export const PROJECTS: Project[] = [
     githubUrl: 'https://github.com/kimestelle/watercolor-drip-shader',
     
     cover: {
-      imageSrc: '/cover-images/watercolor-image.png',
+      imageSrc: '/project-images/covers/watercolor-cover.webp',
       blurb: 'Custom real-time fluid drip sim',
       engineering: 'Ping-pong buffer, minimal diffusion operations, and two-canvas optimization for real-time watercolor effects in GLSL.',
       tags: ['GLSL', 'WebGL', 'Shaders'],
@@ -407,7 +476,7 @@ export const PROJECTS: Project[] = [
     githubUrl: 'https://github.com/kimestelle/2d-softbody-lathe',
     
     cover: {
-      imageSrc: '/cover-images/blob-image.png',
+      imageSrc: '/project-images/covers/blob-cover.webp',
       blurb: 'Soft-body physics with hybrid 2D/3D rendering',
       engineering: 'Build-your-own 3D jelly interface using bezier curves, lathe meshing, particle physics, and shader tricks.',
       tags: ['Three.js', 'Physics', 'Canvas'],
@@ -466,7 +535,7 @@ export const PROJECTS: Project[] = [
     githubUrl: 'https://github.com/kimestelle/textellation',
     
     cover: {
-      imageSrc: '/cover-images/textellation-image.png',
+      imageSrc: '/project-images/covers/textellation-cover.webp',
       blurb: 'Typographic constellation maker',
       engineering: 'Canvas rendering with d3-force physics for organic word layouts. Custom packing algorithm positions paragraphs with reading-order bias.',
       tags: ['Canvas API', 'd3-force', 'Next.js'],
@@ -516,9 +585,9 @@ export const PROJECTS: Project[] = [
       ],
       imageUrls: [
         '01602whjZXp79w6lGOpvB00w12dlNUucu8xxA55Pezrxhk',
-        '/project-images/textellation/image-1.png',
-        '/project-images/textellation/image-2.png',
-        '/project-images/textellation/image-3.png',
+        '/project-images/textellation/image-1.webp',
+        '/project-images/textellation/image-2.webp',
+        '/project-images/textellation/image-3.webp',
       ],
     },
   },
@@ -534,7 +603,7 @@ export const PROJECTS: Project[] = [
     githubUrl: 'https://github.com/kimestelle/magnetic-poetry',
     
     cover: {
-      imageSrc: '/cover-images/poetry-image.png',
+      imageSrc: '/project-images/covers/poetry-cover.webp',
       blurb: 'Real-time collaborative poetry board',
       engineering: 'Tactile poetry board made by pre-processing a poetry dataset and implementing custom responsive drag-drop UI.',
       tags: ['React', 'Data Processing'],
@@ -590,7 +659,7 @@ export const PROJECTS: Project[] = [
     githubUrl: 'https://github.com/kimestelle/better-spelling-bee',
     
     cover: {
-      imageSrc: '/project-images/covers/spellingbee-cover.png',
+      imageSrc: '/project-images/covers/spellingbee-cover.webp',
       blurb: 'Playful word game with tactile interactions',
       engineering: 'Built word-generation engine filtering 46k-word dictionary in real time. JWT auth, PostgreSQL persistence, custom drag logic with playful animations.',
       tags: ['Next.js', 'Django', 'PostgreSQL'],
@@ -634,8 +703,8 @@ export const PROJECTS: Project[] = [
       ],
       imageUrls: [
         'MoJuRZd5h6vDizNCa7IA6PAdFv02401APHwtxT6Zc34dk',
-        '/project-images/better-spelling-bee/image-1.png',
-        '/project-images/better-spelling-bee/image-2.png',
+        '/project-images/better-spelling-bee/image-1.webp',
+        '/project-images/better-spelling-bee/image-2.webp',
       ],
     },
   },
@@ -650,7 +719,7 @@ export const PROJECTS: Project[] = [
     url: 'https://estelles-giftbox.vercel.app/6927',
     
     cover: {
-      imageSrc: '/project-images/covers/giftbox-cover.png',
+      imageSrc: '/project-images/covers/giftbox-cover.webp',
       blurb: 'Interactive web keepsake with 2D physics',
       engineering: 'URL-encoded gift identity with Firebase data fetching. 2D physics opening sequence, hand-drawn graphics, zero-friction sharing.',
       tags: ['Next.js', 'Firebase', 'Interaction Design'],
@@ -684,78 +753,71 @@ export const PROJECTS: Project[] = [
       ],
       imageUrls: [
         'a00AFc4Ppdzh9qScLuldQUKHv028dT681zlcB1ubKF7Qs',
-        '/project-images/gift-box/image-1.png',
-        '/project-images/gift-box/image-2.png',
+        '/project-images/gift-box/image-1.webp',
+        '/project-images/gift-box/image-2.webp',
       ],
     },
   },
   
   // TECH EXPLORATIONS
-  {
-    id: 'eat-or-plant',
-    name: 'Eat or Plant?',
-    category: 'technical explorations',
-    date: 'Spring 2024',
-    role: 'Engineer & Designer',
-    impact: 'Interdisciplinary collaboration with architecture students',
+  // {
+  //   id: 'eat-or-plant',
+  //   name: 'Eat or Plant?',
+  //   category: 'technical explorations',
+  //   date: 'Spring 2024',
+  //   role: 'Engineer & Designer',
+  //   impact: 'Interdisciplinary collaboration with architecture students',
     
-    cover: {
-      imageSrc: '/project-images/covers/chocolate-cover.png',
-      blurb: 'Consuming the Amazon forest, bite by bite',
-      engineering: 'Arduino-powered chocolate installation with capacitive sensing, laser-cut enclosure, and live datastream integration.',
-      tags: ['Arduino', 'Fabrication', 'Electronics'],
-    },
+  //   cover: {
+  //     imageSrc: '/project-images/covers/chocolate-cover.webp',
+  //     blurb: 'Consuming the Amazon forest, bite by bite',
+  //     engineering: 'Arduino-powered chocolate installation with capacitive sensing, laser-cut enclosure, and live datastream integration.',
+  //     tags: ['Arduino', 'Fabrication', 'Electronics'],
+  //   },
     
-    details: {
-      label: 'Interactive Arduino Installation',
-      overview: 'Interactive art installation connecting physical chocolate consumption to Amazon deforestation through real-time environmental data. Collaborated with architecture masters students on engineering and fabrication.',
-      techStack: {
-        languages: ['C++'],
-        frameworks: ['Arduino'],
-        libraries: [],
-        databases: [],
-        platforms: ['Rhino', 'Adobe Illustrator'],
-      },
-      sections: [
-        {
-          title: 'Hardware System Engineering',
-          items: [
-            'Designed copper capacitive touch sensor array detecting tree removal',
-            'Programmed LED matrix animations responding to physical interaction',
-            'Built real-time feedback loop between physical objects and visual display',
-            'Managed 3 synchronized LED arrays: tree positions, AQI gradient, alert system',
-          ],
-        },
-        {
-          title: 'API Integration',
-          items: [
-            'Connected to AirNow API for live Amazon rainforest air quality data',
-            'Implemented 5-minute polling cycle with error handling',
-            'Translated AQI thresholds into visual warning states (red flashing alerts)',
-          ],
-        },
-        {
-          title: 'Physical Fabrication',
-          items: [
-            '3D printed custom enclosures using Rhino',
-            'Laser-cut acrylic components with Adobe Illustrator',
-            'Integrated electronics with hand-crafted chocolate trees',
-            'Designed physical form factor balancing aesthetics and sensor accessibility',
-          ],
-        },
-      ],
-      imageUrls: [
-        'E02DJOgUseJ9BPDxRzFQCMN3uCAsNPo02p2rj00OfWc00LI',
-        '/project-images/chocolate/image-1.png',
-        '/project-images/chocolate/image-2.png',
-      ],
-    },
-  },
+  //   details: {
+  //     label: 'Interactive Arduino Installation',
+  //     overview: 'Interactive art installation connecting physical chocolate consumption to Amazon deforestation through real-time environmental data. Collaborated with architecture masters students on engineering and fabrication.',
+  //     techStack: {
+  //       languages: ['C++'],
+  //       frameworks: ['Arduino'],
+  //       libraries: [],
+  //       databases: [],
+  //       platforms: ['Rhino', 'Adobe Illustrator'],
+  //     },
+  //     sections: [
+  //       {
+  //         title: 'Hardware System Engineering',
+  //         items: [
+  //           'Designed copper capacitive touch sensor array detecting tree removal',
+  //           'Programmed LED matrix animations responding to physical interaction',
+  //           'Built real-time feedback loop between physical objects and visual display',
+  //           'Managed 3 synchronized LED arrays: tree positions, AQI gradient, alert system',
+  //         ],
+  //       },
+  //       {
+  //         title: 'API Integration',
+  //         items: [
+  //           'Connected to AirNow API for live Amazon rainforest air quality data',
+  //           'Implemented 5-minute polling cycle with error handling',
+  //           'Translated AQI thresholds into visual warning states (red flashing alerts)',
+  //         ],
+  //       },
+  //       {
+  //         title: 'Physical Fabrication',
+  //         items: [
+  //           '3D printed custom enclosures using Rhino',
+  //           'Laser-cut acrylic components with Adobe Illustrator',
+  //           'Integrated electronics with hand-crafted chocolate trees',
+  //           'Designed physical form factor balancing aesthetics and sensor accessibility',
+  //         ],
+  //       },
+  //     ],
+  //     imageUrls: [
+  //       'E02DJOgUseJ9BPDxRzFQCMN3uCAsNPo02p2rj00OfWc00LI',
+  //       '/project-images/chocolate/image-1.webp',
+  //       '/project-images/chocolate/image-2.webp',
+  //     ],
+  //   },
+  // },
 ];
-
-// UTILITY FUNCTIONS
-export const getCategoryProjects = (category: ProjectCategory) => 
-  PROJECTS.filter(p => p.category === category);
-
-export const getProjectById = (id: string) => 
-  PROJECTS.find(p => p.id === id);

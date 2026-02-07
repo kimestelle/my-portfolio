@@ -24,7 +24,7 @@ export default function ProjectBlock({ project }: ProjectBlockProps) {
 
   const isVideo = (url: string) => {
     const u = url.toLowerCase();
-    return !u.endsWith(".png") && !u.endsWith(".jpg") && !u.endsWith(".jpeg");
+    return !u.endsWith(".png") && !u.endsWith(".jpg") && !u.endsWith(".webp");
   };
 
   const isMobile = typeof navigator !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -109,7 +109,7 @@ export default function ProjectBlock({ project }: ProjectBlockProps) {
 
       {/* sections */}
       <h3 className="mt-4">
-        Key Features & Contributions
+        Technical Highlights:
       </h3>
       {project.details.sections.map((section, idx) => (
         <details key={idx} className="group glass-card">

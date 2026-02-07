@@ -41,7 +41,7 @@ export default function About() {
               rel="noopener noreferrer"
             >
               <Image
-                src="/cover-images/watercolor-image.png"
+                src="/project-images/covers/watercolor-cover.webp"
                 alt="Watercolor Shader"
                 width={400}
                 height={400}
@@ -58,7 +58,7 @@ export default function About() {
               rel="noopener noreferrer"
             >
               <Image
-                src="/cover-images/textellation-image.png"
+                src="/project-images/covers/textellation-cover.webp"
                 alt="Textellation"
                 width={400}
                 height={400}
@@ -75,7 +75,7 @@ export default function About() {
               rel="noopener noreferrer"
             >
               <Image
-                src="/cover-images/blob-image.png"
+                src="/project-images/covers/blob-cover.webp"
                 alt="3D/2D Softbody"
                 width={400}
                 height={400}
@@ -92,7 +92,7 @@ export default function About() {
               rel="noopener noreferrer"
             >
               <Image
-                src="/cover-images/poetry-image.png"
+                src="/project-images/covers/poetry-cover.webp"
                 alt="Magnetic Poetry"
                 width={400}
                 height={400}
