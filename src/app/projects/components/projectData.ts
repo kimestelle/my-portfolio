@@ -178,6 +178,74 @@ export const PROJECTS: Project[] = [
   },
 
   {
+    id: 'spark-website',
+    name: 'Penn Spark Website',
+    category: 'production experience',
+    date: 'Fall 2024 - Present',
+    role: 'Technical Lead',
+    impact: 'Deployed Live / Actively Maintained',
+    url: 'https://pennspark.org/',
+    githubUrl: 'https://github.com/PennSpark/pennspark.github.io',
+
+    cover: {
+      imageSrc: '/project-images/covers/spark-cover.webp',
+      blurb: "Redesign and modernization for public website",
+      engineering: 'Incremental consolidation preserving brand identity while establishing sustainable development practices for future maintainers.',
+      tags: ['Next.js', 'Tailwind CSS', 'TypeScript'],
+    },
+    
+    details: {
+      label: 'Student Organization Website - Technical Leadership',
+      overview: 'Leading redesign of Penn Spark\'s website with focus on sustainability and future maintainability. Chose incremental improvement over rebuild to preserve brand identity from past designers while consolidating architecture and establishing proper development standards.',
+      techStack: {
+        languages: ['TypeScript', 'JavaScript'],
+        frameworks: ['Next.js'],
+        libraries: ['React', 'Tailwind CSS'],
+        databases: [],
+        platforms: ['Vercel'],
+      },
+
+      sections: [
+        {
+          title: 'Preserving While Modernizing Existing Codebase',
+          items: [
+            "Existing codebase was well-organized but fragmented across 3 codebases and deployed on outdated Gatsby platform",
+            'Consolidated repositories and migrated to TypeScript + Tailwind + Vite with lazy loading',
+            'Kept parts of data structure and styling that worked while refactoring and optimizing the rest',
+            'Sacrificed some performance for a static GitHub pages deployment to preserve free hosting and ease of contribution',
+          ],
+        },
+        {
+          title: "Strengthening Brand with Interactive Motion",
+          items: [
+            "Built custom banners for each page using custom canvas logic, dynamic HTML, Three.JS, matter.js, etc.",
+            "Carousel banners with dynamic content filtering for homepage and client page",
+            "Mouse-responsive coloring boxes and pills done two ways: CSS and JavaScript"
+          ]
+        },
+        {
+          title: "Clean Code for the User & Developer",
+          items: [
+            'Identified most frequently updated areas (community directory, projects), and refactored them from hard-coded JavaScript into type-safe data structures',
+            'Established test deployment before production, introducing proper development practices to team',
+            'Created detailed README documentation to ensure future developers do not encounter surprises',
+          ],
+        },
+        {
+          title: 'Current Focus: Standards & Accessibility',
+          items: [
+            'Implementing rigorous web standards and accessibility guidelines now that stable foundation is established.',
+          ],
+        },
+      ],
+
+      imageUrls: [
+        'aCsuOGEkaXZUc600zfyrz182UMBPlzSCyNfUGIEDZtm00',
+      ],
+    },
+  },
+
+  {
     id: 'internet-atlas',
     name: 'Internet Atlas',
     category: 'production experience',
@@ -234,67 +302,6 @@ export const PROJECTS: Project[] = [
       imageUrls: ['aDL519jpf01J01rs1fZqqXPHw996LWwx9UD6Jh4ecZ9Xk',
         '/project-images/internet-atlas/image-1.webp',
         '/project-images/internet-atlas/image-2.webp'
-      ],
-    },
-  },
-
-  {
-    id: 'spark-website',
-    name: 'Penn Spark Website',
-    category: 'production experience',
-    date: 'Fall 2024 - Present',
-    role: 'Technical Lead',
-    impact: 'Deployed Live / Actively Maintained',
-    url: 'https://pennspark.org/',
-    githubUrl: 'https://github.com/PennSpark/pennspark.github.io',
-
-    cover: {
-      imageSrc: '/project-images/covers/spark-cover.webp',
-      blurb: "Leading redesign focused on maintainability over speed",
-      engineering: 'Incremental consolidation preserving brand identity while establishing sustainable development practices for future maintainers.',
-      tags: ['Next.js', 'Tailwind CSS', 'TypeScript'],
-    },
-    
-    details: {
-      label: 'Student Organization Website - Technical Leadership',
-      overview: 'Leading redesign of Penn Spark\'s website with focus on sustainability and future maintainability. Chose incremental improvement over rebuild to preserve brand identity from past designers while consolidating architecture and establishing proper development standards.',
-      techStack: {
-        languages: ['TypeScript', 'JavaScript'],
-        frameworks: ['Next.js'],
-        libraries: ['React', 'Tailwind CSS'],
-        databases: [],
-        platforms: ['Vercel'],
-      },
-
-      sections: [
-        // {
-        //   title: 'Sustainable Architecture',
-        //   items: [
-        //     "Preserved existing brand identity rather than rebuilding from scratch - prioritizing long-term sustainability over rapid deployment.",
-        //     'Consolidated fragmented codebase into maintainable structure that future developers can understand and extend.',
-        //     'Established test deployment workflow before production changes, introducing proper development practices to team.',
-        //   ],
-        // },
-        // {
-        //   title: 'Current Focus: Standards & Accessibility',
-        //   items: [
-        //     'Implementing rigorous web standards and accessibility guidelines now that stable foundation is established.',
-        //     'Building translation layer - clean user experience backed by understandable codebase structure for future maintainers.',
-        //     'Creating documentation and component patterns that enable smooth leadership transitions.',
-        //   ],
-        // },
-        // {
-        //   title: 'Technical Implementation',
-        //   items: [
-        //     'Responsive design with Tailwind CSS for consistent cross-device experience.',
-        //     'Next.js and TypeScript for type safety and improved developer experience.',
-        //     'Performance optimization and SEO improvements for broader reach.',
-        //   ],
-        // },
-      ],
-
-      imageUrls: [
-        'aCsuOGEkaXZUc600zfyrz182UMBPlzSCyNfUGIEDZtm00',
       ],
     },
   },
