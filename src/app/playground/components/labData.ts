@@ -15,6 +15,26 @@ export type LabTechGroup = {
 
 export const LAB_BY_TECH: LabTechGroup[] = [
   {
+    tech: 'Interaction Toys',
+    items: [
+      {
+        id: 'skyline',
+        name: 'city skyline',
+        githubUrl: 'https://github.com/kimestelle/city-skyline',
+        blurb: 'Minimalistic sandbox with animated sprite and cool tornado effect',
+        preview: { type: 'iframe', src: 'https://kimestelle.github.io/city-skyline/' },
+      },
+      {
+        id: 'thumb-ball',
+        name: 'thumb*ball',
+        githubUrl: 'https://github.com/kimestelle/thumb-ball',
+        blurb:
+          'Sensory fidget toy with browser haptics on Android.',
+        preview: { type: 'iframe', src: 'https://thumb-ball.vercel.app/' },
+      },
+    ],
+  },
+  {
     tech: 'UI/Frontend',
     items: [
       {
@@ -37,27 +57,6 @@ export const LAB_BY_TECH: LabTechGroup[] = [
       },
     ],
   },
-  {
-    tech: 'Interaction Toys',
-    items: [
-      {
-        id: 'skyline',
-        name: 'city skyline',
-        githubUrl: 'https://github.com/kimestelle/city-skyline',
-        blurb: 'Minimalistic sandbox with animated sprite and cool tornado effect',
-        preview: { type: 'iframe', src: 'https://kimestelle.github.io/city-skyline/' },
-      },
-      {
-        id: 'thumb-ball',
-        name: 'thumb*ball',
-        githubUrl: 'https://github.com/kimestelle/thumb-ball',
-        blurb:
-          'Sensory fidget toy with browser haptics on Android.',
-        preview: { type: 'iframe', src: 'https://thumb-ball.vercel.app/' },
-      },
-    ],
-  },
-
   {
     tech: 'Three.js',
     items: [
