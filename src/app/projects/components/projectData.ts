@@ -385,17 +385,16 @@ export const PROJECTS: Project[] = [
         {
           title: 'Deferred Rendering Architecture',
           items: [
-            'Built deferred shading pipeline with G-buffer composition',
+            'Built deferred shading pipeline with G-buffer optimizations',
             'Separated albedo, normals, depth, and material masks for lighting passes',
-            'Implemented screen-space reflections and post-processing stack',
+            'Implemented screen-space reflections and ambient occlusion for realism',
           ],
         },
         {
           title: 'Physically-Based Shading',
           items: [
-            'Implemented Cook–Torrance BRDF for realistic material response',
-            'Integrated tone mapping and Gaussian blur post effects',
-            'Built matcap shading modes for rapid material iteration',
+            'Implemented Cook–Torrance BRDF for realistic material',
+            'Integrated post effects such as gamma correction, Gaussian blur, Sobel edge detection',
           ],
         },
         {
@@ -443,26 +442,26 @@ export const PROJECTS: Project[] = [
           title: 'Shader Architecture',
           items: [
             'Implemented ping-pong buffer technique for fluid state simulation',
-            'Built hybrid CPU/GPU pipeline balancing performance with visual quality',
-            'Designed minimal diffuse system mimicking watercolor paper absorption',
-            'Created custom fragment shaders for color bleeding and edge darkening',
+            'Dual canvas: top canvas uses CPU for mouse imput and emoji movement, while bottom canvas takes the last pixel line of top canvas as input for GPU drip sim',
+            'Minimal, constant-time bounded diffuse system mimicking watercolor paper absorption',
+            'Custom fragment shaders for color bleeding and blending',
           ],
         },
         {
-          title: 'Fluid Dynamics',
+          title: "Subtle Visual Details",
           items: [
-            'Simulated gravity-driven drip behavior with velocity fields',
-            'Implemented edge detection for pigment concentration effects',
-            'Built color mixing system preserving watercolor luminosity',
-            'Added subtle noise for organic texture variation',
-          ],
-        },
+            'Moving gradient background behind cloud',
+            'Background perspective shift on mouse movement',
+            "Lower opacity in 'wet' areas of the paper",
+            "Max. bound on number of emojis on canvas without restricting user actions"
+          ]
+        }
         {
           title: 'Interactive Controls',
           items: [
-            'Real-time brush input with pressure-sensitive flow',
-            'Dynamic parameter controls for viscosity and diffusion rate',
-            'Built export system for high-resolution render output',
+            "Mouse 'paint' mode intuitively toggled on click",
+            'Hover on cloud cell to release emoji, click to release entire cloud',
+            "Select emojis to change what's raining",
           ],
         },
       ],
@@ -537,7 +536,7 @@ export const PROJECTS: Project[] = [
     category: 'creative tools',
     date: 'Winter 2024',
     role: 'Personal Project',
-    impact: 'Multi-format export / POS-driven typography',
+    impact: 'Organic text layouts / POS-driven typography',
     url: 'https://www.textellation.com/',
     githubUrl: 'https://github.com/kimestelle/textellation',
     
@@ -579,6 +578,7 @@ export const PROJECTS: Project[] = [
           items: [
             'Integrated POS tagging (wink-pos-tagger) for grammatical analysis',
             'Applied distinct styling and link structure to nouns, verbs, adjectives, first words',
+            'Custom font for ASCII star icons'
           ],
         },
         {
@@ -630,7 +630,7 @@ export const PROJECTS: Project[] = [
         {
           title: 'Data Curation',
           items: [
-            'Parsed and processed 15k+ word poetry corpus with frequency analysis'
+            'Parsed and processed Gutenberg poetry corpus, extracting and ranking words by frequency'
           ],
         },
         {
@@ -645,8 +645,8 @@ export const PROJECTS: Project[] = [
         {
           title: 'Real-time Collaboration',
           items: [
-            'Implemented WebSocket-based real-time sync for multi-user editing',
-            'Optimized data payloads to only send position and word changes',
+            'Implemented WebSocket-based real-time multi-user sync via shareable URL routes',
+            'Optimized payloads to only send position and word changes',
           ],
         }
       ],
@@ -686,7 +686,7 @@ export const PROJECTS: Project[] = [
         {
           title: 'Gameplay & Systems Design',
           items: [
-            'Built word-generation engine filtering a 46k-word dictionary in real time',
+            'Built word-generation engine using indexes, filtering a 46k-word dictionary in real time',
             'Guaranteed pangram existence through constrained search logic',
             'Designed stateful gameplay loop with caching and session persistence',
           ],
