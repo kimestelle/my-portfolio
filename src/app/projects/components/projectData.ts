@@ -190,7 +190,7 @@ export const PROJECTS: Project[] = [
     cover: {
       imageSrc: '/project-images/covers/spark-cover.webp',
       blurb: "Redesign and modernization for public website",
-      engineering: 'Incremental consolidation preserving brand identity while establishing sustainable development practices for future maintainers.',
+      engineering: 'Preserving brand identity while establishing sustainable development practices for future club generations.',
       tags: ['Next.js', 'Tailwind CSS', 'TypeScript'],
     },
     
@@ -455,7 +455,7 @@ export const PROJECTS: Project[] = [
             "Lower opacity in 'wet' areas of the paper",
             "Max. bound on number of emojis on canvas without restricting user actions"
           ]
-        }
+        },
         {
           title: 'Interactive Controls',
           items: [
