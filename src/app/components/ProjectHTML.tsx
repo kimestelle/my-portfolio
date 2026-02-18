@@ -7,8 +7,7 @@ import {
 import ProjectCard from '../projects/components/ProjectCard';
 
 const SECTIONS: { category: ProjectCategory; displayName: string; featured: string[] }[] = [
-  { category: 'production experience', displayName: 'deployed at scale', featured: ['into-the-blue', 'sce-data-engineering', 'internet-atlas'] },
-  { category: 'production experience', displayName: 'built to last', featured: ['spark-website'] },
+  { category: 'production experience', displayName: 'deployed at scale', featured: ['into-the-blue', 'sce-data-engineering', 'internet-atlas', 'spark-website'] },
   { category: 'graphics & simulation', displayName: 'rendered from scratch', featured: ['mini-minecraft', 'softbody-jelly'] },
   { category: 'creative tools', displayName: 'designed for expression', featured: ['magnetic-poetry', 'textellation'] },
 ];

@@ -485,7 +485,7 @@ export const PROJECTS: Project[] = [
       imageSrc: '/project-images/covers/blob-cover.webp',
       blurb: 'Soft-body physics with hybrid 2D/3D rendering',
       engineering: 'Build-your-own 3D jelly interface using bezier curves, lathe meshing, particle physics, and shader tricks.',
-      tags: ['Three.js', 'Physics', 'Canvas'],
+      tags: ['WebGL', 'HTML canvas'],
     },
     
     details: {

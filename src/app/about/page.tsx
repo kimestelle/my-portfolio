@@ -10,21 +10,30 @@ export default function About() {
         <h2 className="mb-4">Hi — I’m Estelle {':-)'}</h2>
 
         <p>
-          I’m a CS + Computer Graphics student at UPenn building tools and interfaces that reflect the mechanisms underneath.
+          I’m a CS + Computer Graphics student at UPenn.
         </p>
 
         <p>
-          I like working with cool teams to solve all kinds of problems where design decisions are also systems decisions.
+          Before I wrote code, I spent three years in California education policy passing legislation, securing millions in funding, and watching well-designed systems fail because the people who needed them couldn&apos;t reach them.
         </p>
 
         <p>
-          Lately that means: full-stack products (from data model to UI), 3D/graphics in WebGL and OpenGL, web experiences that feel like apps,
-          and occasional hardware dabbles.
+        I started coding 18 months ago with the same mindset: making software as navigable as it is honest about what&apos;s underneath. In that time I&apos;ve shipped a museum installation to 180,000+ visitors, led a team of 7 on a 3D ML visualization, and built data pipelines for a utility serving 15 million residents. I&apos;m constantly experimenting across real-time graphics, full-stack engineering, and data.
         </p>
 
         <p>
-          I care about building for clarity foremost. If something isn&apos;t legible or clean, I&apos;ll happily spend more nights re-building it.
+          I care about building for clarity foremost, both for the user and for the engineer reading the code.
         </p>
+
+        <details
+          className="glass-card"
+        >
+          <summary className="cursor-pointer">
+            ✶ tmi corner:
+          </summary>
+
+          <TmiCorner/>
+        </details>
 
         <hr/>
 
@@ -108,15 +117,6 @@ export default function About() {
             kestelle@sas.upenn.edu, I always love meeting new people!
           </a>
         </p>
-        <details
-          className="glass-card"
-        >
-          <summary className="cursor-pointer">
-            ✶ tmi corner:
-          </summary>
-
-          <TmiCorner/>
-        </details>
       </div>
     </div>
   );
