@@ -18,11 +18,11 @@ export default function About() {
         </p>
 
         <p>
-        I started coding 18 months ago with the same mindset: making software as navigable as it is honest about what&apos;s underneath. In that time I&apos;ve shipped a museum installation to 180,000+ visitors, led a team of 7 on a 3D ML visualization, and built data pipelines for a utility serving 15 million residents. I&apos;m constantly experimenting across real-time graphics, full-stack engineering, and data.
+        I started coding 18 months ago with the same mindset: making software as navigable as it is honest about what&apos;s underneath. In that time I&apos;ve shipped a museum installation to 180,000+ visitors, led a team of 7 on a 3D ML visualization, and built data pipelines for a utility serving 15 million residents.
         </p>
 
         <p>
-          I care about building for clarity foremost, both for the user and for the engineer reading the code.
+          My work spans real-time graphics, full-stack engineering, and data — I find the best tool for the problem and learn it. What stays constant is building for clarity: for both the user and engineer reading the code.
         </p>
 
         <details
