@@ -3,7 +3,7 @@ export type ProjectCategory =
   | 'production experience'
   | 'graphics & simulation'
   | 'creative tools'
-  | 'technical explorations';
+  // | 'technical explorations';
 
 export type Project = {
   id: string; //for url references
@@ -177,6 +177,67 @@ export const PROJECTS: Project[] = [
     },
   },
 
+    {
+    id: 'internet-atlas',
+    name: 'Internet Atlas',
+    category: 'production experience',
+    date: 'Spring 2025',
+    role: 'Technical Lead',
+    impact: 'Team of 7 / 300 nodes, 1000+ edges',
+    url: 'https://the-internet-atlas.com/',
+    githubUrl: 'https://github.com/PennSpark/sp25-internet-atlas',
+    
+    cover: {
+      imageSrc: '/project-images/covers/atlas-cover.webp',
+      blurb: 'Helping humans play with web browsing data',
+      engineering: 'Technical Lead for 3D force-directed graph and ML pipeline to embed visual/textual ambience into spatial coordinates.',
+      tags: ['Three.js', 'Supabase', 'FastAPI', 'AI/ML'],
+    },
+    
+    details: {
+      label: '3D Web Visualization with ML Embeddings',
+      overview: "Experimental interface and ML pipeline exploring web browsing behavior through spatial representation. Turned design lead's vision into technical architecture and led full-stack development.",
+      techStack: {
+        languages: ['TypeScript', 'Python'],
+        frameworks: ['Vite', 'FastAPI'],
+        libraries: ['React', 'Three.js', 'D3.js'],
+        databases: ['Supabase', 'Pinecone'],
+        platforms: ['WebGL'],
+      },
+      sections: [
+        {
+          title: 'Visualization Engineering',
+          items: [
+            'Draggable 3D force graph using react-force-graph for 300+ nodes',
+            'Dynamic camera transitions that zoom to nodes and user paths',
+            'SVG overlays and animations synchronized with 3D scene using world to screen space conversions',
+          ],
+        },
+        {
+          title: "Capturing the 'Feel' of a Website",
+          items: [
+            'Tested and evaluated 5 combinations of local models, APIs, PCA clustering, and reduction strategies',
+            'Used LLM-optimized web scraper for text and screenshot collection and FastAPI for minimal backend',
+            'Separated website embedding storage (Pinecone) from metadata (Supabase) for efficient retrieval',
+          ],
+        },
+        {
+          title: 'Live Deployment',
+          items: [
+            'Backend built for scalability and modularity, accommodates live addition + embedding of new user paths',
+            'Data schema is able to aggregate overlapping paths into a collaborative graph and isolate individual user journeys',
+            'Deployed full application with Vercel and Render, handled 40+ simultaneous users',
+            'Currently static due to costs',
+          ],
+        },
+      ],
+      imageUrls: ['aDL519jpf01J01rs1fZqqXPHw996LWwx9UD6Jh4ecZ9Xk',
+        '/project-images/internet-atlas/image-1.webp',
+        '/project-images/internet-atlas/image-2.webp'
+      ],
+    },
+  },
+
   {
     id: 'spark-website',
     name: 'Penn Spark Website',
@@ -241,67 +302,6 @@ export const PROJECTS: Project[] = [
 
       imageUrls: [
         'aCsuOGEkaXZUc600zfyrz182UMBPlzSCyNfUGIEDZtm00',
-      ],
-    },
-  },
-
-  {
-    id: 'internet-atlas',
-    name: 'Internet Atlas',
-    category: 'production experience',
-    date: 'Spring 2025',
-    role: 'Technical Lead',
-    impact: 'Team of 7 / 300 nodes, 1000+ edges',
-    url: 'https://the-internet-atlas.com/',
-    githubUrl: 'https://github.com/PennSpark/sp25-internet-atlas',
-    
-    cover: {
-      imageSrc: '/project-images/covers/atlas-cover.webp',
-      blurb: 'Helping humans play with web browsing data',
-      engineering: 'Technical Lead for 3D force-directed graph and ML pipeline to embed visual/textual ambience into spatial coordinates.',
-      tags: ['Three.js', 'Supabase', 'FastAPI', 'AI/ML'],
-    },
-    
-    details: {
-      label: '3D Web Visualization with ML Embeddings',
-      overview: "Experimental interface and ML pipeline exploring web browsing behavior through spatial representation. Turned design lead's vision into technical architecture and led full-stack development.",
-      techStack: {
-        languages: ['TypeScript', 'Python'],
-        frameworks: ['Vite', 'FastAPI'],
-        libraries: ['React', 'Three.js', 'D3.js'],
-        databases: ['Supabase', 'Pinecone'],
-        platforms: ['WebGL'],
-      },
-      sections: [
-        {
-          title: 'Visualization Engineering',
-          items: [
-            'Draggable 3D force graph using react-force-graph for 300+ nodes',
-            'Dynamic camera transitions that zoom to nodes and user paths',
-            'SVG overlays and animations synchronized with 3D scene using world to screen space conversions',
-          ],
-        },
-        {
-          title: "Capturing the 'Feel' of a Website",
-          items: [
-            'Tested and evaluated 5 combinations of local models, APIs, PCA clustering, and reduction strategies',
-            'Used LLM-optimized web scraper for text and screenshot collection and FastAPI for minimal backend',
-            'Separated website embedding storage (Pinecone) from metadata (Supabase) for efficient retrieval',
-          ],
-        },
-        {
-          title: 'Live Deployment',
-          items: [
-            'Backend built for scalability and modularity, accommodates live addition + embedding of new user paths',
-            'Data schema is able to aggregate overlapping paths into a collaborative graph and isolate individual user journeys',
-            'Deployed full application with Vercel and Render, handled 40+ simultaneous users',
-            'Currently static due to costs',
-          ],
-        },
-      ],
-      imageUrls: ['aDL519jpf01J01rs1fZqqXPHw996LWwx9UD6Jh4ecZ9Xk',
-        '/project-images/internet-atlas/image-1.webp',
-        '/project-images/internet-atlas/image-2.webp'
       ],
     },
   },

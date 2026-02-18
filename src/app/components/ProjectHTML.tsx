@@ -6,10 +6,11 @@ import {
 } from '../projects/components/projectData';
 import ProjectCard from '../projects/components/ProjectCard';
 
-const SECTIONS: { category: ProjectCategory; featured: string[] }[] = [
-  { category: 'production experience', featured: ['into-the-blue', 'sce-data-engineering', 'internet-atlas', 'spark-website'] },
-  { category: 'graphics & simulation', featured: ['mini-minecraft', 'softbody-jelly'] },
-  { category: 'creative tools', featured: ['magnetic-poetry', 'textellation'] },
+const SECTIONS: { category: ProjectCategory; displayName: string; featured: string[] }[] = [
+  { category: 'production experience', displayName: 'deployed at scale', featured: ['into-the-blue', 'sce-data-engineering', 'internet-atlas'] },
+  { category: 'production experience', displayName: 'built to last', featured: ['spark-website'] },
+  { category: 'graphics & simulation', displayName: 'rendered from scratch', featured: ['mini-minecraft', 'softbody-jelly'] },
+  { category: 'creative tools', displayName: 'designed for expression', featured: ['magnetic-poetry', 'textellation'] },
 ];
 
 function pickById(category: ProjectCategory, ids: string[]) {
@@ -23,20 +24,13 @@ export default function ProjectHTML() {
   return (
     <section className="w-full mt-8">
       <div className="flex flex-col gap-10">
-        {SECTIONS.map(({ category, featured }) => {
+        {SECTIONS.map(({ displayName, category, featured }) => {
           const selected = pickById(category, featured);
 
           return (
-            <div key={category} className="flex flex-col gap-3">
+            <div key={displayName} className="flex flex-col gap-3">
               <div className="flex items-baseline justify-between gap-4">
-                <h3>{category}</h3>
-
-                <a
-                  href={`/projects#${category}`}
-                  className="text-sm text-neutral-500 hover:text-neutral-700 transition-colors"
-                >
-                  see all →
-                </a>
+                <h3>✦ {displayName}</h3>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

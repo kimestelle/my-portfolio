@@ -14,7 +14,7 @@ const CATEGORIES: ProjectCategory[] = [
   "production experience",
   "graphics & simulation",
   "creative tools",
-  "technical explorations",
+  // "technical explorations",
 ];
 
 export default function Projects() {
@@ -36,7 +36,7 @@ export default function Projects() {
       "production experience": [],
       "graphics & simulation": [],
       "creative tools": [],
-      "technical explorations": [],
+      // "technical explorations": [],
     };
     for (const p of PROJECTS) out[p.category].push(p);
     return out;

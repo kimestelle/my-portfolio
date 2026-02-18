@@ -34,7 +34,7 @@ export default function ProjectBlock({ project }: ProjectBlockProps) {
       {/* header */}
       <div>
         <div className='w-full flex flex-row flex-wrap gap-2 items-end'>
-        <h2>{project.name}</h2>
+        <h2> ✦ {project.name}</h2>
           <div className="h-px flex-1 shrink-1 bg-black/10 mb-2" />
           {
             project.githubUrl && (
