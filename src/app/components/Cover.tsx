@@ -63,7 +63,7 @@ export default function Home() {
         </p>
 
         <p className='mt-3'>
-          Currently seeking summer 2026 internships!
+          Currently seeking Fall 2026 internships in Software Engineering, Design Engineering, Creative Technology, and beyond!
         </p>
 
         <ProjectHTML />
