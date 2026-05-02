@@ -31,8 +31,6 @@ export default function LabExperiments() {
     return initial;
   }, [activeId, all, initial]);
 
-  if (!active) return null;
-
   const [previewIndex, setPreviewIndex] = useState(0);
 
   const previews = active ? getPreviews(active) : [];
@@ -45,6 +43,8 @@ export default function LabExperiments() {
   function goNext() {
     setPreviewIndex((i) => (i + 1) % previews.length);
   }
+
+  if (!active) return null;
 
   return (
       <div className="w-full grid grid-cols-1 md:grid-cols-[200px_1fr] gap-8">
