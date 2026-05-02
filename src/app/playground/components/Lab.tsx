@@ -12,6 +12,11 @@ function firstItem(groups: typeof LAB_BY_TECH): LabItem | null {
   return null;
 }
 
+function getPreviews(item: LabItem) {
+  if (!item.preview) return [];
+  return Array.isArray(item.preview) ? item.preview : [item.preview];
+}
+
 export default function LabExperiments() {
   const all = LAB_BY_TECH;
 
@@ -27,6 +32,19 @@ export default function LabExperiments() {
   }, [activeId, all, initial]);
 
   if (!active) return null;
+
+  const [previewIndex, setPreviewIndex] = useState(0);
+
+  const previews = active ? getPreviews(active) : [];
+  const preview = previews[previewIndex];
+
+  function goPrev() {
+    setPreviewIndex((i) => (i - 1 + previews.length) % previews.length);
+  }
+
+  function goNext() {
+    setPreviewIndex((i) => (i + 1) % previews.length);
+  }
 
   return (
       <div className="w-full grid grid-cols-1 md:grid-cols-[200px_1fr] gap-8">
@@ -45,7 +63,10 @@ export default function LabExperiments() {
                       <li
                         className='cursor-pointer'
                         key={item.id}
-                        onClick={() => setActiveId(item.id)}
+                        onClick={() => {
+                          setActiveId(item.id);
+                          setPreviewIndex(0);
+                        }}
                       >
                         {item.name}
                       </li>
@@ -74,26 +95,26 @@ export default function LabExperiments() {
 
           <div className="rounded-xl border bg-white/60 backdrop-blur overflow-hidden">
             <div className="relative w-full aspect-[9/16] md:aspect-[16/9] bg-neutral-100 flex justify-center items-center overflow-hidden">
-              {active.preview?.type === 'iframe' ? (
+              {preview?.type === 'iframe' ? (
                 <iframe
-                  src={active.preview.src}
+                  src={preview.src}
                   className="absolute inset-0 h-full w-full"
                   loading="lazy"
                   allow="microphone; camera; autoplay; clipboard-read; clipboard-write"
                   sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-forms"
                 />
-              ) : active.preview?.type === 'video' ? (
+              ) : preview?.type === 'video' ? (
                 <video
-                  src={active.preview.src}
+                  src={preview.src}
                   className="absolute inset-0 h-full w-full object-cover"
                   muted
                   playsInline
                   controls
                   preload="metadata"
                 />
-              ) : active.preview?.type === 'image' ? (
+              ) : preview?.type === 'image' ? (
                 <MagnifierImage
-                  src={active.preview.src}
+                  src={preview.src}
                   alt={active.name}
                   className="absolute inset-0 h-full w-full object-contain"
                 />
@@ -101,6 +122,30 @@ export default function LabExperiments() {
                 <div className="absolute inset-0 flex items-center justify-center text-sm text-neutral-500">
                   add a preview for this experiment
                 </div>
+              )}
+
+              {previews.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={goPrev}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full border bg-white/70 backdrop-blur px-3 py-2 text-sm"
+                  >
+                    ←
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={goNext}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full border bg-white/70 backdrop-blur px-3 py-2 text-sm"
+                  >
+                    →
+                  </button>
+
+                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-white/70 backdrop-blur px-3 py-1 text-xs">
+                    {previewIndex + 1} / {previews.length}
+                  </div>
+                </>
               )}
             </div>
           </div>

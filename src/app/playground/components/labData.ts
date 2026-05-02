@@ -1,3 +1,8 @@
+export type LabPreview = {
+  type: 'video' | 'image' | 'iframe';
+  src: string;
+};
+
 export type LabItem = {
   id: string;
   name: string;
@@ -5,7 +10,7 @@ export type LabItem = {
 
   blurb?: string;
 
-  preview?: { type: 'video' | 'image' | 'iframe'; src: string };
+  preview?: LabPreview[];
 };
 
 export type LabTechGroup = {
@@ -15,6 +20,26 @@ export type LabTechGroup = {
 
 export const LAB_BY_TECH: LabTechGroup[] = [
   {
+    tech: '3D Modeling',
+    items: [
+      {
+        id: 'porcelain repair',
+        name: 'porcelain repair',
+        blurb: 'Autodesk Maya / Arnold renderer. Modeling, texturing, lighting, and rendering',
+        preview: [
+          { type: 'image', src: '/creative-images/repair-scene/image-1.png', }, { type: 'image', src: '/creative-images/repair-scene/image-2.png' },
+          { type: 'image', src: '/creative-images/repair-scene/image-3.png' }, { type: 'image', src: '/creative-images/repair-scene/image-4.png' }
+        ],
+      },
+      {
+        id: 'clock',
+        name: 'surreal clock',
+        blurb: 'Autodesk Maya, modeling, texturing, lighting, and rendering a detailed desk scene. Unsatisfactory quality due to device limitations :(',
+        preview: [{ type: 'image', src: '/creative-images/clock-scene.png' }],
+      },
+    ],
+  },
+  {
     tech: 'Interaction Toys',
     items: [
       {
@@ -22,7 +47,7 @@ export const LAB_BY_TECH: LabTechGroup[] = [
         name: 'city skyline',
         githubUrl: 'https://github.com/kimestelle/city-skyline',
         blurb: 'Minimalistic sandbox with animated sprite and cool tornado effect',
-        preview: { type: 'iframe', src: 'https://kimestelle.github.io/city-skyline/' },
+        preview: [{ type: 'iframe', src: 'https://kimestelle.github.io/city-skyline/' }],
       },
       {
         id: 'thumb-ball',
@@ -30,21 +55,9 @@ export const LAB_BY_TECH: LabTechGroup[] = [
         githubUrl: 'https://github.com/kimestelle/thumb-ball',
         blurb:
           'Sensory fidget toy with browser haptics on Android.',
-        preview: { type: 'iframe', src: 'https://thumb-ball.vercel.app/' },
+        preview: [{ type: 'iframe', src: 'https://thumb-ball.vercel.app/' }],
       },
     ],
-  },
-  {
-    tech: 'UI/Frontend',
-    items: [
-      {
-        id: 'roboracer-website',
-        name: 'roboracer.ai',
-        blurb: 'built and deployed a website integrating multiple legacy sites for an autonomous racing organization',
-        githubUrl: 'https://github.com/f1tenth/roboracer-site',
-        preview: { type: 'iframe', src: 'https://roboracer.ai' },
-      }
-    ]
   },
   {
     tech: 'Computer Vision',
@@ -53,7 +66,7 @@ export const LAB_BY_TECH: LabTechGroup[] = [
         id: 'video-analysis',
         name: 'multimodal video analysis',
         blurb: 'Real-time video analysis in the browser. Used a creative approach with lightweight local tools only, time-syncing multiple results (dialogue, frame-by-frame BLIP captions, emotion recognition), and chunking scenes by string similarity.',
-        preview: { type: 'iframe', src: 'https://www.youtube.com/embed/jkbK5V_D_uA?start=3"' },
+        preview: [{ type: 'iframe', src: 'https://www.youtube.com/embed/jkbK5V_D_uA?start=3"' }],
       },
     ],
   },
@@ -65,14 +78,7 @@ export const LAB_BY_TECH: LabTechGroup[] = [
         name: 'sdf rigged guy',
         githubUrl: 'https://github.com/kimestelle/tiny-sdf-rig',
         blurb: 'Typescript-based rig from scratch, mouse tracking and random behavior, and SDF shader on a small canvas.',
-        preview: { type: 'iframe', src: 'https://kimestelle.github.io/tiny-sdf-rig/' },
-      },
-      {
-        id: 'threejs-material-sampler',
-        name: 'material sampler',
-        githubUrl: 'https://github.com/kimestelle/threejs-material-sampler',
-        blurb: 'Small playground for comparing / tuning material settings.',
-        preview: { type: 'iframe', src: 'https://threejs-material-sampler.vercel.app/' },
+        preview: [{ type: 'iframe', src: 'https://kimestelle.github.io/tiny-sdf-rig/' }],
       },
     ],
   },
@@ -85,32 +91,21 @@ export const LAB_BY_TECH: LabTechGroup[] = [
         name: 'drawscillate',
         githubUrl: 'https://github.com.kimestelle/drawscillate',
         blurb: 'Experimental synth where you draw the waveforms, collaborative project',
-        preview: { type: 'iframe', src: 'https://kimestelle.github.io/drawscillate/' },
+        preview: [{ type: 'iframe', src: 'https://kimestelle.github.io/drawscillate/' }],
       },
       {
         id: 'web-karaoke',
         name: 'web karaoke',
         githubUrl: 'https://github.com.kimestelle/pocket-karaoke',
         blurb: 'Low-latency echo and amplification effects for whenever you just want to sing',
-        preview: { type: 'iframe', src: 'https://kimestelle.github.io/pocket-karaoke/' },
+        preview: [{ type: 'iframe', src: 'https://kimestelle.github.io/pocket-karaoke/' }],
       },
       {
         id: 'musicograph',
         name: 'microtone graph',
         githubUrl: 'https://github.com/kimestelle/musicograph',
         blurb: 'Interface for scoring melodies between traditional notes through angles and magnitudes',
-        preview: { type: 'iframe', src: 'https://musicograph.vercel.app/' },
-      },
-    ],
-  },
-  {
-    tech: '3D Modeling',
-    items: [
-      {
-        id: 'clock',
-        name: 'surreal clock',
-        blurb: 'Autodesk Maya, modeling, texturing, lighting, and rendering a detailed desk scene. Unsatisfactory quality due to device limitations :(',
-        preview: { type: 'image', src: '/creative-images/clock-scene.png' },
+        preview: [{ type: 'iframe', src: 'https://musicograph.vercel.app/' }],
       },
     ],
   },
@@ -121,25 +116,25 @@ export const LAB_BY_TECH: LabTechGroup[] = [
         id: 'sound-to-form',
         name: 'sound-to-form studies',
         blurb: 'Adobe Illustrator, mapping sounds into shape language',
-        preview: { type: 'image', src: '/creative-images/dsgn-0010/image-1.png' },
+        preview: [{ type: 'image', src: '/creative-images/dsgn-0010/image-1.png' }],
       },
       {
         id: 'capital-campaign-handbook',
         name: 'capital campaign print',
         blurb: '(2023) Adobe InDesign, 500 copies printed for multimillion dollar journalism campaign',
-        preview: { type: 'image', src: '/creative-images/dp-8pager.png' },
+        preview: [{ type: 'image', src: '/creative-images/dp-8pager.png' }],
       },
       {
         id: 'object-icons-coat',
         name: 'object icons (coat)',
         blurb: 'Adobe Illustrator — icon system study with clean object forms',
-        preview: { type: 'image', src: '/creative-images/dsgn-0010/image-3.png' },
+        preview: [{ type: 'image', src: '/creative-images/dsgn-0010/image-3.png' }],
       },
       {
         id:'roboracer-logo',
         name: 'animated logo',
         blurb: 'Adobe After Effects — logo animation for autonomous racing organization',
-        preview: { type: 'video', src: '/creative-images/roboracer-logo.mp4' },
+        preview: [{ type: 'video', src: '/creative-images/roboracer-logo.mp4' }],
       }
     ],
   },
@@ -150,13 +145,13 @@ export const LAB_BY_TECH: LabTechGroup[] = [
         id: 'covid-sculptures',
         name: 'covid-19 sculptures',
         blurb: 'Cardboard, wire, masks — sculptural studies in constraint + material.',
-        preview: { type: 'image', src: '/creative-images/covid-crafts.png' },
+        preview: [{ type: 'image', src: '/creative-images/covid-crafts.png' }],
       },
       {
         id: 'fast-fashion-cardboard',
         name: 'on fast fashion',
         blurb: 'Cardboard & glue — physical study on consumption and discard.',
-        preview: { type: 'image', src: '/creative-images/cardboard-art/image-2.png' },
+        preview: [{ type: 'image', src: '/creative-images/cardboard-art/image-2.png' }] ,
       },
     ],
   }

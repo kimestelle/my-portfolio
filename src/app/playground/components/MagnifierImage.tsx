@@ -49,7 +49,7 @@ export default function MagnifierImage({
   zoom = 2,
   radius = 120,
   priority,
-  sizes = "100vw",
+  sizes = "(min-width: 768px) 66vw, 100vw",
   fit = "contain",
 }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
