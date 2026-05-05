@@ -528,6 +528,71 @@ export const PROJECTS: Project[] = [
       ],
     },
   },
+
+  {
+    id: 'burning-paper',
+    name: 'Burning Paper',
+    category: 'graphics & simulation',
+    date: 'Spring 2025',
+    role: 'Personal Project',
+    impact: 'Custom WebGL renderer / Real-time burn simulation',
+    url: 'https://your-url-here.vercel.app/', // fill in if deployed
+    githubUrl: 'https://github.com/kimestelle/burning-paper', // fill in
+
+    cover: {
+      imageSrc: '/project-images/covers/burning-cover.webp',
+      blurb: 'Real-time paper burn sim with WebGL shaders',
+      engineering:
+        'Custom GLSL fragment shader with radial burn propagation, layered fBm noise for organic edges, ember glow ring, char darkening, and a matching flame cursor — all rendered in a single WebGL pass.',
+      tags: ['WebGL', 'GLSL', 'Shaders'],
+    },
+
+    details: {
+      label: 'Real-Time Paper Combustion Shader',
+      overview:
+        'Interactive paper-burning simulation driven entirely by custom WebGL shaders. A radial burn expands outward from any point with noisy, organic edges. Matching flame cursor that flits and flickers in real time.',
+      techStack: {
+        languages: ['TypeScript', 'GLSL'],
+        frameworks: ['Next.js'],
+        libraries: ['React'],
+        databases: [],
+        platforms: ['WebGL'],
+      },
+      sections: [
+        {
+          title: 'Burn Shader Architecture',
+          items: [
+            'Single-pass WebGL fragment shader computes the entire burn state per frame',
+            'Radial distance from click origin drives a time-expanding burn radius with eased cubic progress curve',
+            'Two-octave layered noise (coarse + fine fBm) perturbs the burn edge for organic, flame-like irregularity',
+            'Smooth step threshold converts the noisy distance field into a clean burn mask with soft transition zone',
+          ],
+        },
+        {
+          title: 'Visual Detail & Layering',
+          items: [
+            'Ember glow ring computed as a tight band around the burn frontier, modulated by noise for flickering intensity',
+            'Char zone darkens paper to deep brown near the burn edge using smooth interpolation into black',
+            'Paper texture built from multi-scale grain noise, ruled-line pattern, and diffuse lighting from a fixed light direction',
+            'Text rendered onto a canvas texture and sampled in the shader, so ink chars and glows with the paper',
+            'Vignette and depth-based shading add subtle realism to the paper surface',
+          ],
+        },
+        {
+          title: 'Ember Cursor',
+          items: [
+            'Separate fullscreen WebGL canvas overlaid with screen-blend to composite the cursor non-destructively',
+            'Three-layer flame model: deep red outer haze, orange ember glow, gold core — all driven by noise and sin waves',
+            'Lagged mouse interpolation gives the flame a trailing, physically-weighted feel',
+            'Small high-frequency dance offsets simulate natural flame turbulence independent of mouse movement',
+          ],
+        },
+      ],
+      imageUrls: [
+        'DN9twPpEMcHJIObDfGveThEjn6OLaxPAKilTj01F1L01U',
+      ],
+    },
+  },
   
   // CREATIVE TOOLS
   {
@@ -712,56 +777,6 @@ export const PROJECTS: Project[] = [
         'MoJuRZd5h6vDizNCa7IA6PAdFv02401APHwtxT6Zc34dk',
         '/project-images/better-spelling-bee/image-1.webp',
         '/project-images/better-spelling-bee/image-2.webp',
-      ],
-    },
-  },
-  
-  {
-    id: 'holiday-gift-box',
-    name: 'Holiday Gift Box',
-    category: 'creative tools',
-    date: 'Fall 2024',
-    role: 'Personal Project',
-    impact: 'Dozens of recipients / Fully shareable artifact',
-    url: 'https://estelles-giftbox.vercel.app/6927',
-    
-    cover: {
-      imageSrc: '/project-images/covers/giftbox-cover.webp',
-      blurb: 'Interactive web keepsake with 2D physics',
-      engineering: 'URL-encoded gift identity with Firebase data fetching. 2D physics opening sequence, hand-drawn graphics, zero-friction sharing.',
-      tags: ['Next.js', 'Firebase', 'Interaction Design'],
-    },
-    
-    details: {
-      label: 'Virtual Holiday Gift Box',
-      overview: 'A lightweight interactive gift designed to translate the warmth of handwritten letters into a shareable, physical-feeling web experience.',
-      techStack: {
-        languages: ['TypeScript'],
-        frameworks: ['Next.js'],
-        libraries: ['React'],
-        databases: [],
-        platforms: ['Firebase', 'Vercel'],
-      },
-      sections: [
-        {
-          title: 'Emotional Interaction Design',
-          items: [
-            'Animated opening sequence using to simulate surprise',
-            'Used hand-drawn graphics and custom handwriting font',
-            'Focused on immediate, single-click access for recipients',
-          ],
-        },
-        {
-          title: 'Minimal Data Handling',
-          items: [
-            'Encoded Firebase document ID directly in URL routes for easy, invisible personalized data fetching',
-          ],
-        },
-      ],
-      imageUrls: [
-        'a00AFc4Ppdzh9qScLuldQUKHv028dT681zlcB1ubKF7Qs',
-        '/project-images/gift-box/image-1.webp',
-        '/project-images/gift-box/image-2.webp',
       ],
     },
   },

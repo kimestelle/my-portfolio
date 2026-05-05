@@ -12,7 +12,7 @@ export default function TmiCorner() {
                     <span className='font-medium'>* listening to:</span> british r&b, some bands, bill evans, errol garner
                 </li>
                 <li>
-                    <span className='font-medium'>* hobbies:</span> bass guitar, singing, reading novels in Hangeul, knitting
+                    <span className='font-medium'>* hobbies:</span> electric bass, singing, reading novels in Hangeul, knitting
                 </li>
                 <li>
                     <span className='font-medium'>* dreams of:</span> new cities, well-crafted objects, the perfect pair of headphones

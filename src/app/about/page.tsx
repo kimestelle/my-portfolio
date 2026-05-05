@@ -14,15 +14,16 @@ export default function About() {
         </p>
 
         <p>
-          Before I wrote code, I spent three years in California education policy passing legislation, securing millions in funding, and watching well-designed systems fail because the people who needed them couldn&apos;t reach them.
+          Before I wrote code, I spent three years in California education policy passing legislation, securing funding, and watching well-designed systems not reach the people who needed them.
+I started coding because I wanted to build things where logic and play could exist in the same place.
         </p>
 
         <p>
-        I started coding 18 months ago with the same mindset: making software as navigable as it is honest about what&apos;s underneath. In that time I&apos;ve shipped a museum installation to 180,000+ visitors, led a team of 7 on a 3D ML visualization, and built data pipelines for a utility serving 15 million residents.
+          I&apos;ve shipped a museum installation to 180k+ visitors, led a team of 7 on a 3D ML visualization, and built data pipelines for a utility serving 15 million residents. I also spend a lot of time on small projects like watercolor drip simulations and burning paper shaders — not as side projects exactly, more like the same questions in a different form. What does this feel like to touch? What&apos;s the right amount to show?
         </p>
 
         <p>
-          My work spans real-time graphics, full-stack engineering, and data — I find the best tool for the problem and learn it. What stays constant is building for clarity: for both the user and engineer reading the code.
+          I work across graphics, full-stack, and data. I find the best tool for the problem and try to actually learn it.
         </p>
 
         <details
