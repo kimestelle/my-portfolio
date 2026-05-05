@@ -589,7 +589,7 @@ export const PROJECTS: Project[] = [
         },
       ],
       imageUrls: [
-        'DN9twPpEMcHJIObDfGveThEjn6OLaxPAKilTj01F1L01U',
+        'gYWFPIPw9CplE01tje01wnOVvzGYtUI5f7Q4GWpdTuHFg',
       ],
     },
   },
