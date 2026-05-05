@@ -12,7 +12,7 @@ export default function Home() {
           Estelle Kim
         </h1>
         <h3>
-          Graphics / Software Engineer, CS + CG @ UPenn
+          Graphics + Software Engineer · UPenn CS + CG
         </h3>
         <div className="w-full my-4 flex items-center gap-3">      
           <CursorTooltip content={'download resume'} placement='bottom'>
@@ -58,12 +58,13 @@ export default function Home() {
           <div className="h-px flex-1 bg-black/10" />
         </div>
         <p>
-          I build user-facing tools that combine real-time graphics, full-stack engineering, and data.
-          I love collaboratively turning complex ideas into reliable, scalable systems.
+          I build interactive tools involving real-time graphics, data, and custom interfaces.
+
+          I’m interested in how systems behave, and how that behavior can be shaped into something intuitive to use.
         </p>
 
         <p className='mt-3'>
-          Currently seeking Fall 2026 internships in Software Engineering, Design Engineering, Creative Technology, and beyond!
+          Seeking Fall 2026 internships across software engineering, design engineering, and creative technology.
         </p>
 
         <ProjectHTML />
