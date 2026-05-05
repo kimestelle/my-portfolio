@@ -536,8 +536,8 @@ export const PROJECTS: Project[] = [
     date: 'Spring 2025',
     role: 'Personal Project',
     impact: 'Custom WebGL renderer / Real-time burn simulation',
-    url: 'https://your-url-here.vercel.app/', // fill in if deployed
-    githubUrl: 'https://github.com/kimestelle/burning-paper', // fill in
+    url: 'https://burning-paper.vercel.app/',
+    githubUrl: 'https://github.com/kimestelle/burning-paper',
 
     cover: {
       imageSrc: '/project-images/covers/burning-cover.webp',
