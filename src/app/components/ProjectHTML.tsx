@@ -8,8 +8,8 @@ import ProjectCard from '../projects/components/ProjectCard';
 
 const SECTIONS: { category: ProjectCategory; displayName: string; featured: string[] }[] = [
   { category: 'production experience', displayName: 'deployed at scale', featured: ['into-the-blue', 'sce-data-engineering', 'internet-atlas', 'spark-website'] },
-  { category: 'graphics & simulation', displayName: 'graphics simulations', featured: ['mini-minecraft', 'softbody-jelly', 'burning-paper', 'watercolor-shader'] },
-  { category: 'creative tools', displayName: 'creative tools', featured: ['magnetic-poetry', 'textellation'] },
+  { category: 'graphics & simulation', displayName: 'from-scratch graphics', featured: ['mini-minecraft', 'softbody-jelly', 'burning-paper', 'watercolor-shader'] },
+  { category: 'creative tools', displayName: 'expressive interfaces', featured: ['magnetic-poetry', 'textellation'] },
 ];
 
 function pickById(category: ProjectCategory, ids: string[]) {
