@@ -19,7 +19,7 @@ I started coding because I wanted to build things where logic and play could exi
         </p>
 
         <p>
-          I&apos;ve shipped a museum installation to 180k+ visitors, led a team of 7 on a 3D ML visualization, and built data pipelines for a utility serving 15 million residents. I also spend a lot of time on small projects like watercolor drip simulations and burning paper shaders — not as side projects exactly, more like the same questions in a different form. What does this feel like to touch? What&apos;s the right amount to show?
+          I&apos;ve shipped a museum installation to 180k+ visitors, led a team of 7 on a 3D ML visualization, and built data pipelines for a utility serving 15 million residents. Outside of that, I write custom GLSL shaders for things like watercolor drip simulations and burning paper — fun exercises in looking closely at a physical happening and figuring out which parts are actually a system.
         </p>
 
         <p>
