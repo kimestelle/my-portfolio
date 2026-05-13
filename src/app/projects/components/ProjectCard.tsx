@@ -20,30 +20,23 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       <figcaption className="p-3">
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
-            <div className="font-medium leading-snug truncate">{project.name}</div>
-            <div className="text-sm text-neutral-600 leading-snug line-clamp-2">
-              {project.cover.blurb}
+        <div className="min-w-0">
+          <div className="font-medium leading-snug truncate">{project.name}</div>
+
+          {project.cover.tags?.length ? (
+            <div className="mt-1.5 flex flex-wrap gap-1.5">
+              {project.cover.tags.slice(0, 3).map((tag) => (
+                <span key={tag} className="pill">
+                  {tag}
+                </span>
+              ))}
             </div>
+          ) : null}
+
+          <div className="mt-1.5 text-sm text-neutral-600 leading-snug line-clamp-2">
+            {project.cover.blurb}
           </div>
         </div>
-
-        {project.cover.tags?.length ? (
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            {project.cover.tags.slice(0, 4).map((tag) => (
-              <span key={tag} className="pill">
-                {tag}
-              </span>
-            ))}
-          </div>
-        ) : null}
-
-        {project.cover.engineering ? (
-          <p className="mt-2 text-[12px] text-neutral-600 leading-snug line-clamp-2">
-            {project.cover.engineering}
-          </p>
-        ) : null}
       </figcaption>
     </figure>
   );

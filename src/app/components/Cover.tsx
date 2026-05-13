@@ -60,11 +60,11 @@ export default function Home() {
         <p>
           I build interactive tools involving real-time graphics, data, and custom interfaces.
 
-          I’m interested in how systems behave, and how that behavior can be shaped into something intuitive to use.
+          I’m interested in how systems behave, and how that behavior can be shaped into something intuitive and perspective-shifting.
         </p>
 
         <p className='mt-3'>
-          Seeking Fall 2026 internships across software engineering, design engineering, and creative technology.
+          Seeking Fall 2026 internships across software engineering, design engineering, and creative technology!
         </p>
 
         <ProjectHTML />
