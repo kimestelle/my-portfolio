@@ -107,7 +107,7 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
       asciiStars.current = starConwayPattern(cols, rows);
 
       asciiCtx.font = '10px "Star Glyphs", Newsreader, serif';
-      asciiCtx.fillStyle = 'rgba(68, 32, 150, 0.5)';
+      asciiCtx.fillStyle = 'rgba(68, 32, 150, 1)';
     };
 
     // initialize three
@@ -197,7 +197,6 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
 
           float t = smoothstep(0.0, 1.0, heat);
           float a = 1.0 - pow(t, 2.5);
-
           gl_FragColor = vec4(color, a);
         }
       `,
@@ -413,17 +412,13 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
 
   return (
     <>
+      <div className='bg-grid fixed top-0 left-0 w-full h-full z-[-2] pointer-events-none'/>
       <canvas
         ref={backgroundRef}
-        className="fixed top-0 left-0 w-full h-full z-[-2] pointer-events-none"
+        className="fixed top-0 left-0 w-full h-full z-[-3] pointer-events-none"
         style={{
           opacity: enabled ? 1 : 0,
           transition: 'opacity 140ms ease',
-
-          backgroundColor: 'rgba(255, 255, 255, 1)',
-          backgroundImage: 'url(/textures/tiny-grid.png)',
-          backgroundRepeat: 'repeat',
-          backgroundSize: '20px 20px',
         }}
       />
       <canvas

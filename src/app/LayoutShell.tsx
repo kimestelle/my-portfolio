@@ -32,6 +32,7 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
       <NavBar
         fps={fps}
         shaderOn={shaderEnabled}
+        playground={shaderDisabled}
         shaderDisabled={shaderDisabled}
         onToggleShader={onToggleShader}
       />

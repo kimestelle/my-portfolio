@@ -32,7 +32,7 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/yef8dto.css"/> 
       </head>
-      <body>
+      <body className='scroll-smooth'>
         <LayoutShell>{children}</LayoutShell>
       </body>
     </html>

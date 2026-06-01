@@ -24,7 +24,7 @@ export const LAB_BY_TECH: LabTechGroup[] = [
     items: [
       {
         id: 'porcelain repair',
-        name: 'porcelain repair',
+        name: 'porcelain repair scene',
         blurb: 'Autodesk Maya / Arnold renderer. Modeling, texturing, lighting, and rendering',
         preview: [
           { type: 'image', src: '/creative-images/repair-scene/image-1.png', }, { type: 'image', src: '/creative-images/repair-scene/image-2.png' },

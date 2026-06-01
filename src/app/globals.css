@@ -157,6 +157,18 @@ summary::marker {
   content: "";
 }
 
+.bg-grid {
+  /* isolation: isolate; */
+  background-image: url(/textures/sandpaper.png);
+  background-repeat: repeat;
+  background-size: 174px 250px;
+}
+
+.inverse-blend {
+  /* rotate hue 180deg */
+  mix-blend-mode: difference;
+}
+
 .pill {
   font-size: 0.8rem;
   padding: 0.1rem 0.5rem;
@@ -170,6 +182,8 @@ summary::marker {
 
 .glass-card{
   border-radius: 0.5rem;
+  box-sizing: border-box;
+  border: 1px solid transparent;
   background:  rgb(84, 38, 112, 0);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.55),
@@ -179,13 +193,12 @@ summary::marker {
 }
 
 .glass-card:hover{
-  background: rgb(84, 38, 112, 0.05);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow:
+  /* box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.50),
-    inset 0 0 22px rgba(181,132,201,0.18);
-  border-color: rgba(0,0,0,0.12);
+    inset 0 0 22px rgba(181,132,201,0.18); */
+  border-color: black;
 }
 
 .big-glass-card{
@@ -198,6 +211,8 @@ summary::marker {
     inset 0 0 18px rgba(255,255,255,0.22);
   border-bottom: 1px solid rgba(0,0,0,0.10);
   backdrop-filter: blur(10px);
+
+  transition: 500ms cubic-bezier(1, 0, 0, 1);;
 }
 
 
@@ -257,9 +272,20 @@ summary::marker {
 .responsive-padding {
   width: 100%; 
   padding:6rem 2rem 6rem 2rem;
+  transition: 500ms cubic-bezier(1, 0, 0, 1);
+}
+
+.static-padding {
+  width: 100%; 
+  height: 100svh;
+  padding: 0rem 2rem 2rem 2rem;
 }
 
 @media (min-width: 768px) {
+  h1 { 
+    font-size: 3.5rem;
+    font-weight: 500;
+  }
   .responsive-padding {
     padding: 7rem 5rem 4rem 5rem;
   }

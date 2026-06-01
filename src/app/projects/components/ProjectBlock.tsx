@@ -74,11 +74,11 @@ export default function ProjectBlock({ project }: ProjectBlockProps) {
       {/* overview */}
       <span>{project.details.overview}</span>
       
-      <div className="relative w-full h-[22rem] flex justify-center items-center my-5 p-2 rounded-md bg-neutral-100 shadow-inner">
+      <div className="relative w-full h-[22rem] md:h-[32rem] flex justify-center items-center my-5 p-2 rounded-md bg-neutral-100 shadow-inner">
         {isVideo(project.details.imageUrls[currentIndex]) ? (
           <LazyVideo
             playbackId={project.details.imageUrls[currentIndex]}
-            className="h-full max-h-[22rem] object-contain"
+            className="h-full max-h-[22rem] md:max-h-[30rem] object-contain"
           />
         ) : (
           <Image
@@ -86,7 +86,7 @@ export default function ProjectBlock({ project }: ProjectBlockProps) {
             height={600}
             src={project.details.imageUrls[currentIndex]}
             alt={`Slide ${currentIndex}`}
-            className="h-full max-h-[22rem] w-auto object-contain"
+            className="h-full max-h-[22rem] md:max-h-[30rem] w-auto object-contain"
           />
         )}
         {project.details.imageUrls.length > 1 && (

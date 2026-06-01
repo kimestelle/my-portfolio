@@ -47,11 +47,11 @@ export default function LabExperiments() {
   if (!active) return null;
 
   return (
-      <div className="w-full grid grid-cols-1 md:grid-cols-[200px_1fr] gap-8">
+      <div className="w-full grid grid-cols-1 pt-[2rem] md:pt-[6rem] md:grid-cols-[200px_1fr] md:gap-8 overflow-hidden">
         {/* left: list */}
-        <aside className="lg:sticky lg:top-24 h-fit glass-card">
+        <aside className="lg:sticky h-fit border-b">
             <span>[what&apos;s brewing ∘˙○˚.•]</span>
-            <div className="flex flex-col gap-4 max-h-32 md:max-h-[70vh] overflow-y-auto pr-1 pt-4">
+            <div className="flex flex-col gap-2 md:gap-4 max-h-32 md:max-h-[70vh] overflow-y-auto pr-1 pt-4">
               {all.map((group) => (
                 <div key={group.tech} className="flex flex-col">
                   <h3>
@@ -78,8 +78,8 @@ export default function LabExperiments() {
         </aside>
 
         {/* right: content */}
-        <main className="flex flex-col gap-4">
-          <div className="flex flex-row justify-between items-baseline">
+        <main className="relative flex flex-col gap-4 pt-2">
+          <div className="md:absolute -top-[4.2rem] left-0 z-[100] right-0 flex flex-row justify-between items-baseline">
             <div>
               <h2 className="text-2xl font-medium">{active.name}</h2>
               {active.blurb ? <div className="mt-1 text-sm text-neutral-600">{active.blurb}</div> : null}
@@ -94,7 +94,7 @@ export default function LabExperiments() {
           </div>
 
           <div className="rounded-xl border bg-white/60 backdrop-blur overflow-hidden">
-            <div className="relative w-full aspect-[9/16] md:aspect-[16/9] bg-neutral-100 flex justify-center items-center overflow-hidden">
+            <div className="relative w-full h-[48svh] max-h-[50svh] md:h-auto md:max-h-[80svh] md:aspect-[16/9] bg-neutral-100 flex justify-center items-center overflow-hidden">
               {preview?.type === 'iframe' ? (
                 <iframe
                   src={preview.src}
