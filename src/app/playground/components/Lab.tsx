@@ -47,7 +47,7 @@ export default function LabExperiments() {
   if (!active) return null;
 
   return (
-      <div className="w-full grid grid-cols-1 pt-[2rem] md:pt-[6rem] md:grid-cols-[200px_1fr] md:gap-8 overflow-hidden">
+      <div className="w-full grid grid-cols-1 pt-[6rem] md:grid-cols-[200px_1fr] md:gap-8 overflow-hidden">
         {/* left: list */}
         <aside className="lg:sticky h-fit border-b">
             <span>[what&apos;s brewing ∘˙○˚.•]</span>
