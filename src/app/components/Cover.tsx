@@ -21,7 +21,8 @@ const NODE_ENTER_MS = 720;
 const EDGE_ENTER_MS = 1000;
 
 const STAR_RADIUS = 9;
-const WORD_PADDING = 10;
+const WORD_PADDING_X = 12;
+const WORD_PADDING_Y = 20;
 
 const FALLBACK_FONT = '400 14px Arial';
 
@@ -59,7 +60,7 @@ const PIECES: PieceDefinition[] = [
   { text: 'engineering',          x: 28, y: 30, from: 'star' },
   { text: 'visual design',        x: 36, y: 88, from: 0, dashed: true },
   { text: 'graphics',             x: 75, y: 29, from: 0 },
-  { text: 'shaders',              x: 62, y: 1, from: 2 },
+  { text: 'shaders & renderers',              x: 62, y: 1, from: 2 },
   { text: 'real-time',            x: 90, y: 9, from: 2, dashed: true },
   { text: 'expressive interfaces',           x: 68, y: 75, from: 1 },
   { text: 'full-stack',           x: 47, y: 51, from: 0 },
@@ -75,51 +76,51 @@ type FieldSize = {
 type NodePoint = {
   x: number;
   y: number;
-  radius: number;
+  halfWidth: number;
+  halfHeight: number;
 };
 
 // -----------------------------------------------------------------------------
 // Helpers
 // -----------------------------------------------------------------------------
 
-function measureWordRadius(text: string, font: string) {
+function measureWordHalfWidth(text: string, font: string) {
   if (typeof document === 'undefined') {
-    return text.length * 4.5 + WORD_PADDING;
+    return text.length * 4.5 + WORD_PADDING_X;
   }
 
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
 
   if (!context) {
-    return text.length * 4.5 + WORD_PADDING;
+    return text.length * 4.5 + WORD_PADDING_X;
   }
 
   context.font = font;
 
-  const width = context.measureText(text).width;
-
-  return width / 2 + WORD_PADDING;
+  return context.measureText(text).width / 2 + WORD_PADDING_X;
 }
 
 function pointFromPercent(
   xPercent: number,
   yPercent: number,
   fieldSize: FieldSize,
-  radius: number
+  halfWidth: number,
+  halfHeight: number
 ): NodePoint {
   return {
     x: (xPercent / 100) * fieldSize.width,
     y: (yPercent / 100) * fieldSize.height,
-    radius,
+    halfWidth,
+    halfHeight,
   };
 }
 
 function trimEdge(start: NodePoint, end: NodePoint) {
   const dx = end.x - start.x;
   const dy = end.y - start.y;
-  const length = Math.hypot(dx, dy);
 
-  if (length === 0) {
+  if (dx === 0 && dy === 0) {
     return {
       x1: start.x,
       y1: start.y,
@@ -128,14 +129,28 @@ function trimEdge(start: NodePoint, end: NodePoint) {
     };
   }
 
+  function rectangleExitDistance(node: NodePoint, dirX: number, dirY: number) {
+    const xDistance =
+      dirX === 0 ? Infinity : node.halfWidth / Math.abs(dirX);
+
+    const yDistance =
+      dirY === 0 ? Infinity : node.halfHeight / Math.abs(dirY);
+
+    return Math.min(xDistance, yDistance);
+  }
+
+  const length = Math.hypot(dx, dy);
   const unitX = dx / length;
   const unitY = dy / length;
 
+  const startDistance = rectangleExitDistance(start, unitX, unitY);
+  const endDistance = rectangleExitDistance(end, unitX, unitY);
+
   return {
-    x1: start.x + unitX * start.radius,
-    y1: start.y + unitY * start.radius,
-    x2: end.x - unitX * end.radius,
-    y2: end.y - unitY * end.radius,
+    x1: start.x + unitX * startDistance,
+    y1: start.y + unitY * startDistance,
+    x2: end.x - unitX * endDistance,
+    y2: end.y - unitY * endDistance,
   };
 }
 
@@ -271,6 +286,7 @@ export default function Home() {
         STAR.x,
         STAR.y,
         fieldSize,
+        STAR_RADIUS,
         STAR_RADIUS
       ),
     [fieldSize]
@@ -283,7 +299,8 @@ export default function Home() {
           piece.x,
           piece.y,
           fieldSize,
-          measureWordRadius(piece.text, font)
+          measureWordHalfWidth(piece.text, font),
+          WORD_PADDING_Y
         )
       ),
     [fieldSize, font]
@@ -496,7 +513,7 @@ export default function Home() {
           })}
         </div>
 
-        <h4 className="mt-[3svh] min-h-[1.5em] text-center md:text-white">
+        <h4 className="mt-[3svh] min-h-[1.5em] text-center">
           {typedText}{' '}
           {!animationComplete && (
             <span
