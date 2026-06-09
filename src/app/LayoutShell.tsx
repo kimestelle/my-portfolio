@@ -3,6 +3,7 @@
 import { useCallback, useMemo, useState, ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
 import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 import MoodRingBackground from './design-deets/shader/MoodRingShader';
 
 export default function LayoutShell({ children }: { children: ReactNode }) {
@@ -38,6 +39,7 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
       />
 
       {children}
+      <Footer />
       <MoodRingBackground enabled={shaderEnabled} onFps={onFps} />
     </>
   );

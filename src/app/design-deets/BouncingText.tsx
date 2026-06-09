@@ -25,7 +25,7 @@ export default function BouncingText({
   children,
   as: Tag = "p",
   className,
-  durationMs = 900,
+  durationMs = 1500,
   staggerMs = 80,
   amplitudeEm = 0.2,
 }: Props) {
