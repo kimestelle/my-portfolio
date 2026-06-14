@@ -22,9 +22,16 @@ export default function ProjectBlock({ project }: ProjectBlockProps) {
     );
   };
 
+  // external embeds (youtube, live demos) render in an iframe
+  const isEmbed = (url: string) => /^https?:\/\//i.test(url);
+
+  // local video files render in a native <video> tag
+  const isFileVideo = (url: string) => /\.(mp4|webm|mov|m4v)$/i.test(url);
+
+  // bare strings (no slash / extension) are Mux playback ids
   const isVideo = (url: string) => {
     const u = url.toLowerCase();
-    return !u.endsWith(".png") && !u.endsWith(".jpg") && !u.endsWith(".webp");
+    return !isEmbed(u) && !isFileVideo(u) && !u.endsWith(".png") && !u.endsWith(".jpg") && !u.endsWith(".webp");
   };
 
   const isMobile = typeof navigator !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -75,7 +82,26 @@ export default function ProjectBlock({ project }: ProjectBlockProps) {
       <span>{project.details.overview}</span>
       
       <div className="relative w-full h-[22rem] md:h-[32rem] flex justify-center items-center my-5 p-2 rounded-md bg-neutral-100 shadow-inner">
-        {isVideo(project.details.imageUrls[currentIndex]) ? (
+        {isEmbed(project.details.imageUrls[currentIndex]) ? (
+          <iframe
+            src={project.details.imageUrls[currentIndex]}
+            title={project.name}
+            className="h-full w-full rounded-md"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
+        ) : isFileVideo(project.details.imageUrls[currentIndex]) ? (
+          <video
+            src={project.details.imageUrls[currentIndex]}
+            className="h-full max-h-[22rem] md:max-h-[30rem] w-auto object-contain"
+            controls
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          />
+        ) : isVideo(project.details.imageUrls[currentIndex]) ? (
           <LazyVideo
             playbackId={project.details.imageUrls[currentIndex]}
             className="h-full max-h-[22rem] md:max-h-[30rem] object-contain"

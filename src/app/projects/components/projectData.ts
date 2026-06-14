@@ -20,7 +20,6 @@ export type Project = {
   cover: {
     imageSrc: string;
     blurb: string;
-    engineering: string;
     tags: string[]; // surface-level tags
   };
   
@@ -66,7 +65,6 @@ export const PROJECTS: Project[] = [
     cover: {
       imageSrc: '/project-images/covers/museum-cover.webp',
       blurb: 'Offline-first artifact hunt for museum visitors',
-      engineering: 'Deployed for 9+ months to 180k visitors. IndexedDB storage pipeline + artifact cutout feature with SVG masking and even-odd clipping for complex paths. Coordinated with team of 8 across design, dev, and museum stakeholders.',
       tags: ['React', 'IndexedDB', 'System Design'],
     },
     
@@ -123,14 +121,12 @@ export const PROJECTS: Project[] = [
     category: 'production experience',
     date: 'Summer 2024',
     role: 'Data Engineering Intern',
-    impact: 'Serving 15m residents across Southern California',
+    impact: '15m residents / 10+ production data solutions / return offer',
 
     cover: {
       imageSrc: '/project-images/covers/edison-cover.webp',
-      blurb: 'ETL systems for utility serving 15m residents',
-      engineering:
-        'Worked independently with 9+ internal teams to design + optimize cross-platform data pipelines and visualizations.',
-      tags: ['SQL', 'Data Engineering', 'Python'],
+      blurb: 'Cross-platform ETL for a utility serving 15m residents',
+      tags: ['Snowflake', 'Palantir', 'SQL'],
     },
 
     details: {
@@ -141,7 +137,7 @@ export const PROJECTS: Project[] = [
         languages: ['SQL', 'Python'],
         frameworks: [],
         libraries: [],
-        databases: ['Enterprise SQL'],
+        databases: ['Snowflake', 'Palantir', 'Enterprise SQL'],
         platforms: [],
       },
 
@@ -183,15 +179,14 @@ export const PROJECTS: Project[] = [
     category: 'production experience',
     date: 'Spring 2025',
     role: 'Technical Lead',
-    impact: 'Team of 7 / 300 nodes, 1000+ edges',
+    impact: 'ML embeddings to 3D force graph / 300 nodes, 1000+ edges / team of 7',
     url: 'https://the-internet-atlas.com/',
     githubUrl: 'https://github.com/PennSpark/sp25-internet-atlas',
     
     cover: {
       imageSrc: '/project-images/covers/atlas-cover.webp',
-      blurb: 'Helping humans play with web browsing data',
-      engineering: 'Technical Lead for 3D force-directed graph and ML pipeline to embed visual/textual ambience into spatial coordinates.',
-      tags: ['Three.js', 'Supabase', 'FastAPI', 'AI/ML'],
+      blurb: 'Web browsing data turned into a 3D galaxy by an ML embedding pipeline',
+      tags: ['Three.js', 'Pinecone', 'FastAPI'],
     },
     
     details: {
@@ -251,7 +246,6 @@ export const PROJECTS: Project[] = [
     cover: {
       imageSrc: '/project-images/covers/spark-cover.webp',
       blurb: "Redesign and modernization for public website",
-      engineering: 'Preserving brand identity while establishing sustainable development practices for future club generations.',
       tags: ['Next.js', 'Tailwind CSS', 'TypeScript'],
     },
     
@@ -306,6 +300,65 @@ export const PROJECTS: Project[] = [
     },
   },
 
+  {
+    id: 'video-emotion-analysis',
+    name: 'Video Emotion & Scene Analysis',
+    category: 'production experience',
+    date: 'Fall 2025',
+    role: 'ML & Full-Stack Engineer (team of 2)',
+    impact: 'Multimodal video pipeline / Whisper + BLIP + ViT / team of 2',
+    githubUrl: 'https://github.com/kimestelle/CIS5810-video-analysis',
+
+    cover: {
+      imageSrc: '/project-images/covers/video-analysis-cover.webp',
+      blurb: 'A pipeline that hears, watches, and reads emotion across a video',
+      tags: ['Whisper', 'BLIP + ViT', 'FastAPI'],
+    },
+
+    details: {
+      label: 'Multimodal Video Understanding',
+      overview: 'Takes a video, listens to it, looks at it, and lines the two up, so you get a readable view of what was said, what was on screen, and the overall emotional tone over time. Runs on a pipeline of lightweight local ML models built to stay fast on the web.',
+      techStack: {
+        languages: ['Python', 'TypeScript'],
+        frameworks: ['Next.js', 'FastAPI'],
+        libraries: ['React', 'OpenCV', 'PyTorch'],
+        databases: ['Redis'],
+        platforms: ['Celery'],
+      },
+      sections: [
+        {
+          title: 'Multimodal Pipeline',
+          items: [
+            'faster-whisper (CTranslate2) for speech to text with timestamps, up to 4x faster than openai/whisper at the same accuracy',
+            'OpenCV temporal sampling at 1fps plus keyframe detection to pull representative frames',
+            'BLIP captions each frame, then frames with similar captions get clustered into scenes with start and end times',
+            'Fine-tuned ViT (Google ViT-Base) classifies facial emotion per frame across happy, sad, angry, neutral, surprised',
+          ],
+        },
+        {
+          title: 'Temporal Fusion',
+          items: [
+            'Aligns transcript segments, scene captions, and emotion sequences onto one timeline for a synchronized annotation',
+            'Confidence scoring and validation on each frame classification',
+            'Picks the most representative caption per scene by comparing similarity across frames',
+          ],
+        },
+        {
+          title: 'System & Async Processing',
+          items: [
+            'Moved from a local Jupyter prototype to a fully deployable web build with Next.js and FastAPI',
+            'Celery and Redis queue the heavy model work and stream real-time, step-by-step progress to the frontend',
+            'Leaned on non-AI tools (OpenCV, sentence similarity) for the trivial steps to save compute',
+            'Results view with scenes, transcript, emotions, and JSON export',
+          ],
+        },
+      ],
+      imageUrls: [
+        'https://www.youtube.com/embed/jkbK5V_D_uA?start=3',
+      ],
+    },
+  },
+
   // GRAPHICS
   {
     id: 'mini-minecraft',
@@ -313,14 +366,13 @@ export const PROJECTS: Project[] = [
     category: 'graphics & simulation',
     date: 'Fall 2024',
     role: 'Class Project',
-    impact: 'Custom OpenGL engine / Team of 3',
+    impact: 'C++/OpenGL from scratch / multithreaded chunks / team of 3',
     githubUrl: 'https://github.com/kimestelle/mini-minecraft-opengl',
     
     cover: {
       imageSrc: '/project-images/covers/minecraft-cover.webp',
-      blurb: 'Real-time rendering voxel engine from scratch',
-      engineering: 'Built ground-up in C++/OpenGL with VBO-based terrain rendering, Perlin noise procedural generation, custom water shaders with reflections, multithreaded chunk loading.',
-      tags: ['C++', 'OpenGL', 'Team Project'],
+      blurb: 'Voxel engine built from scratch in C++ and OpenGL',
+      tags: ['C++', 'OpenGL', 'GLSL'],
     },
     
     details: {
@@ -362,12 +414,11 @@ export const PROJECTS: Project[] = [
     category: 'graphics & simulation',
     date: 'Spring 2025',
     role: 'Class Project',
-    impact: 'Custom renderer / Advanced shading models',
+    impact: 'Deferred shading / Cook-Torrance BRDF / SSR + ambient occlusion / SDF ray marching',
     
     cover: {
       imageSrc: '/project-images/covers/461-cover.webp',
-      blurb: 'Physically-based rendering with deferred shading',
-      engineering: 'Deferred rendering pipeline with Cook–Torrance BRDF, ray marching with SDFs, subsurface scattering, and Hosek–Wilkie sky models.',
+      blurb: 'Deferred PBR renderer with Cook-Torrance shading and SDF ray marching',
       tags: ['C++', 'GLSL', 'PBR'],
     },
     
@@ -416,14 +467,13 @@ export const PROJECTS: Project[] = [
     category: 'graphics & simulation',
     date: 'Fall 2024',
     role: 'Graphics Engineer & Designer',
-    impact: 'Custom shader system / Hybrid CPU/GPU pipeline',
+    impact: 'GLSL ping-pong diffusion / dual-canvas CPU to GPU pipeline',
     url: 'https://watercolor-drip-shader.vercel.app/',
     githubUrl: 'https://github.com/kimestelle/watercolor-drip-shader',
     
     cover: {
       imageSrc: '/project-images/covers/watercolor-cover.webp',
-      blurb: 'Custom real-time fluid drip sim',
-      engineering: 'Ping-pong buffer, minimal diffusion operations, and two-canvas optimization for real-time watercolor effects in GLSL.',
+      blurb: 'Real-time GLSL fluid drip sim with ping-pong buffers',
       tags: ['GLSL', 'WebGL', 'Shaders'],
     },
     
@@ -477,15 +527,14 @@ export const PROJECTS: Project[] = [
     category: 'graphics & simulation',
     date: 'Fall 2024',
     role: 'Personal Project',
-    impact: 'Custom particle physics / Procedural mesh generation',
+    impact: 'Spring-damper particle sim / bezier-lathe mesh gen / rim and specular shaders',
     url: 'https://2d-softbody-lathe.vercel.app/',
     githubUrl: 'https://github.com/kimestelle/2d-softbody-lathe',
     
     cover: {
       imageSrc: '/project-images/covers/blob-cover.webp',
-      blurb: 'Soft-body physics with hybrid 2D/3D rendering',
-      engineering: 'Build-your-own 3D jelly interface using bezier curves, lathe meshing, particle physics, and shader tricks.',
-      tags: ['WebGL', 'HTML canvas'],
+      blurb: 'Build-your-own jelly, 2D particle physics lathed into a 3D mesh',
+      tags: ['WebGL', 'GLSL', 'Three.js'],
     },
     
     details: {
@@ -535,15 +584,13 @@ export const PROJECTS: Project[] = [
     category: 'graphics & simulation',
     date: 'Spring 2025',
     role: 'Personal Project',
-    impact: 'Custom WebGL renderer / Real-time burn simulation',
+    impact: 'Single-pass fragment shader / layered fBm / smoothstep burn mask / screen-blend ember cursor',
     url: 'https://burning-paper.vercel.app/',
     githubUrl: 'https://github.com/kimestelle/burning-paper',
 
     cover: {
       imageSrc: '/project-images/covers/burning-cover.webp',
-      blurb: 'Real-time paper burn sim with WebGL shaders',
-      engineering:
-        'Custom GLSL fragment shader with radial burn propagation, layered fBm noise for organic edges, ember glow ring, char darkening, and a matching flame cursor — all rendered in a single WebGL pass.',
+      blurb: 'Single-pass GLSL burn sim with fBm edge noise and an ember cursor',
       tags: ['WebGL', 'GLSL', 'Shaders'],
     },
 
@@ -582,7 +629,7 @@ export const PROJECTS: Project[] = [
           title: 'Ember Cursor',
           items: [
             'Separate fullscreen WebGL canvas overlaid with screen-blend to composite the cursor non-destructively',
-            'Three-layer flame model: deep red outer haze, orange ember glow, gold core — all driven by noise and sin waves',
+            'Three-layer flame model: deep red outer haze, orange ember glow, gold core, all driven by noise and sin waves',
             'Lagged mouse interpolation gives the flame a trailing, physically-weighted feel',
             'Small high-frequency dance offsets simulate natural flame turbulence independent of mouse movement',
           ],
@@ -594,6 +641,63 @@ export const PROJECTS: Project[] = [
     },
   },
   
+  {
+    id: 'image-to-scene',
+    name: 'image to scene',
+    category: 'graphics & simulation',
+    date: 'Spring 2026',
+    role: 'Personal Project',
+    githubUrl: 'https://github.com/kimestelle/image-to-scene',
+    impact: 'On-device depth model / WebGPU + WebGL parallax',
+
+    cover: {
+      imageSrc: '/project-images/covers/image-to-scene-cover.webp',
+      blurb: 'Turn one photo into a depth-aware 3D parallax, all in the browser',
+      tags: ['WebGPU', 'transformers.js', 'WebGL'],
+    },
+
+    details: {
+      label: 'On-Device Depth to Parallax',
+      overview: 'Drop in a single image and it becomes a depth-aware 3D parallax that responds to your mouse, with nothing leaving the browser. A depth model runs on-device, and the image plus its depth map feed a hand-written WebGL shader.',
+      techStack: {
+        languages: ['TypeScript', 'GLSL'],
+        frameworks: ['Next.js'],
+        libraries: ['React', 'transformers.js'],
+        databases: [],
+        platforms: ['WebGPU', 'WebGL'],
+      },
+      sections: [
+        {
+          title: 'On-Device Inference',
+          items: [
+            'Depth Anything V2 (small) runs entirely client-side in a web worker via transformers.js',
+            'WebGPU when available with a WASM fallback, and model weights (~50MB) cached after first load',
+            'Input downscaled to 1024px before inference to keep it responsive',
+          ],
+        },
+        {
+          title: 'Parallax Shader',
+          items: [
+            'Raw WebGL fragment shader displaces UVs per pixel by mouse times strength times (depth minus focal), so near pixels shift more than far ones',
+            'Depth grouping quantizes the map into N slabs, from 2 unified layers up to continuous',
+            'Visualization mode tints layers by hue, outlines edges, and exaggerates separation so you can see how the scene is sliced',
+          ],
+        },
+        {
+          title: 'Export Pipeline',
+          items: [
+            'Exports a self-contained .html, .jsx, or .tsx with the image, depth map, and settings baked in as data URLs',
+            'Minimal inline WebGL runtime, no model and no dependencies (React only for the component versions)',
+            'Exported component takes optional strength, layers, and focal props that default to your current settings',
+          ],
+        },
+      ],
+      imageUrls: [
+        '/project-images/image-to-scene/demo.mp4',
+      ],
+    },
+  },
+
   // CREATIVE TOOLS
   {
     id: 'textellation',
@@ -607,8 +711,7 @@ export const PROJECTS: Project[] = [
     
     cover: {
       imageSrc: '/project-images/covers/textellation-cover.webp',
-      blurb: 'Typographic constellation maker',
-      engineering: 'Canvas rendering with d3-force physics for organic word layouts. Custom packing algorithm positions paragraphs with reading-order bias.',
+      blurb: 'Typographic constellation maker with POS-tagged layouts',
       tags: ['Canvas API', 'd3-force', 'Next.js'],
     },
     
@@ -677,7 +780,6 @@ export const PROJECTS: Project[] = [
     cover: {
       imageSrc: '/project-images/covers/poetry-cover.webp',
       blurb: 'Real-time collaborative poetry board',
-      engineering: 'Tactile poetry board made by pre-processing a poetry dataset and implementing custom responsive drag-drop UI.',
       tags: ['React', 'Data Processing'],
     },
     
@@ -721,65 +823,7 @@ export const PROJECTS: Project[] = [
     },
   },
   
-  {
-    id: 'better-spelling-bee',
-    name: 'Better Spelling Bee',
-    category: 'creative tools',
-    date: 'Summer 2024',
-    role: 'Full-Stack Developer & Designer',
-    impact: 'End-to-end system / Custom gameplay logic / Team of 2',
-    githubUrl: 'https://github.com/kimestelle/better-spelling-bee',
-    
-    cover: {
-      imageSrc: '/project-images/covers/spellingbee-cover.webp',
-      blurb: 'Playful word game with tactile interactions',
-      engineering: 'Built word-generation engine filtering 46k-word dictionary in real time. JWT auth, PostgreSQL persistence, custom drag logic with playful animations.',
-      tags: ['Next.js', 'Django', 'PostgreSQL'],
-    },
-    
-    details: {
-      label: 'Playful Full-Stack Web Game',
-      overview: 'Reimagined word game inspired by NYT Spelling Bee, focused on tactility, playfulness, and expressive interaction rather than pure efficiency.',
-      techStack: {
-        languages: ['TypeScript', 'Python'],
-        frameworks: ['Next.js', 'Django'],
-        libraries: ['React'],
-        databases: ['PostgreSQL'],
-        platforms: ['Figma'],
-      },
-      sections: [
-        {
-          title: 'Gameplay & Systems Design',
-          items: [
-            'Built word-generation engine using indexes, filtering a 46k-word dictionary in real time',
-            'Guaranteed pangram existence through constrained search logic',
-            'Designed stateful gameplay loop with caching and session persistence',
-          ],
-        },
-        {
-          title: 'Interaction Design',
-          items: [
-            'Created draggable letter blocks and playful duck avatars',
-            'Implemented dynamic reordering and cloning via custom drag logic',
-            'Used subtle animations to reinforce physicality and feedback',
-          ],
-        },
-        {
-          title: 'Full-Stack Architecture',
-          items: [
-            'Implemented JWT-based authentication and session handling',
-            'Designed PostgreSQL schema for users, games, and statistics',
-            'Balanced backend rigor with lightweight frontend feel',
-          ],
-        },
-      ],
-      imageUrls: [
-        'MoJuRZd5h6vDizNCa7IA6PAdFv02401APHwtxT6Zc34dk',
-        '/project-images/better-spelling-bee/image-1.webp',
-        '/project-images/better-spelling-bee/image-2.webp',
-      ],
-    },
-  },
+
   
   // TECH EXPLORATIONS
   // {
