@@ -121,7 +121,7 @@ export const PROJECTS: Project[] = [
     category: 'production experience',
     date: 'Summer 2024',
     role: 'Data Engineering Intern',
-    impact: '15m residents / 10+ production data solutions / return offer',
+    impact: '15m residents / 10+ production data solutions',
 
     cover: {
       imageSrc: '/project-images/covers/edison-cover.webp',
@@ -354,7 +354,7 @@ export const PROJECTS: Project[] = [
         },
       ],
       imageUrls: [
-        'https://www.youtube.com/embed/jkbK5V_D_uA?start=3',
+        'DznfA9TFtvw4cs4klkBXCIedV699HnnsO54YyH52af4',
       ],
     },
   },

@@ -59,17 +59,17 @@ export const LAB_BY_TECH: LabTechGroup[] = [
       },
     ],
   },
-  {
-    tech: 'Computer Vision',
-    items: [
-      {
-        id: 'video-analysis',
-        name: 'multimodal video analysis',
-        blurb: 'Real-time video analysis in the browser. Used a creative approach with lightweight local tools only, time-syncing multiple results (dialogue, frame-by-frame BLIP captions, emotion recognition), and chunking scenes by string similarity.',
-        preview: [{ type: 'iframe', src: 'https://www.youtube.com/embed/jkbK5V_D_uA?start=3' }],
-      },
-    ],
-  },
+  // {
+  //   tech: 'Computer Vision',
+  //   items: [
+  //     {
+  //       id: 'video-analysis',
+  //       name: 'multimodal video analysis',
+  //       blurb: 'Real-time video analysis in the browser. Used a creative approach with lightweight local tools only, time-syncing multiple results (dialogue, frame-by-frame BLIP captions, emotion recognition), and chunking scenes by string similarity.',
+  //       preview: [{ type: 'iframe', src: 'https://www.youtube.com/embed/jkbK5V_D_uA?start=3' }],
+  //     },
+  //   ],
+  // },
   {
     tech: 'Three.js',
     items: [

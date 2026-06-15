@@ -28,9 +28,7 @@ export default function ProjectHTML() {
 
           return (
             <div key={displayName} className="flex flex-col gap-3">
-              <div className="flex items-baseline justify-between gap-4">
-                <h3>✦ {displayName}</h3>
-              </div>
+              <h3>✦ {displayName}</h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {selected.map((p) => {
