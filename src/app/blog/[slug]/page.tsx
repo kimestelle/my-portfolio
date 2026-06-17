@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 const postMap: Record<string, any> = {
+  'building-taste': dynamic(() => import('../pages/building-taste')),
   'into-the-blue': dynamic(() => import('../pages/into-the-blue')),
   'watercolor-shader': dynamic(() => import('../pages/watercolor-shader')),
   'compressed-thinking': dynamic(() => import('../pages/compressed-thinking')),
@@ -20,7 +21,11 @@ export default function BlogPostPage() {
   if (!PostComponent) return <div>Not found.</div>;
 
   return (
-    <div className="responsive-padding flex justify-center">
+    <div className="responsive-padding flex flex-col justify-center">
+      {/* back button */}
+      <Link href="/blog" className="mb-4 text-neutral-600 hover:underline">
+        &larr; all posts
+      </Link>
       <PostComponent />
     </div>
   );

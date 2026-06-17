@@ -1,3 +1,4 @@
+import Link from "next/link";
 import BouncingText from "../design-deets/BouncingText";
 
 export default function Footer() {
@@ -7,7 +8,9 @@ export default function Footer() {
         <BouncingText>thank you for visiting :-)</BouncingText>
         <span><a href="mailto:kestelle@sas.upenn.edu">kestelle@sas.upenn.edu</a></span>
       </div>
-      <span className='select-none'>.✦*~</span>
+      <Link href="/blog" className="mt-4 text-neutral-600 hover:underline">
+        read my blog ~*✦.
+      </Link>
     </footer>
   );
 }
