@@ -327,7 +327,7 @@ export default function Home() {
         <h1>Estelle Kim</h1>
 
         <h3>
-          Design Engineer · CS & CG @ Penn
+          CS & CG @ Penn
         </h3>
 
         <div className="w-full my-4 flex items-center gap-3">
