@@ -421,7 +421,8 @@ export default function Home() {
       <div className="w-full flex-1 flex flex-col items-center justify-center mt-[3svh]">
         <div
           ref={fieldRef}
-          className="md:mix-blend-difference pointer-events-none relative shrink-0"
+          // md:mix-blend-difference 
+          className="pointer-events-none relative shrink-0"
           style={{
             width: fieldWidth,
             height: fieldHeight,
