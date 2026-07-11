@@ -13,13 +13,13 @@ export const allPostsSorted: BlogPost[] = [
     //     slug: "mood-shader",
     //     description: "version 4.0",
     // },
-    {
-        title: "building taste",
-        date: "2025-06-17",
-        slug: "building-taste",
-        description: "a quiet internal logic",
-        category: 'thinking'
-    },
+    // {
+    //     title: "building taste",
+    //     date: "2025-06-17",
+    //     slug: "building-taste",
+    //     description: "a quiet internal logic",
+    //     category: 'thinking'
+    // },
     {
         title: "</> Scavenger Hunt in the Penn Museum",
         date: "2025-10-30",
