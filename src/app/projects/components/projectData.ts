@@ -126,7 +126,7 @@ export const PROJECTS: Project[] = [
     cover: {
       imageSrc: '/project-images/covers/edison-cover.webp',
       blurb: 'Cross-platform ETL for a utility serving 15m residents',
-      tags: ['Snowflake', 'Palantir', 'SQL'],
+      tags: ['Snowflake', 'SAP', 'SQL'],
     },
 
     details: {
