@@ -35,8 +35,10 @@ type Bubble = {
   body: SoftBlob;
   geometry: THREE.BufferGeometry;
   positionAttribute: THREE.BufferAttribute;
+  normalAttribute: THREE.BufferAttribute;
   renderPositions: Float32Array;
-  mesh: THREE.Group;
+  renderNormals: Float32Array;
+  mesh: THREE.Mesh;
   material: THREE.ShaderMaterial;
   albedoTexture: THREE.Texture | null;
   previewVideo: HTMLVideoElement | null;
@@ -138,24 +140,6 @@ export default function BubblePrototype() {
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 2000);
     camera.position.z = 600;
 
-    const wireMaterial = new THREE.MeshBasicMaterial({
-      color: 0x0a103d,
-      wireframe: true,
-      transparent: true,
-      depthWrite: false,
-      depthTest: true,
-      opacity: 0.055,
-      side: THREE.DoubleSide,
-    });
-    const pointMaterial = new THREE.PointsMaterial({
-      color: 0x0a103d,
-      size: 1.65,
-      sizeAttenuation: false,
-      transparent: true,
-      depthWrite: false,
-      depthTest: true,
-      opacity: 0.2,
-    });
     const whiteTexture = new THREE.DataTexture(new Uint8Array([255, 255, 255, 255]), 1, 1);
     whiteTexture.colorSpace = THREE.SRGBColorSpace;
     whiteTexture.needsUpdate = true;
@@ -173,9 +157,12 @@ export default function BubblePrototype() {
 
     const createSurface = (body: SoftBlob) => {
       const renderPositions = new Float32Array(body.positions.length);
+      const renderNormals = new Float32Array(body.normals.length);
       const geometry = new THREE.BufferGeometry();
       const positionAttribute = new THREE.BufferAttribute(renderPositions, 3).setUsage(THREE.DynamicDrawUsage);
+      const normalAttribute = new THREE.BufferAttribute(renderNormals, 3).setUsage(THREE.DynamicDrawUsage);
       geometry.setAttribute('position', positionAttribute);
+      geometry.setAttribute('normal', normalAttribute);
       geometry.setAttribute('uv', new THREE.BufferAttribute(body.uvs, 2));
       geometry.setIndex(new THREE.BufferAttribute(body.indices, 1));
 
@@ -184,25 +171,23 @@ export default function BubblePrototype() {
         fragmentShader: BUBBLE_FRAGMENT_SHADER,
         uniforms: {
           uAlbedo: { value: whiteTexture },
-          uLightDirection: { value: new THREE.Vector3(-0.55, 0.72, 0.85).normalize() },
+          uLightPosition: { value: new THREE.Vector3(-180, 220, 340) },
+          uViewPosition: { value: new THREE.Vector3(0, 0, 0) },
+          uWireframeMode: { value: 0 },
+          uOpacity: { value: 0.0 },
         },
         transparent: true,
         depthWrite: false,
         side: THREE.DoubleSide,
       });
-      const mesh = new THREE.Group();
-      const shadedSurface = new THREE.Mesh(geometry, material);
-      const wireSurface = new THREE.Mesh(geometry, wireMaterial);
-      const vertexSurface = new THREE.Points(geometry, pointMaterial);
-      shadedSurface.renderOrder = 0;
-      wireSurface.renderOrder = 1;
-      vertexSurface.renderOrder = 2;
-      mesh.add(shadedSurface, wireSurface, vertexSurface);
+      const mesh = new THREE.Mesh(geometry, material);
       scene.add(mesh);
       return {
         geometry,
         positionAttribute,
+        normalAttribute,
         renderPositions,
+        renderNormals,
         mesh,
         material,
         albedoTexture: null,
@@ -210,13 +195,18 @@ export default function BubblePrototype() {
     };
 
     const syncBodyGeometry = (target: Bubble) => {
-      const { body, renderPositions } = target;
+      const { body, renderPositions, renderNormals } = target;
+      body.recomputeNormals();
       for (let offset = 0; offset < body.positions.length; offset += 3) {
         renderPositions[offset] = body.positions[offset] - SOFT_CENTER_X;
         renderPositions[offset + 1] = SOFT_CENTER_Y - body.positions[offset + 1];
         renderPositions[offset + 2] = body.positions[offset + 2];
+        renderNormals[offset] = body.normals[offset];
+        renderNormals[offset + 1] = -body.normals[offset + 1];
+        renderNormals[offset + 2] = body.normals[offset + 2];
       }
       target.positionAttribute.needsUpdate = true;
+      target.normalAttribute.needsUpdate = true;
     };
 
     const removeBubble = (target: Bubble) => {
@@ -586,7 +576,8 @@ export default function BubblePrototype() {
       if (time - fpsWindowStart >= 500) {
         const fps = fpsFrames * 1000 / (time - fpsWindowStart);
         const vertices = bubbles.reduce((total, target) => total + target.body.positions.length / 3, 0);
-        fpsOutput.textContent = `${fps.toFixed(0)} fps · ${bubbles.length} blobs · ${vertices.toLocaleString()} vertices · ${renderer.info.render.calls} draws`;
+        const frameTime = 1000 / Math.max(fps, 0.001);
+        fpsOutput.textContent = `${fps.toFixed(0)} fps · ${frameTime.toFixed(1)} ms · ${bubbles.length} blobs · ${vertices.toLocaleString()} vertices · ${renderer.info.render.calls} draws`;
         fpsFrames = 0;
         fpsWindowStart = time;
       }
@@ -622,8 +613,6 @@ export default function BubblePrototype() {
       }
       bubbles = [];
       whiteTexture.dispose();
-      wireMaterial.dispose();
-      pointMaterial.dispose();
       renderer.dispose();
     };
   }, []);
@@ -640,7 +629,7 @@ export default function BubblePrototype() {
         ref={fpsRef}
         className="pointer-events-none absolute bottom-5 left-5 rounded-full bg-white/55 px-2.5 py-1 font-mono text-[11px] text-[#0a103d]/70 backdrop-blur-sm"
       >
-        0 fps · 0 blobs · 0 vertices · 0 draws
+        0 fps · 0.0 ms · 0 blobs · 0 vertices · 0 draws
       </output>
 
       {expanded ? createPortal((
