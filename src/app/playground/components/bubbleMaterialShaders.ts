@@ -32,6 +32,10 @@ void main() {
   vec3 diagonalLight = -normalize(vec3(1.2, 1.0, 1.0));
   vec3 reflectedLight = reflect(-diagonalLight, normal);
   vec3 albedo = texture2D(uAlbedo, vUv).rgb;
+  float luminance = dot(albedo, vec3(0.2126, 0.7152, 0.0722));
+  albedo = mix(vec3(luminance), albedo, 1.35);
+  albedo = (albedo - 0.5) * 1.12 + 0.5;
+  albedo = clamp(albedo * 1.05, 0.0, 1.0);
 
   float specularAmount = pow(max(dot(reflectedLight, viewDirection), 0.0), 32.0);
   vec3 specular = vec3(1.0) * specularAmount * 0.6;
