@@ -175,6 +175,8 @@ export default function BubblePrototype() {
           uViewPosition: { value: new THREE.Vector3(0, 0, 0) },
           uWireframeMode: { value: 0 },
           uOpacity: { value: 0.0 },
+          uTime: { value: 0 },
+          uColorPhase: { value: Math.random() },
         },
         transparent: true,
         depthWrite: false,
@@ -535,6 +537,7 @@ export default function BubblePrototype() {
       pullVertices(target, pointerDistance);
       target.body.step(false, 0, 0, layeredNoise(target.age * 0.65, target.seed + 21) * 1.4 * wobble);
       syncBodyGeometry(target);
+      target.material.uniforms.uTime.value = target.age;
 
       const scale = target.radius / SOFT_RADIUS;
       target.mesh.position.set(target.x - width * 0.5, height * 0.5 - target.y, 0);

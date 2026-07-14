@@ -30,12 +30,6 @@ function BrewingBubbles() {
     const moveWallpaper = (now: number) => {
       if (now - lastPaint >= 32) {
         const time = (now - startedAt) * 0.000075;
-        wallpaper.style.setProperty('--purple-x', `${wallpaperNoise(time, 1) * 7}%`);
-        wallpaper.style.setProperty('--purple-y', `${wallpaperNoise(time * 0.83, 2) * 5}%`);
-        wallpaper.style.setProperty('--orange-x', `${wallpaperNoise(time * 0.91, 7) * 8}%`);
-        wallpaper.style.setProperty('--orange-y', `${wallpaperNoise(time * 0.72, 9) * 6}%`);
-        wallpaper.style.setProperty('--green-x', `${wallpaperNoise(time * 1.07, 13) * 7}%`);
-        wallpaper.style.setProperty('--green-y', `${wallpaperNoise(time * 0.79, 15) * 5}%`);
         wallpaper.style.setProperty('--tile-x', `${wallpaperNoise(time * 1.24, 18) * 4}px`);
         wallpaper.style.setProperty('--tile-y', `${wallpaperNoise(time * 0.96, 21) * 4}px`);
         lastPaint = now;
@@ -52,12 +46,7 @@ function BrewingBubbles() {
       ref={wallpaperRef}
       className="relative h-[48svh] max-h-[50svh] overflow-hidden rounded-xl border border-black/12 bg-white md:h-auto md:max-h-[80svh] md:aspect-[16/9]"
       style={{
-        backgroundImage: [
-          'radial-gradient(circle at calc(18% + var(--purple-x)) calc(24% + var(--purple-y)), rgba(122,87,153,.72) 0%, rgba(122,87,153,.34) 36%, transparent 68%)',
-          'radial-gradient(circle at calc(80% + var(--orange-x)) calc(34% + var(--orange-y)), rgba(240,133,71,.68) 0%, rgba(240,133,71,.3) 38%, transparent 69%)',
-          'radial-gradient(circle at calc(50% + var(--green-x)) calc(86% + var(--green-y)), rgba(92,179,163,.7) 0%, rgba(92,179,163,.32) 38%, transparent 70%)',
-          'linear-gradient(#fff, #fff)',
-        ].join(', '),
+        backgroundImage: 'linear-gradient(#fff, #fff)',
         boxShadow: [
           'inset 0 1px 0 rgba(255,255,255,.5)',
           'inset 0 14px 30px rgba(20,18,24,.09)',
@@ -66,18 +55,12 @@ function BrewingBubbles() {
           'inset -14px 0 34px rgba(20,18,24,.055)',
           'inset 0 0 62px rgba(20,18,24,.07)',
         ].join(', '),
-        '--purple-x': '0%',
-        '--purple-y': '0%',
-        '--orange-x': '0%',
-        '--orange-y': '0%',
-        '--green-x': '0%',
-        '--green-y': '0%',
         '--tile-x': '0px',
         '--tile-y': '0px',
       } as CSSProperties}
     >
       <div
-        className="pointer-events-none absolute inset-0 z-[1] opacity-[0.26] mix-blend-soft-light"
+        className="pointer-events-none absolute inset-0 z-[1] opacity-[0.16] mix-blend-soft-light"
         style={{
           backgroundImage: "url('/textures/3px-tile.png')",
           backgroundPosition: 'var(--tile-x) var(--tile-y)',
