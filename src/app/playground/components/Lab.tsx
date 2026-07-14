@@ -50,13 +50,13 @@ function BrewingBubbles() {
   return (
     <div
       ref={wallpaperRef}
-      className="relative h-[48svh] max-h-[50svh] overflow-hidden rounded-xl border border-black/12 bg-[#eeeae9] md:h-auto md:max-h-[80svh] md:aspect-[16/9]"
+      className="relative h-[48svh] max-h-[50svh] overflow-hidden rounded-xl border border-black/12 bg-white md:h-auto md:max-h-[80svh] md:aspect-[16/9]"
       style={{
         backgroundImage: [
           'radial-gradient(circle at calc(18% + var(--purple-x)) calc(24% + var(--purple-y)), rgba(122,87,153,.72) 0%, rgba(122,87,153,.34) 36%, transparent 68%)',
           'radial-gradient(circle at calc(80% + var(--orange-x)) calc(34% + var(--orange-y)), rgba(240,133,71,.68) 0%, rgba(240,133,71,.3) 38%, transparent 69%)',
           'radial-gradient(circle at calc(50% + var(--green-x)) calc(86% + var(--green-y)), rgba(92,179,163,.7) 0%, rgba(92,179,163,.32) 38%, transparent 70%)',
-          'linear-gradient(145deg, #f2edef 0%, #e5e9e5 100%)',
+          'linear-gradient(#fff, #fff)',
         ].join(', '),
         boxShadow: [
           'inset 0 1px 0 rgba(255,255,255,.5)',
