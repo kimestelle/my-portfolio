@@ -6,6 +6,11 @@ import { LAB_BY_TECH, type LabItem } from './labData';
 import BubblePrototype from './BubblePrototype';
 import MagnifierImage from './MagnifierImage';
 
+const BREWING_VIDEOS = Array.from(
+  { length: 16 },
+  (_, index) => `/creative-images/video-demos/optimized/video-${String(index + 1).padStart(2, '0')}.m4v`,
+);
+
 function wallpaperNoise(value: number, seed: number) {
   const hash = (cell: number) => {
     const wave = Math.sin((cell + seed * 31.17) * 127.1) * 43758.5453;
@@ -15,6 +20,67 @@ function wallpaperNoise(value: number, seed: number) {
   const fraction = value - cell;
   const eased = fraction * fraction * (3 - 2 * fraction);
   return (hash(cell) + (hash(cell + 1) - hash(cell)) * eased) * 2 - 1;
+}
+
+function GridVideo({ src, index }: { src: string; index: number }) {
+  const shellRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const loadedRef = useRef(false);
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const shell = shellRef.current;
+    if (!shell) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (!loadedRef.current) {
+            loadedRef.current = true;
+            setShouldLoad(true);
+          }
+          void videoRef.current?.play().catch(() => undefined);
+        } else {
+          videoRef.current?.pause();
+        }
+      },
+      { rootMargin: '160px 0px' },
+    );
+    observer.observe(shell);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={shellRef} className="relative aspect-video overflow-hidden rounded-lg bg-neutral-100">
+      {shouldLoad ? (
+        <video
+          ref={videoRef}
+          src={src}
+          className={`h-full w-full object-cover transition duration-500 ${ready ? 'opacity-100' : 'opacity-0'}`}
+          autoPlay
+          muted
+          loop
+          playsInline
+          controls
+          preload="metadata"
+          onLoadedData={() => setReady(true)}
+        />
+      ) : null}
+      <span className="pointer-events-none absolute right-2 top-2 rounded-full bg-black/35 px-1.5 py-0.5 font-mono text-[9px] text-white">
+        {String(index + 1).padStart(2, '0')}
+      </span>
+    </div>
+  );
+}
+
+function BrewingVideoGrid() {
+  return (
+    <div className="scrollbar-small grid max-h-[72svh] grid-cols-2 gap-3 overflow-y-auto rounded-xl border bg-white/70 p-3">
+      {BREWING_VIDEOS.map((src, index) => (
+        <GridVideo key={src} src={src} index={index} />
+      ))}
+    </div>
+  );
 }
 
 function BrewingBubbles() {
@@ -99,6 +165,7 @@ export default function LabExperiments() {
   const initial = useMemo(() => firstItem(all), [all]);
   const [activeId, setActiveId] = useState<string>(initial?.id ?? '');
   const [view, setView] = useState<'brewing' | 'experiment'>('brewing');
+  const [bubbleShaderOn, setBubbleShaderOn] = useState(true);
 
   const active = useMemo(() => {
     for (const g of all) {
@@ -167,22 +234,32 @@ export default function LabExperiments() {
             <div>
               <h2 className="text-2xl font-medium">{view === 'brewing' ? 'what’s brewing' : active.name}</h2>
               {view === 'brewing' ? (
-                <div className="mt-1 text-sm text-neutral-600">click the field to release more · click a bubble to watch</div>
+                <div className="mt-1 text-sm text-neutral-600">
+                  {bubbleShaderOn ? 'click the field to release more · click a bubble to watch' : 'two-column video archive'}
+                </div>
               ) : active.blurb ? (
                 <div className="mt-1 text-sm text-neutral-600">{active.blurb}</div>
               ) : null}
             </div>
             
-            {
-                view === 'experiment' && active.githubUrl &&
+            {view === 'brewing' ? (
+              <button
+                type="button"
+                className="rounded-lg border bg-white/60 px-3 py-1 text-sm backdrop-blur transition-opacity hover:opacity-55"
+                onClick={() => setBubbleShaderOn((current) => !current)}
+                aria-pressed={!bubbleShaderOn}
+              >
+                shader: {bubbleShaderOn ? 'on' : 'off'}
+              </button>
+            ) : active.githubUrl ? (
               <a className="rounded-lg border bg-white/60 backdrop-blur px-3 py-1 text-sm" href={active.githubUrl} target="_blank" rel="noreferrer">
                 <Image src='/icons/gh-logo.svg' alt='GitHub logo' width={16} height={16} className='inline-block'/>
               </a>
-            }
+            ) : null}
           </div>
 
           {view === 'brewing' ? (
-            <BrewingBubbles />
+            bubbleShaderOn ? <BrewingBubbles /> : <BrewingVideoGrid />
           ) : (
           <div className="rounded-xl border bg-white/60 backdrop-blur overflow-hidden">
             <div className="relative w-full h-[48svh] max-h-[50svh] md:h-auto md:max-h-[80svh] md:aspect-[16/9] bg-neutral-100 flex justify-center items-center overflow-hidden">
