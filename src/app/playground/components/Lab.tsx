@@ -8,7 +8,43 @@ import MagnifierImage from './MagnifierImage';
 
 function BrewingBubbles() {
   return (
-    <div className="relative h-[48svh] max-h-[50svh] overflow-hidden rounded-xl border bg-transparent md:h-auto md:max-h-[80svh] md:aspect-[16/9]">
+    <div
+      className="relative h-[48svh] max-h-[50svh] overflow-hidden rounded-xl border border-black/25 bg-[#1b1922] md:h-auto md:max-h-[80svh] md:aspect-[16/9]"
+      style={{
+        backgroundImage: [
+          'radial-gradient(circle at 28% 24%, rgba(72,65,88,.5), transparent 46%)',
+          'radial-gradient(circle at 76% 68%, rgba(45,69,68,.38), transparent 48%)',
+          'linear-gradient(145deg, #27232f 0%, #17161d 58%, #111218 100%)',
+        ].join(', '),
+        boxShadow: [
+          'inset 0 1px 0 rgba(255,255,255,.14)',
+          'inset 0 18px 34px rgba(0,0,0,.34)',
+          'inset 0 -16px 34px rgba(0,0,0,.3)',
+          'inset 18px 0 42px rgba(0,0,0,.25)',
+          'inset -18px 0 42px rgba(0,0,0,.25)',
+          'inset 0 0 78px rgba(0,0,0,.36)',
+        ].join(', '),
+      }}
+    >
+      <div
+        className="pointer-events-none absolute inset-0 z-[1] opacity-55 mix-blend-multiply"
+        style={{
+          backgroundColor: 'rgba(4, 5, 9, .72)',
+          backgroundImage: "url('/textures/sandpaper.png')",
+          backgroundPosition: '0 0',
+          backgroundRepeat: 'repeat',
+          backgroundSize: '74px 74px',
+          backgroundBlendMode: 'multiply',
+        }}
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-0 z-[3] rounded-[inherit]"
+        style={{
+          boxShadow: 'inset 0 0 34px rgba(0,0,0,.7), inset 0 0 2px 1px rgba(0,0,0,.58)',
+        }}
+        aria-hidden="true"
+      />
       <BubblePrototype />
     </div>
   );
