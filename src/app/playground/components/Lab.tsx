@@ -67,7 +67,7 @@ export default function LabExperiments() {
 
   const initial = useMemo(() => firstItem(all), [all]);
   const [activeId, setActiveId] = useState<string>(initial?.id ?? '');
-  const [view, setView] = useState<'brewing' | 'experiment'>('experiment');
+  const [view, setView] = useState<'brewing' | 'experiment'>('brewing');
 
   const active = useMemo(() => {
     for (const g of all) {
