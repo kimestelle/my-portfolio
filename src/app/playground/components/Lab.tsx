@@ -9,31 +9,31 @@ import MagnifierImage from './MagnifierImage';
 function BrewingBubbles() {
   return (
     <div
-      className="relative h-[48svh] max-h-[50svh] overflow-hidden rounded-xl border border-black/20 bg-[#b7b1bb] md:h-auto md:max-h-[80svh] md:aspect-[16/9]"
+      className="relative h-[48svh] max-h-[50svh] overflow-hidden rounded-xl border border-black/12 bg-[#e8e5e9] md:h-auto md:max-h-[80svh] md:aspect-[16/9]"
       style={{
         backgroundImage: [
-          'radial-gradient(circle at 28% 24%, rgba(139,126,158,.34), transparent 46%)',
-          'radial-gradient(circle at 76% 68%, rgba(105,145,139,.26), transparent 48%)',
-          'linear-gradient(145deg, #c8c1ca 0%, #b3adb7 58%, #a7a5ae 100%)',
+          'radial-gradient(circle at 28% 24%, rgba(154,142,171,.12), transparent 48%)',
+          'radial-gradient(circle at 76% 68%, rgba(125,157,152,.1), transparent 50%)',
+          'linear-gradient(145deg, #f1eef1 0%, #e7e4e8 58%, #dedce1 100%)',
         ].join(', '),
         boxShadow: [
-          'inset 0 1px 0 rgba(255,255,255,.28)',
-          'inset 0 18px 34px rgba(0,0,0,.18)',
-          'inset 0 -16px 34px rgba(0,0,0,.14)',
-          'inset 18px 0 42px rgba(0,0,0,.12)',
-          'inset -18px 0 42px rgba(0,0,0,.12)',
-          'inset 0 0 78px rgba(0,0,0,.16)',
+          'inset 0 1px 0 rgba(255,255,255,.5)',
+          'inset 0 14px 30px rgba(20,18,24,.09)',
+          'inset 0 -12px 28px rgba(20,18,24,.06)',
+          'inset 14px 0 34px rgba(20,18,24,.055)',
+          'inset -14px 0 34px rgba(20,18,24,.055)',
+          'inset 0 0 62px rgba(20,18,24,.07)',
         ].join(', '),
       }}
     >
       <div
-        className="pointer-events-none absolute inset-0 z-[1] opacity-28 mix-blend-multiply"
+        className="pointer-events-none absolute inset-0 z-[1] opacity-[0.12] mix-blend-multiply"
         style={{
-          backgroundColor: 'rgba(34, 31, 39, .28)',
+          backgroundColor: 'rgba(48, 44, 52, .1)',
           backgroundImage: "url('/textures/sandpaper.png')",
           backgroundPosition: '0 0',
           backgroundRepeat: 'repeat',
-          backgroundSize: '74px 74px',
+          backgroundSize: '174px 250px',
           backgroundBlendMode: 'multiply',
         }}
         aria-hidden="true"
@@ -41,7 +41,7 @@ function BrewingBubbles() {
       <div
         className="pointer-events-none absolute inset-0 z-[3] rounded-[inherit]"
         style={{
-          boxShadow: 'inset 0 0 34px rgba(0,0,0,.3), inset 0 0 2px 1px rgba(0,0,0,.36)',
+          boxShadow: 'inset 0 0 28px rgba(20,18,24,.12), inset 0 0 2px 1px rgba(20,18,24,.16)',
         }}
         aria-hidden="true"
       />
