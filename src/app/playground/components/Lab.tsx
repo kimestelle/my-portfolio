@@ -30,13 +30,14 @@ function BrewingBubbles() {
     const moveWallpaper = (now: number) => {
       if (now - lastPaint >= 32) {
         const time = (now - startedAt) * 0.000075;
-        wallpaper.style.setProperty('--hill-a-x', `${wallpaperNoise(time, 1) * 2.8}%`);
-        wallpaper.style.setProperty('--hill-a-y', `${wallpaperNoise(time * 0.83, 2) * 1.7}%`);
-        wallpaper.style.setProperty('--hill-b-x', `${wallpaperNoise(time * 0.91, 7) * 3.2}%`);
-        wallpaper.style.setProperty('--hill-b-y', `${wallpaperNoise(time * 0.72, 9) * 1.5}%`);
-        wallpaper.style.setProperty('--hill-c-x', `${wallpaperNoise(time * 1.07, 13) * 2.2}%`);
-        wallpaper.style.setProperty('--paper-x', `${wallpaperNoise(time * 1.24, 18) * 5}px`);
-        wallpaper.style.setProperty('--paper-y', `${wallpaperNoise(time * 0.96, 21) * 4}px`);
+        wallpaper.style.setProperty('--purple-x', `${wallpaperNoise(time, 1) * 7}%`);
+        wallpaper.style.setProperty('--purple-y', `${wallpaperNoise(time * 0.83, 2) * 5}%`);
+        wallpaper.style.setProperty('--orange-x', `${wallpaperNoise(time * 0.91, 7) * 8}%`);
+        wallpaper.style.setProperty('--orange-y', `${wallpaperNoise(time * 0.72, 9) * 6}%`);
+        wallpaper.style.setProperty('--green-x', `${wallpaperNoise(time * 1.07, 13) * 7}%`);
+        wallpaper.style.setProperty('--green-y', `${wallpaperNoise(time * 0.79, 15) * 5}%`);
+        wallpaper.style.setProperty('--tile-x', `${wallpaperNoise(time * 1.24, 18) * 4}px`);
+        wallpaper.style.setProperty('--tile-y', `${wallpaperNoise(time * 0.96, 21) * 4}px`);
         lastPaint = now;
       }
       frame = requestAnimationFrame(moveWallpaper);
@@ -49,13 +50,13 @@ function BrewingBubbles() {
   return (
     <div
       ref={wallpaperRef}
-      className="relative h-[48svh] max-h-[50svh] overflow-hidden rounded-xl border border-black/12 bg-[#c4d8dd] md:h-auto md:max-h-[80svh] md:aspect-[16/9]"
+      className="relative h-[48svh] max-h-[50svh] overflow-hidden rounded-xl border border-black/12 bg-[#eeeae9] md:h-auto md:max-h-[80svh] md:aspect-[16/9]"
       style={{
         backgroundImage: [
-          'radial-gradient(ellipse 66% 50% at calc(14% + var(--hill-a-x)) calc(108% + var(--hill-a-y)), #86a389 0%, #78977e 61%, transparent 64%)',
-          'radial-gradient(ellipse 76% 54% at calc(82% + var(--hill-b-x)) calc(112% + var(--hill-b-y)), #698d78 0%, #5e826f 60%, transparent 63%)',
-          'radial-gradient(ellipse 60% 36% at calc(48% + var(--hill-c-x)) 104%, #94aa88 0%, #849e80 61%, transparent 64%)',
-          'linear-gradient(180deg, #a8cbd6 0%, #ccdee0 52%, #d8e2d7 74%, #b7c9af 100%)',
+          'radial-gradient(circle at calc(18% + var(--purple-x)) calc(24% + var(--purple-y)), rgba(122,87,153,.72) 0%, rgba(122,87,153,.34) 36%, transparent 68%)',
+          'radial-gradient(circle at calc(80% + var(--orange-x)) calc(34% + var(--orange-y)), rgba(240,133,71,.68) 0%, rgba(240,133,71,.3) 38%, transparent 69%)',
+          'radial-gradient(circle at calc(50% + var(--green-x)) calc(86% + var(--green-y)), rgba(92,179,163,.7) 0%, rgba(92,179,163,.32) 38%, transparent 70%)',
+          'linear-gradient(145deg, #f2edef 0%, #e5e9e5 100%)',
         ].join(', '),
         boxShadow: [
           'inset 0 1px 0 rgba(255,255,255,.5)',
@@ -65,22 +66,23 @@ function BrewingBubbles() {
           'inset -14px 0 34px rgba(20,18,24,.055)',
           'inset 0 0 62px rgba(20,18,24,.07)',
         ].join(', '),
-        '--hill-a-x': '0%',
-        '--hill-a-y': '0%',
-        '--hill-b-x': '0%',
-        '--hill-b-y': '0%',
-        '--hill-c-x': '0%',
-        '--paper-x': '0px',
-        '--paper-y': '0px',
+        '--purple-x': '0%',
+        '--purple-y': '0%',
+        '--orange-x': '0%',
+        '--orange-y': '0%',
+        '--green-x': '0%',
+        '--green-y': '0%',
+        '--tile-x': '0px',
+        '--tile-y': '0px',
       } as CSSProperties}
     >
       <div
-        className="pointer-events-none absolute inset-0 z-[1] opacity-[0.14] mix-blend-multiply"
+        className="pointer-events-none absolute inset-0 z-[1] opacity-[0.26] mix-blend-soft-light"
         style={{
-          backgroundImage: "url('/textures/sandpaper.png')",
-          backgroundPosition: 'var(--paper-x) var(--paper-y)',
+          backgroundImage: "url('/textures/3px-tile.png')",
+          backgroundPosition: 'var(--tile-x) var(--tile-y)',
           backgroundRepeat: 'repeat',
-          backgroundSize: '60px 60px',
+          backgroundSize: '100px 100px',
         }}
         aria-hidden="true"
       />
