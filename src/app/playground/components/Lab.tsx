@@ -3,7 +3,30 @@
 import { useMemo, useState } from 'react';
 import Image from 'next/image';
 import { LAB_BY_TECH, type LabItem } from './labData';
+import BubblePrototype from './BubblePrototype';
 import MagnifierImage from './MagnifierImage';
+
+function BrewingBubbles() {
+  return (
+    <div
+      className="playground-gradient relative h-[48svh] max-h-[50svh] overflow-hidden rounded-xl border bg-white/60 backdrop-blur md:h-auto md:max-h-[80svh] md:aspect-[16/9]"
+      style={{
+        backgroundImage: [
+          'radial-gradient(circle 500px at 28% 20%, rgba(122,87,153,.34), transparent 68%)',
+          'radial-gradient(circle 460px at 72% 42%, rgba(240,133,71,.3), transparent 68%)',
+          'radial-gradient(circle 440px at 45% 84%, rgba(92,179,163,.28), transparent 68%)',
+        ].join(', '),
+      }}
+    >
+      <div
+        className="pointer-events-none absolute inset-0 opacity-45"
+        style={{ background: "url('/textures/sandpaper.png') 0 0 / 60px 60px repeat" }}
+        aria-hidden="true"
+      />
+      <BubblePrototype />
+    </div>
+  );
+}
 
 function firstItem(groups: typeof LAB_BY_TECH): LabItem | null {
   for (const g of groups) {
@@ -22,6 +45,7 @@ export default function LabExperiments() {
 
   const initial = useMemo(() => firstItem(all), [all]);
   const [activeId, setActiveId] = useState<string>(initial?.id ?? '');
+  const [view, setView] = useState<'brewing' | 'experiment'>('experiment');
 
   const active = useMemo(() => {
     for (const g of all) {
@@ -50,7 +74,13 @@ export default function LabExperiments() {
       <div className="w-full grid grid-cols-1 pt-[6rem] md:grid-cols-[200px_1fr] md:gap-8 overflow-hidden">
         {/* left: list */}
         <aside className="lg:sticky h-fit border-b">
-            <span>[what&apos;s brewing ∘˙○˚.•]</span>
+            <button
+              type="button"
+              onClick={() => setView('brewing')}
+              className={`text-left transition-opacity hover:opacity-55 ${view === 'brewing' ? 'opacity-100' : 'opacity-65'}`}
+            >
+              [what&apos;s brewing ∘˙○˚.•]
+            </button>
             <div className="flex flex-col gap-2 md:gap-4 max-h-32 md:max-h-[70vh] overflow-y-auto pr-1 pt-4">
               {all.map((group) => (
                 <div key={group.tech} className="flex flex-col">
@@ -64,6 +94,7 @@ export default function LabExperiments() {
                         className='cursor-pointer'
                         key={item.id}
                         onClick={() => {
+                          setView('experiment');
                           setActiveId(item.id);
                           setPreviewIndex(0);
                         }}
@@ -81,18 +112,25 @@ export default function LabExperiments() {
         <main className="relative flex flex-col gap-4 pt-2">
           <div className="md:absolute -top-[4.2rem] left-0 z-[100] right-0 flex flex-row justify-between items-baseline">
             <div>
-              <h2 className="text-2xl font-medium">{active.name}</h2>
-              {active.blurb ? <div className="mt-1 text-sm text-neutral-600">{active.blurb}</div> : null}
+              <h2 className="text-2xl font-medium">{view === 'brewing' ? 'what’s brewing' : active.name}</h2>
+              {view === 'brewing' ? (
+                <div className="mt-1 text-sm text-neutral-600">click the field to release more · click a bubble to watch</div>
+              ) : active.blurb ? (
+                <div className="mt-1 text-sm text-neutral-600">{active.blurb}</div>
+              ) : null}
             </div>
             
             {
-                active.githubUrl &&
+                view === 'experiment' && active.githubUrl &&
               <a className="rounded-lg border bg-white/60 backdrop-blur px-3 py-1 text-sm" href={active.githubUrl} target="_blank" rel="noreferrer">
                 <Image src='/icons/gh-logo.svg' alt='GitHub logo' width={16} height={16} className='inline-block'/>
               </a>
             }
           </div>
 
+          {view === 'brewing' ? (
+            <BrewingBubbles />
+          ) : (
           <div className="rounded-xl border bg-white/60 backdrop-blur overflow-hidden">
             <div className="relative w-full h-[48svh] max-h-[50svh] md:h-auto md:max-h-[80svh] md:aspect-[16/9] bg-neutral-100 flex justify-center items-center overflow-hidden">
               {preview?.type === 'iframe' ? (
@@ -149,6 +187,7 @@ export default function LabExperiments() {
               )}
             </div>
           </div>
+          )}
         </main>
       </div>
   );

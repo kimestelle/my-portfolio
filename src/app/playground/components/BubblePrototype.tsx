@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { createPortal } from 'react-dom';
 import * as THREE from 'three';
 import { BUBBLE_FRAGMENT_SHADER, BUBBLE_VERTEX_SHADER } from './bubbleMaterialShaders';
-import { LAB_BY_TECH } from './labData';
 import { SoftBlob } from './SoftBlob';
 
 type Pixel = {
@@ -39,16 +39,29 @@ type Bubble = {
   mesh: THREE.Group;
   material: THREE.ShaderMaterial;
   albedoTexture: THREE.Texture | null;
+  previewVideo: HTMLVideoElement | null;
+  videoIndex: number;
+};
+
+type ExpandedVideo = {
+  index: number;
+  originX: number;
+  originY: number;
+  radius: number;
 };
 
 const SOFT_CENTER_X = 116;
 const SOFT_CENTER_Y = 100;
 const SOFT_RADIUS = 66;
 const FALLBACK_PALETTE = ['#7a5799', '#f08547', '#5cb3a3', '#ffffff', '#0a103d'];
-const LAB_IMAGES = LAB_BY_TECH.flatMap((group) => group.items)
-  .flatMap((item) => item.preview ?? [])
-  .filter((preview) => preview.type === 'image')
-  .map((preview) => preview.src);
+const BUBBLE_VIDEO_PREVIEWS = Array.from(
+  { length: 16 },
+  (_, index) => `/creative-images/video-demos/optimized/bubble/preview-${String(index + 1).padStart(2, '0')}.m4v`,
+);
+const FULL_VIDEOS = Array.from(
+  { length: 16 },
+  (_, index) => `/creative-images/video-demos/optimized/video-${String(index + 1).padStart(2, '0')}.m4v`,
+);
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
@@ -83,6 +96,31 @@ export default function BubblePrototype() {
   const webglRef = useRef<HTMLCanvasElement>(null);
   const effectsRef = useRef<HTMLCanvasElement>(null);
   const fpsRef = useRef<HTMLOutputElement>(null);
+  const fullscreenVideoRef = useRef<HTMLVideoElement>(null);
+  const previewVideosRef = useRef(new Set<HTMLVideoElement>());
+  const expandedRef = useRef<ExpandedVideo | null>(null);
+  const [expanded, setExpanded] = useState<ExpandedVideo | null>(null);
+
+  const closeExpanded = () => {
+    expandedRef.current = null;
+    setExpanded(null);
+  };
+
+  useEffect(() => {
+    for (const video of previewVideosRef.current) {
+      if (expanded) video.pause();
+      else void video.play().catch(() => undefined);
+    }
+    if (expanded) void fullscreenVideoRef.current?.play().catch(() => undefined);
+  }, [expanded]);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') closeExpanded();
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
 
   useEffect(() => {
     const webglCanvas = webglRef.current;
@@ -121,8 +159,6 @@ export default function BubblePrototype() {
     const whiteTexture = new THREE.DataTexture(new Uint8Array([255, 255, 255, 255]), 1, 1);
     whiteTexture.colorSpace = THREE.SRGBColorSpace;
     whiteTexture.needsUpdate = true;
-    const textureLoader = new THREE.TextureLoader();
-
     const pointer = { x: 0, y: 0, present: false };
     let width = 1;
     let height = 1;
@@ -133,6 +169,7 @@ export default function BubblePrototype() {
     let previousTime = performance.now();
     let fpsWindowStart = previousTime;
     let fpsFrames = 0;
+    let nextVideoIndex = 0;
 
     const createSurface = (body: SoftBlob) => {
       const renderPositions = new Float32Array(body.positions.length);
@@ -184,31 +221,38 @@ export default function BubblePrototype() {
 
     const removeBubble = (target: Bubble) => {
       scene.remove(target.mesh);
+      if (target.previewVideo) {
+        target.previewVideo.pause();
+        target.previewVideo.removeAttribute('src');
+        target.previewVideo.load();
+        previewVideosRef.current.delete(target.previewVideo);
+      }
       target.albedoTexture?.dispose();
       target.material.dispose();
       target.geometry.dispose();
       bubbles = bubbles.filter((candidate) => candidate !== target);
     };
 
-    const loadRandomAlbedo = (target: Bubble) => {
-      const source = LAB_IMAGES[Math.floor(Math.random() * LAB_IMAGES.length)];
-      if (!source) return;
-      textureLoader.load(source, (texture) => {
-        if (!bubbles.includes(target)) {
-          texture.dispose();
-          return;
-        }
-        texture.colorSpace = THREE.SRGBColorSpace;
-        texture.wrapS = THREE.ClampToEdgeWrapping;
-        texture.wrapT = THREE.ClampToEdgeWrapping;
-        texture.minFilter = THREE.LinearFilter;
-        texture.magFilter = THREE.LinearFilter;
-        texture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
-        texture.needsUpdate = true;
-        target.albedoTexture?.dispose();
-        target.albedoTexture = texture;
-        target.material.uniforms.uAlbedo.value = texture;
-      });
+    const attachVideoAlbedo = (target: Bubble) => {
+      const video = document.createElement('video');
+      video.src = BUBBLE_VIDEO_PREVIEWS[target.videoIndex];
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.preload = 'auto';
+      video.setAttribute('playsinline', '');
+      const texture = new THREE.VideoTexture(video);
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.wrapS = THREE.ClampToEdgeWrapping;
+      texture.wrapT = THREE.ClampToEdgeWrapping;
+      texture.minFilter = THREE.LinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      texture.generateMipmaps = false;
+      target.previewVideo = video;
+      target.albedoTexture = texture;
+      target.material.uniforms.uAlbedo.value = texture;
+      previewVideosRef.current.add(video);
+      void video.play().catch(() => undefined);
     };
 
     const resize = () => {
@@ -234,6 +278,8 @@ export default function BubblePrototype() {
         width * 0.36,
       );
       const safeX = clamp(x, radius * 1.08, width - radius * 1.08);
+      const videoIndex = nextVideoIndex % BUBBLE_VIDEO_PREVIEWS.length;
+      nextVideoIndex += 1;
       const body = new SoftBlob(true);
       if (!reducedMotion) {
         for (let offset = 0; offset < body.positions.length; offset += 3) {
@@ -257,11 +303,13 @@ export default function BubblePrototype() {
         launchSpeed: height * (0.42 + Math.random() * 0.04),
         riseSpeed: height * (0.052 + Math.random() * 0.012),
         body,
+        videoIndex,
+        previewVideo: null,
         ...createSurface(body),
       };
       bubbles.push(target);
       syncBodyGeometry(target);
-      loadRandomAlbedo(target);
+      attachVideoAlbedo(target);
     };
 
     const pop = (target: Bubble) => {
@@ -308,7 +356,19 @@ export default function BubblePrototype() {
         Math.hypot(position.x - candidate.x, position.y - candidate.y) <= candidate.radius
       ));
       if (hit) {
-        pop(hit);
+        if (event.altKey) {
+          pop(hit);
+          return;
+        }
+        const bounds = effectsCanvas.getBoundingClientRect();
+        const nextExpanded = {
+          index: hit.videoIndex,
+          originX: bounds.left + hit.x,
+          originY: bounds.top + hit.y,
+          radius: hit.radius,
+        };
+        expandedRef.current = nextExpanded;
+        setExpanded(nextExpanded);
         return;
       }
       pointer.present = event.pointerType === 'mouse';
@@ -540,16 +600,22 @@ export default function BubblePrototype() {
     effectsCanvas.addEventListener('pointerleave', onPointerLeave);
     effectsCanvas.addEventListener('pointerdown', onPointerDown);
     resize();
+    const initialSpawnTimers = [0, 1, 2, 3].map((index) => window.setTimeout(
+      () => spawn(width * (0.18 + index * 0.21)),
+      180 + index * 220,
+    ));
     frame = requestAnimationFrame(animate);
 
     return () => {
       cancelAnimationFrame(frame);
+      initialSpawnTimers.forEach((timer) => window.clearTimeout(timer));
       observer.disconnect();
       effectsCanvas.removeEventListener('pointermove', onPointerMove);
       effectsCanvas.removeEventListener('pointerenter', onPointerMove);
       effectsCanvas.removeEventListener('pointerleave', onPointerLeave);
       effectsCanvas.removeEventListener('pointerdown', onPointerDown);
       for (const target of bubbles) {
+        target.previewVideo?.pause();
         target.albedoTexture?.dispose();
         target.material.dispose();
         target.geometry.dispose();
@@ -568,7 +634,7 @@ export default function BubblePrototype() {
       <canvas
         ref={effectsRef}
         className="absolute inset-0 h-full w-full touch-none"
-        aria-label="Click to release a soft-body mesh; click it again to pop it"
+        aria-label="Click the field to release a video bubble; click a bubble to expand its video"
       />
       <output
         ref={fpsRef}
@@ -576,6 +642,95 @@ export default function BubblePrototype() {
       >
         0 fps · 0 blobs · 0 vertices · 0 draws
       </output>
+
+      {expanded ? createPortal((
+        <div
+          className="bubble-fullscreen"
+          style={{
+            '--bubble-origin-x': `${expanded.originX}px`,
+            '--bubble-origin-y': `${expanded.originY}px`,
+            '--bubble-origin-radius': `${expanded.radius}px`,
+          } as CSSProperties}
+          onClick={closeExpanded}
+        >
+          <video
+            ref={fullscreenVideoRef}
+            key={FULL_VIDEOS[expanded.index]}
+            src={FULL_VIDEOS[expanded.index]}
+            className="bubble-fullscreen__video"
+            autoPlay
+            playsInline
+            controls
+            onClick={(event) => event.stopPropagation()}
+          />
+          <button
+            type="button"
+            className="bubble-fullscreen__close"
+            onClick={closeExpanded}
+            aria-label="Close video"
+          >
+            ×
+          </button>
+        </div>
+      ), document.body) : null}
+
+      <style jsx>{`
+        .bubble-fullscreen {
+          position: fixed;
+          z-index: 90;
+          inset: 0;
+          display: grid;
+          place-items: center;
+          padding: clamp(0.75rem, 3vw, 2rem);
+          background: rgb(8, 9, 14);
+          clip-path: circle(var(--bubble-origin-radius) at var(--bubble-origin-x) var(--bubble-origin-y));
+          animation: bubble-expand 720ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .bubble-fullscreen__video {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          opacity: 0;
+          animation: video-reveal 480ms ease 180ms forwards;
+        }
+
+        .bubble-fullscreen__close {
+          position: absolute;
+          z-index: 2;
+          top: 1.25rem;
+          right: 1.25rem;
+          display: grid;
+          width: 2.25rem;
+          height: 2.25rem;
+          place-items: center;
+          border: 1px solid rgba(255, 255, 255, 0.35);
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.12);
+          color: white;
+          cursor: pointer;
+          font: inherit;
+          font-size: 1.35rem;
+          line-height: 1;
+          backdrop-filter: blur(10px);
+        }
+
+        @keyframes bubble-expand {
+          to { clip-path: circle(150vmax at var(--bubble-origin-x) var(--bubble-origin-y)); }
+        }
+
+        @keyframes video-reveal {
+          to { opacity: 1; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .bubble-fullscreen,
+          .bubble-fullscreen__video {
+            animation-duration: 1ms;
+            animation-delay: 0ms;
+          }
+        }
+      `}</style>
     </div>
   );
 }
