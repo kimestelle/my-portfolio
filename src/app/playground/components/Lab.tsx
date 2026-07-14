@@ -8,21 +8,7 @@ import MagnifierImage from './MagnifierImage';
 
 function BrewingBubbles() {
   return (
-    <div
-      className="playground-gradient relative h-[48svh] max-h-[50svh] overflow-hidden rounded-xl border bg-white/60 backdrop-blur md:h-auto md:max-h-[80svh] md:aspect-[16/9]"
-      style={{
-        backgroundImage: [
-          'radial-gradient(circle 500px at 28% 20%, rgba(122,87,153,.34), transparent 68%)',
-          'radial-gradient(circle 460px at 72% 42%, rgba(240,133,71,.3), transparent 68%)',
-          'radial-gradient(circle 440px at 45% 84%, rgba(92,179,163,.28), transparent 68%)',
-        ].join(', '),
-      }}
-    >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-45"
-        style={{ background: "url('/textures/sandpaper.png') 0 0 / 60px 60px repeat" }}
-        aria-hidden="true"
-      />
+    <div className="relative h-[48svh] max-h-[50svh] overflow-hidden rounded-xl border bg-transparent md:h-auto md:max-h-[80svh] md:aspect-[16/9]">
       <BubblePrototype />
     </div>
   );

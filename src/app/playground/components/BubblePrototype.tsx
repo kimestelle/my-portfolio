@@ -153,7 +153,7 @@ export default function BubblePrototype() {
     let previousTime = performance.now();
     let fpsWindowStart = previousTime;
     let fpsFrames = 0;
-    let nextVideoIndex = 0;
+    const availableVideoIndices = BUBBLE_VIDEO_PREVIEWS.map((_, index) => index);
 
     const createSurface = (body: SoftBlob) => {
       const renderPositions = new Float32Array(body.positions.length);
@@ -221,6 +221,9 @@ export default function BubblePrototype() {
       target.material.dispose();
       target.geometry.dispose();
       bubbles = bubbles.filter((candidate) => candidate !== target);
+      if (!availableVideoIndices.includes(target.videoIndex)) {
+        availableVideoIndices.push(target.videoIndex);
+      }
     };
 
     const attachVideoAlbedo = (target: Bubble) => {
@@ -263,13 +266,13 @@ export default function BubblePrototype() {
     };
 
     const spawn = (x: number) => {
+      const videoIndex = availableVideoIndices.shift();
+      if (videoIndex === undefined) return;
       const radius = Math.min(
         height * (0.1 + Math.random() * 0.07),
         width * 0.36,
       );
       const safeX = clamp(x, radius * 1.08, width - radius * 1.08);
-      const videoIndex = nextVideoIndex % BUBBLE_VIDEO_PREVIEWS.length;
-      nextVideoIndex += 1;
       const body = new SoftBlob(true);
       if (!reducedMotion) {
         for (let offset = 0; offset < body.positions.length; offset += 3) {
@@ -577,7 +580,7 @@ export default function BubblePrototype() {
         const fps = fpsFrames * 1000 / (time - fpsWindowStart);
         const vertices = bubbles.reduce((total, target) => total + target.body.positions.length / 3, 0);
         const frameTime = 1000 / Math.max(fps, 0.001);
-        fpsOutput.textContent = `${fps.toFixed(0)} fps · ${frameTime.toFixed(1)} ms · ${bubbles.length} blobs · ${vertices.toLocaleString()} vertices · ${renderer.info.render.calls} draws`;
+        fpsOutput.textContent = `${fps.toFixed(0)} fps · ${frameTime.toFixed(1)} ms · ${bubbles.length} blobs · ${availableVideoIndices.length} queued · ${vertices.toLocaleString()} vertices · ${renderer.info.render.calls} draws`;
         fpsFrames = 0;
         fpsWindowStart = time;
       }
@@ -629,7 +632,7 @@ export default function BubblePrototype() {
         ref={fpsRef}
         className="pointer-events-none absolute bottom-5 left-5 rounded-full bg-white/55 px-2.5 py-1 font-mono text-[11px] text-[#0a103d]/70 backdrop-blur-sm"
       >
-        0 fps · 0.0 ms · 0 blobs · 0 vertices · 0 draws
+        0 fps · 0.0 ms · 0 blobs · 16 queued · 0 vertices · 0 draws
       </output>
 
       {expanded ? createPortal((
