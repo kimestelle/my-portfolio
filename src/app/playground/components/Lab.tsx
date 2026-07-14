@@ -6,11 +6,6 @@ import { LAB_BY_TECH, type LabItem } from './labData';
 import BubblePrototype from './BubblePrototype';
 import MagnifierImage from './MagnifierImage';
 
-const BREWING_VIDEOS = Array.from(
-  { length: 16 },
-  (_, index) => `/creative-images/video-demos/optimized/video-${String(index + 1).padStart(2, '0')}.m4v`,
-);
-
 function wallpaperNoise(value: number, seed: number) {
   const hash = (cell: number) => {
     const wave = Math.sin((cell + seed * 31.17) * 127.1) * 43758.5453;
@@ -20,67 +15,6 @@ function wallpaperNoise(value: number, seed: number) {
   const fraction = value - cell;
   const eased = fraction * fraction * (3 - 2 * fraction);
   return (hash(cell) + (hash(cell + 1) - hash(cell)) * eased) * 2 - 1;
-}
-
-function GridVideo({ src, index }: { src: string; index: number }) {
-  const shellRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const loadedRef = useRef(false);
-  const [shouldLoad, setShouldLoad] = useState(false);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    const shell = shellRef.current;
-    if (!shell) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          if (!loadedRef.current) {
-            loadedRef.current = true;
-            setShouldLoad(true);
-          }
-          void videoRef.current?.play().catch(() => undefined);
-        } else {
-          videoRef.current?.pause();
-        }
-      },
-      { rootMargin: '160px 0px' },
-    );
-    observer.observe(shell);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div ref={shellRef} className="relative aspect-video overflow-hidden rounded-lg bg-neutral-100">
-      {shouldLoad ? (
-        <video
-          ref={videoRef}
-          src={src}
-          className={`h-full w-full object-cover transition duration-500 ${ready ? 'opacity-100' : 'opacity-0'}`}
-          autoPlay
-          muted
-          loop
-          playsInline
-          controls
-          preload="metadata"
-          onLoadedData={() => setReady(true)}
-        />
-      ) : null}
-      <span className="pointer-events-none absolute right-2 top-2 rounded-full bg-black/35 px-1.5 py-0.5 font-mono text-[9px] text-white">
-        {String(index + 1).padStart(2, '0')}
-      </span>
-    </div>
-  );
-}
-
-function BrewingVideoGrid() {
-  return (
-    <div className="scrollbar-small grid max-h-[72svh] grid-cols-2 gap-3 overflow-y-auto rounded-xl border bg-white/70 p-3">
-      {BREWING_VIDEOS.map((src, index) => (
-        <GridVideo key={src} src={src} index={index} />
-      ))}
-    </div>
-  );
 }
 
 function BrewingBubbles() {
@@ -114,31 +48,17 @@ function BrewingBubbles() {
       style={{
         backgroundImage: 'linear-gradient(145deg, #fffaf4 0%, #f7f0e8 100%)',
         boxShadow: [
-          'inset 0 1px 0 rgba(255,255,255,.68)',
-          'inset 0 14px 30px rgba(92,61,42,.09)',
-          'inset 0 -12px 28px rgba(92,61,42,.06)',
-          'inset 14px 0 34px rgba(92,61,42,.055)',
-          'inset -14px 0 34px rgba(92,61,42,.055)',
-          'inset 0 0 62px rgba(92,61,42,.07)',
+          'inset 0 1px 0 rgba(255,255,255,.52)',
+          'inset 0 0 76px rgba(92,61,42,.028)',
         ].join(', '),
         '--tile-x': '0px',
         '--tile-y': '0px',
       } as CSSProperties}
     >
       <div
-        className="pointer-events-none absolute inset-0 z-[1] opacity-[0.16] mix-blend-soft-light"
+        className="pointer-events-none absolute inset-0 z-[4] rounded-[inherit]"
         style={{
-          backgroundImage: "url('/textures/3px-tile.png')",
-          backgroundPosition: 'var(--tile-x) var(--tile-y)',
-          backgroundRepeat: 'repeat',
-          backgroundSize: '100px 100px',
-        }}
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute inset-0 z-[3] rounded-[inherit]"
-        style={{
-          boxShadow: 'inset 0 0 28px rgba(84,53,35,.11), inset 0 0 2px 1px rgba(84,53,35,.15)',
+          boxShadow: 'inset 0 0 44px rgba(84,53,35,.026), inset 0 0 1px rgba(84,53,35,.06)',
         }}
         aria-hidden="true"
       />
@@ -165,7 +85,6 @@ export default function LabExperiments() {
   const initial = useMemo(() => firstItem(all), [all]);
   const [activeId, setActiveId] = useState<string>(initial?.id ?? '');
   const [view, setView] = useState<'brewing' | 'experiment'>('brewing');
-  const [bubbleShaderOn, setBubbleShaderOn] = useState(true);
 
   const active = useMemo(() => {
     for (const g of all) {
@@ -191,7 +110,7 @@ export default function LabExperiments() {
   if (!active) return null;
 
   return (
-      <div className="w-full grid grid-cols-1 pt-[6rem] md:grid-cols-[200px_1fr] md:gap-8 overflow-hidden">
+      <div className="w-full grid grid-cols-1 pt-[4rem] md:pt-[6rem] md:grid-cols-[200px_1fr] md:gap-8 overflow-hidden">
         {/* left: list */}
         <aside className="lg:sticky h-fit border-b">
             <button
@@ -201,7 +120,7 @@ export default function LabExperiments() {
             >
               [what&apos;s brewing ∘˙○˚.•]
             </button>
-            <div className="flex flex-col gap-2 md:gap-4 max-h-32 md:max-h-[70vh] overflow-y-auto pr-1 pt-4">
+            <div className="flex flex-col gap-2 md:gap-4 max-h-28 bg-[linear-gradient(to_bottom,rgba(0,0,0,0)_0%,rgba(0,0,0,0.0016)_25%,rgba(0,0,0,0.0125)_50%,rgba(0,0,0,0.0422)_75%,rgba(0,0,0,0.0729)_90%,rgba(0,0,0,0.1)_100%)] md:max-h-[70vh] overflow-y-auto pr-1 pt-4">
               {all.map((group) => (
                 <div key={group.tech} className="flex flex-col">
                   <h3>
@@ -230,28 +149,19 @@ export default function LabExperiments() {
 
         {/* right: content */}
         <main className="relative flex flex-col gap-4 pt-2">
-          <div className="md:absolute -top-[4.2rem] left-0 z-[100] right-0 flex flex-row justify-between items-baseline">
+          <div className="md:absolute -top-[4.8rem] left-0 z-[100] right-0 flex flex-row justify-between items-baseline">
             <div>
-              <h2 className="text-2xl font-medium">{view === 'brewing' ? 'what’s brewing' : active.name}</h2>
+              <h2 className="text-2xl font-medium">{view === 'brewing' ? 'recent experiments' : active.name}</h2>
               {view === 'brewing' ? (
                 <div className="mt-1 text-sm text-neutral-600">
-                  {bubbleShaderOn ? 'click the field to release more · click a bubble to watch' : 'two-column video archive'}
+                  hover to play · click to pop
                 </div>
               ) : active.blurb ? (
                 <div className="mt-1 text-sm text-neutral-600">{active.blurb}</div>
               ) : null}
             </div>
             
-            {view === 'brewing' ? (
-              <button
-                type="button"
-                className="rounded-lg border bg-white/60 px-3 py-1 text-sm backdrop-blur transition-opacity hover:opacity-55"
-                onClick={() => setBubbleShaderOn((current) => !current)}
-                aria-pressed={!bubbleShaderOn}
-              >
-                shader: {bubbleShaderOn ? 'on' : 'off'}
-              </button>
-            ) : active.githubUrl ? (
+            {view !== 'brewing' && active.githubUrl ? (
               <a className="rounded-lg border bg-white/60 backdrop-blur px-3 py-1 text-sm" href={active.githubUrl} target="_blank" rel="noreferrer">
                 <Image src='/icons/gh-logo.svg' alt='GitHub logo' width={16} height={16} className='inline-block'/>
               </a>
@@ -259,7 +169,7 @@ export default function LabExperiments() {
           </div>
 
           {view === 'brewing' ? (
-            bubbleShaderOn ? <BrewingBubbles /> : <BrewingVideoGrid />
+            <BrewingBubbles />
           ) : (
           <div className="rounded-xl border bg-white/60 backdrop-blur overflow-hidden">
             <div className="relative w-full h-[48svh] max-h-[50svh] md:h-auto md:max-h-[80svh] md:aspect-[16/9] bg-neutral-100 flex justify-center items-center overflow-hidden">

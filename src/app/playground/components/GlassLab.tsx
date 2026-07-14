@@ -4,8 +4,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { LAB_BY_TECH, type LabItem } from './labData';
 import { SoftBlob } from './SoftBlob';
 import { GLASS_FRAGMENT_SHADER, GLASS_VERTEX_SHADER } from './glassShaders';
+import styles from './GlassLab.module.css';
 
-const INK = 'hsl(226, 100%, 12%)';
 const TINTS: readonly [number, number, number][] = [
   [0.48, 0.34, 0.60],
   [0.94, 0.52, 0.28],
@@ -390,7 +390,7 @@ export default function GlassLab() {
 
   let itemIndex = 0;
   return (
-    <main className={`glass-lab${fallback ? ' is-fallback' : ''}`}>
+    <main className={`${styles.root} glass-lab${fallback ? ' is-fallback' : ''}`}>
       <canvas ref={canvasRef} className="glass-lab__canvas" aria-hidden="true" />
       <div className="glass-lab__frame" aria-hidden="true" />
       <div className="glass-lab__grain" aria-hidden="true" />
@@ -437,54 +437,6 @@ export default function GlassLab() {
           </div>
         </section>)}
       </div>
-      <footer>
-        <code>click to open · esc to close · arrows move through stills</code>
-        <code>a 2d profile lathed into a ring mesh, spring physics on every vertex, normals re-derived each frame — the melt is just a new rest pose</code>
-      </footer>
-      <style jsx>{`
-        .glass-lab { --ink: ${INK}; position: relative; isolation: isolate; width: 100%; min-height: 100vh; overflow: clip; color: var(--ink); padding: 6.5rem clamp(1.5rem, 6vw, 7rem) 4rem; background-color: white; background-image: radial-gradient(circle 900px at 32% 24%, rgba(122,87,153,.16), rgba(122,87,153,.07) 42%, transparent 68%), radial-gradient(circle 760px at 70% 44%, rgba(240,133,71,.14), rgba(240,133,71,.06) 42%, transparent 68%), radial-gradient(circle 680px at 44% 78%, rgba(92,179,163,.13), rgba(92,179,163,.06) 42%, transparent 68%); background-attachment: fixed; }
-        .glass-lab__canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 2; }
-        .glass-lab__frame { position: fixed; inset: 14px; z-index: 20; pointer-events: none; border: .5px solid rgba(10,16,61,.28); filter: blur(1px); }
-        .glass-lab__grain { position: fixed; inset: 0; z-index: 21; pointer-events: none; background: url('/textures/sandpaper.png') 0 0 / 60px 60px repeat; mix-blend-mode: screen; opacity: .5; }
-        .glass-lab__header, .glass-lab__groups, footer { position: relative; z-index: 3; }
-        .glass-lab__header { max-width: 760px; margin: 0 auto 5.5rem; text-align: center; }
-        .glass-lab__header h1 { color: var(--ink); font: 500 clamp(3.4rem, 7vw, 4.2rem)/.9 'Star Glyphs', serif; letter-spacing: -.04em; }
-        .glass-lab__header p { margin-top: 1.25rem; color: var(--ink); font: italic 1.05rem/1.35 'EB Garamond', Georgia, serif; }
-        .glass-lab__groups { max-width: 1120px; margin: auto; }
-        .glass-lab__group { margin: 0 0 5rem; }
-        .glass-lab__group h2 { color: var(--ink); font: italic 1.05rem/1.4 'EB Garamond', Georgia, serif; border-bottom: .5px solid rgba(10,16,61,.35); padding-bottom: .35rem; margin-bottom: 1.6rem; }
-        .glass-lab__cluster { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 3rem clamp(1rem, 4vw, 3rem); }
-        .glass-lab__item { width: 232px; transform-origin: center; }
-        .glass-lab__item:nth-child(2n) { transform: rotate(.5deg) translateY(7px); }
-        .glass-lab__item:nth-child(3n) { transform: rotate(-.6deg) translateY(-4px); }
-        .glass-lab__item:nth-child(5n) { transform: rotate(.3deg) translateY(12px); }
-        .glass-lab__stage { position: relative; width: 232px; height: 200px; }
-        .glass-lab__hit { position: absolute; inset: 0; z-index: 4; width: 232px; height: 200px; border: 0; background: transparent; border-radius: 50%; color: transparent; }
-        .glass-lab__hit:focus-visible { outline: 1px solid var(--ink); outline-offset: 6px; }
-        .glass-lab__shadow { position: absolute; z-index: 1; left: 42px; bottom: 18px; width: 148px; height: 18px; background: radial-gradient(ellipse, rgba(10,16,61,.13), transparent 70%); filter: blur(3px); transition: width .5s ease, left .5s ease, opacity .5s ease; }
-        .is-open .glass-lab__shadow { width: 205px; left: 14px; opacity: .75; }
-        .glass-lab__caption { padding: .45rem .35rem 0; color: var(--ink); }
-        .glass-lab__caption h3 { display: inline; color: var(--ink); font: 500 1.03rem/1.3 'EB Garamond', Georgia, serif; margin: 0; background-image: linear-gradient(var(--ink), var(--ink)); background-position: 0 100%; background-repeat: no-repeat; background-size: 0 .5px; transition: background-size .2s ease; }
-        .glass-lab__item:hover .glass-lab__caption h3, .glass-lab__item:focus-within .glass-lab__caption h3 { background-size: 100% .5px; }
-        .glass-lab__caption code { display: block; margin-top: .18rem; color: var(--ink); opacity: .5; font: .62rem/1.3 'Courier New', monospace; text-transform: lowercase; }
-        .glass-lab__caption a { color: inherit; text-decoration: underline; }
-        .glass-lab__caption p { margin-top: .75rem; color: var(--ink); opacity: 0; transform: translateY(-3px); pointer-events: none; font: 300 .76rem/1.35 'Ysabeau Office', sans-serif; transition: opacity .35s ease, transform .35s ease; }
-        .glass-lab__item.is-open .glass-lab__caption p { opacity: .68; transform: none; }
-        .glass-lab__panel { position: absolute; z-index: 5; left: 4px; top: 26px; width: 224px; height: 148px; overflow: hidden; border: .5px solid rgba(10,16,61,.38); border-radius: 14px; opacity: 0; transform: scale(.94); pointer-events: none; background: rgba(255,255,255,.55); backdrop-filter: blur(9px); -webkit-backdrop-filter: blur(9px); box-shadow: inset 8px 0 9px -8px rgba(122,87,153,.46), inset -8px 0 9px -8px rgba(92,179,163,.42), inset 0 -8px 9px -8px rgba(240,133,71,.4), 0 14px 28px rgba(10,16,61,.12); transition: opacity .38s ease, transform .55s cubic-bezier(.25,.9,.25,1.2); }
-        .glass-lab__panel.is-open { opacity: 1; transform: scale(1); pointer-events: auto; }
-        .glass-lab__panel :global(img), .glass-lab__panel :global(video), .glass-lab__panel :global(iframe) { width: 100%; height: 100%; display: block; object-fit: cover; border: 0; }
-        .glass-lab__close { position: absolute; z-index: 3; left: 8px; top: 7px; display: grid; place-items: center; width: 20px; height: 20px; border: .5px solid rgba(10,16,61,.35); border-radius: 50%; background: rgba(255,255,255,.72); color: var(--ink); font: 13px/1 sans-serif; }
-        .glass-lab__mark { position: absolute; z-index: 2; left: 9px; bottom: 8px; padding: 2px 4px; border-radius: 3px; color: var(--ink); background: rgba(255,255,255,.68); font: .58rem/1.2 'Courier New', monospace; }
-        .glass-lab__live::before { content: ''; display: inline-block; width: 4px; height: 4px; margin: 0 4px 1px 0; border-radius: 50%; background: #ee7048; }
-        .glass-lab__arrows { position: absolute; z-index: 2; right: 7px; bottom: 6px; display: flex; gap: 3px; }
-        .glass-lab__arrows button { width: 24px; height: 21px; border: .5px solid rgba(10,16,61,.3); border-radius: 7px; background: rgba(255,255,255,.72); color: var(--ink); font: 12px/1 sans-serif; }
-        footer { display: grid; gap: .35rem; max-width: 1120px; margin: 2rem auto 0; opacity: .45; }
-        footer code { color: var(--ink); font: .62rem/1.4 'Courier New', monospace; }
-        .glass-lab__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
-        .is-fallback .glass-lab__hit { background: radial-gradient(circle at 38% 30%, rgba(255,255,255,.85), rgba(122,87,153,.2) 55%, rgba(10,16,61,.12)); box-shadow: inset 8px 5px 15px rgba(255,255,255,.8), inset -7px -5px 15px rgba(92,179,163,.22), 0 12px 20px rgba(10,16,61,.1); }
-        @media (max-width: 767px) { .glass-lab { padding-inline: 1rem; } .glass-lab__cluster { justify-content: center; gap-block: 3rem; } .glass-lab__header { margin-bottom: 4rem; } }
-        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
-      `}</style>
     </main>
   );
 }

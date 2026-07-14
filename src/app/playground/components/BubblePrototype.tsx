@@ -1,10 +1,15 @@
 'use client';
 
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { createPortal } from 'react-dom';
 import * as THREE from 'three';
-import { BUBBLE_FRAGMENT_SHADER, BUBBLE_VERTEX_SHADER } from './bubbleMaterialShaders';
+import {
+  BACKGROUND_FRAGMENT_SHADER,
+  BACKGROUND_VERTEX_SHADER,
+  BUBBLE_FRAGMENT_SHADER,
+  BUBBLE_VERTEX_SHADER,
+} from './bubbleMaterialShaders';
 import { SoftBlob } from './SoftBlob';
+import './BubblePrototype.css';
 
 type Pixel = {
   x: number;
@@ -43,24 +48,30 @@ type Bubble = {
   albedoTexture: THREE.Texture | null;
   previewVideo: HTMLVideoElement | null;
   videoIndex: number;
+  hoverAmount: number;
+  videoPlaying: boolean;
 };
 
-type ExpandedVideo = {
-  index: number;
+type ReleasedVideo = {
+  id: number;
+  src: string;
+  currentTime: number;
   originX: number;
   originY: number;
   radius: number;
+  ready: boolean;
 };
 
 const SOFT_CENTER_X = 116;
 const SOFT_CENTER_Y = 100;
 const SOFT_RADIUS = 66;
-const FALLBACK_PALETTE = ['#7a5799', '#f08547', '#5cb3a3', '#ffffff', '#0a103d'];
+const BACKGROUND_GRAIN_TILE_SIZE = 100;
+const POP_PALETTE = ['#ffffff', '#fff9f4', '#f6f3ff', '#eefaf7', '#f8f4ed'];
 const BUBBLE_VIDEO_PREVIEWS = Array.from(
   { length: 16 },
   (_, index) => `/creative-images/video-demos/optimized/bubble/preview-${String(index + 1).padStart(2, '0')}.m4v`,
 );
-const FULL_VIDEOS = Array.from(
+const FULL_RESOLUTION_VIDEOS = Array.from(
   { length: 16 },
   (_, index) => `/creative-images/video-demos/optimized/video-${String(index + 1).padStart(2, '0')}.m4v`,
 );
@@ -98,31 +109,36 @@ export default function BubblePrototype() {
   const webglRef = useRef<HTMLCanvasElement>(null);
   const effectsRef = useRef<HTMLCanvasElement>(null);
   const fpsRef = useRef<HTMLOutputElement>(null);
-  const fullscreenVideoRef = useRef<HTMLVideoElement>(null);
+  const nextReleaseIdRef = useRef(0);
+  const installBackgroundVideoTextureRef = useRef<(
+    video: HTMLVideoElement,
+    releasedVideo: ReleasedVideo,
+  ) => void>(() => undefined);
   const previewVideosRef = useRef(new Set<HTMLVideoElement>());
-  const expandedRef = useRef<ExpandedVideo | null>(null);
-  const [expanded, setExpanded] = useState<ExpandedVideo | null>(null);
+  const [releasedVideos, setReleasedVideos] = useState<ReleasedVideo[]>([]);
 
-  const closeExpanded = () => {
-    expandedRef.current = null;
-    setExpanded(null);
+  const markReleasedVideoReady = (releasedVideo: ReleasedVideo, video: HTMLVideoElement) => {
+    if (video.dataset.releaseRevealScheduled) return;
+    video.dataset.releaseRevealScheduled = 'true';
+    const reveal = () => {
+      installBackgroundVideoTextureRef.current(video, releasedVideo);
+      setReleasedVideos((current) => current.map((item) => (
+        item.id === releasedVideo.id ? { ...item, ready: true } : item
+      )));
+    };
+    const frameVideo = video as HTMLVideoElement & {
+      requestVideoFrameCallback?: (callback: () => void) => number;
+    };
+    if (frameVideo.requestVideoFrameCallback) {
+      frameVideo.requestVideoFrameCallback(reveal);
+    } else {
+      window.requestAnimationFrame(reveal);
+    }
   };
 
-  useEffect(() => {
-    for (const video of previewVideosRef.current) {
-      if (expanded) video.pause();
-      else void video.play().catch(() => undefined);
-    }
-    if (expanded) void fullscreenVideoRef.current?.play().catch(() => undefined);
-  }, [expanded]);
-
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') closeExpanded();
-    };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, []);
+  const finishReleasedVideoTransition = (id: number) => {
+    setReleasedVideos((current) => current.filter((item) => item.id >= id));
+  };
 
   useEffect(() => {
     const webglCanvas = webglRef.current;
@@ -143,6 +159,12 @@ export default function BubblePrototype() {
     const whiteTexture = new THREE.DataTexture(new Uint8Array([255, 255, 255, 255]), 1, 1);
     whiteTexture.colorSpace = THREE.SRGBColorSpace;
     whiteTexture.needsUpdate = true;
+    const tileTexture = new THREE.TextureLoader().load('/textures/3px-tile.png');
+    tileTexture.wrapS = THREE.RepeatWrapping;
+    tileTexture.wrapT = THREE.RepeatWrapping;
+    tileTexture.minFilter = THREE.LinearFilter;
+    tileTexture.magFilter = THREE.LinearFilter;
+    tileTexture.generateMipmaps = false;
     const pointer = { x: 0, y: 0, present: false };
     let width = 1;
     let height = 1;
@@ -153,7 +175,93 @@ export default function BubblePrototype() {
     let previousTime = performance.now();
     let fpsWindowStart = previousTime;
     let fpsFrames = 0;
+    let backgroundVideoTexture: THREE.VideoTexture | null = null;
+    let activeBackgroundTexture: THREE.VideoTexture | null = null;
+    let pendingBackgroundTexture: THREE.VideoTexture | null = null;
+    let backgroundTransitionStart = 0;
+    const inverseResolution = new THREE.Vector2(1, 1);
+    const viewportSize = new THREE.Vector2(1, 1);
+    const tileUvScale = new THREE.Vector2(0.01, 0.01);
+    const backgroundUvTransform = new THREE.Vector4(1, 1, 0, 0);
+    const activeBackgroundUvTransform = new THREE.Vector4(1, 1, 0, 0);
+    const pendingBackgroundUvTransform = new THREE.Vector4(1, 1, 0, 0);
+    const lightPosition = new THREE.Vector3(-180, 220, -120);
+    const sphereDistance = 600;
+    const backgroundPlaneZ = -1400;
+    let focalLength = 1;
     const availableVideoIndices = BUBBLE_VIDEO_PREVIEWS.map((_, index) => index);
+
+    const updateBackgroundUvTransform = (
+      target: THREE.Vector4,
+      video: HTMLVideoElement | null,
+    ) => {
+      if (!video?.videoWidth || !video.videoHeight) {
+        target.set(1, 1, 0, 0);
+        return;
+      }
+      const viewportAspect = width / height;
+      const videoAspect = video.videoWidth / video.videoHeight;
+      const scaleX = viewportAspect < videoAspect ? viewportAspect / videoAspect : 1;
+      const scaleY = viewportAspect > videoAspect ? videoAspect / viewportAspect : 1;
+      target.set(scaleX, scaleY, (1 - scaleX) * 0.5, (1 - scaleY) * 0.5);
+    };
+
+    const backgroundGeometry = new THREE.PlaneGeometry(1, 1);
+    const backgroundMaterial = new THREE.ShaderMaterial({
+      vertexShader: BACKGROUND_VERTEX_SHADER,
+      fragmentShader: BACKGROUND_FRAGMENT_SHADER,
+      uniforms: {
+        uCurrentBackground: { value: whiteTexture },
+        uNextBackground: { value: whiteTexture },
+        uTile: { value: tileTexture },
+        uHasCurrentBackground: { value: 0 },
+        uHasNextBackground: { value: 0 },
+        uCurrentBackgroundUvTransform: { value: activeBackgroundUvTransform },
+        uNextBackgroundUvTransform: { value: pendingBackgroundUvTransform },
+        uViewportSize: { value: viewportSize },
+        uTileUvScale: { value: tileUvScale },
+        uRevealOrigin: { value: new THREE.Vector2(0, 0) },
+        uRevealRadius: { value: 1 },
+        uRevealProgress: { value: 0 },
+      },
+      depthTest: false,
+      depthWrite: false,
+    });
+    const backgroundMesh = new THREE.Mesh(backgroundGeometry, backgroundMaterial);
+    backgroundMesh.position.z = -20;
+    backgroundMesh.renderOrder = -100;
+    scene.add(backgroundMesh);
+
+    installBackgroundVideoTextureRef.current = (video, releasedVideo) => {
+      if (backgroundVideoTexture?.image === video) return;
+      const nextTexture = new THREE.VideoTexture(video);
+      nextTexture.colorSpace = THREE.SRGBColorSpace;
+      nextTexture.wrapS = THREE.ClampToEdgeWrapping;
+      nextTexture.wrapT = THREE.ClampToEdgeWrapping;
+      nextTexture.minFilter = THREE.LinearFilter;
+      nextTexture.magFilter = THREE.LinearFilter;
+      nextTexture.generateMipmaps = false;
+      updateBackgroundUvTransform(backgroundUvTransform, video);
+      updateBackgroundUvTransform(pendingBackgroundUvTransform, video);
+      for (const target of bubbles) {
+        target.material.uniforms.uBackground.value = nextTexture;
+        target.material.uniforms.uHasBackground.value = 1;
+      }
+      if (pendingBackgroundTexture && pendingBackgroundTexture !== activeBackgroundTexture) {
+        pendingBackgroundTexture.dispose();
+      }
+      pendingBackgroundTexture = nextTexture;
+      backgroundVideoTexture = nextTexture;
+      backgroundMaterial.uniforms.uNextBackground.value = nextTexture;
+      backgroundMaterial.uniforms.uHasNextBackground.value = 1;
+      backgroundMaterial.uniforms.uRevealOrigin.value.set(
+        releasedVideo.originX * dpr,
+        (height - releasedVideo.originY) * dpr,
+      );
+      backgroundMaterial.uniforms.uRevealRadius.value = releasedVideo.radius * dpr;
+      backgroundMaterial.uniforms.uRevealProgress.value = 0;
+      backgroundTransitionStart = performance.now();
+    };
 
     const createSurface = (body: SoftBlob) => {
       const renderPositions = new Float32Array(body.positions.length);
@@ -171,16 +279,29 @@ export default function BubblePrototype() {
         fragmentShader: BUBBLE_FRAGMENT_SHADER,
         uniforms: {
           uAlbedo: { value: whiteTexture },
-          uLightPosition: { value: new THREE.Vector3(-180, 220, 340) },
+          uLightPosition: { value: lightPosition },
           uViewPosition: { value: new THREE.Vector3(0, 0, 0) },
           uWireframeMode: { value: 0 },
           uOpacity: { value: 0.0 },
           uTime: { value: 0 },
           uColorPhase: { value: Math.random() },
+          uBackground: { value: backgroundVideoTexture ?? whiteTexture },
+          uHasBackground: { value: backgroundVideoTexture ? 1 : 0 },
+          uTile: { value: tileTexture },
+          uTileUvScale: { value: tileUvScale },
+          uInvResolution: { value: inverseResolution },
+          uViewportSize: { value: viewportSize },
+          uFocalLength: { value: focalLength },
+          uSphereCenterView: { value: new THREE.Vector3(0, 0, -sphereDistance) },
+          uSphereRadiusView: { value: 1 },
+          uBackgroundPlaneZ: { value: backgroundPlaneZ },
+          uBackgroundUvTransform: { value: backgroundUvTransform },
         },
         transparent: true,
         depthWrite: false,
-        side: THREE.DoubleSide,
+        // syncBodyGeometry flips Y, so the camera-facing winding is the
+        // geometry's back side. Cull the hidden half while keeping one pass.
+        side: THREE.BackSide,
       });
       const mesh = new THREE.Mesh(geometry, material);
       scene.add(mesh);
@@ -247,7 +368,7 @@ export default function BubblePrototype() {
       target.albedoTexture = texture;
       target.material.uniforms.uAlbedo.value = texture;
       previewVideosRef.current.add(video);
-      void video.play().catch(() => undefined);
+      video.load();
     };
 
     const resize = () => {
@@ -260,6 +381,30 @@ export default function BubblePrototype() {
       effectsCanvas.width = Math.round(width * dpr);
       effectsCanvas.height = Math.round(height * dpr);
       effects.setTransform(dpr, 0, 0, dpr, 0, 0);
+      lightPosition.set(-width * 0.58, height * 0.64, -120);
+      inverseResolution.set(1 / (width * dpr), 1 / (height * dpr));
+      viewportSize.set(width * dpr, height * dpr);
+      tileUvScale.set(
+        1 / (BACKGROUND_GRAIN_TILE_SIZE * dpr),
+        1 / (BACKGROUND_GRAIN_TILE_SIZE * dpr),
+      );
+      focalLength = height * dpr / (2 * Math.tan(THREE.MathUtils.degToRad(42) * 0.5));
+      updateBackgroundUvTransform(
+        backgroundUvTransform,
+        backgroundVideoTexture?.image as HTMLVideoElement | null,
+      );
+      updateBackgroundUvTransform(
+        activeBackgroundUvTransform,
+        activeBackgroundTexture?.image as HTMLVideoElement | null,
+      );
+      updateBackgroundUvTransform(
+        pendingBackgroundUvTransform,
+        pendingBackgroundTexture?.image as HTMLVideoElement | null,
+      );
+      backgroundMesh.scale.set(width, height, 1);
+      for (const target of bubbles) {
+        target.material.uniforms.uFocalLength.value = focalLength;
+      }
       camera.left = -width * 0.5;
       camera.right = width * 0.5;
       camera.top = height * 0.5;
@@ -300,9 +445,12 @@ export default function BubblePrototype() {
         body,
         videoIndex,
         previewVideo: null,
+        hoverAmount: 0,
+        videoPlaying: false,
         ...createSurface(body),
       };
       bubbles.push(target);
+      target.material.uniforms.uFocalLength.value = focalLength;
       syncBodyGeometry(target);
       attachVideoAlbedo(target);
     };
@@ -321,10 +469,24 @@ export default function BubblePrototype() {
           size: 0.7 + Math.random() * 2.2,
           age: 0,
           life: 0.42 + Math.random() * 0.62,
-          color: FALLBACK_PALETTE[Math.floor(Math.random() * FALLBACK_PALETTE.length)],
+          color: POP_PALETTE[Math.floor(Math.random() * POP_PALETTE.length)],
         });
       }
       removeBubble(target);
+    };
+
+    const releaseVideo = (target: Bubble) => {
+      nextReleaseIdRef.current += 1;
+      const nextReleasedVideo: ReleasedVideo = {
+        id: nextReleaseIdRef.current,
+        src: FULL_RESOLUTION_VIDEOS[target.videoIndex],
+        currentTime: target.previewVideo?.currentTime ?? 0,
+        originX: target.x,
+        originY: target.y,
+        radius: target.radius,
+        ready: false,
+      };
+      setReleasedVideos((current) => [...current, nextReleasedVideo]);
     };
 
     const pointerPosition = (event: PointerEvent) => {
@@ -351,19 +513,8 @@ export default function BubblePrototype() {
         Math.hypot(position.x - candidate.x, position.y - candidate.y) <= candidate.radius
       ));
       if (hit) {
-        if (event.altKey) {
-          pop(hit);
-          return;
-        }
-        const bounds = effectsCanvas.getBoundingClientRect();
-        const nextExpanded = {
-          index: hit.videoIndex,
-          originX: bounds.left + hit.x,
-          originY: bounds.top + hit.y,
-          radius: hit.radius,
-        };
-        expandedRef.current = nextExpanded;
-        setExpanded(nextExpanded);
+        releaseVideo(hit);
+        pop(hit);
         return;
       }
       pointer.present = event.pointerType === 'mouse';
@@ -431,14 +582,14 @@ export default function BubblePrototype() {
       body.active = true;
     };
 
-    const applyMouseImpact = (target: Bubble, delta: number) => {
+    const applyMouseImpact = (target: Bubble, delta: number, motionScale: number) => {
       if (pointer.present) {
         const awayX = target.x - pointer.x;
         const awayY = target.y - pointer.y;
         const distance = Math.hypot(awayX, awayY) || 1;
         const impactRadius = target.radius * 2.8;
         const proximity = clamp(1 - distance / impactRadius, 0, 1);
-        const force = proximity * proximity * target.radius * 8.5;
+        const force = proximity * proximity * target.radius * 8.5 * motionScale;
         target.impactVelocityX += (awayX / distance) * force * delta;
         target.impactVelocityY += (awayY / distance) * force * delta;
       }
@@ -446,9 +597,9 @@ export default function BubblePrototype() {
       const damping = Math.pow(0.1, delta);
       target.impactVelocityX *= damping;
       target.impactVelocityY *= damping;
-      const shiftX = target.impactVelocityX * delta;
+      const shiftX = target.impactVelocityX * delta * motionScale;
       target.x += shiftX;
-      target.y += target.impactVelocityY * delta;
+      target.y += target.impactVelocityY * delta * motionScale;
       // Preserve some lateral displacement so an interaction changes the
       // subsequent noise path instead of snapping back to the launch column.
       target.baseX = clamp(
@@ -521,23 +672,47 @@ export default function BubblePrototype() {
 
     const updateBubble = (target: Bubble, delta: number) => {
       target.age += delta;
+      const pointerDistance = Math.hypot(pointer.x - target.x, pointer.y - target.y);
+      const hovered = pointer.present && pointerDistance <= target.radius;
+      target.hoverAmount += ((hovered ? 1 : 0) - target.hoverAmount) * Math.min(1, delta * 4.5);
+      const motionScale = 1 - target.hoverAmount;
+
+      if (hovered && !target.videoPlaying) {
+        target.videoPlaying = true;
+        void target.previewVideo?.play().catch(() => {
+          target.videoPlaying = false;
+        });
+      } else if (!hovered && target.videoPlaying) {
+        target.videoPlaying = false;
+        target.previewVideo?.pause();
+      }
+
       const wobble = reducedMotion ? 0 : 1;
       const driftTarget = layeredNoise(target.age * 0.42, target.seed) * target.radius * 0.16 * wobble;
       target.driftVelocity += (driftTarget - target.driftVelocity) * Math.min(1, delta * 2.4);
-      target.x += target.driftVelocity * delta;
-      target.x += (target.baseX - target.x) * Math.min(1, delta * 0.22);
+      target.x += target.driftVelocity * delta * motionScale;
+      target.x += (target.baseX - target.x) * Math.min(1, delta * 0.22) * motionScale;
       const launchProgress = clamp(target.age / 0.5, 0, 1);
       const launchEase = launchProgress * launchProgress * (3 - 2 * launchProgress);
       const verticalSpeed = target.launchSpeed + (target.riseSpeed - target.launchSpeed) * launchEase;
-      target.y -= verticalSpeed * delta;
-      target.y += layeredNoise(target.age * 0.8 + 30, target.seed) * target.radius * 0.035 * wobble * delta;
+      target.y -= verticalSpeed * delta * motionScale;
+      target.y += layeredNoise(target.age * 0.8 + 30, target.seed) * target.radius * 0.035 * wobble * delta * motionScale;
 
-      applyMouseImpact(target, delta);
-      const pointerDistance = Math.hypot(pointer.x - target.x, pointer.y - target.y);
-      pullVertices(target, pointerDistance);
+      applyMouseImpact(target, delta, motionScale);
+      pullVertices(target, Math.hypot(pointer.x - target.x, pointer.y - target.y));
       target.body.step(false, 0, 0, layeredNoise(target.age * 0.65, target.seed + 21) * 1.4 * wobble);
       syncBodyGeometry(target);
       target.material.uniforms.uTime.value = target.age;
+      const centerX = target.x * dpr;
+      const centerY = (height - target.y) * dpr;
+      const projectedRadius = target.radius * dpr;
+      target.material.uniforms.uSphereCenterView.value.set(
+        (centerX - viewportSize.x * 0.5) * sphereDistance / focalLength,
+        (centerY - viewportSize.y * 0.5) * sphereDistance / focalLength,
+        -sphereDistance,
+      );
+      target.material.uniforms.uSphereRadiusView.value = projectedRadius * sphereDistance
+        / Math.sqrt(focalLength * focalLength + projectedRadius * projectedRadius);
 
       const scale = target.radius / SOFT_RADIUS;
       target.mesh.position.set(target.x - width * 0.5, height * 0.5 - target.y, 0);
@@ -574,6 +749,23 @@ export default function BubblePrototype() {
     const animate = (time: number) => {
       const delta = Math.min(0.033, Math.max(0.001, (time - previousTime) / 1000));
       previousTime = time;
+      if (pendingBackgroundTexture && backgroundTransitionStart > 0) {
+        const revealProgress = clamp((time - backgroundTransitionStart) / 1500, 0, 1);
+        backgroundMaterial.uniforms.uRevealProgress.value = revealProgress;
+        if (revealProgress >= 1) {
+          if (activeBackgroundTexture && activeBackgroundTexture !== pendingBackgroundTexture) {
+            activeBackgroundTexture.dispose();
+          }
+          activeBackgroundTexture = pendingBackgroundTexture;
+          pendingBackgroundTexture = null;
+          activeBackgroundUvTransform.copy(pendingBackgroundUvTransform);
+          backgroundMaterial.uniforms.uCurrentBackground.value = activeBackgroundTexture;
+          backgroundMaterial.uniforms.uHasCurrentBackground.value = 1;
+          backgroundMaterial.uniforms.uHasNextBackground.value = 0;
+          backgroundMaterial.uniforms.uRevealProgress.value = 0;
+          backgroundTransitionStart = 0;
+        }
+      }
       applyBubbleCollisions(delta);
       for (const activeBubble of [...bubbles]) updateBubble(activeBubble, delta);
       drawPixels(delta);
@@ -599,7 +791,7 @@ export default function BubblePrototype() {
     resize();
     const initialSpawnTimers = [0, 1, 2, 3].map((index) => window.setTimeout(
       () => spawn(width * (0.18 + index * 0.21)),
-      180 + index * 220,
+      280 + index * 560,
     ));
     frame = requestAnimationFrame(animate);
 
@@ -618,6 +810,16 @@ export default function BubblePrototype() {
         target.geometry.dispose();
       }
       bubbles = [];
+      installBackgroundVideoTextureRef.current = () => undefined;
+      const backgroundTextures = new Set([
+        backgroundVideoTexture,
+        activeBackgroundTexture,
+        pendingBackgroundTexture,
+      ]);
+      for (const texture of backgroundTextures) texture?.dispose();
+      backgroundMaterial.dispose();
+      backgroundGeometry.dispose();
+      tileTexture.dispose();
       whiteTexture.dispose();
       renderer.dispose();
     };
@@ -625,107 +827,59 @@ export default function BubblePrototype() {
 
   return (
     <div className="absolute inset-0 z-[2]">
-      <canvas ref={webglRef} className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" />
+      {releasedVideos.map((releasedVideo) => (
+        <div
+          key={releasedVideo.id}
+          className={`released-video-layer${releasedVideo.ready ? ' is-ready' : ''}`}
+          style={{
+            '--release-x': `${releasedVideo.originX}px`,
+            '--release-y': `${releasedVideo.originY}px`,
+            '--release-radius': `${releasedVideo.radius}px`,
+          } as CSSProperties}
+          aria-hidden="true"
+          onAnimationEnd={() => finishReleasedVideoTransition(releasedVideo.id)}
+        >
+          <video
+            src={releasedVideo.src}
+            className="released-video"
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+            onLoadedMetadata={(event) => {
+              const video = event.currentTarget;
+              const latestTime = Math.max(0, video.duration - 0.05);
+              const desiredTime = Math.min(releasedVideo.currentTime, latestTime);
+              if (Math.abs(video.currentTime - desiredTime) > 0.01) {
+                video.currentTime = desiredTime;
+              } else {
+                void video.play().catch(() => undefined);
+              }
+            }}
+            onSeeked={(event) => {
+              void event.currentTarget.play().catch(() => undefined);
+            }}
+            onPlaying={(event) => markReleasedVideoReady(releasedVideo, event.currentTarget)}
+            onError={() => {
+              setReleasedVideos((current) => current.filter((item) => item.id !== releasedVideo.id));
+            }}
+          />
+        </div>
+      ))}
+      <canvas ref={webglRef} className="pointer-events-none absolute inset-0 z-[2] h-full w-full" aria-hidden="true" />
       <canvas
         ref={effectsRef}
-        className="absolute inset-0 h-full w-full touch-none"
-        aria-label="Click the field to release a video bubble; click a bubble to expand its video"
+        className="absolute inset-0 z-[3] h-full w-full cursor-crosshair touch-none"
+        aria-label="Click the field to release a video bubble; hover a bubble to play it and click it to burst"
       />
       <output
         ref={fpsRef}
-        className="pointer-events-none absolute bottom-5 left-5 rounded-full bg-white/55 px-2.5 py-1 font-mono text-[11px] text-[#0a103d]/70 backdrop-blur-sm"
+        className="pointer-events-none absolute top-2 right-2 md:top-5 md:right-5 z-[5] font-mono text-[7px] md:text-[10px] font-normal tracking-[-0.01em] text-white mix-blend-difference"
       >
-        0 fps · 0.0 ms · 0 blobs · 16 queued · 0 vertices · 0 draws
+        0 fps · 0.0 ms · 0 blobs · 0 verts · 0 draws
       </output>
 
-      {expanded ? createPortal((
-        <div
-          className="bubble-fullscreen"
-          style={{
-            '--bubble-origin-x': `${expanded.originX}px`,
-            '--bubble-origin-y': `${expanded.originY}px`,
-            '--bubble-origin-radius': `${expanded.radius}px`,
-          } as CSSProperties}
-          onClick={closeExpanded}
-        >
-          <video
-            ref={fullscreenVideoRef}
-            key={FULL_VIDEOS[expanded.index]}
-            src={FULL_VIDEOS[expanded.index]}
-            className="bubble-fullscreen__video"
-            autoPlay
-            playsInline
-            controls
-            onClick={(event) => event.stopPropagation()}
-          />
-          <button
-            type="button"
-            className="bubble-fullscreen__close"
-            onClick={closeExpanded}
-            aria-label="Close video"
-          >
-            ×
-          </button>
-        </div>
-      ), document.body) : null}
-
-      <style jsx>{`
-        .bubble-fullscreen {
-          position: fixed;
-          z-index: 90;
-          inset: 0;
-          display: grid;
-          place-items: center;
-          padding: clamp(0.75rem, 3vw, 2rem);
-          background: rgb(8, 9, 14);
-          clip-path: circle(var(--bubble-origin-radius) at var(--bubble-origin-x) var(--bubble-origin-y));
-          animation: bubble-expand 720ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .bubble-fullscreen__video {
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-          opacity: 0;
-          animation: video-reveal 480ms ease 180ms forwards;
-        }
-
-        .bubble-fullscreen__close {
-          position: absolute;
-          z-index: 2;
-          top: 1.25rem;
-          right: 1.25rem;
-          display: grid;
-          width: 2.25rem;
-          height: 2.25rem;
-          place-items: center;
-          border: 1px solid rgba(255, 255, 255, 0.35);
-          border-radius: 999px;
-          background: rgba(255, 255, 255, 0.12);
-          color: white;
-          cursor: pointer;
-          font: inherit;
-          font-size: 1.35rem;
-          line-height: 1;
-          backdrop-filter: blur(10px);
-        }
-
-        @keyframes bubble-expand {
-          to { clip-path: circle(150vmax at var(--bubble-origin-x) var(--bubble-origin-y)); }
-        }
-
-        @keyframes video-reveal {
-          to { opacity: 1; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .bubble-fullscreen,
-          .bubble-fullscreen__video {
-            animation-duration: 1ms;
-            animation-delay: 0ms;
-          }
-        }
-      `}</style>
     </div>
   );
 }
