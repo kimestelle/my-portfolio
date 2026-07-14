@@ -1,21 +1,61 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import Image from 'next/image';
 import { LAB_BY_TECH, type LabItem } from './labData';
 import BubblePrototype from './BubblePrototype';
 import MagnifierImage from './MagnifierImage';
 
+function wallpaperNoise(value: number, seed: number) {
+  const hash = (cell: number) => {
+    const wave = Math.sin((cell + seed * 31.17) * 127.1) * 43758.5453;
+    return wave - Math.floor(wave);
+  };
+  const cell = Math.floor(value);
+  const fraction = value - cell;
+  const eased = fraction * fraction * (3 - 2 * fraction);
+  return (hash(cell) + (hash(cell + 1) - hash(cell)) * eased) * 2 - 1;
+}
+
 function BrewingBubbles() {
+  const wallpaperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const wallpaper = wallpaperRef.current;
+    if (!wallpaper || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let frame = 0;
+    let lastPaint = 0;
+    const startedAt = performance.now();
+
+    const moveWallpaper = (now: number) => {
+      if (now - lastPaint >= 32) {
+        const time = (now - startedAt) * 0.000075;
+        wallpaper.style.setProperty('--hill-a-x', `${wallpaperNoise(time, 1) * 2.8}%`);
+        wallpaper.style.setProperty('--hill-a-y', `${wallpaperNoise(time * 0.83, 2) * 1.7}%`);
+        wallpaper.style.setProperty('--hill-b-x', `${wallpaperNoise(time * 0.91, 7) * 3.2}%`);
+        wallpaper.style.setProperty('--hill-b-y', `${wallpaperNoise(time * 0.72, 9) * 1.5}%`);
+        wallpaper.style.setProperty('--hill-c-x', `${wallpaperNoise(time * 1.07, 13) * 2.2}%`);
+        wallpaper.style.setProperty('--paper-x', `${wallpaperNoise(time * 1.24, 18) * 5}px`);
+        wallpaper.style.setProperty('--paper-y', `${wallpaperNoise(time * 0.96, 21) * 4}px`);
+        lastPaint = now;
+      }
+      frame = requestAnimationFrame(moveWallpaper);
+    };
+
+    frame = requestAnimationFrame(moveWallpaper);
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
   return (
     <div
-      className="relative h-[48svh] max-h-[50svh] overflow-hidden rounded-xl border border-black/12 bg-[#b9dce8] md:h-auto md:max-h-[80svh] md:aspect-[16/9]"
+      ref={wallpaperRef}
+      className="relative h-[48svh] max-h-[50svh] overflow-hidden rounded-xl border border-black/12 bg-[#c4d8dd] md:h-auto md:max-h-[80svh] md:aspect-[16/9]"
       style={{
         backgroundImage: [
-          'radial-gradient(ellipse 64% 48% at 14% 108%, #6fa477 0%, #5d936d 62%, transparent 63%)',
-          'radial-gradient(ellipse 74% 52% at 82% 112%, #4f8a68 0%, #39765c 61%, transparent 62%)',
-          'radial-gradient(ellipse 58% 34% at 48% 104%, #82ad79 0%, #6c9c70 62%, transparent 63%)',
-          'linear-gradient(180deg, #8dc8df 0%, #c4e1e8 52%, #d8e8d5 72%, #a9c79f 100%)',
+          'radial-gradient(ellipse 66% 50% at calc(14% + var(--hill-a-x)) calc(108% + var(--hill-a-y)), #86a389 0%, #78977e 61%, transparent 64%)',
+          'radial-gradient(ellipse 76% 54% at calc(82% + var(--hill-b-x)) calc(112% + var(--hill-b-y)), #698d78 0%, #5e826f 60%, transparent 63%)',
+          'radial-gradient(ellipse 60% 36% at calc(48% + var(--hill-c-x)) 104%, #94aa88 0%, #849e80 61%, transparent 64%)',
+          'linear-gradient(180deg, #a8cbd6 0%, #ccdee0 52%, #d8e2d7 74%, #b7c9af 100%)',
         ].join(', '),
         boxShadow: [
           'inset 0 1px 0 rgba(255,255,255,.5)',
@@ -25,13 +65,20 @@ function BrewingBubbles() {
           'inset -14px 0 34px rgba(20,18,24,.055)',
           'inset 0 0 62px rgba(20,18,24,.07)',
         ].join(', '),
-      }}
+        '--hill-a-x': '0%',
+        '--hill-a-y': '0%',
+        '--hill-b-x': '0%',
+        '--hill-b-y': '0%',
+        '--hill-c-x': '0%',
+        '--paper-x': '0px',
+        '--paper-y': '0px',
+      } as CSSProperties}
     >
       <div
-        className="pointer-events-none absolute inset-0 z-[1] opacity-[0.24] mix-blend-multiply"
+        className="pointer-events-none absolute inset-0 z-[1] opacity-[0.14] mix-blend-multiply"
         style={{
           backgroundImage: "url('/textures/sandpaper.png')",
-          backgroundPosition: '0 0',
+          backgroundPosition: 'var(--paper-x) var(--paper-y)',
           backgroundRepeat: 'repeat',
           backgroundSize: '60px 60px',
         }}
