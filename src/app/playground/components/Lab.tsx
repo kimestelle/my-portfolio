@@ -44,16 +44,16 @@ function BrewingBubbles() {
   return (
     <div
       ref={wallpaperRef}
-      className="relative h-[48svh] max-h-[50svh] overflow-hidden rounded-xl border border-black/12 bg-white md:h-auto md:max-h-[80svh] md:aspect-[16/9]"
+      className="relative h-[48svh] max-h-[50svh] overflow-hidden rounded-xl border border-[#70513d]/15 bg-[#fbf6ef] md:h-auto md:max-h-[80svh] md:aspect-[16/9]"
       style={{
-        backgroundImage: 'linear-gradient(#fff, #fff)',
+        backgroundImage: 'linear-gradient(145deg, #fffaf4 0%, #f7f0e8 100%)',
         boxShadow: [
-          'inset 0 1px 0 rgba(255,255,255,.5)',
-          'inset 0 14px 30px rgba(20,18,24,.09)',
-          'inset 0 -12px 28px rgba(20,18,24,.06)',
-          'inset 14px 0 34px rgba(20,18,24,.055)',
-          'inset -14px 0 34px rgba(20,18,24,.055)',
-          'inset 0 0 62px rgba(20,18,24,.07)',
+          'inset 0 1px 0 rgba(255,255,255,.68)',
+          'inset 0 14px 30px rgba(92,61,42,.09)',
+          'inset 0 -12px 28px rgba(92,61,42,.06)',
+          'inset 14px 0 34px rgba(92,61,42,.055)',
+          'inset -14px 0 34px rgba(92,61,42,.055)',
+          'inset 0 0 62px rgba(92,61,42,.07)',
         ].join(', '),
         '--tile-x': '0px',
         '--tile-y': '0px',
@@ -72,7 +72,7 @@ function BrewingBubbles() {
       <div
         className="pointer-events-none absolute inset-0 z-[3] rounded-[inherit]"
         style={{
-          boxShadow: 'inset 0 0 28px rgba(20,18,24,.12), inset 0 0 2px 1px rgba(20,18,24,.16)',
+          boxShadow: 'inset 0 0 28px rgba(84,53,35,.11), inset 0 0 2px 1px rgba(84,53,35,.15)',
         }}
         aria-hidden="true"
       />
