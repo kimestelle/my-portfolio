@@ -7,6 +7,8 @@ import { starConwayPattern, updateStarConwayDirty, Dirty } from './starConway';
 type MoodRingProps = {
   enabled?: boolean;
   onFps?: (fps: number) => void;
+  playgroundTransition?: 'idle' | 'out' | 'reveal';
+  onTransitionCovered?: () => void;
 };
 
 type HeatSpot = {
@@ -17,10 +19,12 @@ type HeatSpot = {
 const TARGET_FPS = 60;
 const FRAME_MS = 1000 / TARGET_FPS;
 
-export default function MoodRingBackground({ enabled = true, onFps }: MoodRingProps) {
+export default function MoodRingBackground({ enabled = true, onFps, playgroundTransition = 'idle', onTransitionCovered }: MoodRingProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const backgroundRef = useRef<HTMLCanvasElement>(null);
   const viewportRef = useRef({ w: 0, h: 0 });
+  const enabledRef = useRef(enabled);
+  enabledRef.current = enabled;
 
 
   const heatSpots = useRef<HeatSpot[]>([]);
@@ -33,6 +37,12 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
   const runningRef = useRef(false);
   const startRef = useRef<null | (() => void)>(null);
   const stopRef = useRef<null | (() => void)>(null);
+  const beginTransitionRef = useRef<null | (() => void)>(null);
+  const transitionCoveredRef = useRef(onTransitionCovered);
+
+  useEffect(() => {
+    transitionCoveredRef.current = onTransitionCovered;
+  }, [onTransitionCovered]);
 
   useEffect(() => {
     const v = window.visualViewport;
@@ -124,6 +134,7 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
       uResolution: { value: new THREE.Vector2() },
       uSpots: { value: spotsArray },
       uSpotCount: { value: 0 },
+      uTransition: { value: 0 },
     };
 
     const material = new THREE.ShaderMaterial({
@@ -143,22 +154,11 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
         uniform vec2 uResolution;
         uniform vec3 uSpots[50];
         uniform int uSpotCount;
+        uniform float uTransition;
 
         float pxToUv(float px) {
           // normalizing scale for different screen sizes and DPR
           return px / min(uResolution.x, uResolution.y);
-        }
-
-        float heatFalloff(vec2 uv, vec2 center, float age) {
-          float radius = pxToUv(14.0) + age * pxToUv(60.0);
-
-          float dist = distance(uv, center);
-          float d = dist / radius;
-
-          float softness = smoothstep(1.0, 0.0, d);
-          float peak = clamp(age, 0.0, 1.0);
-          float decay = peak * exp(-age * 0.6) * 0.6;
-          return softness * decay;
         }
 
         vec3 moodPalette(float t) {
@@ -183,10 +183,23 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
           vec2 acUv = vec2(vUv.x, (vUv.y - 0.5) * (uResolution.y / uResolution.x) + 0.5);
 
           float heat = 0.0;
+          float transitionField = 0.0;
+          float acceleratedGrowth = pow(uTransition, 2.35) * 2.15;
+          float lateWeight = smoothstep(0.62, 1.0, uTransition);
           for (int i = 0; i < 50; i++) {
             if (i >= uSpotCount) break;
             vec3 spot = uSpots[i];
-            heat += heatFalloff(acUv, spot.xy, uTime - spot.z);
+            float age = max(0.0, uTime - spot.z);
+            float originalRadius = pxToUv(14.0) + age * pxToUv(60.0);
+            float dist = distance(acUv, spot.xy);
+            float peak = clamp(age, 0.0, 1.0);
+            float decay = peak * exp(-age * 0.6) * 0.6;
+
+            /* Both views come from the same weighted metaball. Young trail
+               samples therefore cannot appear as independent white dots. */
+            heat += smoothstep(1.0, 0.0, dist / originalRadius) * decay;
+            float transitionWeight = mix(decay, max(decay, 0.28), lateWeight);
+            transitionField += smoothstep(1.0, 0.0, dist / (originalRadius + acceleratedGrowth)) * transitionWeight;
           }
 
           heat = clamp(heat, 0.0, 1.0);
@@ -197,7 +210,11 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
 
           float t = smoothstep(0.0, 1.0, heat);
           float a = 1.0 - pow(t, 2.5);
-          gl_FragColor = vec4(color, a);
+
+          float coverage = uSpotCount == 0
+            ? smoothstep(0.0, 1.0, uTransition)
+            : smoothstep(0.02, 0.28, transitionField) * smoothstep(0.0, 0.18, uTransition);
+          gl_FragColor = vec4(mix(color, vec3(1.0), coverage), mix(a, 1.0, coverage));
         }
       `,
       transparent: true,
@@ -236,10 +253,10 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
       if (heatSpots.current.length > maxSpots) heatSpots.current.shift();
     };
 
-    const onPointerMove = (e: PointerEvent) => enabled && handleTouch(e.clientX, e.clientY);
-    const onPointerDown = (e: PointerEvent) => enabled && handleTouch(e.clientX, e.clientY);
+    const onPointerMove = (e: PointerEvent) => enabledRef.current && handleTouch(e.clientX, e.clientY);
+    const onPointerDown = (e: PointerEvent) => enabledRef.current && handleTouch(e.clientX, e.clientY);
     const onTouchStart = (e: TouchEvent) => {
-      if (!enabled) return;
+      if (!enabledRef.current) return;
       for (let i = 0; i < e.touches.length; i++) {
         const touch = e.touches[i];
         handleTouch(touch.clientX, touch.clientY);
@@ -275,6 +292,18 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
     let lastNow = 0;
     let conwayAcc = 0;
     const CONWAY_STEP = 0.12;
+    let transitionActive = false;
+    let transitionStart = 0;
+    let frozenShaderTime = 0;
+    let coveredSent = false;
+    let killOrder: Array<{ x: number; y: number; noise: number }> = [];
+    let killedCount = 0;
+
+    const noise2d = (x: number, y: number) => {
+      const broad = Math.sin(x * 0.071 + Math.sin(y * 0.053) * 2.4) * 0.5 + 0.5;
+      const grain = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+      return broad * 0.68 + (grain - Math.floor(grain)) * 0.32;
+    };
 
     const animate = (t: number) => {
       if (!runningRef.current) return;
@@ -296,19 +325,21 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
 
       const now = (t - startTime) * 0.001;
       elapsedTimeRef.current = now;
-      uniforms.uTime.value = now;
+      uniforms.uTime.value = transitionActive ? frozenShaderTime : now;
 
       const dt = lastNow === 0 ? 0 : (now - lastNow);
       lastNow = now;
       conwayAcc += dt;
 
       const src = heatSpots.current;
-      let k = 0;
-      for (let i = 0; i < src.length; i++) {
-        const s = src[i];
-        if (now - s.createdAt < 10) src[k++] = s;
+      if (!transitionActive) {
+        let k = 0;
+        for (let i = 0; i < src.length; i++) {
+          const s = src[i];
+          if (now - s.createdAt < 10) src[k++] = s;
+        }
+        src.length = k;
       }
-      src.length = k;
 
       uniforms.uSpotCount.value = src.length;
       for (let i = 0; i < maxSpots; i++) {
@@ -320,14 +351,43 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
         }
       }
 
-      const MAX_STEPS_PER_FRAME = 4;
-      let steps = 0;
-      while (conwayAcc >= CONWAY_STEP && steps < MAX_STEPS_PER_FRAME) {
-        conwayAcc -= CONWAY_STEP;
-        const res = updateStarConwayDirty(asciiStars.current);
-        asciiStars.current = res.grid;
-        drawDirty(res.dirty);
-        steps++;
+      if (transitionActive) {
+        const transitionElapsed = t - transitionStart;
+        const EXPAND_MS = 1120;
+        const CELL_FADE_MS = 360;
+        const progress = Math.min(1, transitionElapsed / EXPAND_MS);
+        uniforms.uTransition.value = progress;
+
+        // Hold the substrate still until the white material closes. Killing it
+        // through open pockets made the wipe read as flickering/spotty.
+        const killProgress = Math.max(0, Math.min(1, (transitionElapsed - EXPAND_MS) / CELL_FADE_MS));
+        const targetKilled = Math.floor(killOrder.length * killProgress);
+        if (targetKilled > killedCount) {
+          const dirty: Dirty[] = [];
+          for (let i = killedCount; i < targetKilled; i++) {
+            const cell = killOrder[i];
+            if (asciiStars.current[cell.y]?.[cell.x] !== ' ') {
+              asciiStars.current[cell.y][cell.x] = ' ';
+              dirty.push({ x: cell.x, y: cell.y, ch: ' ' });
+            }
+          }
+          drawDirty(dirty);
+          killedCount = targetKilled;
+        }
+        if (progress === 1 && killProgress === 1 && !coveredSent) {
+          coveredSent = true;
+          transitionCoveredRef.current?.();
+        }
+      } else {
+        const MAX_STEPS_PER_FRAME = 4;
+        let steps = 0;
+        while (conwayAcc >= CONWAY_STEP && steps < MAX_STEPS_PER_FRAME) {
+          conwayAcc -= CONWAY_STEP;
+          const res = updateStarConwayDirty(asciiStars.current);
+          asciiStars.current = res.grid;
+          drawDirty(res.dirty);
+          steps++;
+        }
       }
 
       renderer.render(scene, camera);
@@ -341,6 +401,9 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
 
     // start/stop handlers
     const start = () => {
+      // Layout effects can converge in the same commit after a route change;
+      // one simulation loop is enough regardless of how many request a start.
+      if (runningRef.current) return;
       heatSpots.current = [];
       clearSpotsArray();
 
@@ -351,6 +414,8 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
       startTime = 0;
       lastNow = 0;
       conwayAcc = 0;
+      transitionActive = false;
+      uniforms.uTransition.value = 0;
 
       // ensure grid exists + draw immediately
       if (cols > 0 && rows > 0) {
@@ -384,6 +449,29 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
 
     startRef.current = start;
     stopRef.current = stop;
+    beginTransitionRef.current = () => {
+      // The pathname changes one render before the reveal phase does. Treat a
+      // repeated request during that handoff as the same physical event.
+      if (transitionActive) return;
+      if (!runningRef.current) start();
+      transitionActive = true;
+      transitionStart = performance.now();
+      frozenShaderTime = elapsedTimeRef.current;
+      coveredSent = false;
+      killedCount = 0;
+      killOrder = [];
+      const grid = asciiStars.current;
+      // starConway keeps a larger simulation field, but only this viewport can
+      // be drawn. Sorting invisible cells caused a needless transition hitch.
+      const visibleRows = Math.min(rows, grid.length);
+      for (let y = 0; y < visibleRows; y++) {
+        const visibleCols = Math.min(cols, grid[y]?.length ?? 0);
+        for (let x = 0; x < visibleCols; x++) {
+          if (grid[y][x] !== ' ') killOrder.push({ x, y, noise: noise2d(x, y) });
+        }
+      }
+      killOrder.sort((a, b) => a.noise - b.noise);
+    };
 
     // initial start
     if (enabled) start();
@@ -400,33 +488,58 @@ export default function MoodRingBackground({ enabled = true, onFps }: MoodRingPr
       renderer.dispose();
       material.dispose();
       geometry.dispose();
+      beginTransitionRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // toggle run state
   useEffect(() => {
+    if (playgroundTransition === 'out') {
+      // The playground exit is now a short CSS fade. Avoid doing the old cell
+      // expansion/sort on click, which delayed the navbar and route change.
+      stopRef.current?.();
+      return;
+    }
     if (enabled) startRef.current?.();
-    else stopRef.current?.();
-  }, [enabled]);
+    else if (playgroundTransition === 'idle') stopRef.current?.();
+  }, [enabled, playgroundTransition]);
+
+  const transitionVisible = playgroundTransition === 'out' || playgroundTransition === 'reveal';
 
   return (
     <>
       <div className='bg-grid fixed top-0 left-0 w-full h-full z-[-2] pointer-events-none'/>
+      <div
+        className={`fixed inset-0 bg-white pointer-events-none ${transitionVisible ? 'z-[48]' : 'z-[-4]'}`}
+        style={{
+          opacity: playgroundTransition === 'out' ? 1 : 0,
+          transition: playgroundTransition === 'out'
+            ? 'opacity 180ms ease-out'
+            : playgroundTransition === 'reveal'
+              ? 'opacity 700ms cubic-bezier(.22,.7,.25,1)'
+              : 'opacity 140ms ease',
+        }}
+        aria-hidden="true"
+      />
       <canvas
         ref={backgroundRef}
-        className="fixed top-0 left-0 w-full h-full z-[-3] pointer-events-none"
+        className={`fixed top-0 left-0 w-full h-full pointer-events-none ${transitionVisible ? 'z-[49]' : 'z-[-3]'}`}
         style={{
-          opacity: enabled ? 1 : 0,
-          transition: 'opacity 140ms ease',
+          opacity: enabled && playgroundTransition === 'idle' ? 1 : 0,
+          transition: playgroundTransition === 'out'
+            ? 'opacity 160ms ease-out'
+            : playgroundTransition === 'reveal'
+              ? 'none'
+              : 'opacity 140ms ease',
         }}
       />
       <canvas
         ref={canvasRef}
-        className="fixed top-0 left-0 w-full h-full z-[-1] pointer-events-none"
+        className={`fixed top-0 left-0 w-full h-full pointer-events-none ${transitionVisible ? 'z-[50]' : 'z-[-1]'}`}
         style={{ 
-          opacity: enabled ? 1 : 0, 
-          transition: 'opacity 140ms ease',
+          opacity: playgroundTransition === 'reveal' ? 0 : (enabled || playgroundTransition === 'out' ? 1 : 0),
+          transition: playgroundTransition === 'reveal' ? 'opacity 700ms cubic-bezier(.22,.7,.25,1)' : 'opacity 140ms ease',
         }}
       />
     </>

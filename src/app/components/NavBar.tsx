@@ -1,6 +1,9 @@
 'use client';
-import Link from "next/link";
-import { CursorTooltip } from "./Tooltip";
+
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { CursorTooltip } from './Tooltip';
+import './NavBar.css';
 
 export interface NavBarProps {
   hide?: boolean;
@@ -8,51 +11,52 @@ export interface NavBarProps {
   shaderOn: boolean;
   playground?: boolean;
   shaderDisabled?: boolean;
+  collapsingToPlayground?: boolean;
+  playgroundTransitioning?: boolean;
   onToggleShader?: () => void;
+  onPlaygroundNavigate?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
-export default function NavBar({ hide, fps = 0, shaderOn = true, playground = false, shaderDisabled, onToggleShader }: NavBarProps) {
-  
-  return (
-    <nav className={`${hide ? ('hidden') : ('')} 
-      ${playground ? "left-8 px-[1rem] bg-black text-white" : "left-1/2 -translate-x-2/3 px-4 md:px-5"}
-      navbar py-2 w-fit fixed top-6 flex flex-row z-[10]`}>
-      <Link className={`${ playground ? "" : "mr-4 md:mr-8" }`} href="/">
-        .*✦
-      </Link>
-      {!playground ? (
-        <>
-          <Link className="mr-4 md:mr-8" href="/projects">projects</Link>
-          <Link className="mr-4 md:mr-8" href="/about">about</Link>
-          <Link href="/playground">playground</Link>
-          <div className='w-0 h-px relative'>
-            <CursorTooltip 
-              content={shaderDisabled ? "shader is disabled on this page :-(": "cool shader? click to toggle!"}
-              placement="bottom"
+export default function NavBar({
+  hide,
+  fps = 0,
+  shaderOn = true,
+  playground = false,
+  shaderDisabled,
+  collapsingToPlayground = false,
+  playgroundTransitioning = false,
+  onToggleShader,
+  onPlaygroundNavigate,
+}: NavBarProps) {
+  const [mounted, setMounted] = useState(false);
+  const compact = playground || collapsingToPlayground;
 
-            >
-              <span className='w-max cursor-pointer select-none absolute top-0.5 -right-8 md:-right-10 translate-x-[100%]'
-                style={{
-                  color: 'rgb(20, 20, 20)',
-                }}
-                onClick={onToggleShader}
-              >
-                {shaderOn ? `fps ${fps.toFixed(0)}: ` : 'shader '} 
-                <span
-                  style={{
-                    backgroundColor: 'rgb(20, 20, 20, 0.5)',
-                    color: 'white',
-                    padding: '4px 6px',
-                    borderRadius: '4px',
-                  }}
-                >{shaderOn ? 'on' : 'off'}</span>
-              </span>
-            </CursorTooltip>
-          </div>
-        </>
-      ) : (
-        <></>
-      )}
+  useEffect(() => setMounted(true), []);
+
+  // Fixed-position type must never paint before styled-jsx has hydrated; the
+  // unstyled fallback otherwise flashes at the document origin.
+  if (!mounted) return null;
+
+  return (
+    <nav className={`portfolio-nav${compact ? ' is-compact' : ''}${playgroundTransitioning ? ' is-transitioning' : ''}${hide ? ' is-hidden' : ''}`}>
+      <span className="portfolio-nav__shell" aria-hidden="true" />
+      <Link className="portfolio-nav__glyph" href="/" aria-label="Home">.*✦</Link>
+      <div className="portfolio-nav__matter" aria-hidden={compact}>
+        <Link tabIndex={compact ? -1 : undefined} href="/projects">projects</Link>
+        <Link tabIndex={compact ? -1 : undefined} href="/about">about</Link>
+        <Link tabIndex={compact ? -1 : undefined} href="/playground" onClick={onPlaygroundNavigate}>playground</Link>
+      </div>
+      <div className="portfolio-nav__status" aria-hidden={compact}>
+        <CursorTooltip
+          content={shaderDisabled ? 'shader is disabled on this page :-(' : 'cool shader? click to toggle!'}
+          placement="bottom"
+        >
+          <button className="portfolio-nav__toggle" type="button" tabIndex={compact ? -1 : undefined} onClick={onToggleShader}>
+            {shaderOn ? `fps ${fps.toFixed(0)}: ` : 'shader '}
+            <span>{shaderOn ? 'on' : 'off'}</span>
+          </button>
+        </CursorTooltip>
+      </div>
     </nav>
   );
 }

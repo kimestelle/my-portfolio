@@ -1,0 +1,166 @@
+.portfolio-nav {
+  position: fixed;
+  z-index: 10;
+  top: 1.5rem;
+  left: 2rem;
+  display: flex;
+  width: max-content;
+  align-items: center;
+  padding: .5rem 1rem;
+  color: rgb(20, 20, 20);
+  transform: translate3d(calc(50vw - 2rem - 66.6667%), 0, 0);
+  transition: transform 680ms cubic-bezier(.2,.72,.24,1);
+  will-change: transform;
+}
+
+.portfolio-nav.is-hidden { display: none; }
+.portfolio-nav.is-transitioning { z-index: 52; }
+
+.portfolio-nav.is-compact {
+  transform: translate3d(0, 0, 0);
+  left: 1rem;
+  transition: transform 220ms cubic-bezier(.2,.72,.24,1);
+}
+
+.portfolio-nav__shell {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  border-radius: 900px;
+  opacity: 1;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.55), inset 0 0 18px rgba(255,255,255,.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
+  transition: opacity 320ms ease 620ms;
+}
+
+.portfolio-nav__shell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: url('/textures/sandpaper.png') 0 0 / 60px 60px repeat;
+  mix-blend-mode: multiply;
+  opacity: .2;
+  transition: opacity 240ms ease;
+}
+
+.portfolio-nav:hover .portfolio-nav__shell::after,
+.portfolio-nav:focus-within .portfolio-nav__shell::after {
+  opacity: .58;
+}
+
+.is-compact .portfolio-nav__shell {
+  opacity: 0;
+  transition: opacity 140ms ease;
+}
+
+.portfolio-nav__glyph {
+  position: relative;
+  z-index: 2;
+  flex: none;
+  color: inherit;
+  transition: opacity 160ms ease;
+}
+
+.portfolio-nav__matter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: clamp(1rem, 3vw, 2rem);
+  opacity: 1;
+  transition: opacity 320ms ease 620ms;
+}
+
+.is-compact .portfolio-nav__matter {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 140ms ease;
+}
+
+.portfolio-nav__matter a {
+  color: inherit;
+  transition: opacity 160ms ease;
+}
+
+.portfolio-nav__status {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 0.7rem);
+  width: max-content;
+  opacity: 1;
+  transform: translateY(-50%);
+  transition: opacity 320ms ease 620ms;
+}
+
+.is-compact .portfolio-nav__status {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 140ms ease;
+}
+
+.portfolio-nav__toggle {
+  display: inline-block;
+  border: 0;
+  width: max-content;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+  color: rgb(20, 20, 20);
+  font-family: inherit;
+  font-size: .9rem;
+  font-style: normal;
+  font-weight: 200;
+  line-height: normal;
+  transition: opacity 160ms ease;
+}
+
+.portfolio-nav__glyph:hover,
+.portfolio-nav__glyph:focus-visible,
+.portfolio-nav__matter a:hover,
+.portfolio-nav__matter a:focus-visible,
+.portfolio-nav__toggle:hover,
+.portfolio-nav__toggle:focus-visible {
+  opacity: .55;
+}
+
+.portfolio-nav__glyph:active,
+.portfolio-nav__matter a:active,
+.portfolio-nav__toggle:active {
+  opacity: .3;
+}
+
+.portfolio-nav__toggle > span {
+  padding: 4px 6px;
+  border-radius: 4px;
+  color: white;
+  background: rgba(20,20,20,.5);
+  font-family: inherit;
+  font-size: .9rem;
+  font-weight: 200;
+}
+
+@media (min-width: 768px) {
+  .portfolio-nav__matter { gap: 2rem; }
+}
+
+@media (min-width: 640px) {
+  .portfolio-nav__status {
+    left: calc(100% + 2.5rem);
+  }
+
+  .portfolio-nav {
+    left: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-nav,
+  .portfolio-nav__shell,
+  .portfolio-nav__matter,
+  .portfolio-nav__matter * { transition: none !important; }
+}
