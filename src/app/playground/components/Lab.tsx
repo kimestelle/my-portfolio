@@ -9,12 +9,13 @@ import MagnifierImage from './MagnifierImage';
 function BrewingBubbles() {
   return (
     <div
-      className="relative h-[48svh] max-h-[50svh] overflow-hidden rounded-xl border border-black/12 bg-[#e8e5e9] md:h-auto md:max-h-[80svh] md:aspect-[16/9]"
+      className="relative h-[48svh] max-h-[50svh] overflow-hidden rounded-xl border border-black/12 bg-[#b9dce8] md:h-auto md:max-h-[80svh] md:aspect-[16/9]"
       style={{
         backgroundImage: [
-          'radial-gradient(circle at 28% 24%, rgba(154,142,171,.12), transparent 48%)',
-          'radial-gradient(circle at 76% 68%, rgba(125,157,152,.1), transparent 50%)',
-          'linear-gradient(145deg, #f1eef1 0%, #e7e4e8 58%, #dedce1 100%)',
+          'radial-gradient(ellipse 64% 48% at 14% 108%, #6fa477 0%, #5d936d 62%, transparent 63%)',
+          'radial-gradient(ellipse 74% 52% at 82% 112%, #4f8a68 0%, #39765c 61%, transparent 62%)',
+          'radial-gradient(ellipse 58% 34% at 48% 104%, #82ad79 0%, #6c9c70 62%, transparent 63%)',
+          'linear-gradient(180deg, #8dc8df 0%, #c4e1e8 52%, #d8e8d5 72%, #a9c79f 100%)',
         ].join(', '),
         boxShadow: [
           'inset 0 1px 0 rgba(255,255,255,.5)',
@@ -27,14 +28,12 @@ function BrewingBubbles() {
       }}
     >
       <div
-        className="pointer-events-none absolute inset-0 z-[1] opacity-[0.12] mix-blend-multiply"
+        className="pointer-events-none absolute inset-0 z-[1] opacity-[0.24] mix-blend-multiply"
         style={{
-          backgroundColor: 'rgba(48, 44, 52, .1)',
           backgroundImage: "url('/textures/sandpaper.png')",
           backgroundPosition: '0 0',
           backgroundRepeat: 'repeat',
-          backgroundSize: '174px 250px',
-          backgroundBlendMode: 'multiply',
+          backgroundSize: '60px 60px',
         }}
         aria-hidden="true"
       />
