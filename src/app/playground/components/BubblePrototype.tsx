@@ -236,6 +236,9 @@ export default function BubblePrototype({
     }
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const useStableMobileBackground = usesPhotos && window.matchMedia(
+      '(max-width: 767px), (pointer: coarse)',
+    ).matches;
     const renderer = new THREE.WebGLRenderer({ canvas: webglCanvas, alpha: true, antialias: true });
     renderer.setClearColor(0x000000, 0);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -450,7 +453,13 @@ export default function BubblePrototype({
         queuedBackground = { texture: nextTexture, media, released };
         return;
       }
-      beginBackgroundTransition(nextTexture, media, released);
+      beginBackgroundTransition(
+        nextTexture,
+        media,
+        released,
+        performance.now(),
+        useStableMobileBackground && activeBackgroundReleaseId > 0,
+      );
     };
 
     const commitPhotoBackground = (media: HTMLImageElement, releaseId: number) => {
@@ -897,7 +906,11 @@ export default function BubblePrototype({
       }
 
       if (usesPhotos && nextReleasedMedia.previewTransitionStarted) {
-        pendingPhotoLoad = nextReleasedMedia;
+        // Mobile browsers are much more likely to flash when a large DOM
+        // image is decoded and swapped beneath a transparent WebGL canvas.
+        // The resident preview is already large enough for a phone viewport,
+        // so keep the entire background sequence in WebGL there.
+        if (!useStableMobileBackground) pendingPhotoLoad = nextReleasedMedia;
         return;
       }
 
@@ -1248,23 +1261,31 @@ export default function BubblePrototype({
           activeBackgroundTexture = pendingBackgroundTexture;
           activeBackgroundReleaseId = pendingBackgroundReleaseId;
           if (usesPhotos && completedBackgroundMedia instanceof HTMLImageElement) {
-            const completedPhoto = pendingPhotoBackground?.released.id === activeBackgroundReleaseId
-              ? pendingPhotoBackground.media
-              : completedBackgroundMedia;
-            commitPhotoBackground(completedPhoto, activeBackgroundReleaseId);
-            if (pendingPhotoBackground?.released.id === activeBackgroundReleaseId) {
+            if (useStableMobileBackground) {
               pendingPhotoBackground = null;
-            }
-            if (pendingPhotoLoad?.id === activeBackgroundReleaseId) {
-              const photoToLoad = pendingPhotoLoad;
               pendingPhotoLoad = null;
-              const loadTimer = window.setTimeout(() => {
-                releaseTimers.delete(loadTimer);
-                if (photoToLoad.id === latestReleaseIdRef.current) {
-                  setReleasedMedia([photoToLoad]);
-                }
-              }, 48);
-              releaseTimers.add(loadTimer);
+              backgroundHandoffStart = 0;
+              backgroundMaterial.uniforms.uLayerOpacity.value = 1;
+              backgroundMesh.visible = true;
+            } else {
+              const completedPhoto = pendingPhotoBackground?.released.id === activeBackgroundReleaseId
+                ? pendingPhotoBackground.media
+                : completedBackgroundMedia;
+              commitPhotoBackground(completedPhoto, activeBackgroundReleaseId);
+              if (pendingPhotoBackground?.released.id === activeBackgroundReleaseId) {
+                pendingPhotoBackground = null;
+              }
+              if (pendingPhotoLoad?.id === activeBackgroundReleaseId) {
+                const photoToLoad = pendingPhotoLoad;
+                pendingPhotoLoad = null;
+                const loadTimer = window.setTimeout(() => {
+                  releaseTimers.delete(loadTimer);
+                  if (photoToLoad.id === latestReleaseIdRef.current) {
+                    setReleasedMedia([photoToLoad]);
+                  }
+                }, 48);
+                releaseTimers.add(loadTimer);
+              }
             }
           }
           pendingBackgroundTexture = null;
