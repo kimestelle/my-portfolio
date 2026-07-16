@@ -3,6 +3,8 @@ export type LabPreview = {
   src: string;
 };
 
+export type LabComponentId = 'more-bubbles';
+
 export type LabItem = {
   id: string;
   name: string;
@@ -11,6 +13,7 @@ export type LabItem = {
   blurb?: string;
 
   preview?: LabPreview[];
+  component?: LabComponentId;
 };
 
 export type LabTechGroup = {
@@ -23,7 +26,7 @@ export const LAB_BY_TECH: LabTechGroup[] = [
     tech: '3D Modeling',
     items: [
       {
-        id: 'porcelain repair',
+        id: 'porcelain-repair',
         name: 'porcelain repair scene',
         blurb: 'Autodesk Maya / Arnold renderer. Modeling, texturing, lighting, and rendering',
         preview: [
@@ -42,6 +45,12 @@ export const LAB_BY_TECH: LabTechGroup[] = [
   {
     tech: 'Interaction Toys',
     items: [
+      {
+        id: 'more-bubbles',
+        name: 'more bubbles!',
+        blurb: 'for moments where living feels more like dreaming ✶',
+        component: 'more-bubbles',
+      },
       {
         id: 'skyline',
         name: 'city skyline',

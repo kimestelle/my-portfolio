@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { LAB_BY_TECH, type LabItem } from './labData';
 import BubblePrototype from './BubblePrototype';
 import MagnifierImage from './MagnifierImage';
+import { LAB_COMPONENTS } from './labComponents';
 
 function wallpaperNoise(value: number, seed: number) {
   const hash = (cell: number) => {
@@ -79,6 +80,14 @@ function getPreviews(item: LabItem) {
   return Array.isArray(item.preview) ? item.preview : [item.preview];
 }
 
+function findLabItem(groups: typeof LAB_BY_TECH, id: string) {
+  for (const group of groups) {
+    const item = group.items.find((candidate) => candidate.id === id);
+    if (item) return item;
+  }
+  return null;
+}
+
 export default function LabExperiments() {
   const all = LAB_BY_TECH;
 
@@ -96,8 +105,44 @@ export default function LabExperiments() {
 
   const [previewIndex, setPreviewIndex] = useState(0);
 
+  useEffect(() => {
+    const syncViewFromHash = () => {
+      const hashId = decodeURIComponent(window.location.hash.slice(1));
+      const hashItem = findLabItem(all, hashId);
+      if (hashItem) {
+        setActiveId(hashItem.id);
+        setView('experiment');
+        setPreviewIndex(0);
+      } else if (!hashId) {
+        setView('brewing');
+      }
+    };
+
+    syncViewFromHash();
+    window.addEventListener('hashchange', syncViewFromHash);
+    window.addEventListener('popstate', syncViewFromHash);
+    return () => {
+      window.removeEventListener('hashchange', syncViewFromHash);
+      window.removeEventListener('popstate', syncViewFromHash);
+    };
+  }, [all]);
+
+  const showBrewing = () => {
+    setView('brewing');
+    setPreviewIndex(0);
+    window.history.pushState(null, '', `${window.location.pathname}${window.location.search}`);
+  };
+
+  const showExperiment = (item: LabItem) => {
+    setView('experiment');
+    setActiveId(item.id);
+    setPreviewIndex(0);
+    window.history.pushState(null, '', `#${encodeURIComponent(item.id)}`);
+  };
+
   const previews = active ? getPreviews(active) : [];
   const preview = previews[previewIndex];
+  const ActiveComponent = active?.component ? LAB_COMPONENTS[active.component] : null;
 
   function goPrev() {
     setPreviewIndex((i) => (i - 1 + previews.length) % previews.length);
@@ -115,7 +160,7 @@ export default function LabExperiments() {
         <aside className="lg:sticky h-fit border-b">
             <button
               type="button"
-              onClick={() => setView('brewing')}
+              onClick={showBrewing}
               className={`text-left transition-opacity hover:opacity-55 ${view === 'brewing' ? 'opacity-100' : 'opacity-65'}`}
             >
               [what&apos;s brewing ∘˙○˚.•]
@@ -132,11 +177,8 @@ export default function LabExperiments() {
                       <li
                         className='cursor-pointer'
                         key={item.id}
-                        onClick={() => {
-                          setView('experiment');
-                          setActiveId(item.id);
-                          setPreviewIndex(0);
-                        }}
+                        id={item.id}
+                        onClick={() => showExperiment(item)}
                       >
                         {item.name}
                       </li>
@@ -173,7 +215,9 @@ export default function LabExperiments() {
           ) : (
           <div className="rounded-xl border bg-white/60 backdrop-blur overflow-hidden">
             <div className="relative w-full h-[48svh] max-h-[50svh] md:h-auto md:max-h-[80svh] md:aspect-[16/9] bg-neutral-100 flex justify-center items-center overflow-hidden">
-              {preview?.type === 'iframe' ? (
+              {ActiveComponent ? (
+                <ActiveComponent />
+              ) : preview?.type === 'iframe' ? (
                 <iframe
                   src={preview.src}
                   className="absolute inset-0 h-full w-full"

@@ -37,6 +37,8 @@ uniform vec2 uRevealOrigin;
 uniform float uRevealRadius;
 uniform float uRevealProgress;
 
+const float SANDPAPER_OPACITY = 1.0;
+
 varying vec2 vUv;
 
 vec3 neutralBackground(vec2 uv) {
@@ -46,16 +48,23 @@ vec3 neutralBackground(vec2 uv) {
   return mix(warmWhite, warmShadow, diagonal);
 }
 
+vec3 visibleSandpaper(vec3 sampleColor) {
+  vec3 paperBase = vec3(0.904, 0.88, 0.846);
+  return clamp(vec3(1.0) + (sampleColor - paperBase) * 4.5, 0.32, 1.06);
+}
+
+float smootherstep01(float value) {
+  float t = clamp(value, 0.0, 1.0);
+  return t * t * t * (t * (t * 6.0 - 15.0) + 10.0);
+}
+
 void main() {
   vec2 screenUv = gl_FragCoord.xy / uViewportSize;
   vec2 tileUv = vec2(
     gl_FragCoord.x,
     uViewportSize.y - gl_FragCoord.y
   ) * uTileUvScale;
-  float tileValue = dot(
-    texture2D(uTile, tileUv).rgb - vec3(0.5),
-    vec3(0.2126, 0.7152, 0.0722)
-  );
+  vec3 sandpaper = visibleSandpaper(texture2D(uTile, tileUv).rgb);
 
   vec3 currentImage = neutralBackground(screenUv);
   if (uHasCurrentBackground > 0.5) {
@@ -66,7 +75,11 @@ void main() {
       clamp(currentUv, vec2(0.001), vec2(0.999))
     ).rgb;
   }
-  vec3 currentComposite = clamp(currentImage + tileValue * 0.12, 0.0, 1.0);
+  vec3 currentComposite = mix(
+    currentImage,
+    currentImage * sandpaper,
+    SANDPAPER_OPACITY
+  );
 
   vec3 finalComposite = currentComposite;
   if (uHasNextBackground > 0.5) {
@@ -76,8 +89,13 @@ void main() {
       uNextBackground,
       clamp(nextUv, vec2(0.001), vec2(0.999))
     ).rgb;
-    vec3 nextComposite = clamp(nextImage + tileValue * 0.12, 0.0, 1.0);
-    float easedReveal = 1.0 - pow(1.0 - uRevealProgress, 3.0);
+    vec3 nextComposite = mix(
+      nextImage,
+      nextImage * sandpaper,
+      SANDPAPER_OPACITY
+    );
+    float easedReveal = smootherstep01(uRevealProgress);
+    float revealOpacity = smootherstep01((uRevealProgress - 0.04) / 0.9);
     float finalRadius = length(uViewportSize) * 1.8;
     float revealRadius = mix(uRevealRadius, finalRadius, easedReveal);
     float reveal = 1.0 - smoothstep(
@@ -85,7 +103,7 @@ void main() {
       revealRadius,
       distance(gl_FragCoord.xy, uRevealOrigin)
     );
-    finalComposite = mix(currentComposite, nextComposite, reveal);
+    finalComposite = mix(currentComposite, nextComposite, reveal * revealOpacity);
   }
 
   gl_FragColor = vec4(finalComposite, 1.0);
@@ -106,6 +124,7 @@ uniform float uTime;
 uniform float uColorPhase;
 uniform sampler2D uBackground;
 uniform float uHasBackground;
+uniform float uBackgroundStrength;
 uniform sampler2D uTile;
 uniform vec2 uTileUvScale;
 uniform vec2 uInvResolution;
@@ -120,11 +139,18 @@ varying vec2 vUv;
 varying vec3 vNormal;
 varying vec3 vViewPosition;
 
+const float SANDPAPER_OPACITY = 0.5;
+
 vec3 neutralBackground(vec2 uv) {
   vec3 warmWhite = vec3(1.0, 0.9804, 0.9569);
   vec3 warmShadow = vec3(0.9686, 0.9412, 0.9098);
   float diagonal = clamp(uv.x * 0.36 + (1.0 - uv.y) * 0.64, 0.0, 1.0);
   return mix(warmWhite, warmShadow, diagonal);
+}
+
+vec3 visibleSandpaper(vec3 sampleColor) {
+  vec3 paperBase = vec3(0.904, 0.88, 0.846);
+  return clamp(vec3(1.0) + (sampleColor - paperBase) * 4.5, 0.32, 1.06);
 }
 
 vec3 shiftingLight(float t) {
@@ -209,20 +235,14 @@ void main() {
     projectedBackgroundPixel.x,
     uViewportSize.y - projectedBackgroundPixel.y
   ) * uTileUvScale;
-  float straightTileValue = dot(
-    texture2D(uTile, straightTileUv).rgb - vec3(0.5),
-    vec3(0.2126, 0.7152, 0.0722)
-  );
-  float refractedTileValue = dot(
-    texture2D(uTile, refractedTileUv).rgb - vec3(0.5),
-    vec3(0.2126, 0.7152, 0.0722)
-  );
+  vec3 straightSandpaper = visibleSandpaper(texture2D(uTile, straightTileUv).rgb);
+  vec3 refractedSandpaper = visibleSandpaper(texture2D(uTile, refractedTileUv).rgb);
   vec3 straightBackground = neutralBackground(screenUv);
   vec3 refractedBackground = neutralBackground(refractedScreenUv);
 
-  // The image is selected first, then receives the same tile-value treatment
-  // as the full-stage shader. Refraction compares coordinates in that finished
-  // composite, so image and grain bend together as one surface.
+  // The image is selected first, then receives the same sandpaper multiply as
+  // the full-stage shader. Refraction compares coordinates in that finished
+  // composite, so image and paper grain bend together as one surface.
   if (uHasBackground > 0.5) {
     vec2 straightBackgroundUv = screenUv * uBackgroundUvTransform.xy
       + uBackgroundUvTransform.zw;
@@ -237,18 +257,18 @@ void main() {
       clamp(refractedBackgroundUv, vec2(0.001), vec2(0.999))
     ).rgb;
   }
-  vec3 straightComposite = clamp(
-    straightBackground + straightTileValue * 0.12,
-    0.0,
-    1.0
+  vec3 straightComposite = mix(
+    straightBackground,
+    straightBackground * straightSandpaper,
+    SANDPAPER_OPACITY
   );
-  vec3 refractedComposite = clamp(
-    refractedBackground + refractedTileValue * 0.12,
-    0.0,
-    1.0
+  vec3 refractedComposite = mix(
+    refractedBackground,
+    refractedBackground * refractedSandpaper,
+    SANDPAPER_OPACITY
   );
   vec3 refractedContribution = (refractedComposite - straightComposite)
-    * refractionMask * 0.86;
+    * refractionMask * 0.86 * uBackgroundStrength;
 
   vec3 lightColor = shiftingLight(
     uColorPhase + uTime * 0.035 + vUv.x * 0.16 + vUv.y * 0.1

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { LAB_BY_TECH, type LabItem } from './labData';
 import { SoftBlob } from './SoftBlob';
 import { GLASS_FRAGMENT_SHADER, GLASS_VERTEX_SHADER } from './glassShaders';
+import { LAB_COMPONENTS } from './labComponents';
 import styles from './GlassLab.module.css';
 
 const TINTS: readonly [number, number, number][] = [
@@ -47,6 +48,7 @@ function formatTime(value: number): string {
 function ExperimentPanel({ item, open, onClose }: { item: LabItem; open: boolean; onClose: () => void }) {
   const previews = item.preview ?? [];
   const kind = previews[0]?.type;
+  const CustomComponent = item.component ? LAB_COMPONENTS[item.component] : null;
   const [slide, setSlide] = useState(0);
   const [time, setTime] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -87,6 +89,7 @@ function ExperimentPanel({ item, open, onClose }: { item: LabItem; open: boolean
   return (
     <div className={`glass-lab__panel${open ? ' is-open' : ''}`} aria-hidden={!open}>
       <button className="glass-lab__close" type="button" onClick={onClose} aria-label={`Close ${item.name}`}>×</button>
+      {CustomComponent && <CustomComponent />}
       {kind === 'image' && previews[slide] && (
         <>
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -407,7 +410,13 @@ export default function GlassLab() {
               const runtime = runtimesRef.current[index];
               const previewCount = item.preview?.length ?? 0;
               const kind = item.preview?.[0]?.type;
-              const meta = kind === 'iframe' ? 'live' : kind === 'video' ? 'video' : `${previewCount} ${previewCount === 1 ? 'still' : 'stills'}`;
+              const meta = item.component
+                ? 'tsx'
+                : kind === 'iframe'
+                  ? 'live'
+                  : kind === 'video'
+                    ? 'video'
+                    : `${previewCount} ${previewCount === 1 ? 'still' : 'stills'}`;
               const isOpen = openId === item.id;
               return <article className={`glass-lab__item${isOpen ? ' is-open' : ''}`} key={item.id}>
                 <div className="glass-lab__stage" ref={(node) => { runtime.element = node; }}>

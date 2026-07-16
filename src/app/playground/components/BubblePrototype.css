@@ -30,7 +30,7 @@
 }
 
 .released-video-layer.is-ready {
-  animation: release-into-background 1500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: release-into-background 1900ms cubic-bezier(0.22, 0.61, 0.24, 1) forwards;
 }
 
 .released-video {
@@ -49,8 +49,11 @@
     opacity: 0;
     transform: scale(1.035);
   }
-  28% {
-    opacity: 0.62;
+  18% {
+    opacity: 0.08;
+  }
+  52% {
+    opacity: 0.64;
   }
   100% {
     --release-size: 280vmax;
