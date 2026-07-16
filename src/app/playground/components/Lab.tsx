@@ -120,7 +120,7 @@ export default function LabExperiments() {
             >
               [what&apos;s brewing ∘˙○˚.•]
             </button>
-            <div className="flex flex-col gap-2 md:gap-4 max-h-28 bg-[linear-gradient(to_bottom,rgba(0,0,0,0)_0%,rgba(0,0,0,0.0016)_25%,rgba(0,0,0,0.0125)_50%,rgba(0,0,0,0.0422)_75%,rgba(0,0,0,0.0729)_90%,rgba(0,0,0,0.1)_100%)] md:max-h-[70vh] overflow-y-auto pr-1 pt-4">
+            <div className="flex flex-col gap-2 md:gap-4 max-h-28 shadow-[inset_0_-12px_15px_-12px_rgba(0,0,0,0.22)] md:max-h-[77.8svh] overflow-y-auto pr-1 pt-4">
               {all.map((group) => (
                 <div key={group.tech} className="flex flex-col">
                   <h3>

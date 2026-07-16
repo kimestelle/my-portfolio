@@ -2,6 +2,9 @@
   "name": "my-portfolio",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -13,6 +16,7 @@
     "@floating-ui/react-dom": "^2.1.6",
     "@mux/mux-player-react": "^3.10.2",
     "@tabler/icons-react": "^3.22.0",
+    "@vercel/analytics": "^2.0.1",
     "clsx": "^2.1.1",
     "d3": "^7.9.0",
     "embla-carousel-autoplay": "^8.1.8",
@@ -40,7 +44,7 @@
   "devDependencies": {
     "@types/d3": "^7.4.3",
     "@types/marked": "^5.0.2",
-    "@types/node": "^20",
+    "@types/node": "^24.13.3",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/react-slick": "^0.23.13",
