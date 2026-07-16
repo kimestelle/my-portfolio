@@ -22,6 +22,14 @@ type Pixel = {
   color: string;
 };
 
+type PopOutline = {
+  x: number;
+  y: number;
+  radius: number;
+  age: number;
+  life: number;
+};
+
 type Bubble = {
   x: number;
   y: number;
@@ -47,6 +55,7 @@ type Bubble = {
   material: THREE.ShaderMaterial;
   albedoTexture: THREE.Texture | null;
   previewVideo: HTMLVideoElement | null;
+  sparkPalette: string[];
   mediaIndex: number;
   hoverAmount: number;
   videoPlaying: boolean;
@@ -61,6 +70,7 @@ type ReleasedMedia = {
   originY: number;
   radius: number;
   ready: boolean;
+  previewTransitionStarted: boolean;
 };
 
 const SOFT_CENTER_X = 116;
@@ -75,6 +85,7 @@ const DEFAULT_RADIUS_RANGE = [0.1, 0.17] as const;
 const EMPTY_MEDIA_SOURCES: readonly string[] = [];
 const RELEASE_LOAD_DELAY_MS = 80;
 const BACKGROUND_REVEAL_DURATION_MS = 1900;
+const BACKGROUND_HANDOFF_DURATION_MS = 140;
 const POP_PALETTE = ['#ffffff', '#fff9f4', '#f6f3ff', '#eefaf7', '#f8f4ed'];
 const BUBBLE_VIDEO_PREVIEWS = Array.from(
   { length: 16 },
@@ -93,6 +104,7 @@ type BubblePrototypeProps = {
   maxBubbleCount?: number;
   randomizeMediaOrder?: boolean;
   initialBackgroundSource?: string;
+  initialBackgroundPreviewSource?: string;
   interactionLabel?: string;
 };
 
@@ -133,6 +145,7 @@ export default function BubblePrototype({
   maxBubbleCount = Number.POSITIVE_INFINITY,
   randomizeMediaOrder = false,
   initialBackgroundSource,
+  initialBackgroundPreviewSource,
   interactionLabel = 'Click the field to release a video bubble; hover a bubble to play it and click it to burst',
 }: BubblePrototypeProps = {}) {
   const usesPhotos = Boolean(photoSources?.length);
@@ -147,6 +160,7 @@ export default function BubblePrototype({
     : FULL_RESOLUTION_VIDEOS;
   const webglRef = useRef<HTMLCanvasElement>(null);
   const effectsRef = useRef<HTMLCanvasElement>(null);
+  const photoBackgroundRef = useRef<HTMLImageElement>(null);
   const fpsRef = useRef<HTMLOutputElement>(null);
   const nextReleaseIdRef = useRef(0);
   const latestReleaseIdRef = useRef(0);
@@ -155,6 +169,7 @@ export default function BubblePrototype({
     releasedMedia: ReleasedMedia,
   ) => void>(() => undefined);
   const previewVideosRef = useRef(new Set<HTMLVideoElement>());
+  const [initialPhotoVisible, setInitialPhotoVisible] = useState(false);
   const [releasedMedia, setReleasedMedia] = useState<ReleasedMedia[]>([]);
 
   const revealReleasedMedia = (
@@ -166,9 +181,13 @@ export default function BubblePrototype({
       return;
     }
     installBackgroundTextureRef.current(media, released);
-    setReleasedMedia((current) => current.map((item) => (
-      item.id === released.id ? { ...item, ready: true } : item
-    )));
+    setReleasedMedia((current) => (
+      released.type === 'image'
+        ? current.filter((item) => item.id !== released.id)
+        : current.map((item) => (
+          item.id === released.id ? { ...item, ready: true } : item
+        ))
+    ));
   };
 
   const markReleasedVideoReady = (released: ReleasedMedia, video: HTMLVideoElement) => {
@@ -200,9 +219,21 @@ export default function BubblePrototype({
   useEffect(() => {
     const webglCanvas = webglRef.current;
     const effectsCanvas = effectsRef.current;
+    const photoBackground = photoBackgroundRef.current;
     const effects = effectsCanvas?.getContext('2d');
     const fpsOutput = fpsRef.current;
     if (!webglCanvas || !effectsCanvas || !effects || !fpsOutput) return;
+
+    const revealInitialPhoto = () => {
+      setInitialPhotoVisible(true);
+    };
+    if (photoBackground) {
+      if (photoBackground.complete && photoBackground.naturalWidth > 0) {
+        revealInitialPhoto();
+      } else {
+        photoBackground.addEventListener('load', revealInitialPhoto, { once: true });
+      }
+    }
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const renderer = new THREE.WebGLRenderer({ canvas: webglCanvas, alpha: true, antialias: true });
@@ -229,6 +260,7 @@ export default function BubblePrototype({
     let dpr = 1;
     let bubbles: Bubble[] = [];
     let pixels: Pixel[] = [];
+    let popOutlines: PopOutline[] = [];
     let frame = 0;
     let previousTime = performance.now();
     let fpsWindowStart = previousTime;
@@ -236,11 +268,20 @@ export default function BubblePrototype({
     let backgroundTexture: THREE.Texture | null = null;
     let activeBackgroundTexture: THREE.Texture | null = null;
     let pendingBackgroundTexture: THREE.Texture | null = null;
+    let activeBackgroundReleaseId = 0;
+    let pendingBackgroundReleaseId = 0;
     let queuedBackground: {
       texture: THREE.Texture;
       media: HTMLVideoElement | HTMLImageElement;
       released: ReleasedMedia;
     } | null = null;
+    let pendingPhotoBackground: {
+      media: HTMLImageElement;
+      released: ReleasedMedia;
+    } | null = null;
+    let pendingPhotoLoad: ReleasedMedia | null = null;
+    let photoCommitToken = 0;
+    let backgroundHandoffStart = 0;
     let backgroundTransitionStart = 0;
     let bubbleBackgroundSwitched = false;
     let disposed = false;
@@ -255,7 +296,22 @@ export default function BubblePrototype({
     const sphereDistance = 600;
     const backgroundPlaneZ = -1400;
     let focalLength = 1;
-    const availableMediaIndices = previewSources.map((_, index) => index);
+    const initialPreviewMediaIndex = initialBackgroundPreviewSource
+      ? previewSources.indexOf(initialBackgroundPreviewSource)
+      : -1;
+    const initialReleaseMediaIndex = initialBackgroundSource
+      ? releaseSources.indexOf(initialBackgroundSource)
+      : -1;
+    let initialBackgroundMediaIndex = -1;
+    if (usesPhotos) {
+      initialBackgroundMediaIndex = initialPreviewMediaIndex >= 0
+        ? initialPreviewMediaIndex
+        : initialReleaseMediaIndex;
+    }
+    let initialBackgroundQueued = initialBackgroundMediaIndex < 0;
+    const availableMediaIndices = previewSources
+      .map((_, index) => index)
+      .filter((index) => index !== initialBackgroundMediaIndex);
     if (randomizeMediaOrder) {
       for (let index = availableMediaIndices.length - 1; index > 0; index -= 1) {
         const swapIndex = Math.floor(Math.random() * (index + 1));
@@ -300,17 +356,25 @@ export default function BubblePrototype({
         uRevealOrigin: { value: new THREE.Vector2(0, 0) },
         uRevealRadius: { value: 1 },
         uRevealProgress: { value: 0 },
+        uOverlayOnly: { value: usesPhotos ? 1 : 0 },
+        uLayerOpacity: { value: 1 },
+        uCompositeCurrentBase: { value: 0 },
       },
+      transparent: usesPhotos,
       depthTest: false,
       depthWrite: false,
     });
     const backgroundMesh = new THREE.Mesh(backgroundGeometry, backgroundMaterial);
     backgroundMesh.position.z = -20;
     backgroundMesh.renderOrder = -100;
+    backgroundMesh.visible = !usesPhotos;
     scene.add(backgroundMesh);
 
-    const initialBackgroundTexture = initialBackgroundSource
-      ? new THREE.TextureLoader().load(initialBackgroundSource, (texture) => {
+    const initialWebglBackgroundSource = usesPhotos
+      ? initialBackgroundPreviewSource ?? initialBackgroundSource
+      : initialBackgroundSource;
+    const initialBackgroundTexture = initialWebglBackgroundSource
+      ? new THREE.TextureLoader().load(initialWebglBackgroundSource, (texture) => {
         if (disposed || activeBackgroundTexture || pendingBackgroundTexture) {
           texture.dispose();
           return;
@@ -351,9 +415,11 @@ export default function BubblePrototype({
       media: HTMLVideoElement | HTMLImageElement,
       released: ReleasedMedia,
       startedAt = performance.now(),
+      compositeCurrentBase = false,
     ) => {
       updateBackgroundUvTransform(pendingBackgroundUvTransform, media);
       pendingBackgroundTexture = nextTexture;
+      pendingBackgroundReleaseId = released.id;
       backgroundTexture = nextTexture;
       backgroundMaterial.uniforms.uNextBackground.value = nextTexture;
       backgroundMaterial.uniforms.uHasNextBackground.value = 1;
@@ -363,13 +429,88 @@ export default function BubblePrototype({
       );
       backgroundMaterial.uniforms.uRevealRadius.value = released.radius * dpr;
       backgroundMaterial.uniforms.uRevealProgress.value = 0;
+      backgroundMaterial.uniforms.uCompositeCurrentBase.value = compositeCurrentBase ? 1 : 0;
       bubbleBackgroundSwitched = false;
       backgroundTransitionStart = startedAt;
+      if (usesPhotos) {
+        photoCommitToken += 1;
+        backgroundHandoffStart = 0;
+        backgroundMaterial.uniforms.uLayerOpacity.value = 1;
+        backgroundMesh.visible = true;
+      }
+    };
+
+    const queueOrBeginBackgroundTransition = (
+      nextTexture: THREE.Texture,
+      media: HTMLVideoElement | HTMLImageElement,
+      released: ReleasedMedia,
+    ) => {
+      if (pendingBackgroundTexture && backgroundTransitionStart > 0) {
+        queuedBackground?.texture.dispose();
+        queuedBackground = { texture: nextTexture, media, released };
+        return;
+      }
+      beginBackgroundTransition(nextTexture, media, released);
+    };
+
+    const commitPhotoBackground = (media: HTMLImageElement, releaseId: number) => {
+      if (
+        !photoBackground
+        || releaseId !== latestReleaseIdRef.current
+        || releaseId !== activeBackgroundReleaseId
+      ) return;
+      const source = media.currentSrc || media.src;
+      const commitToken = ++photoCommitToken;
+      // Keep the WebGL preview covering the DOM image until the replacement
+      // has decoded and had two opportunities to reach the compositor.
+      backgroundHandoffStart = 0;
+      backgroundMaterial.uniforms.uLayerOpacity.value = 1;
+      backgroundMesh.visible = true;
+      if (source && photoBackground.currentSrc !== source) photoBackground.src = source;
+      const revealPaintedPhoto = async () => {
+        try {
+          await photoBackground.decode();
+        } catch {
+          // A loaded image can still be painted even if decode() is rejected.
+        }
+        if (
+          disposed
+          || commitToken !== photoCommitToken
+          || releaseId !== latestReleaseIdRef.current
+          || releaseId !== activeBackgroundReleaseId
+        ) return;
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => {
+            if (
+              disposed
+              || commitToken !== photoCommitToken
+              || backgroundTransitionStart > 0
+              || pendingBackgroundTexture
+            ) return;
+            backgroundHandoffStart = performance.now();
+          });
+        });
+      };
+      void revealPaintedPhoto();
     };
 
     installBackgroundTextureRef.current = (media, released) => {
       if (released.id !== latestReleaseIdRef.current) return;
       if (backgroundTexture?.image === media || queuedBackground?.texture.image === media) return;
+
+      if (released.type === 'image' && media instanceof HTMLImageElement) {
+        pendingPhotoBackground = { media, released };
+        if (
+          released.previewTransitionStarted
+          && !pendingBackgroundTexture
+          && backgroundTransitionStart === 0
+        ) {
+          commitPhotoBackground(media, released.id);
+          pendingPhotoBackground = null;
+        }
+        if (released.previewTransitionStarted) return;
+      }
+
       const nextTexture = media instanceof HTMLVideoElement
         ? new THREE.VideoTexture(media)
         : new THREE.Texture(media);
@@ -381,13 +522,7 @@ export default function BubblePrototype({
       nextTexture.generateMipmaps = false;
       nextTexture.needsUpdate = true;
 
-      if (pendingBackgroundTexture && backgroundTransitionStart > 0) {
-        queuedBackground?.texture.dispose();
-        queuedBackground = { texture: nextTexture, media, released };
-        return;
-      }
-
-      beginBackgroundTransition(nextTexture, media, released);
+      queueOrBeginBackgroundTransition(nextTexture, media, released);
     };
 
     const createSurface = (body: SoftBlob) => {
@@ -480,15 +615,78 @@ export default function BubblePrototype({
       }
     };
 
-    const attachAlbedo = (target: Bubble) => {
+    const paletteCanvas = document.createElement('canvas');
+    paletteCanvas.width = 8;
+    paletteCanvas.height = 8;
+    const paletteContext = paletteCanvas.getContext('2d', { willReadFrequently: true });
+    const deriveSparkPalette = (image: HTMLImageElement) => {
+      if (!paletteContext) return POP_PALETTE;
+      try {
+        paletteContext.clearRect(0, 0, 8, 8);
+        paletteContext.drawImage(image, 0, 0, 8, 8);
+        const data = paletteContext.getImageData(0, 0, 8, 8).data;
+        const candidates: Array<{ score: number; r: number; g: number; b: number }> = [];
+        for (let offset = 0; offset < data.length; offset += 4) {
+          if (data[offset + 3] < 220) continue;
+          const r = data[offset];
+          const g = data[offset + 1];
+          const b = data[offset + 2];
+          const maximum = Math.max(r, g, b);
+          const minimum = Math.min(r, g, b);
+          const chroma = maximum - minimum;
+          const lightness = (maximum + minimum) / 510;
+          if (lightness < 0.1 || lightness > 0.94) continue;
+          candidates.push({
+            score: chroma * (1 - Math.abs(lightness - 0.58) * 0.72),
+            r,
+            g,
+            b,
+          });
+        }
+        candidates.sort((a, b) => b.score - a.score);
+        const selected: typeof candidates = [];
+        for (const candidate of candidates) {
+          if (selected.some((color) => Math.hypot(
+            candidate.r - color.r,
+            candidate.g - color.g,
+            candidate.b - color.b,
+          ) < 48)) continue;
+          selected.push(candidate);
+          if (selected.length >= 4) break;
+        }
+        if (!selected.length) return POP_PALETTE;
+        return selected.map(({ r, g, b }) => {
+          const lift = 0.32;
+          return `rgb(${Math.round(r + (255 - r) * lift)} ${Math.round(g + (255 - g) * lift)} ${Math.round(b + (255 - b) * lift)})`;
+        });
+      } catch {
+        return POP_PALETTE;
+      }
+    };
+
+    const configurePhotoTexture = (texture: THREE.Texture) => {
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.wrapS = THREE.ClampToEdgeWrapping;
+      texture.wrapT = THREE.ClampToEdgeWrapping;
+      texture.minFilter = THREE.LinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      texture.generateMipmaps = false;
+    };
+
+    const attachAlbedo = (target: Bubble, preloadedPhotoTexture?: THREE.Texture) => {
       if (usesPhotos) {
-        const texture = new THREE.TextureLoader().load(previewSources[target.mediaIndex]);
-        texture.colorSpace = THREE.SRGBColorSpace;
-        texture.wrapS = THREE.ClampToEdgeWrapping;
-        texture.wrapT = THREE.ClampToEdgeWrapping;
-        texture.minFilter = THREE.LinearFilter;
-        texture.magFilter = THREE.LinearFilter;
-        texture.generateMipmaps = false;
+        const applyLoadedPhoto = (loadedTexture: THREE.Texture) => {
+          const image = loadedTexture.image;
+          if (image instanceof HTMLImageElement) {
+            target.sparkPalette = deriveSparkPalette(image);
+          }
+        };
+        const texture = preloadedPhotoTexture ?? new THREE.TextureLoader().load(
+          previewSources[target.mediaIndex],
+          applyLoadedPhoto,
+        );
+        configurePhotoTexture(texture);
+        if (preloadedPhotoTexture) applyLoadedPhoto(preloadedPhotoTexture);
         target.albedoTexture = texture;
         target.material.uniforms.uAlbedo.value = texture;
         return;
@@ -559,10 +757,26 @@ export default function BubblePrototype({
       camera.updateProjectionMatrix();
     };
 
-    const spawn = (x: number) => {
-      if (bubbles.length >= maxBubbleCount) return;
-      const mediaIndex = availableMediaIndices.shift();
-      if (mediaIndex === undefined) return;
+    const spawn = (
+      x: number,
+      reservedMediaIndex?: number,
+      preloadedPhotoTexture?: THREE.Texture,
+    ) => {
+      if (bubbles.length >= maxBubbleCount) {
+        preloadedPhotoTexture?.dispose();
+        if (
+          reservedMediaIndex !== undefined
+          && !availableMediaIndices.includes(reservedMediaIndex)
+        ) {
+          availableMediaIndices.push(reservedMediaIndex);
+        }
+        return;
+      }
+      const mediaIndex = reservedMediaIndex ?? availableMediaIndices.shift();
+      if (mediaIndex === undefined) {
+        preloadedPhotoTexture?.dispose();
+        return;
+      }
       const compactScale = width < 640 ? 0.82 : width < 900 ? 0.92 : 1;
       const widthRadiusCap = width < 640 ? 0.38 : 0.44;
       const radius = Math.min(
@@ -597,6 +811,7 @@ export default function BubblePrototype({
         body,
         mediaIndex,
         previewVideo: null,
+        sparkPalette: POP_PALETTE,
         hoverAmount: 0,
         videoPlaying: false,
         ...createSurface(body),
@@ -604,10 +819,20 @@ export default function BubblePrototype({
       bubbles.push(target);
       target.material.uniforms.uFocalLength.value = focalLength;
       syncBodyGeometry(target);
-      attachAlbedo(target);
+      attachAlbedo(target, preloadedPhotoTexture);
     };
 
     const pop = (target: Bubble) => {
+      popOutlines.push({
+        x: target.x,
+        y: target.y,
+        radius: target.radius,
+        age: 0,
+        life: 0.38,
+      });
+      const sparkPalette = target.sparkPalette.length
+        ? [...target.sparkPalette, '#fffaf5']
+        : POP_PALETTE;
       const count = Math.round(clamp(target.radius * 0.8, 80, 160));
       for (let index = 0; index < count; index += 1) {
         const angle = Math.random() * Math.PI * 2;
@@ -621,13 +846,17 @@ export default function BubblePrototype({
           size: 0.4 + Math.random() * 1.25,
           age: 0,
           life: 0.42 + Math.random() * 0.62,
-          color: POP_PALETTE[Math.floor(Math.random() * POP_PALETTE.length)],
+          color: sparkPalette[Math.floor(Math.random() * sparkPalette.length)],
         });
       }
       removeBubble(target);
     };
 
     const releaseMedia = (target: Bubble) => {
+      if (!initialBackgroundQueued && target.mediaIndex !== initialBackgroundMediaIndex) {
+        availableMediaIndices.push(initialBackgroundMediaIndex);
+        initialBackgroundQueued = true;
+      }
       nextReleaseIdRef.current += 1;
       const nextReleasedMedia: ReleasedMedia = {
         id: nextReleaseIdRef.current,
@@ -638,14 +867,40 @@ export default function BubblePrototype({
         originY: target.y,
         radius: target.radius,
         ready: false,
+        previewTransitionStarted: false,
       };
       latestReleaseIdRef.current = nextReleasedMedia.id;
+      pendingPhotoBackground = null;
+      pendingPhotoLoad = null;
       for (const pendingTimer of releaseTimers) window.clearTimeout(pendingTimer);
       releaseTimers.clear();
       if (queuedBackground) {
         queuedBackground.texture.dispose();
         queuedBackground = null;
       }
+
+      // Photo bubbles already contain a decoded, GPU-resident preview. Hand
+      // that texture to the radial transition instead of disposing it and
+      // waiting for the full-resolution file before showing any response.
+      const previewImage = target.albedoTexture?.image;
+      if (
+        usesPhotos
+        && target.albedoTexture
+        && previewImage instanceof HTMLImageElement
+        && previewImage.complete
+        && previewImage.naturalWidth > 0
+      ) {
+        const previewTexture = target.albedoTexture;
+        target.albedoTexture = null;
+        nextReleasedMedia.previewTransitionStarted = true;
+        queueOrBeginBackgroundTransition(previewTexture, previewImage, nextReleasedMedia);
+      }
+
+      if (usesPhotos && nextReleasedMedia.previewTransitionStarted) {
+        pendingPhotoLoad = nextReleasedMedia;
+        return;
+      }
+
       const timer = window.setTimeout(() => {
         releaseTimers.delete(timer);
         setReleasedMedia([nextReleasedMedia]);
@@ -677,8 +932,8 @@ export default function BubblePrototype({
         Math.hypot(position.x - candidate.x, position.y - candidate.y) <= candidate.radius
       ));
       if (hit) {
-        pop(hit);
         releaseMedia(hit);
+        pop(hit);
         return;
       }
       pointer.present = event.pointerType === 'mouse';
@@ -903,6 +1158,32 @@ export default function BubblePrototype({
 
     const drawPixels = (delta: number) => {
       effects.clearRect(0, 0, width, height);
+      const remainingOutlines: PopOutline[] = [];
+      effects.save();
+      effects.lineWidth = 0.65;
+      effects.strokeStyle = '#fffaf5';
+      effects.shadowColor = 'rgba(255, 250, 245, 0.42)';
+      effects.shadowBlur = 3.2;
+      for (const outline of popOutlines) {
+        outline.age += delta;
+        if (outline.age >= outline.life) continue;
+        const progress = outline.age / outline.life;
+        const eased = 1 - Math.pow(1 - progress, 3);
+        effects.globalAlpha = Math.pow(1 - progress, 2.1) * 0.38;
+        effects.beginPath();
+        effects.arc(
+          outline.x,
+          outline.y,
+          outline.radius * (0.985 + eased * 0.045),
+          0,
+          Math.PI * 2,
+        );
+        effects.stroke();
+        remainingOutlines.push(outline);
+      }
+      effects.restore();
+      popOutlines = remainingOutlines;
+
       const remaining: Pixel[] = [];
       for (const pixel of pixels) {
         pixel.age += delta;
@@ -925,6 +1206,19 @@ export default function BubblePrototype({
     const animate = (time: number) => {
       const delta = Math.min(0.033, Math.max(0.001, (time - previousTime) / 1000));
       previousTime = time;
+      if (usesPhotos && backgroundHandoffStart > 0 && backgroundTransitionStart === 0) {
+        const handoffProgress = clamp(
+          (time - backgroundHandoffStart) / BACKGROUND_HANDOFF_DURATION_MS,
+          0,
+          1,
+        );
+        backgroundMaterial.uniforms.uLayerOpacity.value = 1 - smoothstep(0, 1, handoffProgress);
+        if (handoffProgress >= 1) {
+          backgroundHandoffStart = 0;
+          backgroundMesh.visible = false;
+          backgroundMaterial.uniforms.uLayerOpacity.value = 1;
+        }
+      }
       if (pendingBackgroundTexture && backgroundTransitionStart > 0) {
         const revealProgress = clamp(
           (time - backgroundTransitionStart) / BACKGROUND_REVEAL_DURATION_MS,
@@ -950,8 +1244,31 @@ export default function BubblePrototype({
           if (activeBackgroundTexture && activeBackgroundTexture !== pendingBackgroundTexture) {
             activeBackgroundTexture.dispose();
           }
+          const completedBackgroundMedia = pendingBackgroundTexture.image;
           activeBackgroundTexture = pendingBackgroundTexture;
+          activeBackgroundReleaseId = pendingBackgroundReleaseId;
+          if (usesPhotos && completedBackgroundMedia instanceof HTMLImageElement) {
+            const completedPhoto = pendingPhotoBackground?.released.id === activeBackgroundReleaseId
+              ? pendingPhotoBackground.media
+              : completedBackgroundMedia;
+            commitPhotoBackground(completedPhoto, activeBackgroundReleaseId);
+            if (pendingPhotoBackground?.released.id === activeBackgroundReleaseId) {
+              pendingPhotoBackground = null;
+            }
+            if (pendingPhotoLoad?.id === activeBackgroundReleaseId) {
+              const photoToLoad = pendingPhotoLoad;
+              pendingPhotoLoad = null;
+              const loadTimer = window.setTimeout(() => {
+                releaseTimers.delete(loadTimer);
+                if (photoToLoad.id === latestReleaseIdRef.current) {
+                  setReleasedMedia([photoToLoad]);
+                }
+              }, 48);
+              releaseTimers.add(loadTimer);
+            }
+          }
           pendingBackgroundTexture = null;
+          pendingBackgroundReleaseId = 0;
           activeBackgroundUvTransform.copy(pendingBackgroundUvTransform);
           backgroundMaterial.uniforms.uCurrentBackground.value = activeBackgroundTexture;
           backgroundMaterial.uniforms.uHasCurrentBackground.value = 1;
@@ -974,6 +1291,7 @@ export default function BubblePrototype({
                 nextBackground.media,
                 nextBackground.released,
                 time,
+                true,
               );
             } else {
               nextBackground.texture.dispose();
@@ -1004,17 +1322,67 @@ export default function BubblePrototype({
     effectsCanvas.addEventListener('pointerleave', onPointerLeave);
     effectsCanvas.addEventListener('pointerdown', onPointerDown);
     resize();
-    const spawnCount = Math.min(initialBubbleCount, previewSources.length, maxBubbleCount);
-    const initialSpawnTimers = Array.from({ length: spawnCount }, (_, index) => window.setTimeout(
-      () => spawn(width * (spawnCount === 1 ? 0.5 : 0.18 + index * (0.64 / (spawnCount - 1)))),
-      280 + index * 560,
-    ));
+    const spawnCount = Math.min(initialBubbleCount, availableMediaIndices.length, maxBubbleCount);
+    const initialSpawnTimers: number[] = [];
+    const initialPreloadTextures = new Set<THREE.Texture>();
+    const initialLoadStartedAt = performance.now();
+    const initialSpawnX = (index: number) => (
+      width * (spawnCount === 1 ? 0.5 : 0.18 + index * (0.64 / (spawnCount - 1)))
+    );
+    if (usesPhotos) {
+      const initialMediaIndices = availableMediaIndices.splice(0, spawnCount);
+      const initialTextureLoader = new THREE.TextureLoader();
+      initialMediaIndices.forEach((mediaIndex, index) => {
+        const texture = initialTextureLoader.load(
+          previewSources[mediaIndex],
+          (loadedTexture) => {
+            if (disposed) {
+              initialPreloadTextures.delete(loadedTexture);
+              loadedTexture.dispose();
+              return;
+            }
+            configurePhotoTexture(loadedTexture);
+            loadedTexture.needsUpdate = true;
+            const earliestEntrance = 280 + index * 560;
+            const remainingDelay = Math.max(
+              0,
+              earliestEntrance - (performance.now() - initialLoadStartedAt),
+            );
+            const timer = window.setTimeout(() => {
+              initialPreloadTextures.delete(loadedTexture);
+              spawn(initialSpawnX(index), mediaIndex, loadedTexture);
+            }, remainingDelay);
+            initialSpawnTimers.push(timer);
+          },
+          undefined,
+          () => {
+            initialPreloadTextures.delete(texture);
+            texture.dispose();
+            if (!availableMediaIndices.includes(mediaIndex)) {
+              availableMediaIndices.push(mediaIndex);
+            }
+          },
+        );
+        configurePhotoTexture(texture);
+        initialPreloadTextures.add(texture);
+      });
+    } else {
+      for (let index = 0; index < spawnCount; index += 1) {
+        initialSpawnTimers.push(window.setTimeout(
+          () => spawn(initialSpawnX(index)),
+          280 + index * 560,
+        ));
+      }
+    }
     frame = requestAnimationFrame(animate);
 
     return () => {
       disposed = true;
       cancelAnimationFrame(frame);
+      photoBackground?.removeEventListener('load', revealInitialPhoto);
       initialSpawnTimers.forEach((timer) => window.clearTimeout(timer));
+      for (const texture of initialPreloadTextures) texture.dispose();
+      initialPreloadTextures.clear();
       for (const timer of releaseTimers) window.clearTimeout(timer);
       releaseTimers.clear();
       observer.disconnect();
@@ -1046,6 +1414,7 @@ export default function BubblePrototype({
     };
   }, [
     initialBubbleCount,
+    initialBackgroundPreviewSource,
     initialBackgroundSource,
     maxBubbleCount,
     previewSources,
@@ -1057,6 +1426,19 @@ export default function BubblePrototype({
 
   return (
     <div className="absolute inset-0 z-[2]">
+      {usesPhotos ? (
+        <div className="bubble-photo-background-layer" aria-hidden="true">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            ref={photoBackgroundRef}
+            src={initialBackgroundSource}
+            className="bubble-photo-background-image"
+            style={{ opacity: initialPhotoVisible ? 1 : 0 }}
+            alt=""
+          />
+          <div className="bubble-photo-background-grain" />
+        </div>
+      ) : null}
       {releasedMedia.map((released) => (
         <div
           key={released.id}

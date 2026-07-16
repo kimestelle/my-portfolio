@@ -17,6 +17,7 @@ export default function MoreBubbles() {
       maxBubbleCount={7}
       randomizeMediaOrder
       initialBackgroundSource={DREAMLIKE_PHOTOS[28]}
+      initialBackgroundPreviewSource={DREAMLIKE_PREVIEWS[28]}
       interactionLabel="Click the field to release a photo bubble; hover to deform it and click it to burst"
     />
   );

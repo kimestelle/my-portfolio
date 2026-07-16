@@ -36,6 +36,9 @@ uniform vec2 uTileUvScale;
 uniform vec2 uRevealOrigin;
 uniform float uRevealRadius;
 uniform float uRevealProgress;
+uniform float uOverlayOnly;
+uniform float uLayerOpacity;
+uniform float uCompositeCurrentBase;
 
 const float SANDPAPER_OPACITY = 1.0;
 
@@ -60,6 +63,7 @@ float smootherstep01(float value) {
 
 void main() {
   vec2 screenUv = gl_FragCoord.xy / uViewportSize;
+
   vec2 tileUv = vec2(
     gl_FragCoord.x,
     uViewportSize.y - gl_FragCoord.y
@@ -81,19 +85,56 @@ void main() {
     SANDPAPER_OPACITY
   );
 
+  // Photo mode keeps the full-resolution DOM image underneath WebGL. During
+  // a reveal, draw only the feathered incoming region; after the reveal, keep
+  // the preview opaque just long enough for the DOM replacement to paint.
+  if (uOverlayOnly > 0.5) {
+    if (uHasNextBackground > 0.5) {
+      float easedReveal = smootherstep01(uRevealProgress);
+      float revealOpacity = smootherstep01((uRevealProgress - 0.04) / 0.9);
+      float finalRadius = length(uViewportSize) * 1.8;
+      float revealRadius = mix(uRevealRadius, finalRadius, easedReveal);
+      float reveal = 1.0 - smoothstep(
+        revealRadius * 0.68,
+        revealRadius,
+        distance(gl_FragCoord.xy, uRevealOrigin)
+      );
+      float revealAmount = reveal * revealOpacity;
+      if (revealAmount > 0.001) {
+        vec2 nextUv = screenUv * uNextBackgroundUvTransform.xy
+          + uNextBackgroundUvTransform.zw;
+        vec3 nextImage = texture2D(
+          uNextBackground,
+          clamp(nextUv, vec2(0.001), vec2(0.999))
+        ).rgb;
+        vec3 nextComposite = mix(
+          nextImage,
+          nextImage * sandpaper,
+          SANDPAPER_OPACITY
+        );
+        if (uCompositeCurrentBase > 0.5) {
+          gl_FragColor = vec4(
+            mix(currentComposite, nextComposite, revealAmount),
+            uLayerOpacity
+          );
+        } else {
+          gl_FragColor = vec4(nextComposite, revealAmount * uLayerOpacity);
+        }
+      } else {
+        gl_FragColor = uCompositeCurrentBase > 0.5
+          ? vec4(currentComposite, uLayerOpacity)
+          : vec4(0.0);
+      }
+    } else {
+      gl_FragColor = vec4(currentComposite, uLayerOpacity);
+    }
+    #include <tonemapping_fragment>
+    #include <colorspace_fragment>
+    return;
+  }
+
   vec3 finalComposite = currentComposite;
   if (uHasNextBackground > 0.5) {
-    vec2 nextUv = screenUv * uNextBackgroundUvTransform.xy
-      + uNextBackgroundUvTransform.zw;
-    vec3 nextImage = texture2D(
-      uNextBackground,
-      clamp(nextUv, vec2(0.001), vec2(0.999))
-    ).rgb;
-    vec3 nextComposite = mix(
-      nextImage,
-      nextImage * sandpaper,
-      SANDPAPER_OPACITY
-    );
     float easedReveal = smootherstep01(uRevealProgress);
     float revealOpacity = smootherstep01((uRevealProgress - 0.04) / 0.9);
     float finalRadius = length(uViewportSize) * 1.8;
@@ -103,7 +144,25 @@ void main() {
       revealRadius,
       distance(gl_FragCoord.xy, uRevealOrigin)
     );
-    finalComposite = mix(currentComposite, nextComposite, reveal * revealOpacity);
+    float revealAmount = reveal * revealOpacity;
+
+    // The transition starts as a small coherent region. Avoid fetching the
+    // incoming texture for fragments outside that region; previously every
+    // device pixel sampled both full-screen images for the entire animation.
+    if (revealAmount > 0.001) {
+      vec2 nextUv = screenUv * uNextBackgroundUvTransform.xy
+        + uNextBackgroundUvTransform.zw;
+      vec3 nextImage = texture2D(
+        uNextBackground,
+        clamp(nextUv, vec2(0.001), vec2(0.999))
+      ).rgb;
+      vec3 nextComposite = mix(
+        nextImage,
+        nextImage * sandpaper,
+        SANDPAPER_OPACITY
+      );
+      finalComposite = mix(currentComposite, nextComposite, revealAmount);
+    }
   }
 
   gl_FragColor = vec4(finalComposite, 1.0);
