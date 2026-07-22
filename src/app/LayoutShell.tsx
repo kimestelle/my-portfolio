@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import MoodRingBackground from './design-deets/shader/MoodRingShader';
 
 const SHADER_PREF_KEY = 'estelle-portfolio:shader-enabled';
+const CELL_AUTOMATA_PREF_KEY = 'estelle-portfolio:cell-automata-enabled';
 const PLAYGROUND_EXIT_MS = 220;
 
 export default function LayoutShell({ children }: { children: ReactNode }) {
@@ -21,6 +22,7 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
 
   // user shader preference
   const [shaderPref, setShaderPref] = useState<boolean | null>(null);
+  const [cellAutomataPref, setCellAutomataPref] = useState<boolean | null>(null);
   const [fps, setFps] = useState(0);
 
   // decide if shader is enabled
@@ -29,11 +31,14 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
   useEffect(() => {
     try {
       const cached = window.localStorage.getItem(SHADER_PREF_KEY);
-      // Only an explicit saved "false" disables the shader; stale or malformed
-      // values should preserve the site's default-on behavior.
+      // Default ON: only an explicit saved "false" disables the shader.
       setShaderPref(cached === 'false' ? false : true);
+      // Stars stay off (also gated by STARS_ENABLED in the shader) and the
+      // toggle is hidden — the plumbing is kept but inert.
+      setCellAutomataPref(false);
     } catch {
       setShaderPref(true);
+      setCellAutomataPref(false);
     }
   }, []);
 
@@ -46,9 +51,23 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
     }
   }, [shaderPref]);
 
+  useEffect(() => {
+    if (cellAutomataPref === null) return;
+    try {
+      window.localStorage.setItem(CELL_AUTOMATA_PREF_KEY, String(cellAutomataPref));
+    } catch {
+      // Storage may be unavailable in privacy modes; in-memory preference remains valid.
+    }
+  }, [cellAutomataPref]);
+
   const onToggleShader = useCallback(() => {
     if (shaderDisabled) return;
     setShaderPref((value) => !(value ?? true));
+  }, [shaderDisabled]);
+
+  const onToggleCellAutomata = useCallback(() => {
+    if (shaderDisabled) return;
+    setCellAutomataPref((value) => !(value ?? false));
   }, [shaderDisabled]);
 
   const onFps = useCallback((v: number) => setFps(v), []);
@@ -87,11 +106,13 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
       <NavBar
         fps={fps}
         shaderOn={shaderEnabled}
+        cellAutomataOn={cellAutomataPref === true}
         playground={shaderDisabled}
         shaderDisabled={shaderDisabled}
         collapsingToPlayground={playgroundTransition === 'out'}
         playgroundTransitioning={playgroundTransition !== 'idle'}
         onToggleShader={onToggleShader}
+        onToggleCellAutomata={onToggleCellAutomata}
         onPlaygroundNavigate={onPlaygroundNavigate}
       />
 

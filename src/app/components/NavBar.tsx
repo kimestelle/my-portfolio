@@ -9,11 +9,13 @@ export interface NavBarProps {
   hide?: boolean;
   fps?: number;
   shaderOn: boolean;
+  cellAutomataOn?: boolean;
   playground?: boolean;
   shaderDisabled?: boolean;
   collapsingToPlayground?: boolean;
   playgroundTransitioning?: boolean;
   onToggleShader?: () => void;
+  onToggleCellAutomata?: () => void;
   onPlaygroundNavigate?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
@@ -51,7 +53,13 @@ export default function NavBar({
           content={shaderDisabled ? 'shader is disabled on this page :-(' : 'cool shader? click to toggle!'}
           placement="bottom"
         >
-          <button className="portfolio-nav__toggle" type="button" tabIndex={compact ? -1 : undefined} onClick={onToggleShader}>
+          <button
+            className="portfolio-nav__toggle"
+            type="button"
+            tabIndex={compact ? -1 : undefined}
+            onClick={onToggleShader}
+            aria-pressed={shaderOn}
+          >
             {shaderOn ? `fps ${fps.toFixed(0)}: ` : 'shader '}
             <span>{shaderOn ? 'on' : 'off'}</span>
           </button>

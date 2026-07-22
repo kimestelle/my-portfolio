@@ -19,6 +19,10 @@ type HeatSpot = {
 const TARGET_FPS = 60;
 const FRAME_MS = 1000 / TARGET_FPS;
 
+// Star field (Conway cell automata over the ascii layer) is disabled for now.
+// Flip to true to bring it back — the code below is gated on this, not removed.
+const STARS_ENABLED = false;
+
 export default function MoodRingBackground({ enabled = true, onFps, playgroundTransition = 'idle', onTransitionCovered }: MoodRingProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const backgroundRef = useRef<HTMLCanvasElement>(null);
@@ -114,7 +118,12 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
       cols = Math.max(1, Math.floor(width / CELL_W));
       rows = Math.max(1, Math.floor(height / CELL_H));
 
-      asciiStars.current = starConwayPattern(cols, rows);
+      if (STARS_ENABLED) {
+        asciiStars.current = starConwayPattern(cols, rows);
+      } else {
+        asciiStars.current = [];
+        asciiCtx.clearRect(0, 0, width, height);
+      }
 
       asciiCtx.font = '10px "Star Glyphs", Newsreader, serif';
       asciiCtx.fillStyle = 'rgba(68, 32, 150, 1)';
@@ -230,7 +239,7 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
       viewportRef.current.h = h;
       
       resizeAscii(w, h);
-      drawAll(w, h);
+      if (STARS_ENABLED) drawAll(w, h);
 
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
       renderer.setSize(w, h, false);
@@ -378,7 +387,7 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
           coveredSent = true;
           transitionCoveredRef.current?.();
         }
-      } else {
+      } else if (STARS_ENABLED) {
         const MAX_STEPS_PER_FRAME = 4;
         let steps = 0;
         while (conwayAcc >= CONWAY_STEP && steps < MAX_STEPS_PER_FRAME) {
@@ -418,7 +427,7 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
       uniforms.uTransition.value = 0;
 
       // ensure grid exists + draw immediately
-      if (cols > 0 && rows > 0) {
+      if (STARS_ENABLED && cols > 0 && rows > 0) {
         asciiStars.current = starConwayPattern(cols, rows);
         drawAll(viewportRef.current.w, viewportRef.current.h);
       }

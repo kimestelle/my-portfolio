@@ -42,15 +42,15 @@
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: url('/textures/sandpaper.png') 0 0 / 60px 60px repeat;
+  background: url('/textures/sandpaper.png') 0 0 / 60px 60px repeat, white;
   mix-blend-mode: multiply;
-  opacity: .2;
+  opacity: 0.6;
   transition: opacity 240ms ease;
 }
 
 .portfolio-nav:hover .portfolio-nav__shell::after,
 .portfolio-nav:focus-within .portfolio-nav__shell::after {
-  opacity: .58;
+  opacity: 1.0;
 }
 
 .is-compact .portfolio-nav__shell {
@@ -88,6 +88,9 @@
 
 .portfolio-nav__status {
   position: absolute;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
   top: 50%;
   left: calc(100% + 0.7rem);
   width: max-content;
