@@ -26,7 +26,9 @@ const STARS_ENABLED = false;
 // The blob is a low-frequency gradient, so the WebGL canvas renders at a
 // fraction of CSS resolution and the browser's linear upscale hides it.
 // uResolution stays in reference (CSS × dpr) units so sizes don't change.
-const BLOB_RESOLUTION_SCALE = 0.25;
+// 0.5 is the floor: a fresh spot is ~14px radius, and below half res its
+// falloff spans so few texels that the upscale reads as pixelated.
+const BLOB_RESOLUTION_SCALE = 0.5;
 
 export default function MoodRingBackground({ enabled = true, onFps, playgroundTransition = 'idle', onTransitionCovered }: MoodRingProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
