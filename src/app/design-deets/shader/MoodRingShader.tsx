@@ -16,10 +16,6 @@ type HeatSpot = {
   createdAt: number;
 };
 
-// Fast swipes leave spawn points ~40-80px apart, which the metaball reads as
-// beads; gaps wider than this get intermediate spots along the segment.
-const TRAIL_GAP_PX = 36;
-
 // Star field (Conway cell automata over the ascii layer) is disabled for now.
 // Flip to true to bring it back — the code below is gated on this, not removed.
 const STARS_ENABLED = false;
@@ -272,42 +268,17 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
       blobWasVisible = true;
     };
 
-    let lastSpawn = { x: 0, y: 0, t: -1 };
-
-    const spawnSpot = (clientX: number, clientY: number, at: number) => {
-      const x = clientX / viewportRef.current.w;
-      const y = 1 - clientY / viewportRef.current.h;
-      const stretchedY = (y - 0.5) * (viewportRef.current.h / viewportRef.current.w) + 0.5;
-
-      heatSpots.current.push({ position: new THREE.Vector2(x, stretchedY), createdAt: at });
-      if (heatSpots.current.length > maxSpots) heatSpots.current.shift();
-    };
-
     const handleTouch = (clientX: number, clientY: number) => {
       const now = elapsedTimeRef.current;
       if (now - lastTouchTimeRef.current < 0.05) return;
       lastTouchTimeRef.current = now;
 
-      // Bridge fast swipes with interpolated spots so the trail is a ribbon
-      // instead of beads. Only for near-continuous motion — a pointer that
-      // reappears across the screen shouldn't draw a line through it.
-      if (lastSpawn.t >= 0 && now - lastSpawn.t < 0.15) {
-        const gap = Math.hypot(clientX - lastSpawn.x, clientY - lastSpawn.y);
-        if (gap > TRAIL_GAP_PX) {
-          const count = Math.min(3, Math.floor(gap / TRAIL_GAP_PX));
-          for (let i = 1; i <= count; i++) {
-            const f = i / (count + 1);
-            spawnSpot(
-              lastSpawn.x + (clientX - lastSpawn.x) * f,
-              lastSpawn.y + (clientY - lastSpawn.y) * f,
-              lastSpawn.t + (now - lastSpawn.t) * f
-            );
-          }
-        }
-      }
+      const x = clientX / viewportRef.current.w;
+      const y = 1 - clientY / viewportRef.current.h;
+      const stretchedY = (y - 0.5) * (viewportRef.current.h / viewportRef.current.w) + 0.5;
 
-      spawnSpot(clientX, clientY, now);
-      lastSpawn = { x: clientX, y: clientY, t: now };
+      heatSpots.current.push({ position: new THREE.Vector2(x, stretchedY), createdAt: now });
+      if (heatSpots.current.length > maxSpots) heatSpots.current.shift();
     };
 
     const onPointerMove = (e: PointerEvent) => enabledRef.current && handleTouch(e.clientX, e.clientY);
