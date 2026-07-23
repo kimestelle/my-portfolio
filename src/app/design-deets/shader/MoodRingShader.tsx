@@ -23,6 +23,11 @@ const FRAME_MS = 1000 / TARGET_FPS;
 // Flip to true to bring it back — the code below is gated on this, not removed.
 const STARS_ENABLED = false;
 
+// The blob is a low-frequency gradient, so the WebGL canvas renders at a
+// fraction of CSS resolution and the browser's linear upscale hides it.
+// uResolution stays in reference (CSS × dpr) units so sizes don't change.
+const BLOB_RESOLUTION_SCALE = 0.25;
+
 export default function MoodRingBackground({ enabled = true, onFps, playgroundTransition = 'idle', onTransitionCovered }: MoodRingProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const backgroundRef = useRef<HTMLCanvasElement>(null);
@@ -241,12 +246,15 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
       resizeAscii(w, h);
       if (STARS_ENABLED) drawAll(w, h);
 
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
-      renderer.setSize(w, h, false);
+      renderer.setPixelRatio(1);
+      renderer.setSize(
+        Math.max(1, Math.round(w * BLOB_RESOLUTION_SCALE)),
+        Math.max(1, Math.round(h * BLOB_RESOLUTION_SCALE)),
+        false
+      );
 
-      const buf = new THREE.Vector2();
-      renderer.getDrawingBufferSize(buf);
-      uniforms.uResolution.value.copy(buf);
+      const refDpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      uniforms.uResolution.value.set(w * refDpr, h * refDpr);
     };
 
     const handleTouch = (clientX: number, clientY: number) => {
@@ -302,6 +310,9 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
     let conwayAcc = 0;
     const CONWAY_STEP = 0.12;
     let transitionActive = false;
+    // True while the last rendered frame had visible blob pixels; lets us
+    // draw one clearing frame after the spots expire, then stop rendering.
+    let blobWasVisible = true;
     let transitionStart = 0;
     let frozenShaderTime = 0;
     let coveredSent = false;
@@ -317,7 +328,10 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
     const animate = (t: number) => {
       if (!runningRef.current) return;
       if (startTime === 0) startTime = t;
-      if (t - lastRender < FRAME_MS) {
+      // Cap at ~60. The 1ms tolerance matters: on 120Hz displays the tick at
+      // +16.67ms often lands at ~16.6ms due to timer jitter, and skipping it
+      // pushes the render to +25ms — a hard 40fps artifact, not GPU load.
+      if (t - lastRender < FRAME_MS - 1) {
         rafIdRef.current = requestAnimationFrame(animate);
         return;
       }
@@ -399,7 +413,14 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
         }
       }
 
-      renderer.render(scene, camera);
+      // Nothing on this canvas but the blob: with no spots and no transition
+      // it is fully transparent, so skip the GPU pass entirely while idle.
+      const blobVisible = src.length > 0 || transitionActive || uniforms.uTransition.value > 0;
+      if (blobVisible || blobWasVisible) {
+        renderer.render(scene, camera);
+      }
+      blobWasVisible = blobVisible;
+
       rafIdRef.current = requestAnimationFrame(animate);
     };
 
@@ -435,6 +456,7 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
       // render one frame immediately
       uniforms.uTime.value = 0;
       renderer.render(scene, camera);
+      blobWasVisible = true;
 
       runningRef.current = true;
       rafIdRef.current = requestAnimationFrame(animate);
