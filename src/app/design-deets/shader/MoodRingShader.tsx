@@ -16,8 +16,9 @@ type HeatSpot = {
   createdAt: number;
 };
 
-const TARGET_FPS = 60;
-const FRAME_MS = 1000 / TARGET_FPS;
+// Fast swipes leave spawn points ~40-80px apart, which the metaball reads as
+// beads; gaps wider than this get intermediate spots along the segment.
+const TRAIL_GAP_PX = 36;
 
 // Star field (Conway cell automata over the ascii layer) is disabled for now.
 // Flip to true to bring it back — the code below is gated on this, not removed.
@@ -74,10 +75,13 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
     let cols = 0;
     let rows = 0;
     let dpr = 1;
-    let lastAsciiStep = 0;
 
     let fpsFrames = 0;
     let fpsLast = 0;
+
+    // True while the last rendered frame had visible blob pixels; lets us
+    // draw one clearing frame after the spots expire, then stop rendering.
+    let blobWasVisible = true;
 
     // preload font
     const ensureFont = (async () => {
@@ -230,7 +234,11 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
           float coverage = uSpotCount == 0
             ? smoothstep(0.0, 1.0, uTransition)
             : smoothstep(0.02, 0.28, transitionField) * smoothstep(0.0, 0.18, uTransition);
-          gl_FragColor = vec4(mix(color, vec3(1.0), coverage), mix(a, 1.0, coverage));
+
+          // ~±1 LSB of hash noise breaks up 8-bit banding contours, which the
+          // wide soft gradients on white otherwise make clearly visible.
+          float dither = (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) / 160.0;
+          gl_FragColor = vec4(mix(color, vec3(1.0), coverage) + dither, mix(a, 1.0, coverage) + dither);
         }
       `,
       transparent: true,
@@ -257,6 +265,22 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
 
       const refDpr = Math.min(window.devicePixelRatio || 1, 1.5);
       uniforms.uResolution.value.set(w * refDpr, h * refDpr);
+
+      // setSize clears the drawing buffer; without this, resizing while the
+      // idle skip is active would leave a transparent canvas until the next
+      // pointer move.
+      blobWasVisible = true;
+    };
+
+    let lastSpawn = { x: 0, y: 0, t: -1 };
+
+    const spawnSpot = (clientX: number, clientY: number, at: number) => {
+      const x = clientX / viewportRef.current.w;
+      const y = 1 - clientY / viewportRef.current.h;
+      const stretchedY = (y - 0.5) * (viewportRef.current.h / viewportRef.current.w) + 0.5;
+
+      heatSpots.current.push({ position: new THREE.Vector2(x, stretchedY), createdAt: at });
+      if (heatSpots.current.length > maxSpots) heatSpots.current.shift();
     };
 
     const handleTouch = (clientX: number, clientY: number) => {
@@ -264,12 +288,26 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
       if (now - lastTouchTimeRef.current < 0.05) return;
       lastTouchTimeRef.current = now;
 
-      const x = clientX / viewportRef.current.w;
-      const y = 1 - clientY / viewportRef.current.h;
-      const stretchedY = (y - 0.5) * (viewportRef.current.h / viewportRef.current.w) + 0.5;
+      // Bridge fast swipes with interpolated spots so the trail is a ribbon
+      // instead of beads. Only for near-continuous motion — a pointer that
+      // reappears across the screen shouldn't draw a line through it.
+      if (lastSpawn.t >= 0 && now - lastSpawn.t < 0.15) {
+        const gap = Math.hypot(clientX - lastSpawn.x, clientY - lastSpawn.y);
+        if (gap > TRAIL_GAP_PX) {
+          const count = Math.min(3, Math.floor(gap / TRAIL_GAP_PX));
+          for (let i = 1; i <= count; i++) {
+            const f = i / (count + 1);
+            spawnSpot(
+              lastSpawn.x + (clientX - lastSpawn.x) * f,
+              lastSpawn.y + (clientY - lastSpawn.y) * f,
+              lastSpawn.t + (now - lastSpawn.t) * f
+            );
+          }
+        }
+      }
 
-      heatSpots.current.push({ position: new THREE.Vector2(x, stretchedY), createdAt: now });
-      if (heatSpots.current.length > maxSpots) heatSpots.current.shift();
+      spawnSpot(clientX, clientY, now);
+      lastSpawn = { x: clientX, y: clientY, t: now };
     };
 
     const onPointerMove = (e: PointerEvent) => enabledRef.current && handleTouch(e.clientX, e.clientY);
@@ -307,14 +345,10 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
     onResize(viewportRef.current.w, viewportRef.current.h);
 
     let startTime = 0;
-    let lastRender = 0
     let lastNow = 0;
     let conwayAcc = 0;
     const CONWAY_STEP = 0.12;
     let transitionActive = false;
-    // True while the last rendered frame had visible blob pixels; lets us
-    // draw one clearing frame after the spots expire, then stop rendering.
-    let blobWasVisible = true;
     let transitionStart = 0;
     let frozenShaderTime = 0;
     let coveredSent = false;
@@ -330,15 +364,6 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
     const animate = (t: number) => {
       if (!runningRef.current) return;
       if (startTime === 0) startTime = t;
-      // Cap at ~60. The 1ms tolerance matters: on 120Hz displays the tick at
-      // +16.67ms often lands at ~16.6ms due to timer jitter, and skipping it
-      // pushes the render to +25ms — a hard 40fps artifact, not GPU load.
-      if (t - lastRender < FRAME_MS - 1) {
-        rafIdRef.current = requestAnimationFrame(animate);
-        return;
-      }
-      lastRender = t;
-
       fpsFrames++;
       if (!fpsLast) fpsLast = t;
       if (t - fpsLast >= 500) {
@@ -474,7 +499,6 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
       asciiStars.current = [];
       elapsedTimeRef.current = 0;
       lastTouchTimeRef.current = 0;
-      lastAsciiStep = 0;
       fpsFrames = 0;
       fpsLast = 0;
       startTime = 0;
