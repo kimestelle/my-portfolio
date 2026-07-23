@@ -18,7 +18,7 @@ type HeatSpot = {
 
 // Star field (Conway cell automata over the ascii layer) is disabled for now.
 // Flip to true to bring it back — the code below is gated on this, not removed.
-const STARS_ENABLED = false;
+const STARS_ENABLED = true;
 
 // The blob is a low-frequency gradient, so the WebGL canvas renders at a
 // fraction of CSS resolution and the browser's linear upscale hides it.
@@ -79,6 +79,14 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
     // draw one clearing frame after the spots expire, then stop rendering.
     let blobWasVisible = true;
 
+    // Reduced motion keeps the static star field but freezes the Conway
+    // stepping; the blob is exempt since it only moves with the user's own
+    // pointer. Tracked live so an OS-setting change applies without reload.
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let reduceMotion = motionQuery.matches;
+    const onMotionChange = () => { reduceMotion = motionQuery.matches; };
+    motionQuery.addEventListener('change', onMotionChange);
+
     // preload font
     const ensureFont = (async () => {
       try {
@@ -132,8 +140,10 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
         asciiCtx.clearRect(0, 0, width, height);
       }
 
-      asciiCtx.font = '10px "Star Glyphs", Newsreader, serif';
-      asciiCtx.fillStyle = 'rgba(68, 32, 150, 1)';
+      asciiCtx.font = '8px "Star Glyphs", Newsreader, serif';
+      // 0.55 over white ≈ 3.3:1 against the page background — clears the
+      // WCAG 1.4.11 non-text 3:1 bar while staying visually light.
+      asciiCtx.fillStyle = 'rgba(68, 32, 150, 0.55)';
     };
 
     // initialize three
@@ -399,7 +409,7 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
           coveredSent = true;
           transitionCoveredRef.current?.();
         }
-      } else if (STARS_ENABLED) {
+      } else if (STARS_ENABLED && !reduceMotion) {
         const MAX_STEPS_PER_FRAME = 4;
         let steps = 0;
         while (conwayAcc >= CONWAY_STEP && steps < MAX_STEPS_PER_FRAME) {
@@ -512,6 +522,7 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
       window.removeEventListener('pointermove', onPointerMove);
       window.removeEventListener('pointerdown', onPointerDown);
       window.removeEventListener('touchstart', onTouchStart as any);
+      motionQuery.removeEventListener('change', onMotionChange);
 
       renderer.dispose();
       material.dispose();
