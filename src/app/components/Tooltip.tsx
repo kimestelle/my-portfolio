@@ -119,6 +119,10 @@ export function CursorTooltip({
   const merged = cloneElement(child, {
     onMouseEnter: (e: MouseEvent) => {
       child.props.onMouseEnter?.(e);
+      // Seed the virtual reference immediately: if the tooltip mounts before
+      // the first mousemove, it would otherwise position against (0, 0).
+      mouseRef.current.x = e.clientX;
+      mouseRef.current.y = e.clientY;
       scheduleOpen();
     },
     onMouseLeave: (e: MouseEvent) => {
@@ -131,6 +135,15 @@ export function CursorTooltip({
     },
     onFocus: (e: FocusEvent) => {
       child.props.onFocus?.(e);
+      // Keyboard/tap focus never fires mouse events, so anchor the virtual
+      // reference to the focused element instead of stale cursor coords.
+      const el = e.currentTarget as HTMLElement | null;
+      if (el?.getBoundingClientRect) {
+        const rect = el.getBoundingClientRect();
+        mouseRef.current.x = rect.left + rect.width / 2;
+        mouseRef.current.y = rect.top + rect.height / 2;
+        if (present) update();
+      }
       scheduleOpen();
     },
     onBlur: (e: FocusEvent) => {
