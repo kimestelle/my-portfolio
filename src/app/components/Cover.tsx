@@ -7,7 +7,7 @@ import { CursorTooltip } from './Tooltip';
 export default function Cover() {
   return (
     <div className="relative flex w-full flex-col items-center pb-24 pt-6 md:pb-32 md:pt-10">
-      <header className="homepage-intro-diffusion flex w-full max-w-2xl shrink-0 flex-col items-start">
+      <header className="flex w-full max-w-2xl shrink-0 flex-col items-start">
         <ShimmerText as="h1" className="type-identity">
           Estelle Kim
         </ShimmerText>

@@ -386,7 +386,7 @@ summary::marker {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  border: 1px solid var(--glass-outline);
+  border: 0;
   background-color: var(--glass-opacity);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.58),
@@ -445,11 +445,7 @@ summary::marker {
 
 .project-story-panel {
   overflow: hidden;
-}
-
-.project-story-panel:hover,
-.project-story-panel:focus-within {
-  background-color: var(--glass-opacity);
+  background-color: rgba(255, 255, 255, 0.78);
 }
 
 .project-story-panel > * {
@@ -511,45 +507,6 @@ summary::marker {
   .glass-interactive:active,
   .group:hover .homepage-project-window {
     transform: none;
-  }
-}
-
-.homepage-intro-diffusion {
-  position: relative;
-  isolation: isolate;
-}
-
-.homepage-intro-diffusion::before {
-  content: "";
-  position: absolute;
-  inset: -2.5rem -4rem;
-  z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(
-    ellipse at 40% 44%,
-    rgba(255, 255, 255, 0.34) 0%,
-    rgba(255, 255, 255, 0.18) 48%,
-    rgba(255, 255, 255, 0) 78%
-  );
-  backdrop-filter: blur(10px) saturate(0.94);
-  -webkit-backdrop-filter: blur(10px) saturate(0.94);
-  mask-image: radial-gradient(
-    ellipse at 40% 44%,
-    black 34%,
-    rgba(0, 0, 0, 0.72) 56%,
-    transparent 79%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse at 40% 44%,
-    black 34%,
-    rgba(0, 0, 0, 0.72) 56%,
-    transparent 79%
-  );
-}
-
-@media (max-width: 640px) {
-  .homepage-intro-diffusion::before {
-    inset: -1.75rem -1.25rem;
   }
 }
 

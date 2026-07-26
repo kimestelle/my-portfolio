@@ -12,8 +12,7 @@ export default function About() {
           <div className="star-line-north">
             <span className="star-glyph-north" aria-hidden="true">✦</span>
             <ShimmerText as="span" className="star-copy-north">
-              I like building software that feels intentional, where design,
-              engineering, and interaction all support the same idea.
+              I build software where design, engineering, and interaction feel like one decision.
             </ShimmerText>
           </div>
         </header>
@@ -26,13 +25,12 @@ export default function About() {
             </ShimmerText>
           </div>
           <p>
-            Most of my work starts the same way: understanding what the
-            experience is supposed to feel like before deciding how to build
+            Most of my work starts with conversations to understand what the
+            experience should feel like before deciding how to build
             it.
           </p>
           <p>
-            Sometimes the right solution is a simple frontend interaction.
-            Sometimes it calls for graphics, AI, or a custom system. I enjoy
+            Sometimes the right solution is a simple frontend interaction. Others call for graphics, AI, or a custom system. I enjoy
             figuring out where that line is.
           </p>
           <p>
@@ -50,21 +48,17 @@ export default function About() {
             </ShimmerText>
           </div>
           <p>
-            I didn&apos;t grow up planning to become a graphics engineer.
+            I didn&apos;t really plan to become an engineer.
           </p>
           <p>
-            Before computer science, I spent much of my time organizing
-            students, building coalitions, and working on education policy.
+            Before computer science, I spent time organizing
+            activists, building coalitions, and working on education policy.
             That experience taught me to start with people: understand the
             problem, communicate clearly, and build toward shared goals.
           </p>
           <p>
-            When I found engineering, those instincts didn&apos;t disappear.
-            They found a different medium.
-          </p>
-          <p>
             Today I build interactive software because it&apos;s where
-            technical systems and human experience meet.
+            technical systems and human experience meet. The challenge of making someone&apos;s vision come to life in a way that feels intentional is what keeps me excited about this work.
           </p>
         </section>
 

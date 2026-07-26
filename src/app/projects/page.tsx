@@ -505,7 +505,7 @@ function ExpandedProject({ project }: { project: PortfolioProject }) {
   return (
     <div
       data-project-story
-      className="project-story-panel glass-panel ui-radius-surface"
+      className="project-story-panel ui-radius-surface"
     >
       <div className="type-meta grid gap-3 border-b border-[color:var(--line-color)] px-4 py-3 text-[color:var(--text-meta)] sm:grid-cols-2 md:px-5">
         <span>{project.metadata.date}</span>

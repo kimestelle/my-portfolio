@@ -37,7 +37,7 @@ export default function ProjectBlock({ project }: ProjectBlockProps) {
           {project.collapsed.purpose}
         </p>
 
-        <div className="glass-surface ui-radius-panel mt-5 grid gap-4 p-4 sm:grid-cols-2">
+        <div className="mt-5 grid gap-4 border-y border-[color:var(--line-color)] py-4 sm:grid-cols-2 sm:gap-8">
           <div>
             <h4 className="text-neutral-500">my role</h4>
             <p className="mt-1">{project.metadata.role}</p>

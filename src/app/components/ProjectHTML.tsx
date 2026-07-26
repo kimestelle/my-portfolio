@@ -41,7 +41,7 @@ export default function ProjectHTML() {
               className="group block"
             >
               <article>
-                <div className="glass-surface homepage-project-window ui-radius-surface relative aspect-[16/10] overflow-hidden">
+                <div className="homepage-project-window ui-radius-surface relative aspect-[16/10] overflow-hidden">
                   {project.media ? (
                     <Image
                       src={project.media.cover}

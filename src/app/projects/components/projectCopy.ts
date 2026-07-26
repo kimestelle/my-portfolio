@@ -206,7 +206,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     section: 'shipped with teams',
     variant: 'standard',
     metadata: {
-      date: 'technical leadership from Fall 2024; major repository consolidation January–February 2026',
+      date: 'January–February 2026',
       role: 'technical lead',
       result: 'one maintained public site and documented content workflow',
       stack: 'React · TypeScript · Vite · Tailwind · GitHub Pages',
@@ -290,7 +290,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     media: { cover: '/textures/matter/red-silk/albedo.png' },
     technicalLabel:
       'how one fabric model drives rendering, motion, and export →',
-    status: 'in active development',
     liveUrl: 'https://digital-loom-nine.vercel.app/',
   },
   {

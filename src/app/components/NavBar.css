@@ -36,7 +36,7 @@
   position: absolute;
   z-index: -1;
   inset: 0;
-  border: 1px solid var(--glass-outline);
+  border: 0;
   border-radius: var(--radius-pill);
   opacity: 1;
   background-color: var(--glass-opacity);
