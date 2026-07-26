@@ -1,14 +1,19 @@
 .portfolio-nav {
+  --portfolio-nav-satellite-center: 1.95rem;
   position: fixed;
   z-index: 10;
   top: 1.5rem;
-  left: 2rem;
+  left: 50%;
   display: flex;
   width: max-content;
   align-items: center;
   padding: .5rem 1rem;
   color: rgb(20, 20, 20);
-  transform: translate3d(calc(50vw - 2rem - 66.6667%), 0, 0);
+  transform: translate3d(
+    calc(-50% - var(--portfolio-nav-satellite-center)),
+    0,
+    0
+  );
   animation: portfolio-nav-enter var(--motion-mood-duration)
     var(--motion-mood-ease) both;
   transition: transform 680ms cubic-bezier(.2,.72,.24,1);
@@ -290,15 +295,12 @@
 }
 
 @media (max-width: 639px) {
+  .portfolio-nav {
+    --portfolio-nav-satellite-center: 1.8rem;
+  }
+
   .portfolio-nav__status {
     left: calc(100% + 1rem);
-  }
-}
-
-@media (min-width: 640px) {
-  .portfolio-nav {
-    left: 1rem;
-    transform: translate3d(calc(50vw - 1rem - 66.6667%), 0, 0);
   }
 }
 

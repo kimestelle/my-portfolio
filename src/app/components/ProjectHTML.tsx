@@ -41,18 +41,20 @@ export default function ProjectHTML() {
               className="group block"
             >
               <article>
-                <div className="homepage-project-window ui-radius-surface relative aspect-[16/10] overflow-hidden">
-                  {project.media ? (
-                    <Image
-                      src={project.media.cover}
-                      alt={`${project.name} preview`}
-                      fill
-                      sizes="(max-width: 767px) 100vw, 33vw"
-                      className="object-cover transition duration-500 ease-out group-hover:scale-[1.018] group-hover:saturate-[1.03]"
-                    />
-                  ) : (
-                    <div className="h-full w-full bg-[url('/textures/textured-paper.png')] bg-cover" />
-                  )}
+                <div className="homepage-project-window ui-radius-surface relative aspect-[16/10]">
+                  <div className="media-clip-surface absolute inset-0">
+                    {project.media ? (
+                      <Image
+                        src={project.media.cover}
+                        alt={`${project.name} preview`}
+                        fill
+                        sizes="(max-width: 767px) 100vw, 33vw"
+                        className="object-cover transition duration-500 ease-out group-hover:scale-[1.018] group-hover:saturate-[1.03]"
+                      />
+                    ) : (
+                      <div className="h-full w-full bg-[url('/textures/textured-paper.png')] bg-cover" />
+                    )}
+                  </div>
                 </div>
 
                 <div className="pt-3">

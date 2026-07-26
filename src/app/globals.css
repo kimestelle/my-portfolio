@@ -206,11 +206,12 @@ code {
 }
 
 .star-line-north {
-  gap: 0.625rem;
+  display: block;
 }
 
 .star-glyph-north {
-  flex: none;
+  display: inline;
+  margin-right: 0.625rem;
   font-family: var(--font-symbol);
   font-size: 1.2rem;
   font-weight: 400;
@@ -218,6 +219,7 @@ code {
 }
 
 .star-copy-north {
+  display: inline;
   min-width: 0;
   font-family: var(--font-body);
   font-size: var(--type-lead);
@@ -247,7 +249,7 @@ code {
 }
 
 .star-line-detail {
-  gap: 0.5rem;
+  display: block;
   font-family: var(--font-body);
   font-size: 0.9375rem;
   font-weight: 400;
@@ -255,7 +257,8 @@ code {
 }
 
 .star-glyph-detail {
-  flex: none;
+  display: inline;
+  margin-right: 0.5rem;
   color: var(--text-meta);
   font-family: var(--font-symbol);
   font-size: 1rem;
@@ -264,6 +267,7 @@ code {
 }
 
 .star-copy-detail {
+  display: inline;
   min-width: 0;
   font-family: var(--font-body);
   font-size: 0.9375rem;
@@ -475,6 +479,14 @@ summary::marker {
   transition:
     box-shadow 260ms ease,
     transform 360ms cubic-bezier(0.22, 0.7, 0.25, 1);
+}
+
+.media-clip-surface {
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: var(--radius-surface);
+  clip-path: inset(0 round var(--radius-surface));
+  transform: translateZ(0);
 }
 
 .homepage-project-window::after {
