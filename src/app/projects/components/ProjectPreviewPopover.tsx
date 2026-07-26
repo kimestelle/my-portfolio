@@ -106,7 +106,7 @@ export function PreviewPopover({
           <div
             ref={refs.setFloating}
             role="dialog"
-            className="z-[60] w-[min(28rem,90vw)] overflow-hidden rounded-xl border bg-white/90 backdrop-blur shadow-xl"
+            className="ui-radius-surface z-[60] w-[min(28rem,90vw)] overflow-hidden border bg-white/90 backdrop-blur shadow-xl"
             style={{
               ...floatingStyles,
               opacity: open ? 1 : 0,

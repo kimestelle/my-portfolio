@@ -1,15 +1,16 @@
 'use client'
 import Image from "next/image";
+import { ShimmerText } from '@/app/design-deets/text-shimmer/TextShimmer';
 export default function NewPortfolioPage() {
   return (
     <div className="blog-formatting max-w-2xl">
-      <h1 className="text-3xl font-bold">another portfolio update</h1>
-      <p className="text-gray-500 mt-1 half-margin">June 26, 2025</p>
-      <p className="text-gray-600 italic half-margin">version 4.0</p>
+      <ShimmerText as="h1" className="text-3xl font-bold">another portfolio update</ShimmerText>
+      <ShimmerText className="text-gray-500 mt-1 half-margin">June 26, 2025</ShimmerText>
+      <ShimmerText className="text-gray-600 italic half-margin">version 4.0</ShimmerText>
       <hr className="mb-4"/>
-      <p>
+      <ShimmerText>
         When I first started learning to code last summer, a friend suggested I build a portfolio site.
-      </p>
+      </ShimmerText>
       <p>
         “It’s a good way to get started with frontend,” he said.
       </p>
@@ -18,15 +19,15 @@ export default function NewPortfolioPage() {
       </p>
         <label className="block mb-2">
             There was the first one, which looked like the first.
-            <Image src='/blog/new-portfolio/v1-ss.png' alt="screenshot of version 1" width={600} height={400} className="rounded-lg mt-2 mb-4" />
+            <Image src='/blog/new-portfolio/v1-ss.png' alt="screenshot of version 1" width={600} height={400} className="ui-radius-panel mt-2 mb-4" />
         </label>
         <label>
             The overdone one, with a live code sandbox on the cover.
-            <video src="/blog/new-portfolio/v2-video.mp4" controls className="rounded-lg mt-2 mb-4" />
+            <video src="/blog/new-portfolio/v2-video.mp4" controls className="ui-radius-panel mt-2 mb-4" />
         </label>
         <label>
             The underdone one, where “simple and all-purpose” flattened everything.
-            <Image src='/blog/new-portfolio/v3-ss.png' alt="screenshot of version 3" width={600} height={400} className="rounded-lg mt-2 mb-4" />
+            <Image src='/blog/new-portfolio/v3-ss.png' alt="screenshot of version 3" width={600} height={400} className="ui-radius-panel mt-2 mb-4" />
         </label>
         <p>
             And now, this.

@@ -300,65 +300,6 @@ export const PROJECTS: Project[] = [
     },
   },
 
-  {
-    id: 'video-emotion-analysis',
-    name: 'Video Emotion & Scene Analysis',
-    category: 'production experience',
-    date: 'Fall 2025',
-    role: 'ML & Full-Stack Engineer (team of 2)',
-    impact: 'Multimodal video pipeline / Whisper + BLIP + ViT / team of 2',
-    githubUrl: 'https://github.com/kimestelle/CIS5810-video-analysis',
-
-    cover: {
-      imageSrc: '/project-images/covers/video-analysis-cover.webp',
-      blurb: 'A pipeline that hears, watches, and reads emotion across a video',
-      tags: ['Whisper', 'BLIP + ViT', 'FastAPI'],
-    },
-
-    details: {
-      label: 'Multimodal Video Understanding',
-      overview: 'Takes a video, listens to it, looks at it, and lines the two up, so you get a readable view of what was said, what was on screen, and the overall emotional tone over time. Runs on a pipeline of lightweight local ML models built to stay fast on the web.',
-      techStack: {
-        languages: ['Python', 'TypeScript'],
-        frameworks: ['Next.js', 'FastAPI'],
-        libraries: ['React', 'OpenCV', 'PyTorch'],
-        databases: ['Redis'],
-        platforms: ['Celery'],
-      },
-      sections: [
-        {
-          title: 'Multimodal Pipeline',
-          items: [
-            'faster-whisper (CTranslate2) for speech to text with timestamps, up to 4x faster than openai/whisper at the same accuracy',
-            'OpenCV temporal sampling at 1fps plus keyframe detection to pull representative frames',
-            'BLIP captions each frame, then frames with similar captions get clustered into scenes with start and end times',
-            'Fine-tuned ViT (Google ViT-Base) classifies facial emotion per frame across happy, sad, angry, neutral, surprised',
-          ],
-        },
-        {
-          title: 'Temporal Fusion',
-          items: [
-            'Aligns transcript segments, scene captions, and emotion sequences onto one timeline for a synchronized annotation',
-            'Confidence scoring and validation on each frame classification',
-            'Picks the most representative caption per scene by comparing similarity across frames',
-          ],
-        },
-        {
-          title: 'System & Async Processing',
-          items: [
-            'Moved from a local Jupyter prototype to a fully deployable web build with Next.js and FastAPI',
-            'Celery and Redis queue the heavy model work and stream real-time, step-by-step progress to the frontend',
-            'Leaned on non-AI tools (OpenCV, sentence similarity) for the trivial steps to save compute',
-            'Results view with scenes, transcript, emotions, and JSON export',
-          ],
-        },
-      ],
-      imageUrls: [
-        'DznfA9TFtvw4cs4klkBXCIedV699HnnsO54YyH52af4',
-      ],
-    },
-  },
-
   // GRAPHICS
   {
     id: 'mini-minecraft',

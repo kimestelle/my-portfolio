@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import CodeDemo, {CodeDemoProps} from '../components/CodeDemo';
 import BouncingText from '@/app/design-deets/BouncingText';
+import { ShimmerText } from '@/app/design-deets/text-shimmer/TextShimmer';
 
 export default function MagneticPoetry_DemoNotes() {
   const demos: readonly CodeDemoProps[] = [
@@ -88,7 +89,7 @@ PoemBoard() {(
             autoPlay
             loop
             muted
-            className="rounded-md w-full"
+            className="ui-radius-panel w-full"
           />
       ),
       notices: ['subtle lifting effect when pressed', 'word stays centered under finger', "consistent size / positions after window resize", 'mouse and touch feel the same'],
@@ -104,7 +105,7 @@ PoemBoard() {(
             autoPlay
             loop
             muted
-            className="rounded-md w-full"
+            className="ui-radius-panel w-full"
           />
       ),
       notices: ['feedback ≠ action (scaling is only a hint)', "'trash box' doesn't interfere with user experience", '*however, lack of clear visual cue may confuse users who want to delete an item*'],
@@ -155,7 +156,7 @@ code: ``,
 
   return (
     <div className="blog-formatting max-w-2xl">
-      <h1 className="text-3xl font-bold">watercolor drip shader</h1>
+      <ShimmerText as="h1" className="text-3xl font-bold">watercolor drip shader</ShimmerText>
       <p className="text-gray-500 mt-1 half-margin"><span className='italic text-gray-600'>~ case study ~ </span>November 1, 2025</p>
       <hr className="mb-4" />
 
@@ -163,7 +164,7 @@ code: ``,
         <p className="blue text-underline">{'<'}link to demo{'/>'}</p>
       </a>
 
-      <p>I&apos;ve wanted to build a watercolor shader for a long time, but struggled to find a good use or </p>
+      <ShimmerText>I&apos;ve wanted to build a watercolor shader for a long time, but struggled to find a good use or </ShimmerText>
       <ul>
         <li>Simple, intuitive interface like a pocket of physical space inside a screen</li>
         <li>Board that remains consistent and reliable while I move words around</li>

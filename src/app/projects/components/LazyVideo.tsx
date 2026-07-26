@@ -1,16 +1,23 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
-import MuxPlayer, { MuxPlayerRefAttributes } from "@mux/mux-player-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import MuxPlayer, {
+  MuxPlayerRefAttributes,
+  type MuxPlayerProps,
+} from "@mux/mux-player-react";
 import { useIsVisible } from "../../hooks/use-is-visible";
 
-type LazyVideoProps = {
+export type LazyVideoProps = {
   playbackId: string;
   poster?: string;
   alt?: string;
   className?: string;
   muted?: boolean;
   loop?: boolean;
+  active?: boolean;
+  preload?: "none" | "metadata" | "auto";
+  maxResolution?: MuxPlayerProps["maxResolution"];
+  onReady?: () => void;
 };
 
 export default function LazyVideo({
@@ -20,6 +27,10 @@ export default function LazyVideo({
   className,
   muted = true,
   loop = true,
+  active,
+  preload = "metadata",
+  maxResolution,
+  onReady,
 }: LazyVideoProps) {
   const { isVisible, targetRef } = useIsVisible(
     { root: null, rootMargin: "200px", threshold: 0.1 },
@@ -27,6 +38,9 @@ export default function LazyVideo({
   );
 
   const playerRef = useRef<MuxPlayerRefAttributes>(null);
+  const reportedReadyRef = useRef(false);
+  const [mediaReady, setMediaReady] = useState(false);
+  const shouldPlay = active ?? isVisible;
 
   const play = useCallback(async () => {
     try {
@@ -41,12 +55,33 @@ export default function LazyVideo({
   }, []);
 
   useEffect(() => {
-    if (isVisible) play();
+    if (shouldPlay) play();
     else pause();
-  }, [isVisible, play, pause]);
+  }, [mediaReady, shouldPlay, play, pause]);
+
+  useEffect(() => {
+    reportedReadyRef.current = false;
+    setMediaReady(false);
+  }, [playbackId]);
+
+  const reportReady = useCallback(() => {
+    setMediaReady(true);
+    if (reportedReadyRef.current) return;
+    reportedReadyRef.current = true;
+    onReady?.();
+  }, [onReady]);
 
   return (
-    <span ref={targetRef as any} style={{ position: "relative", minHeight: 50, height: "100%" }}>
+    <span
+      ref={targetRef as any}
+      style={{
+        display: "block",
+        position: "relative",
+        minHeight: 50,
+        width: "100%",
+        height: "100%",
+      }}
+    >
       <MuxPlayer
         ref={playerRef}
         playbackId={playbackId}
@@ -55,8 +90,12 @@ export default function LazyVideo({
         muted={muted}
         loop={loop}
         playsInline
-        preload="metadata"
+        preload={preload}
+        maxResolution={maxResolution}
         autoPlay={false}
+        onLoadedData={reportReady}
+        onCanPlay={reportReady}
+        onPlaying={reportReady}
         className={className}
         aria-label={alt || "video"}
       />
