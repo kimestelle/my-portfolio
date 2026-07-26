@@ -1,7 +1,7 @@
 export default function OnTastePage() {
   return (
     <div className="blog-formatting max-w-2xl">
-      <h1 className="text-3xl font-bold">on taste</h1>
+      <h1>on taste</h1>
       <p className="text-gray-500 half-margin">June 17, 2026</p>
       <p className="text-gray-600 italic half-margin">a quiet internal logic</p>
       <hr className="my-4" />
@@ -11,7 +11,7 @@ export default function OnTastePage() {
       <p>
         i posed this to another intern the other day, and we had a heated (fun) debate about it. he said no: what&apos;s the point if no one sees it? i said i would, given enough money. it got me thinking harder about something i&apos;ve always felt but never fully articulated: what taste is, where it comes from, and why it feels so central to who i am.
       </p>
-      <h2 className="font-semibold mt-8">taste as accumulation</h2>
+      <h2>taste as accumulation</h2>
       <p>
         to me, taste accumulates in two ways: through material collection, and through intellectual and emotional learning. it lives in the objects you choose to keep, the media you seek out, the work you want to make. over time, these choices compound into something that feels distinctly yours.
       </p>
@@ -33,14 +33,14 @@ export default function OnTastePage() {
           <strong>are.na:</strong> after spectating for over a year, i recently started posting. i love how it turns web links into visual blocks — i can take the cool websites i&apos;ve bookmarked over the years and turn them into neat, accessible collections.
         </li>
       </ul>
-      <h2 className="font-semibold mt-8">taste as privilege</h2>
+      <h2>taste as privilege</h2>
       <p>
         i&apos;ve hypothesized that taste is, at some point, a privilege. it compounds across generations: children raised in musician or artist families often inherit not just skills but a way of seeing, an almost unconscious sense of discernment that comes with growing up around creative practice. being exposed to that kind of environment from a young age is something you can&apos;t easily manufacture later.
       </p>
       <p>
         my parents aren&apos;t artists, but i grew up surrounded by books, educational board games, building block toys, and all kinds of experiences that shaped my love for tactile, intentional things. my mom was especially picky about clothes, even when we were on a budget, and firmly believed that a small number of quality purchases beat quantity every time. she was modeling discernment without calling it that. i first had to be picky to avoid her criticism of my choices, but gradually adopted the process to what i truly feel. what began as trying to agree with her taste now frequently disagrees but works for both of us.
       </p>
-      <h2 className="font-semibold mt-8">taste as identity</h2>
+      <h2>taste as identity</h2>
       <p>
         at the end of our debate, my friend and i landed somewhere good: he finds meaning in sharing experiences with people. i find it in the choosing.
       </p>

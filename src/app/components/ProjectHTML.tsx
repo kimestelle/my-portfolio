@@ -1,52 +1,97 @@
 'use client';
 
+import Image from 'next/image';
+import Link from 'next/link';
 import {
-  type ProjectCategory,
-  getCategoryProjects,
-} from '../projects/components/projectData';
-import ProjectCard from '../projects/components/ProjectCard';
+  FEATURED_PROJECT_IDS,
+  PORTFOLIO_PROJECTS,
+  type PortfolioProject,
+} from '../projects/components/projectCopy';
 import { ShimmerText } from '../design-deets/text-shimmer/TextShimmer';
 
-const SECTIONS: { category: ProjectCategory; displayName: string; featured: string[] }[] = [
-  { category: 'production experience', displayName: 'deployed at scale', featured: ['into-the-blue', 'sce-data-engineering', 'internet-atlas', 'spark-website'] },
-  { category: 'graphics & simulation', displayName: 'from-scratch graphics', featured: ['mini-minecraft', 'softbody-jelly', 'burning-paper', 'watercolor-shader'] },
-  { category: 'creative tools', displayName: 'expressive interfaces', featured: ['magnetic-poetry', 'textellation'] },
-];
-
-function pickById(category: ProjectCategory, ids: string[]) {
-  const set = new Set(ids);
-  const inCat = getCategoryProjects(category);
-  const picked = inCat.filter((p) => set.has(p.id));
-  return picked.length ? picked : inCat.slice(0, 2);
-}
+const selectedProjects = FEATURED_PROJECT_IDS
+  .map((id) => PORTFOLIO_PROJECTS.find((project) => project.id === id))
+  .filter((project): project is PortfolioProject => Boolean(project));
 
 export default function ProjectHTML() {
   return (
-    <section className="w-full mt-8">
-      <div className="flex flex-col gap-10">
-        {SECTIONS.map(({ displayName, category, featured }) => {
-          const selected = pickById(category, featured);
+    <>
+      <section className="w-full">
+        <div className="mb-5 flex items-center gap-4">
+          <div className="star-line-section shrink-0">
+            <span className="star-glyph-section" aria-hidden="true">✶</span>
+            <ShimmerText as="h3" className="star-copy-section">
+              selected work
+            </ShimmerText>
+          </div>
+          <span className="h-px flex-1 bg-[color:var(--line-color)]" />
+          <Link
+            href="/projects"
+            className="type-meta shrink-0 text-[color:var(--text-primary)] transition-transform duration-200 hover:-translate-y-px"
+          >
+            all projects ↗
+          </Link>
+        </div>
 
-          return (
-            <div key={displayName} className="flex flex-col gap-3">
-              <ShimmerText as="h3">{`✦ ${displayName}`}</ShimmerText>
+        <div className="grid grid-cols-1 gap-x-5 gap-y-10 md:grid-cols-3">
+          {selectedProjects.map((project) => (
+            <Link
+              key={project.id}
+              href={`/projects#${project.id}`}
+              className="group block"
+            >
+              <article>
+                <div className="glass-surface homepage-project-window ui-radius-surface relative aspect-[16/10] overflow-hidden">
+                  {project.media ? (
+                    <Image
+                      src={project.media.cover}
+                      alt={`${project.name} preview`}
+                      fill
+                      sizes="(max-width: 767px) 100vw, 33vw"
+                      className="object-cover transition duration-500 ease-out group-hover:scale-[1.018] group-hover:saturate-[1.03]"
+                    />
+                  ) : (
+                    <div className="h-full w-full bg-[url('/textures/textured-paper.png')] bg-cover" />
+                  )}
+                </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {selected.map((p) => {
-                  return (
-                    <a
-                      key={p.id}
-                      href={'/projects/#' + p.id}
-                    >
-                      <ProjectCard project={p} />
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </section>
+                <div className="pt-3">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <h4 className="type-project-title">{project.name}</h4>
+                    <span className="type-meta text-[color:var(--text-decorative)] transition-transform duration-300 group-hover:-translate-y-px group-hover:translate-x-px group-hover:text-neutral-700">
+                      ↗
+                    </span>
+                  </div>
+                  <p className="mt-1.5 text-[color:var(--text-secondary)]">
+                    {project.collapsed.purpose}
+                  </p>
+                  <p className="type-meta mt-2 text-[color:var(--text-meta)]">
+                    {project.collapsed.resultLine}
+                  </p>
+                </div>
+              </article>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-20 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+        <div className="star-line-detail max-w-2xl">
+          <span className="star-glyph-detail" aria-hidden="true">
+            {'\uE000'}
+          </span>
+          <p className="star-copy-detail text-[color:var(--text-secondary)]">
+            I&apos;m always interested in small teams where engineering,
+            design, and product shape each other.
+          </p>
+        </div>
+        <a
+          href="mailto:kestelle@sas.upenn.edu"
+          className="type-meta shrink-0 pl-[1.45rem] text-[color:var(--text-primary)] transition-transform duration-200 hover:-translate-y-px sm:pl-0"
+        >
+          let&apos;s talk! ↗
+        </a>
+      </section>
+    </>
   );
 }

@@ -1,171 +1,154 @@
-import { useState } from 'react';
-import Image from 'next/image';
-import { Project } from './projectData';
-import LazyVideo from './DeferredLazyVideo';
+'use client';
 
-interface ProjectBlockProps {
-  project: Project;
-}
+import Image from 'next/image';
+import { useState } from 'react';
+import LazyVideo from './DeferredLazyVideo';
+import type { PortfolioProject } from './projectCopy';
+
+type ProjectBlockProps = {
+  project: PortfolioProject;
+};
+
+const isMuxVideo = (url: string) => !url.includes('/') && !url.includes('.');
 
 export default function ProjectBlock({ project }: ProjectBlockProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const goToPrev = () => {
-    setCurrentIndex((prev) =>
-      prev === 0 ? project.details.imageUrls.length - 1 : prev - 1
-    );
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((prev) =>
-      prev === project.details.imageUrls.length - 1 ? 0 : prev + 1
-    );
-  };
-
-  // external embeds (youtube, live demos) render in an iframe
-  const isEmbed = (url: string) => /^https?:\/\//i.test(url);
-
-  // local video files render in a native <video> tag
-  const isFileVideo = (url: string) => /\.(mp4|webm|mov|m4v)$/i.test(url);
-
-  // bare strings (no slash / extension) are Mux playback ids
-  const isVideo = (url: string) => {
-    const u = url.toLowerCase();
-    return !isEmbed(u) && !isFileVideo(u) && !u.endsWith(".png") && !u.endsWith(".jpg") && !u.endsWith(".webp");
-  };
-
-  const isMobile = typeof navigator !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const [mediaReady, setMediaReady] = useState(false);
+  const { story } = project;
 
   return (
-    <div className="w-full flex flex-col gap-3">
-      {/* header */}
-      <div>
-        <div className='w-full flex flex-row flex-wrap gap-2 items-end'>
-        <h2> ✦ {project.name}</h2>
-          <div className="h-px flex-1 shrink-1 bg-black/10 mb-2" />
-          {
-            project.githubUrl && (
-              <>
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex shrink-0 mb-1"
-              >
-                <Image src="/icons/gh-logo.svg" alt="GitHub" width={16} height={16} className="mb-1"/>
-                <span className="ml-1"> ↗</span>
-              </a>
-              <div className="h-px w-1 bg-black/10 mb-2" />
-              </>
-            )
-          }
-          {project.url && (
-            <a
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex shrink-0 mb-1"
-            >
+    <article className="w-full">
+      <header>
+        <div className="flex flex-wrap items-end gap-2">
+          <h1>{project.name}</h1>
+          <div className="mb-2 h-px min-w-8 flex-1 bg-[color:var(--line-color)]" />
+          {project.githubUrl && (
+            <a href={project.githubUrl} target="_blank" rel="noreferrer">
+              source ↗
+            </a>
+          )}
+          {project.liveUrl && (
+            <a href={project.liveUrl} target="_blank" rel="noreferrer">
               visit ↗
             </a>
           )}
         </div>
 
-        {project.role && (
-          <span>{project.role}</span>
-        )}
-        {project.impact && (
-          <h4>{project.impact}</h4>
-        )}
-      </div>
-      {/* overview */}
-      <span>{project.details.overview}</span>
-      
-      <div className="ui-radius-panel relative w-full h-[22rem] md:h-[32rem] flex justify-center items-center my-5 p-2 bg-neutral-100 shadow-inner">
-        {isEmbed(project.details.imageUrls[currentIndex]) ? (
-          <iframe
-            src={project.details.imageUrls[currentIndex]}
-            title={project.name}
-            className="ui-radius-panel h-full w-full"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-          />
-        ) : isFileVideo(project.details.imageUrls[currentIndex]) ? (
-          <video
-            src={project.details.imageUrls[currentIndex]}
-            className="h-full max-h-[22rem] md:max-h-[30rem] w-auto object-contain"
-            controls
-            muted
-            loop
-            playsInline
-            preload="metadata"
-          />
-        ) : isVideo(project.details.imageUrls[currentIndex]) ? (
-          <LazyVideo
-            playbackId={project.details.imageUrls[currentIndex]}
-            className="h-full max-h-[22rem] md:max-h-[30rem] object-contain"
-          />
-        ) : (
+        <p className="type-lead mt-3 max-w-2xl">
+          {project.collapsed.purpose}
+        </p>
+
+        <div className="glass-surface ui-radius-panel mt-5 grid gap-4 p-4 sm:grid-cols-2">
+          <div>
+            <h4 className="text-neutral-500">my role</h4>
+            <p className="mt-1">{project.metadata.role}</p>
+            {project.metadata.team && (
+              <>
+                <h4 className="mt-4 text-neutral-500">team</h4>
+                <p className="mt-1">{project.metadata.team}</p>
+              </>
+            )}
+          </div>
+          <div>
+            <h4 className="text-neutral-500">date</h4>
+            <p className="mt-1">{project.metadata.date}</p>
+            <h4 className="mt-4 text-neutral-500">result</h4>
+            <p className="mt-1">{project.metadata.result}</p>
+          </div>
+        </div>
+      </header>
+
+      {project.media && (
+        <div className="ui-radius-panel relative my-5 aspect-video w-full overflow-hidden bg-neutral-950 shadow-inner">
           <Image
-            width={800}
-            height={600}
-            src={project.details.imageUrls[currentIndex]}
-            alt={`Slide ${currentIndex}`}
-            className="h-full max-h-[22rem] md:max-h-[30rem] w-auto object-contain"
+            src={project.media.cover}
+            alt={`${project.name} preview`}
+            fill
+            sizes="(max-width: 768px) 100vw, 48rem"
+            className="object-cover"
           />
-        )}
-        {project.details.imageUrls.length > 1 && (
-          <div className='absolute -bottom-3 left-2 flex flex-row gap-1'>
-            <button
-              onClick={goToPrev}
-              className="ui-radius-control bg-neutral-400 text-white px-3 shadow"
+          {project.media.preview && isMuxVideo(project.media.preview) && (
+            <div
+              className={`absolute inset-0 transition-opacity duration-[var(--motion-mood-duration)] ease-[var(--motion-mood-ease)] ${
+                mediaReady ? 'opacity-100' : 'opacity-0'
+              }`}
             >
-              ‹
-            </button>
-            <button
-              onClick={goToNext}
-              className="ui-radius-control bg-neutral-500 text-white px-3 shadow"
-            >
-              ›
-            </button>
+              <LazyVideo
+                playbackId={project.media.preview}
+                poster=""
+                muted
+                loop
+                active
+                preload="auto"
+                maxResolution="1080p"
+                onReady={() => setMediaReady(true)}
+                className="h-full w-full bg-neutral-950 object-cover"
+              />
+            </div>
+          )}
+        </div>
+      )}
+
+      {project.status && (
+        <p className="text-neutral-500">{project.status}</p>
+      )}
+
+      <section className="mt-8">
+        <h3>the goal</h3>
+        <p>{story.goal}</p>
+      </section>
+
+      <section className="mt-8">
+        <h3>my role</h3>
+        <p>{story.role ?? project.metadata.role}</p>
+        {(story.owned?.length || story.workedWith?.length) && (
+          <div className="mt-4 grid gap-6 sm:grid-cols-2">
+            {story.owned && (
+              <div>
+                <h4>owned</h4>
+                <ul className="mt-2 space-y-1">
+                  {story.owned.map((item) => (
+                    <li key={item}>• {item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {story.workedWith && (
+              <div>
+                <h4>worked with</h4>
+                <ul className="mt-2 space-y-1">
+                  {story.workedWith.map((item) => (
+                    <li key={item}>• {item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         )}
-      </div>
+      </section>
 
-      {/* sections */}
-      <h3 className="mt-4">
-        Technical Highlights:
-      </h3>
-      {project.details.sections.map((section, idx) => (
-        <details key={idx} className="group glass-card">
-          <summary className="cursor-pointer list-none flex flex-row items-center justify-start gap-2">
-            <span className="text-neutral-400 group-open:rotate-90 transition-transform">›</span>
-            <h4>{section.title}</h4>
-          </summary>
+      <section className="mt-8">
+        <h3>biggest challenge</h3>
+        <p>{story.challenge}</p>
+      </section>
 
-          <div className="px-2 pt-2">
-            <ul className="list-disc list-outside  ml-2 space-y-1.5 text-sm text-neutral-700">
-              {section.items.map((item, itemIdx) => (
-                <li key={itemIdx}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        </details>
-      ))}
-    
-      <div className='flex flex-col gap-2 mt-4'>
-      <h3>Tech Stack:</h3>
-      <div className="flex flex-wrap gap-2">
-        {Object.entries(project.details.techStack).map(([category, items]) =>
-          (items as string[]).map((item, idx) => (
-            <span key={`${category}-${idx}`} className="pill">
-              {item}
-            </span>
-          ))
-        )}
+      <section className="mt-8">
+        <h3>one decision that mattered</h3>
+        <p>{story.decision}</p>
+      </section>
+
+      <section className="mt-8">
+        <h3>the outcome</h3>
+        <p>{story.outcome}</p>
+      </section>
+
+      <section className="mt-8">
+        <h3>what changed my mind</h3>
+        <p>{story.changedMind}</p>
+      </section>
+
+      <div className="type-meta mt-8 border-t pt-4 text-[color:var(--text-decorative)]">
+        {project.metadata.stack}
       </div>
-      </div>
-    </div>
+    </article>
   );
-};
+}

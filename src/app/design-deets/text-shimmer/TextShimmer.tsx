@@ -5,7 +5,6 @@ import {
   Fragment,
   useContext,
   useEffect,
-  useId,
   useMemo,
   type CSSProperties,
   type HTMLAttributes,
@@ -87,9 +86,9 @@ export function TextShimmerGroup({
   seed = 'estelle-portfolio',
   palette = SHIMMER_PALETTE,
   tileSize = SHIMMER_TILE_SIZE,
-  durationMs = 900,
-  noiseWindowMs = 260,
-  tierGapMs = 55,
+  durationMs = 560,
+  noiseWindowMs = 160,
+  tierGapMs = 32,
   playing = true,
   onComplete,
 }: TextShimmerGroupProps) {
@@ -143,7 +142,6 @@ export function ShimmerText({
   ...props
 }: ShimmerTextProps) {
   const context = useContext(TextShimmerContext);
-  const id = useId();
   const Tag = as;
   const active = context !== null && !disabled;
   const resolvedPriority = priority ?? TAG_PRIORITY[as];
@@ -171,7 +169,9 @@ export function ShimmerText({
     if (!context || !glyphMode) return [];
 
     const graphemes = splitGraphemes(children);
-    const elementSeed = seedShimmerMap(`${context.seed}:${id}`);
+    const elementSeed = seedShimmerMap(
+      `${context.seed}:${as}:${resolvedPriority}:${children}`,
+    );
     const sampled = graphemes.map((grapheme, index) => {
       if (/^\s+$/u.test(grapheme)) return null;
       const x = index * 8;
@@ -221,11 +221,13 @@ export function ShimmerText({
         animated: true,
       };
     });
-  }, [children, context, glyphMode, id, resolvedPriority]);
+  }, [as, children, context, glyphMode, resolvedPriority]);
 
   const elementColors = useMemo(() => {
     if (!context || glyphMode) return null;
-    const elementSeed = seedShimmerMap(`${context.seed}:${id}`);
+    const elementSeed = seedShimmerMap(
+      `${context.seed}:${as}:${resolvedPriority}:${children}`,
+    );
     const y = resolvedPriority * 31.3;
     return {
       primary: sampleShimmerColor(
@@ -247,7 +249,7 @@ export function ShimmerText({
         context.palette,
       ),
     };
-  }, [context, glyphMode, id, resolvedPriority]);
+  }, [as, children, context, glyphMode, resolvedPriority]);
 
   if (!active || !context) {
     return (

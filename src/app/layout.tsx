@@ -28,11 +28,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="stylesheet" href="https://use.typekit.net/yef8dto.css"/> 
-      </head>
-      <body className='scroll-smooth'>
+    <html
+      lang="en"
+      className={`${ysabeauOffice.variable} ${ebGaramond.variable}`}
+    >
+      <body className="scroll-smooth">
         <LayoutShell>{children}</LayoutShell>
       </body>
     </html>

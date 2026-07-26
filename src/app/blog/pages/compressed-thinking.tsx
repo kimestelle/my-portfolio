@@ -3,7 +3,7 @@ import { ShimmerText } from '@/app/design-deets/text-shimmer/TextShimmer';
 export default function SlowTechPage() {
   return (
     <div className="blog-formatting max-w-2xl">
-      <ShimmerText as="h1" className="text-3xl font-bold">on compressing thought</ShimmerText>
+      <ShimmerText as="h1">on compressing thought</ShimmerText>
       <ShimmerText className="text-gray-500 mt-1 half-margin">June 25, 2025</ShimmerText>
       <ShimmerText className="text-gray-600 italic half-margin">before it means something</ShimmerText>
       <hr className="mb-4"/>

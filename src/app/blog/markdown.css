@@ -72,7 +72,7 @@
     font-size: 0.95rem;
     font-family: "calluna-sans", sans-serif;
   }
-  
+
   #markdown thead {
     background-color: #f3f3f3;
   }
@@ -92,4 +92,3 @@
   #markdown tr:nth-child(even) {
     background-color: #fafafa;
   }
-  

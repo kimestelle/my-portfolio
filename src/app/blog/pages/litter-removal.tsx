@@ -3,7 +3,7 @@ import { ShimmerText } from '@/app/design-deets/text-shimmer/TextShimmer';
 export default function LitterRemovalPage() {
   return (
     <div className="blog-formatting max-w-2xl">
-      <ShimmerText as="h1" className="text-3xl font-bold">litter removal</ShimmerText>
+      <ShimmerText as="h1">litter removal</ShimmerText>
       <ShimmerText className="text-gray-500 half-margin">June 23, 2025</ShimmerText>
       <ShimmerText className="text-gray-600 italic half-margin">what happens when goodness becomes easier</ShimmerText>
       <hr className="my-4" />

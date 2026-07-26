@@ -260,7 +260,7 @@ if (webcamVideo && webcamVideo.readyState >= 2 && webcamVideo.videoWidth && webc
 
   return (
     <div className="blog-formatting max-w-2xl">
-      <ShimmerText as="h1" className="text-3xl font-bold">magnet poetry board</ShimmerText>
+      <ShimmerText as="h1">magnet poetry board</ShimmerText>
       <p className="text-gray-500 mt-1 half-margin"><span className='italic text-gray-600'>~ case study ~ </span>July 22, 2025</p>
       <hr className="mb-4" />
 
@@ -290,7 +290,7 @@ if (webcamVideo && webcamVideo.readyState >= 2 && webcamVideo.videoWidth && webc
       ))}
 
       <section className="mt-8">
-        <h2 className="text-xl font-semibold">next steps</h2>
+        <h2>next steps</h2>
         <ul className="list-disc ml-6 text-gray-800">
           <li>real-time collaborative canvas, drawing inspiration from Spencer Chang&apos;s <a className='blue' href="https://playhtml.fun/" target="_blank">playhtml</a></li>
         </ul>

@@ -7,7 +7,6 @@ import './NavBar.css';
 
 export interface NavBarProps {
   hide?: boolean;
-  fps?: number;
   shaderOn: boolean;
   cellAutomataOn?: boolean;
   playground?: boolean;
@@ -22,7 +21,6 @@ export interface NavBarProps {
 
 export default function NavBar({
   hide,
-  fps = 0,
   shaderOn = true,
   playground = false,
   shaderDisabled,
@@ -33,18 +31,9 @@ export default function NavBar({
   onPlaygroundNavigate,
 }: NavBarProps) {
   const [mounted, setMounted] = useState(false);
-  const [liveFps, setLiveFps] = useState(fps);
   const compact = playground || collapsingToPlayground;
 
   useEffect(() => setMounted(true), []);
-
-  useEffect(() => {
-    const onShaderFps = (event: Event) => {
-      setLiveFps((event as CustomEvent<number>).detail);
-    };
-    window.addEventListener('portfolio:shader-fps', onShaderFps);
-    return () => window.removeEventListener('portfolio:shader-fps', onShaderFps);
-  }, []);
 
   // Fixed-position type must never paint before styled-jsx has hydrated; the
   // unstyled fallback otherwise flashes at the document origin.
@@ -61,18 +50,26 @@ export default function NavBar({
       </div>
       <div className="portfolio-nav__status" aria-hidden={compact}>
         <CursorTooltip
-          content={shaderDisabled ? 'shader is disabled on this page :-(' : 'cool shader? click to toggle!'}
+          content={
+            shaderDisabled
+              ? 'shader is unavailable on this page'
+              : 'toggle the background shader'
+          }
           placement="bottom"
         >
           <button
-            className="portfolio-nav__toggle"
+            className={`portfolio-nav__toggle ${
+              shaderOn ? 'is-on' : 'is-off'
+            }`}
             type="button"
             tabIndex={compact ? -1 : undefined}
             onClick={onToggleShader}
             aria-pressed={shaderOn}
+            aria-label={`Background shader ${shaderOn ? 'on' : 'off'}. Click to toggle.`}
           >
-            {shaderOn ? `fps ${liveFps.toFixed(0)}: ` : 'shader '}
-            <span>{shaderOn ? 'on' : 'off'}</span>
+            <span className="portfolio-nav__toggle-track" aria-hidden="true">
+              <span className="portfolio-nav__toggle-knob" />
+            </span>
           </button>
         </CursorTooltip>
       </div>

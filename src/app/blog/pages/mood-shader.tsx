@@ -4,7 +4,7 @@ import { ShimmerText } from '@/app/design-deets/text-shimmer/TextShimmer';
 export default function MoodShaderPage() {
   return (
     <div className="blog-formatting max-w-2xl">
-        <ShimmerText as="h1" className="text-3xl font-bold">{'</> webGL mood ring shader'}</ShimmerText>
+        <ShimmerText as="h1">{'</> webGL mood ring shader'}</ShimmerText>
         <ShimmerText className="text-gray-500 half-margin">June 27, 2025</ShimmerText>
         <ShimmerText className="text-gray-600 italic half-margin">wip</ShimmerText>
         <hr className="my-4" />
@@ -12,13 +12,13 @@ export default function MoodShaderPage() {
         <ShimmerText>subtle, responsive webGL background shader that works across devices</ShimmerText>
         <ul className='mb-4'>
             <li>
-            <span className='font-bold'>minimal presence</span>: doesn&apos;t compete with layout or text
+            <span className='font-medium'>minimal presence</span>: doesn&apos;t compete with layout or text
             </li>
             <li>
-            <span className='font-bold'>physical motion</span>: movement grows and dissolves like body heat on a surface
+            <span className='font-medium'>physical motion</span>: movement grows and dissolves like body heat on a surface
             </li>
             <li>
-            <span className='font-bold'>layered response</span>: overlapping touches create variation over time
+            <span className='font-medium'>layered response</span>: overlapping touches create variation over time
             </li>
         </ul>
 
@@ -26,16 +26,16 @@ export default function MoodShaderPage() {
         <ShimmerText as="h3">shader setup</ShimmerText>
         <ul className='mb-4'>
             <li>
-                <span className='font-bold'>fullscreen</span> canvas using ThreeJS
+                <span className='font-medium'>fullscreen</span> canvas using ThreeJS
             </li>
             <li>
-                <span className='font-bold'>2D plane geometry</span> and ShaderMaterial with <span className='font-bold'>custom fragment shader</span>
+                <span className='font-medium'>2D plane geometry</span> and ShaderMaterial with <span className='font-medium'>custom fragment shader</span>
             </li>
         </ul>
         <ShimmerText as="h3">heat logic</ShimmerText>
         <ul className='mb-4'>
             <li>
-                stored coordinate points along mouse or touch movements in <span className='font-bold'>heatSpots</span> <code>{'{ '}x, y, createdAt{' }'}</code>
+                stored coordinate points along mouse or touch movements in <span className='font-medium'>heatSpots</span> <code>{'{ '}x, y, createdAt{' }'}</code>
             </li>
             <li>
                 maximum 50 spots stored at any single moment for performance, spots removed after 10 seconds

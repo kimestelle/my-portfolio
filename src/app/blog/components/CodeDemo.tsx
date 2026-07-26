@@ -33,7 +33,7 @@ const CodeDemo: React.FC<CodeDemoProps> = ({
 
   return (
     <section key={id} className="mt-8">
-        <h2 className="text-xl font-semibold">{title}</h2>
+        <h2 className="type-section">{title}</h2>
           {blurb && <p className="text-gray-600 half-margin">{blurb}</p>}
           <ul>
           {notices && notices.map((note, i) => (

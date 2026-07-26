@@ -4,7 +4,7 @@ import { ShimmerText } from '@/app/design-deets/text-shimmer/TextShimmer';
 export default function NewPortfolioPage() {
   return (
     <div className="blog-formatting max-w-2xl">
-      <ShimmerText as="h1" className="text-3xl font-bold">another portfolio update</ShimmerText>
+      <ShimmerText as="h1">another portfolio update</ShimmerText>
       <ShimmerText className="text-gray-500 mt-1 half-margin">June 26, 2025</ShimmerText>
       <ShimmerText className="text-gray-600 italic half-margin">version 4.0</ShimmerText>
       <hr className="mb-4"/>

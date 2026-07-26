@@ -56,16 +56,16 @@ export const PROJECTS: Project[] = [
     id: 'into-the-blue',
     name: 'Into the Blue',
     category: 'production experience',
-    date: 'Spring 2024',
+    date: 'February–April 2025',
     role: 'Frontend Developer',
-    impact: '180,000+ visitors / 9 months continuous deployment',
+    impact: '180,000+ visitors / nine months of continued deployment',
     url: 'https://penn.museum/sites/blue/welcome/',
     githubUrl: 'https://github.com/PennSpark/into-the-blue',
     
     cover: {
       imageSrc: '/project-images/covers/museum-cover.webp',
-      blurb: 'Offline-first artifact hunt for museum visitors',
-      tags: ['React', 'IndexedDB', 'System Design'],
+      blurb: 'An offline-first artifact hunt that lets Penn Museum visitors collect and remix what they discover.',
+      tags: ['Next.js', 'TypeScript', 'Canvas API', 'SVG', 'IndexedDB'],
     },
     
     details: {
@@ -117,15 +117,15 @@ export const PROJECTS: Project[] = [
 
   {
     id: 'sce-data-engineering',
-    name: 'Data Viz Engineer Intern @ SCE',
+    name: 'Data Visualization Engineering at Southern California Edison',
     category: 'production experience',
     date: 'Summer 2024',
     role: 'Data Engineering Intern',
-    impact: '15m residents / 10+ production data solutions',
+    impact: '10+ production data solutions / utility serving 15 million residents',
 
     cover: {
       imageSrc: '/project-images/covers/edison-cover.webp',
-      blurb: 'Cross-platform ETL for a utility serving 15m residents',
+      blurb: 'Turning fragmented utility data into reporting systems that internal teams could trust.',
       tags: ['Snowflake', 'SAP', 'SQL'],
     },
 
@@ -179,13 +179,13 @@ export const PROJECTS: Project[] = [
     category: 'production experience',
     date: 'Spring 2025',
     role: 'Technical Lead',
-    impact: 'ML embeddings to 3D force graph / 300 nodes, 1000+ edges / team of 7',
+    impact: '300+ sites / 1,000+ navigation edges / live demo for 40+ users',
     url: 'https://the-internet-atlas.com/',
     githubUrl: 'https://github.com/PennSpark/sp25-internet-atlas',
     
     cover: {
       imageSrc: '/project-images/covers/atlas-cover.webp',
-      blurb: 'Web browsing data turned into a 3D galaxy by an ML embedding pipeline',
+      blurb: 'Turning personal browsing history into an explorable 3D map of the web.',
       tags: ['Three.js', 'Pinecone', 'FastAPI'],
     },
     
@@ -237,7 +237,7 @@ export const PROJECTS: Project[] = [
     id: 'spark-website',
     name: 'Penn Spark Website',
     category: 'production experience',
-    date: 'Fall 2024 - Present',
+    date: 'Fall 2024–Present',
     role: 'Technical Lead',
     impact: 'Deployed Live / Actively Maintained',
     url: 'https://pennspark.org/',
@@ -245,7 +245,7 @@ export const PROJECTS: Project[] = [
 
     cover: {
       imageSrc: '/project-images/covers/spark-cover.webp',
-      blurb: "Redesign and modernization for public website",
+      blurb: "Modernizing a student organization's public site without discarding years of work and visual history.",
       tags: ['Next.js', 'Tailwind CSS', 'TypeScript'],
     },
     
@@ -306,13 +306,13 @@ export const PROJECTS: Project[] = [
     name: 'Mini Minecraft',
     category: 'graphics & simulation',
     date: 'Fall 2024',
-    role: 'Class Project',
-    impact: 'C++/OpenGL from scratch / multithreaded chunks / team of 3',
+    role: 'Graphics Engineer',
+    impact: 'Chunk renderer / animated materials / procedural sky and water / team of 3',
     githubUrl: 'https://github.com/kimestelle/mini-minecraft-opengl',
     
     cover: {
       imageSrc: '/project-images/covers/minecraft-cover.webp',
-      blurb: 'Voxel engine built from scratch in C++ and OpenGL',
+      blurb: 'Building a voxel world from scratch to understand how rendering, simulation, and streaming fit together.',
       tags: ['C++', 'OpenGL', 'GLSL'],
     },
     
@@ -332,7 +332,7 @@ export const PROJECTS: Project[] = [
           items: [
             'Interleaved VBOs and indexed drawing for efficient chunk rendering',
             'Culled non-visible block faces to reduce GPU overdraw',
-            'Chunk-based terrain system with dynamic loading and unloading',
+            'Split opaque and transparent geometry into separate rendering passes',
           ],
         },
         {
@@ -350,16 +350,16 @@ export const PROJECTS: Project[] = [
   },
   
   {
-    id: 'advanced-raytracing',
-    name: 'Advanced Raytracing in C++',
+    id: 'advanced-rendering-studies',
+    name: 'Advanced Rendering Studies',
     category: 'graphics & simulation',
     date: 'Spring 2025',
-    role: 'Class Project',
+    role: 'Individual Graphics Coursework',
     impact: 'Deferred shading / Cook-Torrance BRDF / SSR + ambient occlusion / SDF ray marching',
     
     cover: {
       imageSrc: '/project-images/covers/461-cover.webp',
-      blurb: 'Deferred PBR renderer with Cook-Torrance shading and SDF ray marching',
+      blurb: 'Studying how scene data, light, material, and screen-space effects combine inside a renderer.',
       tags: ['C++', 'GLSL', 'PBR'],
     },
     
@@ -404,17 +404,17 @@ export const PROJECTS: Project[] = [
   
   {
     id: 'watercolor-shader',
-    name: 'Watercolor Shader',
+    name: 'Watercolor Drip',
     category: 'graphics & simulation',
-    date: 'Fall 2024',
-    role: 'Graphics Engineer & Designer',
+    date: 'October 2025; visual update July 2026',
+    role: 'Solo Designer and Graphics Engineer',
     impact: 'GLSL ping-pong diffusion / dual-canvas CPU to GPU pipeline',
     url: 'https://watercolor-drip-shader.vercel.app/',
     githubUrl: 'https://github.com/kimestelle/watercolor-drip-shader',
     
     cover: {
       imageSrc: '/project-images/covers/watercolor-cover.webp',
-      blurb: 'Real-time GLSL fluid drip sim with ping-pong buffers',
+      blurb: 'Making digital pigment feel absorbed by paper without simulating an entire fluid.',
       tags: ['GLSL', 'WebGL', 'Shaders'],
     },
     
@@ -466,15 +466,15 @@ export const PROJECTS: Project[] = [
     id: 'softbody-jelly',
     name: 'Softbody Jelly',
     category: 'graphics & simulation',
-    date: 'Fall 2024',
-    role: 'Personal Project',
+    date: 'September–October 2025',
+    role: 'Solo Designer and Engineer',
     impact: 'Spring-damper particle sim / bezier-lathe mesh gen / rim and specular shaders',
     url: 'https://2d-softbody-lathe.vercel.app/',
     githubUrl: 'https://github.com/kimestelle/2d-softbody-lathe',
     
     cover: {
       imageSrc: '/project-images/covers/blob-cover.webp',
-      blurb: 'Build-your-own jelly, 2D particle physics lathed into a 3D mesh',
+      blurb: 'Letting people shape and play with a responsive 3D jelly in the browser.',
       tags: ['WebGL', 'GLSL', 'Three.js'],
     },
     
@@ -523,15 +523,15 @@ export const PROJECTS: Project[] = [
     id: 'burning-paper',
     name: 'Burning Paper',
     category: 'graphics & simulation',
-    date: 'Spring 2025',
-    role: 'Personal Project',
+    date: 'May 2026',
+    role: 'Solo Designer and Graphics Engineer',
     impact: 'Single-pass fragment shader / layered fBm / smoothstep burn mask / screen-blend ember cursor',
     url: 'https://burning-paper.vercel.app/',
     githubUrl: 'https://github.com/kimestelle/burning-paper',
 
     cover: {
       imageSrc: '/project-images/covers/burning-cover.webp',
-      blurb: 'Single-pass GLSL burn sim with fBm edge noise and an ember cursor',
+      blurb: 'Making a click feel like it ignites the page rather than starts a canned animation.',
       tags: ['WebGL', 'GLSL', 'Shaders'],
     },
 
@@ -586,14 +586,14 @@ export const PROJECTS: Project[] = [
     id: 'image-to-scene',
     name: 'image to scene',
     category: 'graphics & simulation',
-    date: 'Spring 2026',
-    role: 'Personal Project',
+    date: 'June 2026',
+    role: 'Solo Designer and Engineer',
     githubUrl: 'https://github.com/kimestelle/image-to-scene',
     impact: 'On-device depth model / WebGPU + WebGL parallax',
 
     cover: {
       imageSrc: '/project-images/covers/image-to-scene-cover.webp',
-      blurb: 'Turn one photo into a depth-aware 3D parallax, all in the browser',
+      blurb: 'Turning one photo into a depth-aware scene without sending it to a server.',
       tags: ['WebGPU', 'transformers.js', 'WebGL'],
     },
 
@@ -644,15 +644,15 @@ export const PROJECTS: Project[] = [
     id: 'textellation',
     name: 'textellation',
     category: 'creative tools',
-    date: 'Winter 2024',
-    role: 'Personal Project',
+    date: 'November–December 2025',
+    role: 'Solo Designer and Engineer',
     impact: 'Organic text layouts / POS-driven typography',
     url: 'https://www.textellation.com/',
     githubUrl: 'https://github.com/kimestelle/textellation',
     
     cover: {
       imageSrc: '/project-images/covers/textellation-cover.webp',
-      blurb: 'Typographic constellation maker with POS-tagged layouts',
+      blurb: 'Turning passages into typographic constellations without erasing how their words relate.',
       tags: ['Canvas API', 'd3-force', 'Next.js'],
     },
     
@@ -712,15 +712,15 @@ export const PROJECTS: Project[] = [
     id: 'magnetic-poetry',
     name: 'Magnetic Poetry',
     category: 'creative tools',
-    date: 'Fall 2024',
-    role: 'Personal Project',
-    impact: '15k+ word corpus / Collaborative drag-drop UI',
+    date: 'July 2025–January 2026',
+    role: 'Solo Designer and Engineer',
+    impact: '4,000-word source set / shared rooms / pointer and touch controls',
     url: 'https://magnetic-poetry.vercel.app/',
     githubUrl: 'https://github.com/kimestelle/magnetic-poetry',
     
     cover: {
       imageSrc: '/project-images/covers/poetry-cover.webp',
-      blurb: 'Real-time collaborative poetry board',
+      blurb: 'Making remote writing feel as tactile and low-stakes as moving words on a refrigerator.',
       tags: ['React', 'Data Processing'],
     },
     

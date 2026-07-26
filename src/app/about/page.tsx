@@ -1,118 +1,135 @@
 'use client';
-import Image from "next/image";
-import { CursorTooltip } from "../components/Tooltip";
-import TmiCorner from './components/TmiCorner'
+
 import { ShimmerText } from '../design-deets/text-shimmer/TextShimmer';
+import TmiCorner from './components/TmiCorner';
 
 export default function About() {
   return (
-    <div className="responsive-padding flex flex-col justify-start items-center">
-      <div className="w-full max-w-2xl flex flex-col gap-5 pt-8">
-        <ShimmerText as="h2" className="mb-4">{'Hi — I’m Estelle :-)'}</ShimmerText>
+    <main className="responsive-padding flex w-full justify-center">
+      <div className="flex w-full max-w-2xl flex-col gap-10 pt-8">
+        <header className="flex flex-col gap-3">
+          <ShimmerText as="h2">hi, I&apos;m Estelle :-)</ShimmerText>
+          <div className="star-line-north">
+            <span className="star-glyph-north" aria-hidden="true">✦</span>
+            <ShimmerText as="span" className="star-copy-north">
+              I like building software that feels intentional, where design,
+              engineering, and interaction all support the same idea.
+            </ShimmerText>
+          </div>
+        </header>
 
-        <ShimmerText className="split-line">
-          {`I’m a CS + Computer Graphics student at UPenn.
+        <section className="flex flex-col gap-4">
+          <div className="star-line-section">
+            <span className="star-glyph-section" aria-hidden="true">✶</span>
+            <ShimmerText as="h3" className="star-copy-section">
+              my approach
+            </ShimmerText>
+          </div>
+          <p>
+            Most of my work starts the same way: understanding what the
+            experience is supposed to feel like before deciding how to build
+            it.
+          </p>
+          <p>
+            Sometimes the right solution is a simple frontend interaction.
+            Sometimes it calls for graphics, AI, or a custom system. I enjoy
+            figuring out where that line is.
+          </p>
+          <p>
+            I&apos;m less interested in using interesting technology for its
+            own sake than I am in choosing the right amount of technology for
+            the problem.
+          </p>
+        </section>
 
-Before I wrote code, I spent three years in California education policy passing legislation, securing funding, and watching well-designed systems not reach the people who needed them. I started coding because I wanted to build things where logic and play could exist in the same place.
+        <section className="flex flex-col gap-4">
+          <div className="star-line-section">
+            <span className="star-glyph-section" aria-hidden="true">✶</span>
+            <ShimmerText as="h3" className="star-copy-section">
+              how i got here
+            </ShimmerText>
+          </div>
+          <p>
+            I didn&apos;t grow up planning to become a graphics engineer.
+          </p>
+          <p>
+            Before computer science, I spent much of my time organizing
+            students, building coalitions, and working on education policy.
+            That experience taught me to start with people: understand the
+            problem, communicate clearly, and build toward shared goals.
+          </p>
+          <p>
+            When I found engineering, those instincts didn&apos;t disappear.
+            They found a different medium.
+          </p>
+          <p>
+            Today I build interactive software because it&apos;s where
+            technical systems and human experience meet.
+          </p>
+        </section>
 
-I've shipped a museum installation to 180k+ visitors, led a team of 7 on a 3D ML visualization, and built data pipelines for a utility serving 15 million residents. Outside of that, I write custom GLSL shaders for things like watercolor drip simulations and burning paper — fun exercises in looking closely at a physical happening and figuring out which parts are actually a system.
+        <section className="flex flex-col gap-4">
+          <div className="star-line-section">
+            <span className="star-glyph-section" aria-hidden="true">✶</span>
+            <ShimmerText as="h3" className="star-copy-section">
+              working together
+            </ShimmerText>
+          </div>
+          <p>
+            I enjoy small teams where ideas move quickly between design,
+            engineering, and product.
+          </p>
+          <p>
+            People I&apos;ve worked with often mention organization, thoughtful
+            communication, and asking lots of questions. I like making
+            ambitious projects feel structured enough that everyone can
+            contribute while still leaving room to explore.
+          </p>
+        </section>
 
-I work across graphics, full-stack, and data. I find the best tool for the problem and try to actually learn it.`}
-        </ShimmerText>
+        <section className="flex flex-col gap-4">
+          <div className="star-line-section">
+            <span className="star-glyph-section" aria-hidden="true">✶</span>
+            <ShimmerText as="h3" className="star-copy-section">
+              outside of code
+            </ShimmerText>
+          </div>
+          <p>
+            I&apos;m usually wandering around the nearest city, listening to all kinds of music,
+            or thinking about materials like
+            paper, fabric, and light. I&apos;m drawn to the small details that
+            make digital things feel tangible.
+          </p>
 
-        <details
-          className="glass-card"
-        >
-          <summary className="cursor-pointer">
-            ✶ tmi corner:
-          </summary>
+          <details className="glass-interactive ui-radius-panel p-2">
+            <summary className="star-line-detail cursor-pointer">
+              <span className="star-glyph-detail" aria-hidden="true">
+                {'\uE000'}
+              </span>
+              tmi corner:
+            </summary>
+            <TmiCorner />
+          </details>
+        </section>
 
-          <TmiCorner/>
-        </details>
-
-        <hr/>
-
-        <ShimmerText>
-          A lot is in progress here, but you might find these particularly fun:
-        </ShimmerText>
-
-        <div className='relative w-full flex-row flex gap-2'>
-          <CursorTooltip content="cloudy with a chance of..." placement="right-start">
+        <section className="flex flex-col gap-4 border-t pt-8">
+          <p>
+            I&apos;m always excited to meet thoughtful people building
+            interesting things, especially small teams where engineering,
+            design, and product shape each other.
+          </p>
+          <p>
+            If that sounds like your kind of work, I&apos;d love to chat at{' '}
             <a
-              className="glass-card cursor-pointer shrink-0 w-16 h-16 md:w-24 md:h-24"
-              href="https://watercolor-drip-shader.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="mailto:kestelle@sas.upenn.edu"
+              className="underline decoration-black/20 underline-offset-4"
             >
-              <Image
-                src="/project-images/covers/watercolor-cover.webp"
-                alt="Watercolor Shader"
-                width={400}
-                height={400}
-                className="w-full h-full object-cover"
-              />
+              kestelle@sas.upenn.edu
             </a>
-          </CursorTooltip>
-
-          <CursorTooltip content="textellation_.*🟅" placement="right-start">
-            <a
-              className="glass-card cursor-pointer shrink-0 w-16 h-16 md:w-24 md:h-24"
-              href="https://textellation.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="/project-images/covers/textellation-cover.webp"
-                alt="Textellation"
-                width={400}
-                height={400}
-                className="w-full h-full object-cover"
-              />
-            </a>
-          </CursorTooltip>
-
-          <CursorTooltip content="make a softbody jelly" placement="right-start">
-            <a
-              className="glass-card cursor-pointer shrink-0 w-16 h-16 md:w-24 md:h-24"
-              href="https://2d-softbody-lathe.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="/project-images/covers/blob-cover.webp"
-                alt="3D/2D Softbody"
-                width={400}
-                height={400}
-                className="w-full h-full object-cover"
-              />
-            </a>
-          </CursorTooltip>
-
-          <CursorTooltip content="magnetic poetry board" placement="right-start">
-            <a
-              className="glass-card cursor-pointer shrink-0 w-16 h-16 md:w-24 md:h-24"
-              href="https://magnetic-poetry.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="/project-images/covers/poetry-cover.webp"
-                alt="Magnetic Poetry"
-                width={400}
-                height={400}
-                className="w-full h-full object-cover"
-              />
-            </a>
-          </CursorTooltip>
-        </div>
-
-        <p>
-          Feel free to reach out at {' '} 
-          <a href="mailto:kestelle@sas.upenn.edu">
-            kestelle@sas.upenn.edu, I always love meeting new people!
-          </a>
-        </p>
+            .
+          </p>
+        </section>
       </div>
-    </div>
+    </main>
   );
 }

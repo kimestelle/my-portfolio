@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState, ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, ReactNode } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
@@ -10,12 +10,14 @@ import { EntranceReadyProvider } from './EntranceReadyContext';
 
 const SHADER_PREF_KEY = 'estelle-portfolio:shader-enabled';
 const CELL_AUTOMATA_PREF_KEY = 'estelle-portfolio:cell-automata-enabled';
-const PLAYGROUND_EXIT_MS = 220;
+const PLAYGROUND_ROUTE_OUT_MS = 180;
+const PLAYGROUND_ROUTE_IN_MS = 280;
 
 export default function LayoutShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const [playgroundTransition, setPlaygroundTransition] = useState<'idle' | 'out' | 'reveal'>('idle');
+  const pendingRouteRef = useRef<string | null>(null);
 
   const shaderDisabled = useMemo(
     () => pathname.startsWith('/playground'),
@@ -88,6 +90,10 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
     setEntranceState({ pathname, ready: true });
   }, [pathname]);
 
+  useEffect(() => {
+    router.prefetch('/playground');
+  }, [router]);
+
   const onRouteNavigate = useCallback((
     event: React.MouseEvent<HTMLAnchorElement>,
   ) => {
@@ -100,45 +106,84 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
     ) {
       return;
     }
-    if (event.currentTarget.getAttribute('href') !== pathname) return;
+    const href = event.currentTarget.getAttribute('href');
+    if (!href) return;
 
-    event.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
-        ? 'auto'
-        : 'smooth',
-    });
-  }, [pathname]);
+    if (href === pathname) {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          ? 'auto'
+          : 'smooth',
+      });
+      return;
+    }
+
+    if (
+      shaderDisabled
+      && playgroundTransition === 'idle'
+      && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      event.preventDefault();
+      pendingRouteRef.current = href;
+      setPlaygroundTransition('out');
+    }
+  }, [pathname, playgroundTransition, shaderDisabled]);
 
   const onPlaygroundNavigate = useCallback((event: React.MouseEvent<HTMLAnchorElement>) => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     event.preventDefault();
-    if (playgroundTransition === 'idle') setPlaygroundTransition('out');
+    if (playgroundTransition === 'idle') {
+      pendingRouteRef.current = '/playground';
+      setPlaygroundTransition('out');
+    }
   }, [playgroundTransition]);
 
-  // The navbar and shader leave first; the playground route is allowed to do
-  // its own loading after that small, fixed visual exit.
   useEffect(() => {
-    if (playgroundTransition !== 'out' || shaderDisabled) return;
-    const timer = window.setTimeout(() => router.push('/playground'), PLAYGROUND_EXIT_MS);
+    if (playgroundTransition !== 'out') return;
+    const target = pendingRouteRef.current;
+    if (!target || target === pathname) return;
+    const timer = window.setTimeout(
+      () => router.push(target),
+      PLAYGROUND_ROUTE_OUT_MS,
+    );
     return () => window.clearTimeout(timer);
-  }, [playgroundTransition, router, shaderDisabled]);
+  }, [pathname, playgroundTransition, router]);
 
   useEffect(() => {
-    if (!shaderDisabled) {
-      // Returning before the reveal timer completes must still restore the
-      // original shader layer rather than preserving its transparent phase.
-      if (playgroundTransition === 'reveal') setPlaygroundTransition('idle');
-      return;
-    }
-    if (playgroundTransition === 'out') {
-      setPlaygroundTransition('reveal');
-      const timer = window.setTimeout(() => setPlaygroundTransition('idle'), 760);
-      return () => window.clearTimeout(timer);
-    }
-  }, [playgroundTransition, shaderDisabled]);
+    if (
+      playgroundTransition !== 'out'
+      || pendingRouteRef.current !== pathname
+    ) return;
+    const frame = window.requestAnimationFrame(
+      () => setPlaygroundTransition('reveal'),
+    );
+    return () => window.cancelAnimationFrame(frame);
+  }, [pathname, playgroundTransition]);
+
+  useEffect(() => {
+    if (playgroundTransition !== 'reveal') return;
+    const timer = window.setTimeout(() => {
+      pendingRouteRef.current = null;
+      setPlaygroundTransition('idle');
+    }, PLAYGROUND_ROUTE_IN_MS);
+    return () => window.clearTimeout(timer);
+  }, [playgroundTransition]);
+
+  const routeContentStyle = {
+    width: '100%',
+    opacity: playgroundTransition === 'out' ? 0.78 : 1,
+    transform: playgroundTransition === 'out'
+      ? `translateY(${shaderDisabled ? '5px' : '-5px'})`
+      : 'translateY(0)',
+    transition: playgroundTransition === 'out'
+      ? `opacity ${PLAYGROUND_ROUTE_OUT_MS}ms ease-out, transform ${PLAYGROUND_ROUTE_OUT_MS}ms ease-out`
+      : playgroundTransition === 'reveal'
+        ? `opacity ${PLAYGROUND_ROUTE_IN_MS}ms cubic-bezier(0.22, 0.7, 0.25, 1), transform ${PLAYGROUND_ROUTE_IN_MS}ms cubic-bezier(0.22, 0.7, 0.25, 1)`
+        : 'none',
+  };
 
   return (
     <EntranceReadyProvider ready={entranceReady}>
@@ -161,7 +206,9 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
         playing={textShimmerPlaying}
         onComplete={onEntranceComplete}
       >
-        {children}
+        <div style={routeContentStyle}>
+          {children}
+        </div>
       </TextShimmerGroup>
       {!shaderDisabled && <Footer />}
       <MoodRingBackground
@@ -169,7 +216,7 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
         onFps={onFps}
         onReady={onShaderReady}
         cellAnimationPaused={!entranceReady}
-        playgroundTransition={playgroundTransition}
+        playgroundTransition="idle"
       />
     </EntranceReadyProvider>
   );

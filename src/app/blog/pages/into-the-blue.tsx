@@ -56,7 +56,7 @@ export default function Blue_DemoNotes() {
 
   return (
     <div className="blog-formatting max-w-2xl">
-      <ShimmerText as="h1" className="text-3xl font-bold">Scavenger Hunt in the Penn Museum</ShimmerText>
+      <ShimmerText as="h1">Scavenger Hunt in the Penn Museum</ShimmerText>
       <p className="text-gray-500 mt-1 half-margin">
         <span className='italic text-gray-600'>~ Into the Blue: case study ~ </span>October 30, 2025
       </p>
@@ -76,10 +76,10 @@ export default function Blue_DemoNotes() {
         that guides visitors to find blue artifacts, “cut” them in place, and keep + share a personal digital sticker collection.
       </p>
       <ul>
-        <li><span className="font-semibold">client project</span> with <Link href="https://pennspark.org/" target="_blank" className="blue">Penn Spark</Link> (team of 8 leads, devs, & designers)</li>
-        <li>my role: <span className="font-semibold">frontend developer</span></li>
-        <li>tech stack: <span className="font-semibold">NextJS / React/ Typescript</span></li>
-        <li>project timeline: <span className="font-semibold">February - April</span></li>
+        <li><span className="font-medium">client project</span> with <Link href="https://pennspark.org/" target="_blank" className="blue">Penn Spark</Link> (team of 8 leads, devs, & designers)</li>
+        <li>my role: <span className="font-medium">frontend developer</span></li>
+        <li>tech stack: <span className="font-medium">NextJS / React/ Typescript</span></li>
+        <li>project timeline: <span className="font-medium">February - April</span></li>
         <li>continuing deployment + maintenance for 9 months</li>
       </ul>
 
@@ -98,7 +98,7 @@ export default function Blue_DemoNotes() {
       ))}
 
       <section className="mt-8">
-        <h2 className="text-xl font-semibold">lessons learned</h2>
+        <h2>lessons learned</h2>
         <ul className="list-disc ml-6 text-gray-800">
           <li>translating designers&apos; intent into measurable rules (shared viewBox, aspect ratios, error guards) that hold across edge cases and devices</li>
           <li>one source of geometry: derive every size, transform, clip, and export from the same reference box (plus DPR + cover-fit) for pixel-perfect alignment</li>

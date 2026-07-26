@@ -34,17 +34,17 @@ function Portal({ children }: { children: ReactNode }) {
   return createPortal(children, document.body);
 }
 
-const ANIM_MS = 500;
+const ANIM_MS = 160;
 
 export function CursorTooltip({
   children,
   content,
   placement = 'top',
   offsetPx = 12,
-  openDelayMs = 60,
+  openDelayMs = 140,
   closeDelayMs = 60,
   cycleMs,
-  panelClassName = 'ui-radius-panel border bg-white px-2 py-1 text-sm shadow-lg',
+  panelClassName = 'glass-panel ui-radius-panel type-meta px-2 py-1',
 }: CursorTooltipProps) {
   const [open, setOpen] = useState(false);
   const [present, setPresent] = useState(false);

@@ -3,14 +3,18 @@ import BouncingText from "../design-deets/BouncingText";
 
 export default function Footer() {
   return (
-    <footer className="relative w-full flex flex-col items-start responsive-padding">
-      <div className='w-full bg-invert flex flex-col items-start justify-between'>
-        <BouncingText>thank you for visiting :-)</BouncingText>
-        <span><a href="mailto:kestelle@sas.upenn.edu">kestelle@sas.upenn.edu</a></span>
+    <footer className="site-footer responsive-padding relative w-full">
+      <div className="flex w-full flex-col items-start justify-between gap-3 border-t border-[color:var(--line-color)] pt-5 sm:flex-row sm:items-center">
+        <BouncingText className="type-meta text-[color:var(--text-meta)]">
+          thank you for visiting :-)
+        </BouncingText>
+        <Link
+          href="/blog"
+          className="type-meta text-[color:var(--text-primary)] transition-transform duration-200 hover:-translate-y-px"
+        >
+          read my blog ↗
+        </Link>
       </div>
-      <Link href="/blog" className="mt-4 text-neutral-600 hover:underline">
-        read my blog ~*✦.
-      </Link>
     </footer>
   );
 }

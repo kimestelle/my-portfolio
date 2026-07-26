@@ -7,39 +7,43 @@ import { ShimmerText } from '../design-deets/text-shimmer/TextShimmer';
 export default function BlogListPage() {
 
   return (
-    <div className="flex flex-col responsive-padding justify-center items-center">
-      <div className="flex flex-col w-full max-w-2xl">
-        <ShimmerText as="h3">bits &amp; snippets</ShimmerText>
-      <ul className="space-y-2">
-        {allPostsSorted.map((blog) => (
-          <li
-            key={blog.slug}
-            className="glass-card"
-          >
-            <Link href={`/blog/${blog.slug}`}>
-              <ShimmerText as="h4">{blog.title}</ShimmerText>
-              <span> 
-                <span className="mr-2">
-                  {blog.date}
-                </span>
-              {blog.description}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <main className="responsive-padding flex w-full justify-center">
+      <section className="w-full max-w-2xl pb-16">
+        <ShimmerText as="h2" className="type-page-title mb-7">
+          bits &amp; snippets
+        </ShimmerText>
 
-        {/* <div className="mb-2 flex items-center gap-3">
-        <h4>
-            {'<memos/>'}
-        </h4>
-        <div className="h-px flex-1 bg-black/10" />
-        </div>
-      <ul className="space-y-4 mb-10">
-        <li className='ui-radius-panel p-2 px-3 bg-yellow-100/50'>
-          fixed rules, open variables, and a shared understanding of how things are allowed to move
-        </li>
-      </ul> */}
-      </div>
-    </div>
+        <ul className="border-y border-[color:var(--line-color)]">
+          {allPostsSorted.map((blog) => (
+            <li key={blog.slug} className="border-b border-[color:var(--line-color)] last:border-b-0">
+              <Link
+                href={`/blog/${blog.slug}`}
+                className="group block py-4"
+              >
+                <div className="flex items-baseline justify-between gap-5">
+                  <ShimmerText as="h3" className="type-project-title mb-0">
+                    {blog.title}
+                  </ShimmerText>
+                  <span className="type-meta shrink-0 text-[color:var(--text-meta)]">
+                    {blog.date}
+                  </span>
+                </div>
+                <div className="mt-1.5 flex items-center justify-between gap-5">
+                  <p className="text-[color:var(--text-secondary)]">
+                    {blog.description}
+                  </p>
+                  <span
+                    aria-hidden
+                    className="type-meta shrink-0 text-[color:var(--text-decorative)] transition-transform duration-200 group-hover:-translate-y-px group-hover:translate-x-px"
+                  >
+                    ↗
+                  </span>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </main>
   );
 }

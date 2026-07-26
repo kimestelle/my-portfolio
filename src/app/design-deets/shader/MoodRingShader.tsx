@@ -96,7 +96,11 @@ const FRAGMENT_SHADER = `
       vec3 spot = uSpots[i];
       float age = max(0.0, uTime - spot.z);
       float originalRadius = pxToUv(14.0) + age * pxToUv(60.0);
-      float dist = distance(acUv, spot.xy);
+      vec2 spotUv = vec2(
+        spot.x,
+        (spot.y - 0.5) * (uResolution.y / uResolution.x) + 0.5
+      );
+      float dist = distance(acUv, spotUv);
       float peak = clamp(age, 0.0, 1.0);
       float decay = peak * exp(-age * 0.6) * 0.6;
 
@@ -190,7 +194,11 @@ fn fragmentMain(input: VertexOutput) -> @location(0) vec4f {
     let spot = uniforms.spots[i];
     let age = max(0.0, uniforms.time - spot.z);
     let originalRadius = pxToUv(14.0) + age * pxToUv(60.0);
-    let dist = distance(acUv, spot.xy);
+    let spotUv = vec2f(
+      spot.x,
+      (spot.y - 0.5) * (uniforms.resolution.y / uniforms.resolution.x) + 0.5
+    );
+    let dist = distance(acUv, spotUv);
     let peak = clamp(age, 0.0, 1.0);
     let decay = peak * exp(-age * 0.6) * 0.6;
 
@@ -418,14 +426,18 @@ export default function MoodRingBackground({
   }, [onReady]);
 
   useEffect(() => {
-    const v = window.visualViewport;
-    viewportRef.current = v
-      ? { w: Math.round(v.width), h: Math.round(v.height) }
-      : { w: window.innerWidth, h: window.innerHeight };
-
     const canvas = canvasRef.current;
     const background = backgroundRef.current;
     if (!canvas || !background) return;
+
+    const getViewport = () => {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        w: Math.max(1, Math.round(rect.width)),
+        h: Math.max(1, Math.round(rect.height)),
+      };
+    };
+    viewportRef.current = getViewport();
 
     const asciiCtx = background.getContext('2d');
     if (!asciiCtx) return;
@@ -567,11 +579,20 @@ export default function MoodRingBackground({
       if (now - lastTouchTimeRef.current < 0.05) return;
       lastTouchTimeRef.current = now;
 
-      const x = clientX / viewportRef.current.w;
-      const y = 1 - clientY / viewportRef.current.h;
-      const stretchedY = (y - 0.5) * (viewportRef.current.h / viewportRef.current.w) + 0.5;
+      const rect = canvas.getBoundingClientRect();
+      const x = Math.min(
+        1,
+        Math.max(0, (clientX - rect.left) / Math.max(1, rect.width)),
+      );
+      const y = Math.min(
+        1,
+        Math.max(0, 1 - (clientY - rect.top) / Math.max(1, rect.height)),
+      );
 
-      heatSpots.current.push({ position: new THREE.Vector2(x, stretchedY), createdAt: now });
+      heatSpots.current.push({
+        position: new THREE.Vector2(x, y),
+        createdAt: now,
+      });
       if (heatSpots.current.length > maxSpots) heatSpots.current.shift();
     };
 
@@ -583,12 +604,6 @@ export default function MoodRingBackground({
         const touch = e.touches[i];
         handleTouch(touch.clientX, touch.clientY);
       }
-    };
-
-    const getViewport = () => {
-      const vv = window.visualViewport;
-      if (vv) return { w: Math.round(vv.width), h: Math.round(vv.height) };
-      return { w: window.innerWidth, h: window.innerHeight };
     };
 
     // 
