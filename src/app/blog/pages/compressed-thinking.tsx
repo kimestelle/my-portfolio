@@ -1,13 +1,15 @@
+import { ShimmerText } from '@/app/design-deets/text-shimmer/TextShimmer';
+
 export default function SlowTechPage() {
   return (
     <div className="blog-formatting max-w-2xl">
-      <h1 className="text-3xl font-bold">on compressing thought</h1>
-      <p className="text-gray-500 mt-1 half-margin">June 25, 2025</p>
-      <p className="text-gray-600 italic half-margin">before it means something</p>
+      <ShimmerText as="h1" className="text-3xl font-bold">on compressing thought</ShimmerText>
+      <ShimmerText className="text-gray-500 mt-1 half-margin">June 25, 2025</ShimmerText>
+      <ShimmerText className="text-gray-600 italic half-margin">before it means something</ShimmerText>
       <hr className="mb-4"/>
-      <p>
+      <ShimmerText>
         I used to think I was just a fast thinker. I picked things up easily, finished tests early, moved through projects efficiently. But lately I&apos;ve been wondering if what I thought was fluency was actually compression.
-      </p>
+      </ShimmerText>
       <p>
         At my summer internship, I learned low-code tools like Power Apps that are meant to make building accessible and streamlined. They did, but they also made it harder to think outside the structures they provided. The minute I tried to implement something off-pattern like a layout the editor didn&apos;t like or a new behavior, the tool pushed back. Not with strict errors, but nagging friction, like vague documentation, 5-layer workarounds, and messy visuals.
       </p>

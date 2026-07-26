@@ -108,7 +108,7 @@ export function MiniCameraCutout({
 
   return (
     <div
-      className="relative h-full aspect-[5/6] rounded-md overflow-hidden border"
+      className="ui-radius-panel relative h-full aspect-[5/6] overflow-hidden border"
     >
       <video
         ref={videoRef}
@@ -196,21 +196,21 @@ export function MiniCameraCutout({
       {/* controls */}
       <div className='absolute bottom-2 z-[2] w-full flex gap-2 px-2 justify-between items-center'>
         {!image && (
-          <button onClick={toggleImage} className="rounded-full px-2 py-1 bg-white/90 text-black text-xs">
+          <button onClick={toggleImage} className="ui-radius-pill px-2 py-1 bg-white/90 text-black text-xs">
             switch
           </button>
         )}
         {!image && (
-          <button onClick={capture} className="rounded-full px-2 py-1 bg-red-500 text-white font--bold text-xs">
+          <button onClick={capture} className="ui-radius-pill px-2 py-1 bg-red-500 text-white font--bold text-xs">
             cut
           </button>
         )}
         {image && (
           <>
-            <button onClick={() => setImage(null)} className="rounded-full px-2 py-1 bg-white/90 text-black text-xs">
+            <button onClick={() => setImage(null)} className="ui-radius-pill px-2 py-1 bg-white/90 text-black text-xs">
               retake
             </button>
-            <a href={image} download="sticker.png" className="rounded-full px-2 py-1 bg-black text-white text-xs">
+            <a href={image} download="sticker.png" className="ui-radius-pill px-2 py-1 bg-black text-white text-xs">
               save
             </a>
           </>

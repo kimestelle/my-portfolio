@@ -3,6 +3,7 @@ import Link from 'next/link';
 import CodeDemo, { CodeDemoProps } from '../components/CodeDemo';
 import { MiniCameraCutout } from '../components/BlueDemos';
 import BouncingText from '@/app/design-deets/BouncingText';
+import { ShimmerText } from '@/app/design-deets/text-shimmer/TextShimmer';
 
 export default function Blue_DemoNotes() {
   const demos: readonly CodeDemoProps[] = [
@@ -55,7 +56,7 @@ export default function Blue_DemoNotes() {
 
   return (
     <div className="blog-formatting max-w-2xl">
-      <h1 className="text-3xl font-bold">Scavenger Hunt in the Penn Museum</h1>
+      <ShimmerText as="h1" className="text-3xl font-bold">Scavenger Hunt in the Penn Museum</ShimmerText>
       <p className="text-gray-500 mt-1 half-margin">
         <span className='italic text-gray-600'>~ Into the Blue: case study ~ </span>October 30, 2025
       </p>

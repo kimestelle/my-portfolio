@@ -46,14 +46,14 @@ const CodeDemo: React.FC<CodeDemoProps> = ({
         {/* demo area */}
         {demo && 
         <div className="sm:col-span-8">
-          <div className="rounded-md h-64 md:h-120 flex justify-center items-center border bg-white p-2">
+          <div className="ui-radius-panel h-64 md:h-120 flex justify-center items-center border bg-white p-2">
               {demo}
           </div>
         </div>
         }
 
         {code &&
-          <details className="rounded-md bg-neutral-50 p-2 border" open={defaultOpen}>
+          <details className="ui-radius-panel bg-neutral-50 p-2 border" open={defaultOpen}>
             <summary className="cursor-pointer text-sm font-medium flex items-center justify-between">
               <span>&#8661; {codeTitle}</span>
               <button
@@ -63,7 +63,7 @@ const CodeDemo: React.FC<CodeDemoProps> = ({
                   e.stopPropagation();
                   handleCopy();
                 }}
-                className="text-xs px-2 py-1 rounded-md border bg-white hover:bg-neutral-100"
+                className="ui-radius-control text-xs px-2 py-1 border bg-white hover:bg-neutral-100"
                 aria-label="Copy code"
               >
                 copy

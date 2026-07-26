@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { CursorTooltip } from './Tooltip';
 import Image from 'next/image';
+import { ShimmerText } from '../design-deets/text-shimmer/TextShimmer';
 
 // -----------------------------------------------------------------------------
 // Layout + animation
@@ -324,11 +325,9 @@ export default function Home() {
       `}</style>
 
       <div className="w-full max-w-2xl shrink-0 flex flex-col justify-start items-start">
-        <h1>Estelle Kim</h1>
+        <ShimmerText as="h1">Estelle Kim</ShimmerText>
 
-        <h3>
-          CS & CG @ Penn
-        </h3>
+        <ShimmerText as="h3">CS &amp; CG @ Penn</ShimmerText>
 
         <div className="w-full my-4 flex items-center gap-3">
           <CursorTooltip content="download resume" placement="bottom">

@@ -2,29 +2,23 @@
 import Image from "next/image";
 import { CursorTooltip } from "../components/Tooltip";
 import TmiCorner from './components/TmiCorner'
+import { ShimmerText } from '../design-deets/text-shimmer/TextShimmer';
 
 export default function About() {
   return (
     <div className="responsive-padding flex flex-col justify-start items-center">
       <div className="w-full max-w-2xl flex flex-col gap-5 pt-8">
-        <h2 className="mb-4">Hi — I’m Estelle {':-)'}</h2>
+        <ShimmerText as="h2" className="mb-4">{'Hi — I’m Estelle :-)'}</ShimmerText>
 
-        <p>
-          I’m a CS + Computer Graphics student at UPenn.
-        </p>
+        <ShimmerText className="split-line">
+          {`I’m a CS + Computer Graphics student at UPenn.
 
-        <p>
-          Before I wrote code, I spent three years in California education policy passing legislation, securing funding, and watching well-designed systems not reach the people who needed them.
-I started coding because I wanted to build things where logic and play could exist in the same place.
-        </p>
+Before I wrote code, I spent three years in California education policy passing legislation, securing funding, and watching well-designed systems not reach the people who needed them. I started coding because I wanted to build things where logic and play could exist in the same place.
 
-        <p>
-          I&apos;ve shipped a museum installation to 180k+ visitors, led a team of 7 on a 3D ML visualization, and built data pipelines for a utility serving 15 million residents. Outside of that, I write custom GLSL shaders for things like watercolor drip simulations and burning paper — fun exercises in looking closely at a physical happening and figuring out which parts are actually a system.
-        </p>
+I've shipped a museum installation to 180k+ visitors, led a team of 7 on a 3D ML visualization, and built data pipelines for a utility serving 15 million residents. Outside of that, I write custom GLSL shaders for things like watercolor drip simulations and burning paper — fun exercises in looking closely at a physical happening and figuring out which parts are actually a system.
 
-        <p>
-          I work across graphics, full-stack, and data. I find the best tool for the problem and try to actually learn it.
-        </p>
+I work across graphics, full-stack, and data. I find the best tool for the problem and try to actually learn it.`}
+        </ShimmerText>
 
         <details
           className="glass-card"
@@ -38,9 +32,9 @@ I started coding because I wanted to build things where logic and play could exi
 
         <hr/>
 
-        <p>
+        <ShimmerText>
           A lot is in progress here, but you might find these particularly fun:
-        </p>
+        </ShimmerText>
 
         <div className='relative w-full flex-row flex gap-2'>
           <CursorTooltip content="cloudy with a chance of..." placement="right-start">

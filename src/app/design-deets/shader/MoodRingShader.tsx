@@ -7,8 +7,10 @@ import { starConwayPattern, updateStarConwayDirty, Dirty } from './starConway';
 type MoodRingProps = {
   enabled?: boolean;
   onFps?: (fps: number) => void;
+  cellAnimationPaused?: boolean;
   playgroundTransition?: 'idle' | 'out' | 'reveal';
   onTransitionCovered?: () => void;
+  onReady?: () => void;
 };
 
 type HeatSpot = {
@@ -26,13 +28,371 @@ const STARS_ENABLED = true;
 // 0.5 is the floor: a fresh spot is ~14px radius, and below half res its
 // falloff spans so few texels that the upscale reads as pixelated.
 const BLOB_RESOLUTION_SCALE = 0.5;
+const MAX_SPOTS = 50;
 
-export default function MoodRingBackground({ enabled = true, onFps, playgroundTransition = 'idle', onTransitionCovered }: MoodRingProps) {
+type MoodUniforms = {
+  uTime: { value: number };
+  uResolution: { value: THREE.Vector2 };
+  uSpots: { value: THREE.Vector3[] };
+  uSpotCount: { value: number };
+  uTransition: { value: number };
+};
+
+type MoodRendererRuntime = {
+  resize: (width: number, height: number) => void;
+  render: () => void;
+  dispose: () => void;
+};
+
+const VERTEX_SHADER = `
+  varying vec2 vUv;
+  void main() {
+    vUv = uv;
+    gl_Position = vec4(position, 1.0);
+  }
+`;
+
+const FRAGMENT_SHADER = `
+  precision highp float;
+  varying vec2 vUv;
+
+  uniform float uTime;
+  uniform vec2 uResolution;
+  uniform vec3 uSpots[50];
+  uniform int uSpotCount;
+  uniform float uTransition;
+
+  float pxToUv(float px) {
+    return px / min(uResolution.x, uResolution.y);
+  }
+
+  vec3 moodPalette(float t) {
+    vec3 galaxy  = vec3(0.48, 0.34, 0.60);
+    vec3 ember   = vec3(0.94, 0.52, 0.28);
+    vec3 sea     = vec3(0.36, 0.70, 0.64);
+
+    if (t < 0.70) {
+      float f = smoothstep(0.0, 0.70, t);
+      return mix(galaxy, ember, f);
+    } else if (t < 0.85) {
+      float f = smoothstep(0.70, 0.85, t);
+      return mix(ember, sea, f);
+    } else {
+      float f = smoothstep(0.85, 1.0, t);
+      return mix(sea, ember, f * 0.85);
+    }
+  }
+
+  void main() {
+    vec2 uv = vUv;
+    vec2 acUv = vec2(vUv.x, (vUv.y - 0.5) * (uResolution.y / uResolution.x) + 0.5);
+
+    float heat = 0.0;
+    float transitionField = 0.0;
+    float acceleratedGrowth = pow(uTransition, 2.35) * 2.15;
+    float lateWeight = smoothstep(0.62, 1.0, uTransition);
+    for (int i = 0; i < 50; i++) {
+      if (i >= uSpotCount) break;
+      vec3 spot = uSpots[i];
+      float age = max(0.0, uTime - spot.z);
+      float originalRadius = pxToUv(14.0) + age * pxToUv(60.0);
+      float dist = distance(acUv, spot.xy);
+      float peak = clamp(age, 0.0, 1.0);
+      float decay = peak * exp(-age * 0.6) * 0.6;
+
+      heat += smoothstep(1.0, 0.0, dist / originalRadius) * decay;
+      float transitionWeight = mix(decay, max(decay, 0.28), lateWeight);
+      transitionField += smoothstep(1.0, 0.0, dist / (originalRadius + acceleratedGrowth)) * transitionWeight;
+    }
+
+    heat = clamp(heat, 0.0, 1.0);
+
+    vec3 base = vec3(1.0);
+    vec3 glow = moodPalette(heat);
+    vec3 color = mix(base, glow, smoothstep(0.0, 0.65, heat));
+
+    float t = smoothstep(0.0, 1.0, heat);
+    float a = 1.0 - pow(t, 2.5);
+
+    float coverage = uSpotCount == 0
+      ? smoothstep(0.0, 1.0, uTransition)
+      : smoothstep(0.02, 0.28, transitionField) * smoothstep(0.0, 0.18, uTransition);
+
+    float dither = (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) / 160.0;
+    gl_FragColor = vec4(mix(color, vec3(1.0), coverage) + dither, mix(a, 1.0, coverage) + dither);
+  }
+`;
+
+const WEBGPU_SHADER = /* wgsl */ `
+struct Uniforms {
+  resolution: vec2f,
+  time: f32,
+  transition: f32,
+  meta: vec4f,
+  spots: array<vec4f, ${MAX_SPOTS}>,
+}
+
+@group(0) @binding(0) var<uniform> uniforms: Uniforms;
+
+struct VertexOutput {
+  @builtin(position) position: vec4f,
+  @location(0) uv: vec2f,
+}
+
+@vertex
+fn vertexMain(@builtin(vertex_index) index: u32) -> VertexOutput {
+  var positions = array<vec2f, 3>(
+    vec2f(-1.0, -1.0),
+    vec2f(3.0, -1.0),
+    vec2f(-1.0, 3.0)
+  );
+  let point = positions[index];
+  var output: VertexOutput;
+  output.position = vec4f(point, 0.0, 1.0);
+  output.uv = point * 0.5 + vec2f(0.5);
+  return output;
+}
+
+fn pxToUv(px: f32) -> f32 {
+  return px / min(uniforms.resolution.x, uniforms.resolution.y);
+}
+
+fn moodPalette(t: f32) -> vec3f {
+  let galaxy = vec3f(0.48, 0.34, 0.60);
+  let ember = vec3f(0.94, 0.52, 0.28);
+  let sea = vec3f(0.36, 0.70, 0.64);
+
+  if (t < 0.70) {
+    let f = smoothstep(0.0, 0.70, t);
+    return mix(galaxy, ember, f);
+  }
+  if (t < 0.85) {
+    let f = smoothstep(0.70, 0.85, t);
+    return mix(ember, sea, f);
+  }
+  let f = smoothstep(0.85, 1.0, t);
+  return mix(sea, ember, f * 0.85);
+}
+
+@fragment
+fn fragmentMain(input: VertexOutput) -> @location(0) vec4f {
+  let acUv = vec2f(
+    input.uv.x,
+    (input.uv.y - 0.5) * (uniforms.resolution.y / uniforms.resolution.x) + 0.5
+  );
+
+  var heat = 0.0;
+  var transitionField = 0.0;
+  let acceleratedGrowth = pow(uniforms.transition, 2.35) * 2.15;
+  let lateWeight = smoothstep(0.62, 1.0, uniforms.transition);
+  for (var i = 0u; i < ${MAX_SPOTS}u; i++) {
+    if (f32(i) >= uniforms.meta.x) { break; }
+    let spot = uniforms.spots[i];
+    let age = max(0.0, uniforms.time - spot.z);
+    let originalRadius = pxToUv(14.0) + age * pxToUv(60.0);
+    let dist = distance(acUv, spot.xy);
+    let peak = clamp(age, 0.0, 1.0);
+    let decay = peak * exp(-age * 0.6) * 0.6;
+
+    heat += smoothstep(1.0, 0.0, dist / originalRadius) * decay;
+    let transitionWeight = mix(decay, max(decay, 0.28), lateWeight);
+    transitionField += smoothstep(
+      1.0,
+      0.0,
+      dist / (originalRadius + acceleratedGrowth)
+    ) * transitionWeight;
+  }
+
+  heat = clamp(heat, 0.0, 1.0);
+  let base = vec3f(1.0);
+  let glow = moodPalette(heat);
+  let color = mix(base, glow, smoothstep(0.0, 0.65, heat));
+  let t = smoothstep(0.0, 1.0, heat);
+  let alpha = 1.0 - pow(t, 2.5);
+
+  var coverage = 0.0;
+  if (uniforms.meta.x == 0.0) {
+    coverage = smoothstep(0.0, 1.0, uniforms.transition);
+  } else {
+    coverage = smoothstep(0.02, 0.28, transitionField)
+      * smoothstep(0.0, 0.18, uniforms.transition);
+  }
+
+  let dither = (
+    fract(sin(dot(input.position.xy, vec2f(12.9898, 78.233))) * 43758.5453) - 0.5
+  ) / 160.0;
+  return vec4f(
+    mix(color, vec3f(1.0), coverage) + dither,
+    mix(alpha, 1.0, coverage) + dither
+  );
+}
+`;
+
+async function createWebGpuRuntime(
+  canvas: HTMLCanvasElement,
+  uniforms: MoodUniforms,
+  onContextClaimed: () => void,
+): Promise<MoodRendererRuntime> {
+  const gpu = (navigator as any).gpu;
+  if (!gpu) throw new Error('WebGPU unavailable');
+  const adapter = await gpu.requestAdapter({ powerPreference: 'low-power' });
+  if (!adapter) throw new Error('WebGPU adapter unavailable');
+  const device = await adapter.requestDevice();
+  const format = gpu.getPreferredCanvasFormat();
+
+  const shaderModule = device.createShaderModule({ code: WEBGPU_SHADER });
+  if (shaderModule.getCompilationInfo) {
+    const compilationInfo = await shaderModule.getCompilationInfo();
+    const errors = compilationInfo.messages.filter(
+      (message: { type: string }) => message.type === 'error',
+    );
+    if (errors.length > 0) {
+      throw new Error(errors.map((message: { message: string }) => message.message).join('\n'));
+    }
+  }
+  const descriptor = {
+    layout: 'auto',
+    vertex: { module: shaderModule, entryPoint: 'vertexMain' },
+    fragment: { module: shaderModule, entryPoint: 'fragmentMain', targets: [{ format }] },
+    primitive: { topology: 'triangle-list' },
+  };
+  device.pushErrorScope('validation');
+  const pipeline = device.createRenderPipelineAsync
+    ? await device.createRenderPipelineAsync(descriptor)
+    : device.createRenderPipeline(descriptor);
+  const validationError = await device.popErrorScope();
+  if (validationError) throw validationError;
+
+  const uniformValues = new Float32Array(8 + MAX_SPOTS * 4);
+  const uniformBuffer = device.createBuffer({
+    size: uniformValues.byteLength,
+    usage: (globalThis as any).GPUBufferUsage.UNIFORM
+      | (globalThis as any).GPUBufferUsage.COPY_DST,
+  });
+  const bindGroup = device.createBindGroup({
+    layout: pipeline.getBindGroupLayout(0),
+    entries: [{ binding: 0, resource: { buffer: uniformBuffer } }],
+  });
+  // Claim the canvas only after every fallible shader/pipeline step succeeds.
+  // A canvas cannot switch from WebGPU to WebGL once a context exists.
+  const context = canvas.getContext('webgpu') as any;
+  if (!context) throw new Error('WebGPU canvas context unavailable');
+  onContextClaimed();
+  context.configure({ device, format, alphaMode: 'premultiplied' });
+
+  return {
+    resize(width, height) {
+      canvas.width = width;
+      canvas.height = height;
+    },
+    render() {
+      uniformValues.fill(0);
+      uniformValues[0] = uniforms.uResolution.value.x;
+      uniformValues[1] = uniforms.uResolution.value.y;
+      uniformValues[2] = uniforms.uTime.value;
+      uniformValues[3] = uniforms.uTransition.value;
+      uniformValues[4] = uniforms.uSpotCount.value;
+      for (let i = 0; i < MAX_SPOTS; i++) {
+        const spot = uniforms.uSpots.value[i];
+        const offset = 8 + i * 4;
+        uniformValues[offset] = spot.x;
+        uniformValues[offset + 1] = spot.y;
+        uniformValues[offset + 2] = spot.z;
+      }
+      device.queue.writeBuffer(uniformBuffer, 0, uniformValues);
+
+      const encoder = device.createCommandEncoder();
+      const pass = encoder.beginRenderPass({
+        colorAttachments: [{
+          view: context.getCurrentTexture().createView(),
+          clearValue: { r: 0, g: 0, b: 0, a: 0 },
+          loadOp: 'clear',
+          storeOp: 'store',
+        }],
+      });
+      pass.setPipeline(pipeline);
+      pass.setBindGroup(0, bindGroup);
+      pass.draw(3);
+      pass.end();
+      device.queue.submit([encoder.finish()]);
+    },
+    dispose() {
+      uniformBuffer.destroy();
+      context.unconfigure();
+      device.destroy();
+    },
+  };
+}
+
+function createWebGlFallbackRuntime(
+  canvas: HTMLCanvasElement,
+  uniforms: MoodUniforms,
+): MoodRendererRuntime {
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+  const scene = new THREE.Scene();
+  const camera = new THREE.Camera();
+  const geometry = new THREE.PlaneGeometry(2, 2);
+  const material = new THREE.ShaderMaterial({
+    uniforms,
+    vertexShader: VERTEX_SHADER,
+    fragmentShader: FRAGMENT_SHADER,
+    transparent: true,
+    depthWrite: false,
+  });
+  renderer.setClearColor(0x000000, 0);
+  scene.add(new THREE.Mesh(geometry, material));
+
+  return {
+    resize(width, height) {
+      renderer.setPixelRatio(1);
+      renderer.setSize(width, height, false);
+    },
+    render() {
+      renderer.render(scene, camera);
+    },
+    dispose() {
+      renderer.dispose();
+      material.dispose();
+      geometry.dispose();
+    },
+  };
+}
+
+async function createMoodRenderer(
+  canvas: HTMLCanvasElement,
+  uniforms: MoodUniforms,
+): Promise<MoodRendererRuntime> {
+  if (!(navigator as any).gpu) {
+    return createWebGlFallbackRuntime(canvas, uniforms);
+  }
+
+  let contextClaimed = false;
+  try {
+    return await createWebGpuRuntime(canvas, uniforms, () => {
+      contextClaimed = true;
+    });
+  } catch (error) {
+    if (contextClaimed) throw error;
+    console.warn('Mood ring WebGPU initialization failed; using WebGL.', error);
+    return createWebGlFallbackRuntime(canvas, uniforms);
+  }
+}
+
+export default function MoodRingBackground({
+  enabled = true,
+  onFps,
+  cellAnimationPaused = false,
+  playgroundTransition = 'idle',
+  onTransitionCovered,
+  onReady,
+}: MoodRingProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const backgroundRef = useRef<HTMLCanvasElement>(null);
   const viewportRef = useRef({ w: 0, h: 0 });
   const enabledRef = useRef(enabled);
   enabledRef.current = enabled;
+  const cellAnimationPausedRef = useRef(cellAnimationPaused);
+  cellAnimationPausedRef.current = cellAnimationPaused;
 
 
   const heatSpots = useRef<HeatSpot[]>([]);
@@ -47,10 +407,15 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
   const stopRef = useRef<null | (() => void)>(null);
   const beginTransitionRef = useRef<null | (() => void)>(null);
   const transitionCoveredRef = useRef(onTransitionCovered);
+  const readyRef = useRef(onReady);
 
   useEffect(() => {
     transitionCoveredRef.current = onTransitionCovered;
   }, [onTransitionCovered]);
+
+  useEffect(() => {
+    readyRef.current = onReady;
+  }, [onReady]);
 
   useEffect(() => {
     const v = window.visualViewport;
@@ -71,6 +436,7 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
     let cols = 0;
     let rows = 0;
     let dpr = 1;
+    let conwayBuffer: string[][] | undefined;
 
     let fpsFrames = 0;
     let fpsLast = 0;
@@ -90,8 +456,7 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
     // preload font
     const ensureFont = (async () => {
       try {
-        await document.fonts.load('16px "Star Glyphs"');
-        await document.fonts.ready;
+        await document.fonts.load('8px "Star Glyphs"');
       } catch {}
     })();
 
@@ -135,6 +500,7 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
 
       if (STARS_ENABLED) {
         asciiStars.current = starConwayPattern(cols, rows);
+        conwayBuffer = undefined;
       } else {
         asciiStars.current = [];
         asciiCtx.clearRect(0, 0, width, height);
@@ -146,127 +512,28 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
       asciiCtx.fillStyle = 'rgba(68, 32, 150, 0.55)';
     };
 
-    // initialize three
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
-    const scene = new THREE.Scene();
-    const camera = new THREE.Camera();
-    const geometry = new THREE.PlaneGeometry(2, 2);
-
-    const maxSpots = 50;
+    const maxSpots = MAX_SPOTS;
     const spotsArray = Array.from({ length: maxSpots }, () => new THREE.Vector3(0, 0, -999));
 
-    const uniforms = {
+    const uniforms: MoodUniforms = {
       uTime: { value: 0 },
       uResolution: { value: new THREE.Vector2() },
       uSpots: { value: spotsArray },
       uSpotCount: { value: 0 },
       uTransition: { value: 0 },
     };
+    let renderer: MoodRendererRuntime | null = null;
+    let disposed = false;
+    let foregroundReady = false;
+    let readySent = false;
 
-    const material = new THREE.ShaderMaterial({
-      uniforms,
-      vertexShader: `
-        varying vec2 vUv;
-        void main() {
-          vUv = uv;
-          gl_Position = vec4(position, 1.0);
-        }
-      `,
-      fragmentShader: `
-        precision highp float;
-        varying vec2 vUv;
-
-        uniform float uTime;
-        uniform vec2 uResolution;
-        uniform vec3 uSpots[50];
-        uniform int uSpotCount;
-        uniform float uTransition;
-
-        float pxToUv(float px) {
-          // normalizing scale for different screen sizes and DPR
-          return px / min(uResolution.x, uResolution.y);
-        }
-
-        vec3 moodPalette(float t) {
-          vec3 galaxy  = vec3(0.48, 0.34, 0.60);
-          vec3 ember   = vec3(0.94, 0.52, 0.28);
-          vec3 sea     = vec3(0.36, 0.70, 0.64);
-
-          if (t < 0.70) {
-            float f = smoothstep(0.0, 0.70, t);
-            return mix(galaxy, ember, f);
-          } else if (t < 0.85) {
-            float f = smoothstep(0.70, 0.85, t);
-            return mix(ember, sea, f);
-          } else {
-            float f = smoothstep(0.85, 1.0, t);
-            return mix(sea, ember, f * 0.85);
-          }
-        }
-
-        void main() {
-          vec2 uv = vUv;
-          vec2 acUv = vec2(vUv.x, (vUv.y - 0.5) * (uResolution.y / uResolution.x) + 0.5);
-
-          float heat = 0.0;
-          float transitionField = 0.0;
-          float acceleratedGrowth = pow(uTransition, 2.35) * 2.15;
-          float lateWeight = smoothstep(0.62, 1.0, uTransition);
-          for (int i = 0; i < 50; i++) {
-            if (i >= uSpotCount) break;
-            vec3 spot = uSpots[i];
-            float age = max(0.0, uTime - spot.z);
-            float originalRadius = pxToUv(14.0) + age * pxToUv(60.0);
-            float dist = distance(acUv, spot.xy);
-            float peak = clamp(age, 0.0, 1.0);
-            float decay = peak * exp(-age * 0.6) * 0.6;
-
-            /* Both views come from the same weighted metaball. Young trail
-               samples therefore cannot appear as independent white dots. */
-            heat += smoothstep(1.0, 0.0, dist / originalRadius) * decay;
-            float transitionWeight = mix(decay, max(decay, 0.28), lateWeight);
-            transitionField += smoothstep(1.0, 0.0, dist / (originalRadius + acceleratedGrowth)) * transitionWeight;
-          }
-
-          heat = clamp(heat, 0.0, 1.0);
-
-          vec3 base = vec3(1.0);
-          vec3 glow = moodPalette(heat);
-          vec3 color = mix(base, glow, smoothstep(0.0, 0.65, heat));
-
-          float t = smoothstep(0.0, 1.0, heat);
-          float a = 1.0 - pow(t, 2.5);
-
-          float coverage = uSpotCount == 0
-            ? smoothstep(0.0, 1.0, uTransition)
-            : smoothstep(0.02, 0.28, transitionField) * smoothstep(0.0, 0.18, uTransition);
-
-          // ~±1 LSB of hash noise breaks up 8-bit banding contours, which the
-          // wide soft gradients on white otherwise make clearly visible.
-          float dither = (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) / 160.0;
-          gl_FragColor = vec4(mix(color, vec3(1.0), coverage) + dither, mix(a, 1.0, coverage) + dither);
-        }
-      `,
-      transparent: true,
-      depthWrite: false,
-    });
-
-    renderer.setClearColor(0x000000, 0);
-    scene.add(new THREE.Mesh(geometry, material));
-
-    const onResize = async (w: number, h: number) => {
-      await ensureFont;
+    const resizeForeground = (w: number, h: number) => {
       viewportRef.current.w = w;
       viewportRef.current.h = h;
-      
-      resizeAscii(w, h);
-      if (STARS_ENABLED) drawAll(w, h);
 
-      renderer.setPixelRatio(1);
-      renderer.setSize(
+      renderer?.resize(
         Math.max(1, Math.round(w * BLOB_RESOLUTION_SCALE)),
-        Math.max(1, Math.round(h * BLOB_RESOLUTION_SCALE)),
-        false
+        Math.max(1, Math.round(h * BLOB_RESOLUTION_SCALE))
       );
 
       const refDpr = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -276,6 +543,23 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
       // idle skip is active would leave a transparent canvas until the next
       // pointer move.
       blobWasVisible = true;
+    };
+
+    const resizeCellLayer = async (w: number, h: number) => {
+      await ensureFont;
+      if (disposed || !foregroundReady) return;
+      resizeAscii(w, h);
+      if (STARS_ENABLED) drawAll(w, h);
+    };
+
+    const onResize = async (w: number, h: number) => {
+      resizeForeground(w, h);
+      if (!renderer) return;
+
+      // Keep the foreground surface valid before doing any cell-grid work.
+      renderer.render();
+      if (!foregroundReady) return;
+      await resizeCellLayer(w, h);
     };
 
     const handleTouch = (clientX: number, clientY: number) => {
@@ -323,8 +607,6 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
     window.addEventListener('pointerdown', onPointerDown);
     window.addEventListener('touchstart', onTouchStart, { passive: true });
 
-    onResize(viewportRef.current.w, viewportRef.current.h);
-
     let startTime = 0;
     let lastNow = 0;
     let conwayAcc = 0;
@@ -347,7 +629,7 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
       if (startTime === 0) startTime = t;
       fpsFrames++;
       if (!fpsLast) fpsLast = t;
-      if (t - fpsLast >= 500) {
+      if (t - fpsLast >= 1000) {
         const fps = (fpsFrames * 1000) / (t - fpsLast);
         onFps?.(fps);
         fpsFrames = 0;
@@ -360,7 +642,11 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
 
       const dt = lastNow === 0 ? 0 : (now - lastNow);
       lastNow = now;
-      conwayAcc += dt;
+      if (cellAnimationPausedRef.current) {
+        conwayAcc = 0;
+      } else {
+        conwayAcc += dt;
+      }
 
       const src = heatSpots.current;
       if (!transitionActive) {
@@ -409,12 +695,18 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
           coveredSent = true;
           transitionCoveredRef.current?.();
         }
-      } else if (STARS_ENABLED && !reduceMotion) {
+      } else if (
+        STARS_ENABLED
+        && !reduceMotion
+        && !cellAnimationPausedRef.current
+      ) {
         const MAX_STEPS_PER_FRAME = 4;
         let steps = 0;
         while (conwayAcc >= CONWAY_STEP && steps < MAX_STEPS_PER_FRAME) {
           conwayAcc -= CONWAY_STEP;
-          const res = updateStarConwayDirty(asciiStars.current);
+          const currentGrid = asciiStars.current;
+          const res = updateStarConwayDirty(currentGrid, conwayBuffer);
+          conwayBuffer = currentGrid;
           asciiStars.current = res.grid;
           drawDirty(res.dirty);
           steps++;
@@ -425,7 +717,7 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
       // it is fully transparent, so skip the GPU pass entirely while idle.
       const blobVisible = src.length > 0 || transitionActive || uniforms.uTransition.value > 0;
       if (blobVisible || blobWasVisible) {
-        renderer.render(scene, camera);
+        renderer?.render();
       }
       blobWasVisible = blobVisible;
 
@@ -441,7 +733,7 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
     const start = () => {
       // Layout effects can converge in the same commit after a route change;
       // one simulation loop is enough regardless of how many request a start.
-      if (runningRef.current) return;
+      if (!renderer || runningRef.current) return;
       heatSpots.current = [];
       clearSpotsArray();
 
@@ -457,13 +749,15 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
 
       // ensure grid exists + draw immediately
       if (STARS_ENABLED && cols > 0 && rows > 0) {
-        asciiStars.current = starConwayPattern(cols, rows);
+        if (asciiStars.current.length === 0) {
+          asciiStars.current = starConwayPattern(cols, rows);
+        }
         drawAll(viewportRef.current.w, viewportRef.current.h);
       }
 
       // render one frame immediately
       uniforms.uTime.value = 0;
-      renderer.render(scene, camera);
+      renderer.render();
       blobWasVisible = true;
 
       runningRef.current = true;
@@ -478,6 +772,7 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
       heatSpots.current = [];
       clearSpotsArray();
       asciiStars.current = [];
+      conwayBuffer = undefined;
       elapsedTimeRef.current = 0;
       lastTouchTimeRef.current = 0;
       fpsFrames = 0;
@@ -511,10 +806,44 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
       killOrder.sort((a, b) => a.noise - b.noise);
     };
 
-    // initial start
-    if (enabled) start();
+    void createMoodRenderer(canvas, uniforms)
+      .then(async (runtime) => {
+        if (disposed) {
+          runtime.dispose();
+          return;
+        }
+        renderer = runtime;
+        resizeForeground(viewportRef.current.w, viewportRef.current.h);
+
+        // Establish and submit the foreground GPU surface first. The cell
+        // layer is intentionally deferred until the next frame so its font,
+        // grid generation, and 2D draw cannot contend with renderer startup.
+        renderer.render();
+        blobWasVisible = true;
+        foregroundReady = true;
+
+        await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+        await resizeCellLayer(viewportRef.current.w, viewportRef.current.h);
+        if (disposed) return;
+
+        if (!readySent) {
+          readySent = true;
+          readyRef.current?.();
+        }
+        if (enabledRef.current) start();
+      })
+      .catch((error) => {
+        if (!disposed) {
+          console.error('Mood ring WebGPU renderer failed after claiming its canvas.', error);
+          if (!readySent) {
+            readySent = true;
+            readyRef.current?.();
+          }
+        }
+      });
 
     return () => {
+      disposed = true;
       stop();
       if (resizeT) clearTimeout(resizeT);
       window.removeEventListener('resize', handleResize);
@@ -524,9 +853,8 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
       window.removeEventListener('touchstart', onTouchStart as any);
       motionQuery.removeEventListener('change', onMotionChange);
 
-      renderer.dispose();
-      material.dispose();
-      geometry.dispose();
+      renderer?.dispose();
+      renderer = null;
       beginTransitionRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -556,7 +884,7 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
           transition: playgroundTransition === 'out'
             ? 'opacity 180ms ease-out'
             : playgroundTransition === 'reveal'
-              ? 'opacity 700ms cubic-bezier(.22,.7,.25,1)'
+              ? 'opacity var(--motion-mood-duration) var(--motion-mood-ease)'
               : 'opacity 140ms ease',
         }}
         aria-hidden="true"
@@ -578,7 +906,9 @@ export default function MoodRingBackground({ enabled = true, onFps, playgroundTr
         className={`fixed top-0 left-0 w-full h-full pointer-events-none ${transitionVisible ? 'z-[50]' : 'z-[-1]'}`}
         style={{ 
           opacity: playgroundTransition === 'reveal' ? 0 : (enabled || playgroundTransition === 'out' ? 1 : 0),
-          transition: playgroundTransition === 'reveal' ? 'opacity 700ms cubic-bezier(.22,.7,.25,1)' : 'opacity 140ms ease',
+          transition: playgroundTransition === 'reveal'
+            ? 'opacity var(--motion-mood-duration) var(--motion-mood-ease)'
+            : 'opacity 140ms ease',
         }}
       />
     </>

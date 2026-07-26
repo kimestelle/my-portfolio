@@ -5,6 +5,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import MoodRingBackground from './design-deets/shader/MoodRingShader';
+import { TextShimmerGroup } from './design-deets/text-shimmer/TextShimmer';
+import { EntranceReadyProvider } from './EntranceReadyContext';
 
 const SHADER_PREF_KEY = 'estelle-portfolio:shader-enabled';
 const CELL_AUTOMATA_PREF_KEY = 'estelle-portfolio:cell-automata-enabled';
@@ -23,7 +25,11 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
   // user shader preference
   const [shaderPref, setShaderPref] = useState<boolean | null>(null);
   const [cellAutomataPref, setCellAutomataPref] = useState<boolean | null>(null);
-  const [fps, setFps] = useState(0);
+  const [shaderReady, setShaderReady] = useState(false);
+  const [entranceState, setEntranceState] = useState({
+    pathname,
+    ready: false,
+  });
 
   // decide if shader is enabled
   const shaderEnabled = shaderPref === true && !shaderDisabled;
@@ -70,7 +76,40 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
     setCellAutomataPref((value) => !(value ?? false));
   }, [shaderDisabled]);
 
-  const onFps = useCallback((v: number) => setFps(v), []);
+  const onFps = useCallback((value: number) => {
+    window.dispatchEvent(new CustomEvent('portfolio:shader-fps', {
+      detail: value,
+    }));
+  }, []);
+  const onShaderReady = useCallback(() => setShaderReady(true), []);
+  const textShimmerPlaying = shaderDisabled || shaderPref === false || shaderReady;
+  const entranceReady = entranceState.pathname === pathname && entranceState.ready;
+  const onEntranceComplete = useCallback(() => {
+    setEntranceState({ pathname, ready: true });
+  }, [pathname]);
+
+  const onRouteNavigate = useCallback((
+    event: React.MouseEvent<HTMLAnchorElement>,
+  ) => {
+    if (
+      event.metaKey
+      || event.ctrlKey
+      || event.shiftKey
+      || event.altKey
+      || event.button !== 0
+    ) {
+      return;
+    }
+    if (event.currentTarget.getAttribute('href') !== pathname) return;
+
+    event.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ? 'auto'
+        : 'smooth',
+    });
+  }, [pathname]);
 
   const onPlaygroundNavigate = useCallback((event: React.MouseEvent<HTMLAnchorElement>) => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
@@ -102,9 +141,8 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
   }, [playgroundTransition, shaderDisabled]);
 
   return (
-    <>
+    <EntranceReadyProvider ready={entranceReady}>
       <NavBar
-        fps={fps}
         shaderOn={shaderEnabled}
         cellAutomataOn={cellAutomataPref === true}
         playground={shaderDisabled}
@@ -113,16 +151,26 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
         playgroundTransitioning={playgroundTransition !== 'idle'}
         onToggleShader={onToggleShader}
         onToggleCellAutomata={onToggleCellAutomata}
+        onRouteNavigate={onRouteNavigate}
         onPlaygroundNavigate={onPlaygroundNavigate}
       />
 
-      {children}
+      <TextShimmerGroup
+        key={pathname}
+        seed={pathname}
+        playing={textShimmerPlaying}
+        onComplete={onEntranceComplete}
+      >
+        {children}
+      </TextShimmerGroup>
       {!shaderDisabled && <Footer />}
       <MoodRingBackground
         enabled={shaderEnabled}
         onFps={onFps}
+        onReady={onShaderReady}
+        cellAnimationPaused={!entranceReady}
         playgroundTransition={playgroundTransition}
       />
-    </>
+    </EntranceReadyProvider>
   );
 }

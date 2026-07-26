@@ -16,6 +16,7 @@ export interface NavBarProps {
   playgroundTransitioning?: boolean;
   onToggleShader?: () => void;
   onToggleCellAutomata?: () => void;
+  onRouteNavigate?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
   onPlaygroundNavigate?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
@@ -28,12 +29,22 @@ export default function NavBar({
   collapsingToPlayground = false,
   playgroundTransitioning = false,
   onToggleShader,
+  onRouteNavigate,
   onPlaygroundNavigate,
 }: NavBarProps) {
   const [mounted, setMounted] = useState(false);
+  const [liveFps, setLiveFps] = useState(fps);
   const compact = playground || collapsingToPlayground;
 
   useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    const onShaderFps = (event: Event) => {
+      setLiveFps((event as CustomEvent<number>).detail);
+    };
+    window.addEventListener('portfolio:shader-fps', onShaderFps);
+    return () => window.removeEventListener('portfolio:shader-fps', onShaderFps);
+  }, []);
 
   // Fixed-position type must never paint before styled-jsx has hydrated; the
   // unstyled fallback otherwise flashes at the document origin.
@@ -42,10 +53,10 @@ export default function NavBar({
   return (
     <nav className={`portfolio-nav${compact ? ' is-compact' : ''}${playgroundTransitioning ? ' is-transitioning' : ''}${hide ? ' is-hidden' : ''}`}>
       <span className="portfolio-nav__shell" aria-hidden="true" />
-      <Link className="portfolio-nav__glyph" href="/" aria-label="Home">.*✦</Link>
+      <Link className="portfolio-nav__glyph" href="/" aria-label="Home" onClick={onRouteNavigate}>.*✦</Link>
       <div className="portfolio-nav__matter" aria-hidden={compact}>
-        <Link tabIndex={compact ? -1 : undefined} href="/projects">projects</Link>
-        <Link tabIndex={compact ? -1 : undefined} href="/about">about</Link>
+        <Link tabIndex={compact ? -1 : undefined} href="/projects" onClick={onRouteNavigate}>projects</Link>
+        <Link tabIndex={compact ? -1 : undefined} href="/about" onClick={onRouteNavigate}>about</Link>
         <Link tabIndex={compact ? -1 : undefined} href="/playground" onClick={onPlaygroundNavigate}>playground</Link>
       </div>
       <div className="portfolio-nav__status" aria-hidden={compact}>
@@ -60,7 +71,7 @@ export default function NavBar({
             onClick={onToggleShader}
             aria-pressed={shaderOn}
           >
-            {shaderOn ? `fps ${fps.toFixed(0)}: ` : 'shader '}
+            {shaderOn ? `fps ${liveFps.toFixed(0)}: ` : 'shader '}
             <span>{shaderOn ? 'on' : 'off'}</span>
           </button>
         </CursorTooltip>

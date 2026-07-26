@@ -1,0 +1,182 @@
+.glyph {
+  font: inherit;
+  letter-spacing: inherit;
+  -webkit-text-fill-color: var(--shimmer-color);
+  opacity: 0;
+  animation-name: shimmer-reveal, shimmer-fade-to-text;
+  animation-duration: var(--shimmer-duration), var(--shimmer-duration);
+  animation-delay: var(--shimmer-delay), var(--shimmer-delay);
+  animation-timing-function:
+    var(--motion-mood-ease),
+    linear;
+  animation-fill-mode: both, both;
+}
+
+.elementFade {
+  opacity: 0;
+  -webkit-text-fill-color: var(--shimmer-color);
+  animation-name: shimmer-element-reveal, shimmer-fade-to-text;
+  animation-duration: var(--shimmer-duration), var(--shimmer-duration);
+  animation-delay: var(--shimmer-delay), var(--shimmer-delay);
+  animation-timing-function:
+    var(--motion-mood-ease),
+    linear;
+  animation-fill-mode: both, both;
+}
+
+.paragraphColor {
+  --paragraph-color-strength: 24%;
+  background-color: currentColor;
+  background-image: linear-gradient(
+    168deg,
+    color-mix(
+      in srgb,
+      var(--shimmer-color) var(--paragraph-color-strength),
+      currentColor
+    ) 0%,
+    color-mix(
+      in srgb,
+      var(--shimmer-color) var(--paragraph-color-strength),
+      currentColor
+    ) 42%,
+    color-mix(
+      in srgb,
+      var(--shimmer-color-secondary) var(--paragraph-color-strength),
+      currentColor
+    ) 72%,
+    color-mix(
+      in srgb,
+      var(--shimmer-color-secondary) var(--paragraph-color-strength),
+      currentColor
+    ) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation-name: shimmer-element-reveal, shimmer-paragraph-color;
+  animation-duration: var(--shimmer-duration), var(--shimmer-duration);
+  animation-delay: var(--shimmer-delay), var(--shimmer-delay);
+  animation-timing-function: var(--motion-mood-ease), linear;
+  animation-fill-mode: both, both;
+}
+
+.paragraphFade {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 20%,
+    transparent 60%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 20%,
+    transparent 60%,
+    transparent 100%
+  );
+  -webkit-mask-size: 100% 500%;
+  mask-size: 100% 500%;
+  animation-name:
+    shimmer-element-reveal,
+    shimmer-paragraph-color,
+    shimmer-paragraph-down;
+  animation-duration:
+    var(--shimmer-duration),
+    var(--shimmer-duration),
+    var(--paragraph-reveal-duration);
+  animation-delay:
+    var(--shimmer-delay),
+    var(--shimmer-delay),
+    var(--shimmer-delay);
+  animation-timing-function:
+    var(--motion-mood-ease),
+    linear,
+    var(--motion-mood-ease);
+  animation-fill-mode: both, both, both;
+}
+
+@keyframes shimmer-reveal {
+  0% {
+    opacity: 0;
+  }
+
+  82% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer-element-reveal {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer-fade-to-text {
+  0%,
+  25% {
+    -webkit-text-fill-color: var(--shimmer-color);
+  }
+
+  100% {
+    -webkit-text-fill-color: currentColor;
+  }
+}
+
+@keyframes shimmer-paragraph-color {
+  0%,
+  25% {
+    --paragraph-color-strength: 24%;
+  }
+
+  100% {
+    --paragraph-color-strength: 0%;
+  }
+}
+
+@keyframes shimmer-paragraph-down {
+  from {
+    -webkit-mask-position: 0 100%;
+    mask-position: 0 100%;
+  }
+
+  to {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glyph,
+  .elementFade {
+    color: inherit;
+    -webkit-text-fill-color: currentColor;
+    opacity: 1;
+    animation: none;
+  }
+
+  .paragraphFade {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .paragraphColor {
+    --paragraph-color-strength: 0%;
+    background-image: none;
+    -webkit-text-fill-color: currentColor;
+  }
+}
+
+@property --paragraph-color-strength {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}

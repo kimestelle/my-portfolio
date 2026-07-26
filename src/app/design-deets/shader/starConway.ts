@@ -62,19 +62,30 @@ export function updateStarConway(grid: string[][], width: number, height: number
 
 export type Dirty = { x: number; y: number; ch: string };
 
-export function updateStarConwayDirty(grid: string[][]): { grid: string[][]; dirty: Dirty[] } {
+export function updateStarConwayDirty(
+  grid: string[][],
+  reusableGrid?: string[][],
+): { grid: string[][]; dirty: Dirty[] } {
   const H = grid.length;
   const W = grid[0]?.length ?? 0;
-  const out = Array.from({ length: H }, () => Array.from({ length: W }, () => " "));
+  const out = (
+    reusableGrid
+    && reusableGrid !== grid
+    && reusableGrid.length === H
+    && (reusableGrid[0]?.length ?? 0) === W
+  )
+    ? reusableGrid
+    : Array.from({ length: H }, () => Array.from({ length: W }, () => " "));
   const dirty: Dirty[] = [];
 
-  const wrap = (n: number, max: number) => (n + max) % max;
   const DEAD = " ";
 
   for (let y = 0; y < H; y++) {
-    const ym1 = wrap(y - 1, H), yp1 = wrap(y + 1, H);
+    const ym1 = y === 0 ? H - 1 : y - 1;
+    const yp1 = y === H - 1 ? 0 : y + 1;
     for (let x = 0; x < W; x++) {
-      const xm1 = wrap(x - 1, W), xp1 = wrap(x + 1, W);
+      const xm1 = x === 0 ? W - 1 : x - 1;
+      const xp1 = x === W - 1 ? 0 : x + 1;
       let n = 0;
       if (grid[ym1][xm1] !== DEAD) n++;
       if (grid[ym1][x]   !== DEAD) n++;

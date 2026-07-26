@@ -10,6 +10,7 @@ import {
   useFloating,
   type Placement,
 } from '@floating-ui/react-dom';
+import { useEntranceReady } from '../EntranceReadyContext';
 
 type CursorTooltipProps = {
   children: ReactElement;
@@ -43,11 +44,12 @@ export function CursorTooltip({
   openDelayMs = 60,
   closeDelayMs = 60,
   cycleMs,
-  panelClassName = 'rounded-md border bg-white px-2 py-1 text-sm shadow-lg',
+  panelClassName = 'ui-radius-panel border bg-white px-2 py-1 text-sm shadow-lg',
 }: CursorTooltipProps) {
   const [open, setOpen] = useState(false);
   const [present, setPresent] = useState(false);
   const [index, setIndex] = useState(0);
+  const entranceReady = useEntranceReady();
 
   const mouseRef = useRef({ x: 0, y: 0 });
   const openTimer = useRef<number | null>(null);
@@ -89,6 +91,7 @@ export function CursorTooltip({
   };
 
   const scheduleOpen = () => {
+    if (!entranceReady) return;
     clearTimers();
     openTimer.current = window.setTimeout(() => {
       setPresent(true);
@@ -108,6 +111,15 @@ export function CursorTooltip({
       }, ANIM_MS);
     }, closeDelayMs);
   };
+
+  useEffect(() => {
+    if (entranceReady) return;
+    clearTimers();
+    setOpen(false);
+    setPresent(false);
+    // clearTimers only touches refs and is intentionally local to this tooltip.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entranceReady]);
 
   const onMouseMove = (e: MouseEvent) => {
     mouseRef.current.x = e.clientX;

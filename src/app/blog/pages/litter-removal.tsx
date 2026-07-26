@@ -1,13 +1,15 @@
+import { ShimmerText } from '@/app/design-deets/text-shimmer/TextShimmer';
+
 export default function LitterRemovalPage() {
   return (
     <div className="blog-formatting max-w-2xl">
-      <h1 className="text-3xl font-bold">litter removal</h1>
-      <p className="text-gray-500 half-margin">June 23, 2025</p>
-      <p className="text-gray-600 italic half-margin">what happens when goodness becomes easier</p>
+      <ShimmerText as="h1" className="text-3xl font-bold">litter removal</ShimmerText>
+      <ShimmerText className="text-gray-500 half-margin">June 23, 2025</ShimmerText>
+      <ShimmerText className="text-gray-600 italic half-margin">what happens when goodness becomes easier</ShimmerText>
       <hr className="my-4" />
-      <p>
+      <ShimmerText>
         We were driving to work when my mom noticed a guy picking up trash by the side of the road.
-      </p>
+      </ShimmerText>
       <p>
         &quot;Look at him,&quot; she nudged. &quot;How could he be such a good person?&quot;
         </p>

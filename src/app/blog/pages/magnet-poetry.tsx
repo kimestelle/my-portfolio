@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import CodeDemo, {CodeDemoProps} from '../components/CodeDemo';
 import BouncingText from '@/app/design-deets/BouncingText';
+import { ShimmerText } from '@/app/design-deets/text-shimmer/TextShimmer';
 
 export default function MagneticPoetry_DemoNotes() {
   const demos: readonly CodeDemoProps[] = [
@@ -88,7 +89,7 @@ PoemBoard() {(
             autoPlay
             loop
             muted
-            className="rounded-md max-w-full h-full"
+            className="ui-radius-panel max-w-full h-full"
           />
       ),
       notices: ['subtle lifting effect when pressed', 'word stays centered under finger', "consistent size / positions after window resize", 'mouse and touch feel the same'],
@@ -104,7 +105,7 @@ PoemBoard() {(
             autoPlay
             loop
             muted
-            className="rounded-md max-w-full h-full"
+            className="ui-radius-panel max-w-full h-full"
           />
       ),
       notices: ['feedback ≠ action (scaling is only a hint)', "'trash box' doesn't interfere with user experience", '*however, lack of clear visual cue may confuse users who want to delete an item*'],
@@ -259,7 +260,7 @@ if (webcamVideo && webcamVideo.readyState >= 2 && webcamVideo.videoWidth && webc
 
   return (
     <div className="blog-formatting max-w-2xl">
-      <h1 className="text-3xl font-bold">magnet poetry board</h1>
+      <ShimmerText as="h1" className="text-3xl font-bold">magnet poetry board</ShimmerText>
       <p className="text-gray-500 mt-1 half-margin"><span className='italic text-gray-600'>~ case study ~ </span>July 22, 2025</p>
       <hr className="mb-4" />
 
@@ -267,7 +268,7 @@ if (webcamVideo && webcamVideo.readyState >= 2 && webcamVideo.videoWidth && webc
         <p className="blue text-underline">{'<'}link to demo{'/>'}</p>
       </a>
 
-      <p>I wanted to build a quiet writing surface where composing words feels physical: thoughts move into shape and save as shareable snapshots.</p>
+      <ShimmerText>I wanted to build a quiet writing surface where composing words feels physical: thoughts move into shape and save as shareable snapshots.</ShimmerText>
       <ul>
         <li>Simple, intuitive interface like a pocket of physical space inside a screen</li>
         <li>Board that remains consistent and reliable while I move words around</li>

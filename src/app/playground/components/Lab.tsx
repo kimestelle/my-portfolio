@@ -45,7 +45,7 @@ function BrewingBubbles() {
   return (
     <div
       ref={wallpaperRef}
-      className="relative h-[48svh] max-h-[50svh] overflow-hidden rounded-xl border border-[#70513d]/15 bg-[#fbf6ef] md:h-auto md:max-h-[80svh] md:aspect-[16/9]"
+      className="ui-radius-surface relative h-[48svh] max-h-[50svh] overflow-hidden border border-[#70513d]/15 bg-[#fbf6ef] md:h-auto md:max-h-[80svh] md:aspect-[16/9]"
       style={{
         backgroundImage: 'linear-gradient(145deg, #fffaf4 0%, #f7f0e8 100%)',
         boxShadow: [
@@ -204,7 +204,7 @@ export default function LabExperiments() {
             </div>
             
             {view !== 'brewing' && active.githubUrl ? (
-              <a className="rounded-lg border bg-white/60 backdrop-blur px-3 py-1 text-sm" href={active.githubUrl} target="_blank" rel="noreferrer">
+              <a className="ui-radius-panel border bg-white/60 backdrop-blur px-3 py-1 text-sm" href={active.githubUrl} target="_blank" rel="noreferrer">
                 <Image src='/icons/gh-logo.svg' alt='GitHub logo' width={16} height={16} className='inline-block'/>
               </a>
             ) : null}
@@ -213,7 +213,7 @@ export default function LabExperiments() {
           {view === 'brewing' ? (
             <BrewingBubbles />
           ) : (
-          <div className="rounded-xl border bg-white/60 backdrop-blur overflow-hidden">
+          <div className="ui-radius-surface border bg-white/60 backdrop-blur overflow-hidden">
             <div className="relative w-full h-[48svh] max-h-[50svh] md:h-auto md:max-h-[80svh] md:aspect-[16/9] bg-neutral-100 flex justify-center items-center overflow-hidden">
               {ActiveComponent ? (
                 <ActiveComponent />
@@ -251,7 +251,7 @@ export default function LabExperiments() {
                   <button
                     type="button"
                     onClick={goPrev}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full border bg-white/70 backdrop-blur px-3 py-2 text-sm"
+                    className="ui-radius-pill absolute left-3 top-1/2 -translate-y-1/2 border bg-white/70 backdrop-blur px-3 py-2 text-sm"
                   >
                     ←
                   </button>
@@ -259,12 +259,12 @@ export default function LabExperiments() {
                   <button
                     type="button"
                     onClick={goNext}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full border bg-white/70 backdrop-blur px-3 py-2 text-sm"
+                    className="ui-radius-pill absolute right-3 top-1/2 -translate-y-1/2 border bg-white/70 backdrop-blur px-3 py-2 text-sm"
                   >
                     →
                   </button>
 
-                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-white/70 backdrop-blur px-3 py-1 text-xs">
+                  <div className="ui-radius-pill absolute bottom-3 left-1/2 -translate-x-1/2 bg-white/70 backdrop-blur px-3 py-1 text-xs">
                     {previewIndex + 1} / {previews.length}
                   </div>
                 </>

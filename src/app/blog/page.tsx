@@ -2,15 +2,14 @@
 import Link from "next/link";
 
 import { allPostsSorted } from "./posts";
+import { ShimmerText } from '../design-deets/text-shimmer/TextShimmer';
 
 export default function BlogListPage() {
 
   return (
     <div className="flex flex-col responsive-padding justify-center items-center">
       <div className="flex flex-col w-full max-w-2xl">
-        <h3>
-            bits & snippets
-        </h3>
+        <ShimmerText as="h3">bits &amp; snippets</ShimmerText>
       <ul className="space-y-2">
         {allPostsSorted.map((blog) => (
           <li
@@ -18,7 +17,7 @@ export default function BlogListPage() {
             className="glass-card"
           >
             <Link href={`/blog/${blog.slug}`}>
-              <h4>{blog.title}</h4>
+              <ShimmerText as="h4">{blog.title}</ShimmerText>
               <span> 
                 <span className="mr-2">
                   {blog.date}
@@ -36,7 +35,7 @@ export default function BlogListPage() {
         <div className="h-px flex-1 bg-black/10" />
         </div>
       <ul className="space-y-4 mb-10">
-        <li className='p-2 px-3 bg-yellow-100/50 rounded-lg'>
+        <li className='ui-radius-panel p-2 px-3 bg-yellow-100/50'>
           fixed rules, open variables, and a shared understanding of how things are allowed to move
         </li>
       </ul> */}

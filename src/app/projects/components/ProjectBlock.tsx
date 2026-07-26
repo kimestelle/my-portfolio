@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Project } from './projectData';
-import LazyVideo from './LazyVideo';
+import LazyVideo from './DeferredLazyVideo';
 
 interface ProjectBlockProps {
   project: Project;
@@ -81,12 +81,12 @@ export default function ProjectBlock({ project }: ProjectBlockProps) {
       {/* overview */}
       <span>{project.details.overview}</span>
       
-      <div className="relative w-full h-[22rem] md:h-[32rem] flex justify-center items-center my-5 p-2 rounded-md bg-neutral-100 shadow-inner">
+      <div className="ui-radius-panel relative w-full h-[22rem] md:h-[32rem] flex justify-center items-center my-5 p-2 bg-neutral-100 shadow-inner">
         {isEmbed(project.details.imageUrls[currentIndex]) ? (
           <iframe
             src={project.details.imageUrls[currentIndex]}
             title={project.name}
-            className="h-full w-full rounded-md"
+            className="ui-radius-panel h-full w-full"
             loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
@@ -119,13 +119,13 @@ export default function ProjectBlock({ project }: ProjectBlockProps) {
           <div className='absolute -bottom-3 left-2 flex flex-row gap-1'>
             <button
               onClick={goToPrev}
-              className="bg-neutral-400 rounded-sm text-white px-3 shadow"
+              className="ui-radius-control bg-neutral-400 text-white px-3 shadow"
             >
               ‹
             </button>
             <button
               onClick={goToNext}
-              className="bg-neutral-500 rounded-sm text-white px-3 shadow"
+              className="ui-radius-control bg-neutral-500 text-white px-3 shadow"
             >
               ›
             </button>

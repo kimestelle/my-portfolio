@@ -7,7 +7,7 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <figure className="group relative overflow-hidden rounded-xl border bg-white/60 backdrop-blur">
+    <figure className="ui-radius-surface group relative overflow-hidden border bg-white/60 backdrop-blur">
       <div className="relative w-full aspect-[16/10] overflow-hidden bg-neutral-100">
         <Image
           src={project.cover.imageSrc}

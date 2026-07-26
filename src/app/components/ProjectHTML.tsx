@@ -5,6 +5,7 @@ import {
   getCategoryProjects,
 } from '../projects/components/projectData';
 import ProjectCard from '../projects/components/ProjectCard';
+import { ShimmerText } from '../design-deets/text-shimmer/TextShimmer';
 
 const SECTIONS: { category: ProjectCategory; displayName: string; featured: string[] }[] = [
   { category: 'production experience', displayName: 'deployed at scale', featured: ['into-the-blue', 'sce-data-engineering', 'internet-atlas', 'spark-website'] },
@@ -28,7 +29,7 @@ export default function ProjectHTML() {
 
           return (
             <div key={displayName} className="flex flex-col gap-3">
-              <h3>✦ {displayName}</h3>
+              <ShimmerText as="h3">{`✦ ${displayName}`}</ShimmerText>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {selected.map((p) => {
