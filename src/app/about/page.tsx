@@ -12,7 +12,7 @@ export default function About() {
           <div className="star-line-north">
             <span className="star-glyph-north" aria-hidden="true">✦</span>
             <ShimmerText as="span" className="star-copy-north">
-              I build software where design, engineering, and interaction feel like one decision.
+              I get excited by ideas and like figuring out how to make them real.
             </ShimmerText>
           </div>
         </header>
@@ -25,17 +25,41 @@ export default function About() {
             </ShimmerText>
           </div>
           <p>
-            Most of my work starts with conversations about what an experience
-            should feel like. From there, I look for the simplest technology
-            that preserves what matters, whether that&apos;s a frontend
-            interaction, graphics, AI, or a custom system.
+            I get inspiration from all over: a material, an interaction, or a
+            question someone asks in a meeting. I like following those threads
+            until they turn into something people can actually use.
           </p>
           <p>
-            I like teams where ideas move between design, engineering, and
-            product. I tend to bring structure, communicate early, and ask a
-            lot of questions so everyone can contribute without losing room to
-            explore.
+            On a team, I like understanding what we&apos;re making and why,
+            writing things down, and sharing what I learn as I go. The best
+            projects feel less like handing work back and forth and more like
+            learning together.
           </p>
+
+          <div className="mt-2 border-y border-[color:var(--line-color)]">
+            <figure className="py-5">
+              <blockquote>
+                “Working with you felt like everything was very planned out and
+                organized. When we needed to speed things up, you made sure to
+                communicate that well with everyone. We asked each other a lot
+                of questions, so we learned together.”
+              </blockquote>
+              <figcaption className="type-meta mt-3 text-[color:var(--text-meta)]">
+                collaborator at Penn Spark
+              </figcaption>
+            </figure>
+
+            <figure className="border-t border-[color:var(--line-color)] py-5">
+              <blockquote>
+                “Estelle&apos;s work ethic and enthusiasm for learning have
+                been evident in all her projects.”
+              </blockquote>
+              <figcaption className="type-meta mt-3 text-[color:var(--text-meta)]">
+                Aleksandr Dmitriev · Data Engineering Manager, Southern
+                California Edison
+              </figcaption>
+            </figure>
+          </div>
         </section>
 
         <section className="flex flex-col gap-4">
@@ -46,15 +70,17 @@ export default function About() {
             </ShimmerText>
           </div>
           <p>
-            I didn&apos;t really plan to become an engineer. Before computer
-            science, I organized activists, built coalitions, and worked in
-            education policy. That taught me to start with people, make complex
-            ideas legible, and build toward shared goals.
+            I came to engineering a little sideways. Before computer science, I
+            spent most of my time organizing students, building coalitions, and
+            working in education policy. It taught me how to listen, make
+            complicated ideas easier to act on, and keep people moving toward
+            the same goal.
           </p>
           <p>
-            Engineering gave those instincts a different medium. I now build
-            interactive software because it sits where technical systems and
-            human experience meet.
+            Learning to code gave me another way to do something I already
+            loved: take a messy idea, give it structure, and bring it to life.
+            I ended up in interactive software because I like caring about both
+            the system and the person using it.
           </p>
         </section>
 
@@ -66,9 +92,10 @@ export default function About() {
             </ShimmerText>
           </div>
           <p>
-            I&apos;m usually wandering around the nearest city, listening to
-            all kinds of music, or thinking about paper, fabric, light, and the
-            small details that make digital things feel tangible.
+            I&apos;m rarely interested in only one thing at a time. Outside of
+            code, I&apos;m usually walking around whichever city I&apos;m in,
+            listening to music, collecting images, or getting overly interested
+            in paper, fabric, light, and other things that feel good to touch.
           </p>
 
           <details className="glass-interactive ui-radius-panel p-2">
@@ -84,9 +111,8 @@ export default function About() {
 
         <section className="flex flex-col gap-2 border-t pt-8">
           <p>
-            I&apos;m always excited to meet thoughtful people building
-            interesting things. If that sounds like your kind of work,
-            I&apos;d love to chat at{' '}
+            If you&apos;re making something you care about and think we&apos;d
+            get along, let&apos;s talk at{' '}
             <a
               href="mailto:kestelle@sas.upenn.edu"
               className="underline decoration-black/20 underline-offset-4"
