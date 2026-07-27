@@ -117,7 +117,7 @@ export const PROJECTS: Project[] = [
 
   {
     id: 'sce-data-engineering',
-    name: 'Data Visualization Engineering at Southern California Edison',
+    name: 'Data Visualization Engineering at SoCal Edison',
     category: 'production experience',
     date: 'Summer 2024',
     role: 'Data Engineering Intern',

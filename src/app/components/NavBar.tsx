@@ -21,7 +21,7 @@ export interface NavBarProps {
 
 export default function NavBar({
   hide,
-  shaderOn = true,
+  shaderOn = false,
   playground = false,
   shaderDisabled,
   collapsingToPlayground = false,

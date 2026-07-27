@@ -7,8 +7,8 @@ import { ShimmerText } from '../design-deets/text-shimmer/TextShimmer';
 export default function BlogListPage() {
 
   return (
-    <main className="responsive-padding flex w-full justify-center">
-      <section className="w-full max-w-2xl pb-16">
+    <main className="responsive-padding w-full">
+      <section className="page-frame-reading">
         <ShimmerText as="h2" className="type-page-title mb-7">
           bits &amp; snippets
         </ShimmerText>

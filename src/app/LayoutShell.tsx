@@ -8,7 +8,7 @@ import MoodRingBackground from './design-deets/shader/MoodRingShader';
 import { TextShimmerGroup } from './design-deets/text-shimmer/TextShimmer';
 import { EntranceReadyProvider } from './EntranceReadyContext';
 
-const SHADER_PREF_KEY = 'estelle-portfolio:shader-enabled';
+const SHADER_PREF_KEY = 'estelle-portfolio:shader-enabled-v2';
 const CELL_AUTOMATA_PREF_KEY = 'estelle-portfolio:cell-automata-enabled';
 const PLAYGROUND_ROUTE_OUT_MS = 180;
 const PLAYGROUND_ROUTE_IN_MS = 280;
@@ -39,13 +39,13 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
   useEffect(() => {
     try {
       const cached = window.localStorage.getItem(SHADER_PREF_KEY);
-      // Default ON: only an explicit saved "false" disables the shader.
-      setShaderPref(cached === 'false' ? false : true);
+      // Keep the background quiet until someone explicitly opts into it.
+      setShaderPref(cached === 'true');
       // Stars stay off (also gated by STARS_ENABLED in the shader) and the
       // toggle is hidden — the plumbing is kept but inert.
       setCellAutomataPref(false);
     } catch {
-      setShaderPref(true);
+      setShaderPref(false);
       setCellAutomataPref(false);
     }
   }, []);
@@ -70,7 +70,7 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
 
   const onToggleShader = useCallback(() => {
     if (shaderDisabled) return;
-    setShaderPref((value) => !(value ?? true));
+    setShaderPref((value) => !(value ?? false));
   }, [shaderDisabled]);
 
   const onToggleCellAutomata = useCallback(() => {

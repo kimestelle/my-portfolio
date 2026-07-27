@@ -19,12 +19,14 @@ export type PortfolioProject = {
   };
   collapsed: {
     purpose: string;
+    indexLine: string;
     roleLine: string;
     resultLine: string;
   };
   story: {
     goal: string;
     role?: string;
+    feedback?: string;
     owned?: string[];
     workedWith?: string[];
     challenge: string;
@@ -66,7 +68,9 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        'An offline-first artifact hunt that lets Penn Museum visitors collect and remix what they discover.',
+        'Helping Penn Museum visitors collect and remix the artifacts they discovered.',
+      indexLine:
+        'Helping 180,000+ Penn Museum visitors collect and remix the artifacts they discovered.',
       roleLine: 'frontend developer · team of 8',
       resultLine: '180,000+ visitors · nine months of continued deployment',
     },
@@ -75,6 +79,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
         'With its new exhibition Into the Blue, Penn Museum wanted a virtual companion. In eight weeks, our team built an offline-first scavenger hunt that guides visitors to find blue artifacts, “cut” them in place, and keep + remix a personal sticker collection.',
       role:
         'I proposed the cutout feature during early team discussions, built the camera-to-sticker and IndexedDB pipelines, and co-developed the stickerboard where visitors arranged + exported what they found.',
+      feedback:
+        'Throughout the project, we kept returning to how far we could manipulate cutouts and stickers without separating artifacts from their original context. Those conversations made us more deliberate about what could be cropped, transformed, and remixed, so the playful interaction did not flatten the meaning of the objects.',
       owned: [
         'camera capture, dynamic SVG clipping, and sticker processing',
         'IndexedDB image, metadata, UI-state, and progress storage',
@@ -120,6 +126,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     collapsed: {
       purpose:
         'Turning personal browsing history into an explorable 3D map of the web.',
+      indexLine:
+        'Turning 300+ websites and 1,000+ navigation edges into an explorable 3D map of the web.',
       roleLine: 'technical lead · team of 7',
       resultLine: '300+ sites · 1,000+ edges · 40+ simultaneous users',
     },
@@ -159,26 +167,30 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
   },
   {
     id: 'sce-data-engineering',
-    name: 'Data Visualization Engineering at Southern California Edison',
+    name: 'Data Visualization Engineering at SoCal Edison',
     section: 'shipped with teams',
     variant: 'standard',
     metadata: {
       date: 'Summer 2024',
-      role: 'data visualization engineering intern',
+      role: 'data viz engineering intern',
       result: '10+ production data solutions · utility serving 15 million residents',
       stack: 'SQL · Python · Snowflake · SAP · Palantir',
     },
     collapsed: {
       purpose:
         'Turning fragmented utility data into reporting systems that internal teams could trust.',
-      roleLine: 'data visualization engineering intern · 9+ partner departments',
-      resultLine: '10+ production solutions · systems serving 15 million residents',
+      indexLine:
+        'Building reporting systems internal teams could trust at a utility serving 15 million residents.',
+      roleLine: 'data viz engineering intern · 9 partner departments',
+      resultLine: '10 production solutions · systems serving 15 million residents',
     },
     story: {
       goal:
         'Different teams were pulling the same operational data from different systems and ending up with different answers. They needed reporting they could actually trust.',
       role:
         'I worked directly with 9+ departments, learned their workflows, and turned their questions into SQL pipelines, reporting views, and data models. I also inherited legacy ETL that had to be understood before it could be fixed.',
+      feedback:
+        'Stakeholders taught me the language and business operations behind each request, then gave me feedback on whether the resulting tools were actually usable. My teammates also pushed me to plan for continuity after I left, so I documented every pipeline and built within existing frameworks instead of introducing a new stack. I became more proactive about communication too, sending my manager concise nightly updates without being prompted so progress and blockers stayed visible.',
       owned: [
         'cross-platform SQL transformations',
         'reporting views and dashboard data models',
@@ -213,7 +225,9 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        "Modernizing a student organization's public site without discarding years of work and visual history.",
+        "Making Penn Spark's site easier to maintain without erasing its visual history.",
+      indexLine:
+        "Making Penn Spark's site easier for a rotating student team to maintain without erasing its visual history.",
       roleLine: 'technical lead · built for a rotating student team',
       resultLine: 'one typed codebase · documented updates and deployment',
     },
@@ -222,6 +236,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
         'Penn Spark needed one public home for its projects, community, clients, applications, and writing. It also had to survive a student team that changes every year.',
       role:
         'I led the technical update, consolidated the site into one codebase, and moved frequently edited content into typed data instead of hiding it inside page markup.',
+      feedback:
+        'I distributed Google Forms to club members, then reached out to people with specific thoughts for longer conversations. A repeated theme was that the site felt too colorful and playful, so we made the interactions and components more subtle and mature while keeping the parts of Spark’s visual history people still recognized.',
       owned: [
         'React and Vite architecture',
         'project and community content models',
@@ -262,7 +278,9 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        'A material studio that turns a fabric photograph into something you can inspect, tune, simulate, and take into another 3D workflow.',
+        'Turning a fabric photograph into a material you can inspect, tune, simulate, and export.',
+      indexLine:
+        'Turning a fabric photo into a tunable material for live cloth, PBR maps, and GLB export.',
       roleLine: 'solo designer + engineer · material and simulation R&D',
       resultLine: 'PBR extraction · interactive cloth · GLB and material export',
     },
@@ -287,7 +305,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       changedMind:
         'I kept adding sliders because I thought more control would make the fabric more expressive. It mostly made the renderer and solver disagree. A smaller source of truth gave me a much larger range of believable materials.',
     },
-    media: { cover: '/textures/matter/red-silk/albedo.png' },
+    media: { cover: '/project-images/covers/loom-cover.webp' },
     technicalLabel:
       'how one fabric model drives rendering, motion, and export →',
     liveUrl: 'https://digital-loom-nine.vercel.app/',
@@ -307,6 +325,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     collapsed: {
       purpose:
         'Building a voxel world from scratch to understand how rendering, simulation, and streaming fit together.',
+      indexLine:
+        'Building a voxel world from scratch with chunked rendering, procedural terrain, and animated materials.',
       roleLine: 'graphics engineer · team of 3',
       resultLine: 'chunk renderer · animated materials · procedural sky and water',
     },
@@ -354,6 +374,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     collapsed: {
       purpose:
         'Turning one photo into a depth-aware scene without sending it to a server.',
+      indexLine:
+        'Turning one photograph into a depth-aware interactive scene entirely on device.',
       roleLine: 'solo designer + engineer',
       resultLine: 'on-device depth · interactive parallax · HTML/React export',
     },
@@ -391,6 +413,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     collapsed: {
       purpose:
         'Letting people shape and play with a responsive 3D jelly in the browser.',
+      indexLine:
+        'Letting people shape a responsive 3D jelly driven by a live 2D spring system.',
       roleLine: 'solo designer + graphics engineer',
       resultLine: '2D spring motion · lathed 3D mesh · live material editing',
     },
@@ -427,6 +451,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     collapsed: {
       purpose:
         'Making digital pigment feel absorbed by paper without simulating an entire fluid.',
+      indexLine:
+        'Making digital pigment diffuse and accumulate like watercolor through a GPU feedback loop.',
       roleLine: 'solo designer + graphics engineer',
       resultLine: 'CPU interaction layer · GPU ping-pong diffusion',
     },
@@ -463,6 +489,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     collapsed: {
       purpose:
         'Making a click feel like it ignites the page rather than starts a canned animation.',
+      indexLine:
+        'Making a click deform, char, and ignite a sheet of procedural paper.',
       roleLine: 'solo designer + graphics engineer',
       resultLine: 'deforming paper mesh · shared burn field · procedural char and ember',
     },
@@ -499,6 +527,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     collapsed: {
       purpose:
         'Studying how scene data, light, material, and screen-space effects combine inside a renderer.',
+      indexLine:
+        'Building deferred PBR, screen-space effects, and SDF ray marching to understand a renderer from the inside.',
       roleLine: 'individual graphics coursework',
       resultLine: 'deferred PBR · screen-space effects · SDF ray marching',
     },
@@ -530,6 +560,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     collapsed: {
       purpose:
         'Turning passages into typographic constellations without erasing how their words relate.',
+      indexLine:
+        'Turning passages into exportable typographic constellations without erasing how their words relate.',
       roleLine: 'solo designer + engineer',
       resultLine: 'linguistic layout · force simulation · exportable poster',
     },
@@ -566,6 +598,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     collapsed: {
       purpose:
         'Making remote writing feel as tactile and low-stakes as moving words on a refrigerator.',
+      indexLine:
+        'Making remote writing tactile and low-stakes through shared rooms and a 4,000-word magnetic vocabulary.',
       roleLine: 'solo designer + engineer',
       resultLine: '4,000-word source set · shared rooms · pointer and touch controls',
     },

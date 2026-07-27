@@ -105,9 +105,9 @@ export default function ProjectBlock({ project }: ProjectBlockProps) {
             {story.owned && (
               <div>
                 <h4>owned</h4>
-                <ul className="mt-2 space-y-1">
+                <ul className="project-story-list type-body mt-2 space-y-1 text-[color:var(--text-secondary)]">
                   {story.owned.map((item) => (
-                    <li key={item}>• {item}</li>
+                    <li key={item}>{item}</li>
                   ))}
                 </ul>
               </div>
@@ -115,9 +115,9 @@ export default function ProjectBlock({ project }: ProjectBlockProps) {
             {story.workedWith && (
               <div>
                 <h4>worked with</h4>
-                <ul className="mt-2 space-y-1">
+                <ul className="project-story-list type-body mt-2 space-y-1 text-[color:var(--text-secondary)]">
                   {story.workedWith.map((item) => (
-                    <li key={item}>• {item}</li>
+                    <li key={item}>{item}</li>
                   ))}
                 </ul>
               </div>

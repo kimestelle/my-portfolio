@@ -5,8 +5,8 @@ import TmiCorner from './components/TmiCorner';
 
 export default function About() {
   return (
-    <main className="responsive-padding flex w-full justify-center">
-      <div className="flex w-full max-w-2xl flex-col gap-10 pt-8">
+    <main className="responsive-padding w-full">
+      <div className="page-frame-reading flex flex-col gap-10">
         <header className="flex flex-col gap-3">
           <ShimmerText as="h2">hi, I&apos;m Estelle :-)</ShimmerText>
           <div className="star-line-north">
@@ -21,22 +21,20 @@ export default function About() {
           <div className="star-line-section">
             <span className="star-glyph-section" aria-hidden="true">✶</span>
             <ShimmerText as="h3" className="star-copy-section">
-              my approach
+              how i work
             </ShimmerText>
           </div>
           <p>
-            Most of my work starts with conversations to understand what the
-            experience should feel like before deciding how to build
-            it.
+            Most of my work starts with conversations about what an experience
+            should feel like. From there, I look for the simplest technology
+            that preserves what matters, whether that&apos;s a frontend
+            interaction, graphics, AI, or a custom system.
           </p>
           <p>
-            Sometimes the right solution is a simple frontend interaction. Others call for graphics, AI, or a custom system. I enjoy
-            figuring out where that line is.
-          </p>
-          <p>
-            I&apos;m less interested in using interesting technology for its
-            own sake than I am in choosing the right amount of technology for
-            the problem.
+            I like teams where ideas move between design, engineering, and
+            product. I tend to bring structure, communicate early, and ask a
+            lot of questions so everyone can contribute without losing room to
+            explore.
           </p>
         </section>
 
@@ -48,36 +46,15 @@ export default function About() {
             </ShimmerText>
           </div>
           <p>
-            I didn&apos;t really plan to become an engineer.
+            I didn&apos;t really plan to become an engineer. Before computer
+            science, I organized activists, built coalitions, and worked in
+            education policy. That taught me to start with people, make complex
+            ideas legible, and build toward shared goals.
           </p>
           <p>
-            Before computer science, I spent time organizing
-            activists, building coalitions, and working on education policy.
-            That experience taught me to start with people: understand the
-            problem, communicate clearly, and build toward shared goals.
-          </p>
-          <p>
-            Today I build interactive software because it&apos;s where
-            technical systems and human experience meet. The challenge of making someone&apos;s vision come to life in a way that feels intentional is what keeps me excited about this work.
-          </p>
-        </section>
-
-        <section className="flex flex-col gap-4">
-          <div className="star-line-section">
-            <span className="star-glyph-section" aria-hidden="true">✶</span>
-            <ShimmerText as="h3" className="star-copy-section">
-              working together
-            </ShimmerText>
-          </div>
-          <p>
-            I enjoy small teams where ideas move quickly between design,
-            engineering, and product.
-          </p>
-          <p>
-            People I&apos;ve worked with often mention organization, thoughtful
-            communication, and asking lots of questions. I like making
-            ambitious projects feel structured enough that everyone can
-            contribute while still leaving room to explore.
+            Engineering gave those instincts a different medium. I now build
+            interactive software because it sits where technical systems and
+            human experience meet.
           </p>
         </section>
 
@@ -89,10 +66,9 @@ export default function About() {
             </ShimmerText>
           </div>
           <p>
-            I&apos;m usually wandering around the nearest city, listening to all kinds of music,
-            or thinking about materials like
-            paper, fabric, and light. I&apos;m drawn to the small details that
-            make digital things feel tangible.
+            I&apos;m usually wandering around the nearest city, listening to
+            all kinds of music, or thinking about paper, fabric, light, and the
+            small details that make digital things feel tangible.
           </p>
 
           <details className="glass-interactive ui-radius-panel p-2">
@@ -106,14 +82,11 @@ export default function About() {
           </details>
         </section>
 
-        <section className="flex flex-col gap-4 border-t pt-8">
+        <section className="flex flex-col gap-2 border-t pt-8">
           <p>
             I&apos;m always excited to meet thoughtful people building
-            interesting things, especially small teams where engineering,
-            design, and product shape each other.
-          </p>
-          <p>
-            If that sounds like your kind of work, I&apos;d love to chat at{' '}
+            interesting things. If that sounds like your kind of work,
+            I&apos;d love to chat at{' '}
             <a
               href="mailto:kestelle@sas.upenn.edu"
               className="underline decoration-black/20 underline-offset-4"

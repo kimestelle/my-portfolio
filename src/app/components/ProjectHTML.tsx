@@ -77,23 +77,23 @@ export default function ProjectHTML() {
         </div>
       </section>
 
-      <section className="mt-20 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+      <a
+        href="mailto:kestelle@sas.upenn.edu"
+        className="contact-button glass-interactive ui-radius-panel mt-20 flex w-full flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-8"
+      >
         <div className="star-line-detail max-w-2xl">
           <span className="star-glyph-detail" aria-hidden="true">
             {'\uE000'}
           </span>
           <p className="star-copy-detail text-[color:var(--text-secondary)]">
-            I&apos;m always interested in small teams where engineering,
-            design, and product shape each other.
+            I&apos;m always interested in teams where engineering, design, and
+            product shape each other.
           </p>
         </div>
-        <a
-          href="mailto:kestelle@sas.upenn.edu"
-          className="type-meta shrink-0 pl-[1.45rem] text-[color:var(--text-primary)] transition-transform duration-200 hover:-translate-y-px sm:pl-0"
-        >
+        <span className="type-meta shrink-0 pl-[1.45rem] text-[color:var(--text-primary)] sm:pl-0">
           let&apos;s talk! ↗
-        </a>
-      </section>
+        </span>
+      </a>
     </>
   );
 }

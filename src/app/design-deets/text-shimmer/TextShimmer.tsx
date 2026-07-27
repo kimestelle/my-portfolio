@@ -151,7 +151,7 @@ export function ShimmerText({
     && splitGraphemes(children).length <= 80
   );
   const paragraphMode = (
-    (as === 'p' || as === 'li')
+    as === 'p'
     && children.length > 48
   );
   const paragraphText = paragraphMode;

@@ -23,8 +23,8 @@ export default async function ProjectDetailPage({
   if (!project || project.variant !== 'featured') notFound();
 
   return (
-    <main className="responsive-padding flex w-full justify-center pb-20">
-      <div className="w-full max-w-4xl pt-8">
+    <main className="responsive-padding w-full">
+      <div className="page-frame-wide">
         <Link
           href={`/projects#${project.id}`}
           className="mb-8 inline-block text-sm text-neutral-600"

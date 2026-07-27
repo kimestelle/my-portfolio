@@ -4,16 +4,18 @@ import BouncingText from "../design-deets/BouncingText";
 export default function Footer() {
   return (
     <footer className="site-footer responsive-padding relative w-full">
-      <div className="flex w-full flex-col items-start justify-between gap-3 border-t border-[color:var(--line-color)] pt-5 sm:flex-row sm:items-center">
-        <BouncingText className="type-meta text-[color:var(--text-meta)]">
-          thank you for visiting :-)
-        </BouncingText>
-        <Link
-          href="/blog"
-          className="type-meta text-[color:var(--text-primary)] transition-transform duration-200 hover:-translate-y-px"
-        >
-          read my blog ↗
-        </Link>
+      <div className="page-frame-wide">
+        <div className="flex w-full flex-col items-start justify-between gap-3 border-t border-[color:var(--line-color)] pt-5 sm:flex-row sm:items-center">
+          <BouncingText className="type-meta text-[color:var(--text-meta)]">
+            thank you for visiting :-)
+          </BouncingText>
+          <Link
+            href="/blog"
+            className="type-meta text-[color:var(--text-primary)] transition-transform duration-200 hover:-translate-y-px"
+          >
+            read my blog ↗
+          </Link>
+        </div>
       </div>
     </footer>
   );
