@@ -6,7 +6,7 @@ import { CursorTooltip } from './Tooltip';
 
 export default function Cover() {
   return (
-    <div className="relative w-full pb-20 pt-6 md:pb-24 md:pt-10">
+    <div className="relative w-full pb-16 pt-6 md:pb-16 md:pt-10">
       <header className="grid w-full gap-10 md:grid-cols-[minmax(0,1.45fr)_minmax(15rem,0.75fr)] md:items-end md:gap-14">
         <div className="max-w-xl">
           <ShimmerText as="h1" className="type-identity">
@@ -16,14 +16,15 @@ export default function Cover() {
           <div className="star-line-north mt-2">
             <span className="star-glyph-north" aria-hidden="true">✦</span>
             <ShimmerText as="h2" className="star-copy-north">
-              Design engineer building thoughtful, interactive software.
+              Design engineer building software for how people think, make,
+              and explore.
             </ShimmerText>
           </div>
 
           <p className="mt-3 text-[color:var(--text-secondary)]">
             I work across graphics, full-stack engineering, and design,
-            choosing the technology based on what the experience actually
-            needs.
+            choosing the technology based on what the product needs and how
+            people will use it.
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
@@ -103,26 +104,26 @@ export default function Cover() {
 
         <aside
           aria-label="Current status"
-          className="border-t border-[color:var(--line-color)] pt-5 md:mb-1 md:border-l md:border-t-0 md:pb-1 md:pl-7 md:pt-0"
+          className="border-t border-[color:var(--line-color)] pt-5 md:relative md:mb-1 md:border-t-0 md:pb-1 md:pl-7 md:pt-0 md:before:absolute md:before:bottom-2 md:before:left-0 md:before:top-2 md:before:w-px md:before:bg-[color:var(--line-color)]"
         >
-          <ul className="flex flex-col gap-3.5">
+          <ul className="flex flex-col gap-3">
             <li className="grid grid-cols-[0.75rem_minmax(0,1fr)] gap-2">
               <span aria-hidden="true" className="flex justify-center pt-[0.62rem]">
-                <span className="h-[5px] w-[5px] rounded-full bg-[color:var(--text-primary)]" />
+                <span className="h-1 w-1 rounded-full bg-[color:var(--text-meta)]" />
               </span>
-              <span>software engineering intern at PayPal</span>
+              <span>SWE intern @ PayPal</span>
             </li>
             <li className="grid grid-cols-[0.75rem_minmax(0,1fr)] gap-2">
               <span aria-hidden="true" className="flex justify-center pt-[0.62rem]">
-                <span className="h-[5px] w-[5px] rounded-full border border-[color:var(--text-meta)]" />
+                <span className="h-1 w-1 rounded-full bg-[color:var(--text-meta)]" />
               </span>
-              <span>CS + Computer Graphics at Penn</span>
+              <span>CS + Computer Graphics @ UPenn</span>
             </li>
             <li className="grid grid-cols-[0.75rem_minmax(0,1fr)] gap-2">
               <span aria-hidden="true" className="flex justify-center pt-[0.62rem]">
-                <span className="h-[5px] w-[5px] rounded-full bg-[color:var(--text-secondary)] shadow-[0_0_0_2px_rgba(22,22,22,0.07)]" />
+                <span className="h-1 w-1 rounded-full bg-[color:var(--text-secondary)] shadow-[0_0_0_2px_rgba(22,22,22,0.07)]" />
               </span>
-              <span>available for full-time roles mid-august 2026</span>
+              <span>available for full-time roles starting mid-august 2026</span>
             </li>
           </ul>
         </aside>
