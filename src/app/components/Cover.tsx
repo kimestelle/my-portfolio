@@ -31,7 +31,7 @@ export default function Cover() {
 
         <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
           <a
-            href="/EUNYUL_KIM_2027.pdf"
+            href="/ESTELLE_KIM.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="type-meta text-[color:var(--text-primary)] transition-transform duration-200 hover:-translate-y-px"
