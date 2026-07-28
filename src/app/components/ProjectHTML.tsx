@@ -38,6 +38,7 @@ export default function ProjectHTML() {
             <Link
               key={project.id}
               href={`/projects#${project.id}`}
+              scroll={false}
               className="group block"
             >
               <article>

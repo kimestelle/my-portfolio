@@ -4,6 +4,7 @@ import Image from 'next/image';
 import {
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
   type ReactNode,
@@ -27,6 +28,19 @@ const isMuxVideo = (url: string) => !url.includes('/') && !url.includes('.');
 const PROJECT_MOTION_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
 const FULL_MEDIA_TRANSITION = `opacity 280ms ${PROJECT_MOTION_EASE}`;
 const VIEW_TRANSITION_EASE = [0.2, 0.72, 0.24, 1] as const;
+
+function setScrollPositionInstantly(top: number) {
+  const root = document.documentElement;
+  const body = document.body;
+  const rootBehavior = root.style.scrollBehavior;
+  const bodyBehavior = body.style.scrollBehavior;
+
+  root.style.scrollBehavior = 'auto';
+  body.style.scrollBehavior = 'auto';
+  window.scrollTo({ top, left: 0, behavior: 'auto' });
+  root.style.scrollBehavior = rootBehavior;
+  body.style.scrollBehavior = bodyBehavior;
+}
 
 type ProjectLayoutProps = {
   project: PortfolioProject;
@@ -444,15 +458,24 @@ export default function Projects() {
   const selectedProject =
     PORTFOLIO_PROJECTS.find((project) => project.id === expandedId) ?? null;
 
+  useLayoutEffect(() => {
+    const id = window.location.hash.slice(1);
+    const projectId = PORTFOLIO_PROJECTS.some((project) => project.id === id)
+      ? id
+      : null;
+    setExpandedId(projectId);
+    if (projectId) setScrollPositionInstantly(0);
+  }, []);
+
   useEffect(() => {
     const openFromHash = () => {
       const id = window.location.hash.slice(1);
-      setExpandedId(
-        PORTFOLIO_PROJECTS.some((project) => project.id === id) ? id : null,
-      );
+      const projectId = PORTFOLIO_PROJECTS.some((project) => project.id === id)
+        ? id
+        : null;
+      setExpandedId(projectId);
+      if (projectId) setScrollPositionInstantly(0);
     };
-
-    openFromHash();
     window.addEventListener('hashchange', openFromHash);
     return () => window.removeEventListener('hashchange', openFromHash);
   }, []);
@@ -491,10 +514,10 @@ export default function Projects() {
 
     if (transitionTarget === 'index') {
       setExpandedId(null);
-      window.scrollTo({ top: listScrollPosition.current });
+      setScrollPositionInstantly(listScrollPosition.current);
     } else {
+      setScrollPositionInstantly(0);
       setExpandedId(transitionTarget);
-      window.scrollTo({ top: 0 });
     }
     setTransitionTarget(null);
   }, [transitionTarget]);
