@@ -282,11 +282,10 @@ export default function FieldNotesIndex() {
                 At PayPal, I took over a senior engineer&apos;s project within a
                 broader CTO initiative. I work through{' '}
                 <strong>
-                  daily check-ins with PMs, data engineers, and software
+                  daily feedback meetings with PMs, data engineers, and software
                   engineers
                 </strong>
-                , plus detailed code review with my engineering buddy and senior
-                engineers. Because the project was already on the roadmap,
+                , plus <strong>rigorous code reviews</strong> with my insanely smart! engineering buddy on every PR. Because the project was already on the roadmap,
                 I&apos;m learning to inherit decisions and build within
                 production frontend standards.
               </p>
@@ -307,9 +306,8 @@ export default function FieldNotesIndex() {
               <p>
                 One view has already surfaced{' '}
                 <strong>a large area of unnoticed friction</strong> that
-                engineers are investigating. The hub is separate from
-                PayPal&apos;s modular Checkout codebase; alongside it, I make PRs
-                directly to that production codebase through the full review
+                engineers are investigating. Alongside it, I make PRs
+                directly to PayPal&apos; modular checkout codebase through the full review
                 process.
               </p>
             </div>
