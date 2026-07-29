@@ -62,7 +62,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     metadata: {
       date: 'February–April 2025',
       role: 'frontend developer',
-      team: '8 leads, developers, and designers, working with Penn Museum stakeholders',
+      team: '5-person development team within an 8-person project group',
       result: '180,000+ visitors; maintained for nine months',
       stack: 'Next.js · TypeScript · Canvas API · SVG · IndexedDB',
     },
@@ -71,16 +71,17 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
         'Helping Penn Museum visitors collect and remix the artifacts they discovered.',
       indexLine:
         'Helping 180,000+ Penn Museum visitors collect and remix the artifacts they discovered.',
-      roleLine: 'frontend developer · team of 8',
-      resultLine: '180,000+ visitors · nine months of continued deployment',
+      roleLine: 'frontend developer · 5-person development team',
+      resultLine:
+        'camera-to-sticker pipeline · 180,000+ visitors · nine-month deployment',
     },
     story: {
       goal:
         'With its new exhibition Into the Blue, Penn Museum wanted a virtual companion. In eight weeks, our team built an offline-first scavenger hunt that guides visitors to find blue artifacts, “cut” them in place, and keep + remix a personal sticker collection.',
       role:
-        'I proposed the cutout feature during early team discussions, built the camera-to-sticker and IndexedDB pipelines, and co-developed the stickerboard where visitors arranged + exported what they found.',
+        'I proposed the cutout feature, built the camera-to-sticker and IndexedDB pipelines, and co-developed the stickerboard. With the lead designer, I also defined a 300 × 360 asset contract that kept each PNG overlay, SVG cut path, captured crop, and exported sticker aligned.',
       feedback:
-        'Throughout the project, we kept returning to how far we could manipulate cutouts and stickers without separating artifacts from their original context. Those conversations made us more deliberate about what could be cropped, transformed, and remixed, so the playful interaction did not flatten the meaning of the objects.',
+        'A gallery walk narrowed more than 200 blue objects to roughly three dozen that visitors could actually see, frame, and responsibly turn into collectibles. We kept returning to how far we could manipulate cutouts and stickers without separating artifacts from their original context.',
       owned: [
         'camera capture, dynamic SVG clipping, and sticker processing',
         'IndexedDB image, metadata, UI-state, and progress storage',
@@ -89,7 +90,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
         'stickerboard input math and PNG composition export',
       ],
       workedWith: [
-        'designers on shared SVG and image geometry',
+        'the lead designer on the shared 300 × 360 PNG, SVG, and metadata contract',
         'another developer on the custom stickerboard',
         'museum stakeholders on cultural and technical constraints',
       ],
@@ -119,33 +120,34 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     metadata: {
       date: 'Spring 2025; static preservation update in November 2025',
       role: 'technical lead',
-      team: '7',
+      team: '8-person club team: 7 developers + 1 designer',
       result: '300+ sites · 1,000+ navigation edges · live demo for 40+ users',
       stack: 'React · React Three Fiber · WebGL · FastAPI · Pinecone · Supabase',
     },
     collapsed: {
       purpose:
-        'Turning personal browsing history into an explorable 3D map of the web.',
+        'Turning recorded browsing paths into a 3D map that visitors could reorganize with their own words.',
       indexLine:
-        'Turning 300+ websites and 1,000+ navigation edges into an explorable 3D map of the web.',
-      roleLine: 'technical lead · team of 7',
-      resultLine: '300+ sites · 1,000+ edges · 40+ simultaneous users',
+        'Turning 300+ websites and 1,000+ navigation edges into a map visitors could reorganize with their own words.',
+      roleLine: 'technical lead · 8-person team',
+      resultLine:
+        'technical lead · 300+ sites · 1,000+ edges · 40+ live demo',
     },
     story: {
       goal:
-        'The core question was: how do we travel the Internet? We wanted to make browsing footprints legible enough that people could understand and question what was being collected about them, instead of leaving it hidden in a corporate CSV.',
+        'My friend Ruth and I wanted to show how people move through the web without reducing a browsing path to a list of sites. We used paths from a 2,148-participant research dataset, then let each Atlas visitor choose words like “fuzzy,” “organic,” or “heavy” to reorganize the map.',
       role:
-        "My design co-lead and I shaped the concept, then I translated it for the team as two connected systems: a pipeline for “scoring websites by feel” and a 3D force-directed graph for traveling through the results. I led the visualization and frontend/backend integration and contributed to model tests, scraping, embeddings, API design, and deployment.",
+        'Ruth and I shaped the product. I spoke with each teammate and assigned roles around what they wanted to learn, then led the visualization and handled the integration, Git, API, and deployment work that made the team’s experiments run as one system.',
       owned: [
-        'React Three Fiber graph, camera choreography, and selection behavior',
-        'animated SVG overlays for landmarks, selections, and edge tracing',
-        'frontend–backend API integration and graph interaction states',
-        'technical direction, deployment, and later static preservation',
+        '100 × 100 D3 prototype that proved the full data path before 3D',
+        'whole-graph, landmark, edge-journey, and node interaction layers',
+        'React Three Fiber graph, camera choreography, selection behavior, and SVG overlays',
+        'API integration, branch merges, deployment, and later static preservation',
       ],
       workedWith: [
-        'the design co-lead on the core question and interaction model',
-        'ML developers on model and embedding tests',
-        'backend developers on scraping, FastAPI, Pinecone, and Supabase',
+        'Ruth, the design co-lead, on the core question and interaction model',
+        'Eric on clustering, data handling, and how navigation paths appeared in the graph',
+        'ML teammates on model, embedding, vector-database, and scraping experiments',
       ],
       challenge:
         'There was no preexisting model for a word like “fuzzy.” We had to scrape and summarize site content, test different models + parameters, combine text and image embeddings, and still make hundreds of moving nodes and edges understandable in the browser.',
@@ -154,7 +156,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       outcome:
         'We shipped an interactive graph of more than 300 sites and 1,000 navigation edges, deployed it for a live class demo with more than 40 simultaneous users, and later preserved the experience as a static deployment when keeping the experimental backend online no longer justified the cost.',
       changedMind:
-        'I originally thought the live ML pipeline was central to the project. When I later preserved it as a static experience, I realized the memorable part was exploring and questioning the map, not watching the infrastructure recompute it.',
+        'I originally thought the live ML pipeline was central to the project. The static version kept the parts that mattered: choosing the words, moving between scales, and inspecting the paths behind a pattern.',
     },
     media: {
       cover: '/project-images/covers/atlas-cover.webp',
@@ -174,7 +176,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       date: 'Summer 2024',
       role: 'data viz engineering intern',
       result: '10+ production data solutions · utility serving 15 million residents',
-      stack: 'SQL · Python · Snowflake · SAP · Palantir',
+      stack: 'SQL · Python · Power BI · Power Apps · Power Automate',
     },
     collapsed: {
       purpose:
@@ -188,12 +190,13 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       goal:
         'Different teams were pulling the same operational data from different systems and ending up with different answers. They needed reporting they could actually trust.',
       role:
-        'I worked directly with 9+ departments, learned their workflows, and turned their questions into SQL pipelines, reporting views, and data models. I also inherited legacy ETL that had to be understood before it could be fixed.',
+        'I worked directly with 9+ departments, learned their workflows, and turned their questions into SQL pipelines, reporting views, data models, and an internal dashboard redesign that made a core reporting tool easier to use.',
       feedback:
         'Stakeholders taught me the language and business operations behind each request, then gave me feedback on whether the resulting tools were actually usable. My teammates also pushed me to plan for continuity after I left, so I documented every pipeline and built within existing frameworks instead of introducing a new stack. I became more proactive about communication too, sending my manager concise nightly updates without being prompted so progress and blockers stayed visible.',
       owned: [
         'cross-platform SQL transformations',
         'reporting views and dashboard data models',
+        'internal reporting dashboard redesign',
         'legacy ETL diagnosis and optimization',
       ],
       workedWith: [
@@ -235,7 +238,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       goal:
         'Penn Spark needed one public home for its projects, community, clients, applications, and writing. It also had to survive a student team that changes every year.',
       role:
-        'I led the technical update, consolidated the site into one codebase, and moved frequently edited content into typed data instead of hiding it inside page markup.',
+        'I led the technical update, consolidated three fragmented codebases into one Vite app, and moved frequently edited content into typed data instead of hiding it inside page markup.',
       feedback:
         'I distributed Google Forms to club members, then reached out to people with specific thoughts for longer conversations. A repeated theme was that the site felt too colorful and playful, so we made the interactions and components more subtle and mature while keeping the parts of Spark’s visual history people still recognized.',
       owned: [
@@ -250,7 +253,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
         'future maintainers with different levels of frontend experience',
       ],
       challenge:
-        'The site held years of projects and visual history. Starting over would have been cleaner for me, but worse for the organization. People needed to recognize it, know where things lived, and update it without asking the same person every semester.',
+        'Years of projects and visual history were split across three codebases, including an outdated Gatsby site. Starting over would have been cleaner for me, but worse for the organization. People needed to recognize the site and update it without asking the same person every semester.',
       decision:
         'I kept the useful content and visual pieces, but simplified the structure underneath them. Frequently updated areas became typed data, deployment stayed static, and the README points future contributors to the exact files they need.',
       outcome:
@@ -282,11 +285,11 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       indexLine:
         'Turning a fabric photo into a tunable material for live cloth, PBR maps, and GLB export.',
       roleLine: 'solo designer + engineer · material and simulation R&D',
-      resultLine: 'PBR extraction · interactive cloth · GLB and material export',
+      resultLine: 'solo build · photo-to-PBR · XPBD cloth · portable export',
     },
     story: {
       goal:
-        'I wanted a fabric photo to become more than a texture. Digital Loom turns one image into a material you can inspect, tune on live cloth or a 3D object, and export into another workflow.',
+        'Patina could factor one flat fabric photo into useful PBR maps, but those maps only described cues visible from that view. I built Digital Loom to turn that output into a material you can inspect, tune on live cloth or a 3D object, and export into another workflow.',
       role:
         'I built the full system: image-to-material processing, the fabric model, cloth solver, custom rendering, editing UI, preset storage, and exports.',
       owned: [
@@ -297,9 +300,9 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
         'GLB, PBR-map, physics, and provenance export',
       ],
       challenge:
-        'PBR maps describe how a surface looks. They do not explain how the cloth should bend, shear, catch wind, transmit light, or hold a crease. When I treated rendering and motion as separate controls, it was easy to make a fabric that looked right while still moving completely wrong.',
+        'Patina’s maps describe how a surface looks. They do not explain how the cloth should bend, shear, catch wind, transmit light, or hold a crease. When I treated rendering and motion as separate controls, it was easy to make a fabric that looked right while still moving completely wrong.',
       decision:
-        'I reduced each fabric to seven core facts: weight, coverage, thickness, fiber stiffness + type, weave, and twist. One function derives both solver and renderer values from them, so warp, weft, bend, porosity, translucency, sheen, fray, and relief all describe the same material.',
+        'I reduced each fabric to seven core facts: areal density, cover factor, thickness, fiber modulus, fiber type, weave, and twist. One function derives both solver and renderer values from them, so warp, weft, bend, porosity, translucency, sheen, fray, and relief all describe the same material.',
       outcome:
         'The studio can extract a material from one image, preview it on deforming cloth or a model, save and transfer swatches, and export named PBR maps, a packed ORM texture, a self-contained GLB, and machine-readable material and cloth-physics metadata.',
       changedMind:
@@ -334,7 +337,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       goal:
         'Our team wanted to rebuild Minecraft from the bottom up, without a game engine or prebuilt renderer, so we could understand how the pieces actually fit together.',
       role:
-        'I built the first chunk renderer, texture + transparent material pipeline, and the final sky, cloud, sun, water, and lava shaders.',
+        'I built the first chunk renderer, the opaque and transparent material pipeline, the texture atlas, animated fluids, and the final day–night sky with an animated sun, procedural stars, and Worley + fBM clouds.',
       owned: [
         'exposed-face chunk meshing',
         'indexed, interleaved vertex buffers',
@@ -420,7 +423,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     story: {
       goal:
-        'I wanted people to draw a jelly shape, turn it into something dimensional, and poke it without needing a full 3D soft-body simulation.',
+        'After playing with David Li’s Blob Opera, I wanted to see how little simulation geometry could still read as soft, dimensional jelly. People could draw a profile, turn it into a 3D form, and poke it without a full 3D soft-body solver.',
       challenge:
         'The interaction is mostly frontal, so a full 3D solver felt like overkill. But a flat simulation could not catch light or feel like jelly on its own.',
       decision:
@@ -462,7 +465,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       challenge:
         'The playful parts were easiest to build in a regular 2D canvas, but the persistent diffusion needed GPU state. Rebuilding everything as a fluid simulation would have added a lot of work without improving the one cue I cared about: pigment slowly soaking downward.',
       decision:
-        'I split the piece into two layers. A CPU canvas handles drawing + falling objects, and its last pixel row feeds a small ping-pong shader underneath. The GPU only simulates the diffusion behavior the interaction actually needs.',
+        'I split the piece into two systems. Canvas2D handles the emoji cloud, falling glyphs, and rainbow brush. Each frame, only its bottom pixel row enters the top of a separate WebGL surface, where two alternating textures diffuse and dry the pigment.',
       outcome:
         'The live playground supports pointer and touch painting, interactive emoji rain, pigment blending, and a continuous drip surface in the browser.',
       changedMind:
@@ -599,9 +602,10 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       purpose:
         'Making remote writing feel as tactile and low-stakes as moving words on a refrigerator.',
       indexLine:
-        'Making remote writing tactile and low-stakes through shared rooms and a 4,000-word magnetic vocabulary.',
+        'Making remote writing tactile and low-stakes through shared rooms and a roughly 4,000-word magnetic vocabulary.',
       roleLine: 'solo designer + engineer',
-      resultLine: '4,000-word source set · shared rooms · pointer and touch controls',
+      resultLine:
+        'roughly 4,000 words · shared rooms · pointer and touch controls',
     },
     story: {
       goal:
@@ -611,7 +615,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       decision:
         'I kept direct manipulation local and only sent small word actions over the socket: add, move, delete, and reset. New collaborators receive the full room once, but ongoing movement only sends the changed word + normalized position.',
       outcome:
-        'The tool supports local and shareable boards, a curated 4,000-word source set, mouse and touch dragging, snapshots, and optional camera-backed surfaces.',
+        'The tool supports local and shareable boards, a curated source set of roughly 4,000 words, mouse and touch dragging, snapshots, and optional camera-backed surfaces.',
       changedMind:
         'I thought the board might need a physics engine to feel tactile. Slight rotation, direct movement, hover response, and a clear delete gesture were enough.',
     },

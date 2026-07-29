@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
 
 const STATUS_ITEMS = [
-  'SWE intern @ PayPal',
+  'SWE intern @ PayPal · checkout-friction tooling + production frontend',
   'CS + Computer Graphics @ UPenn',
   'available for full-time roles starting mid-august 2026',
 ];

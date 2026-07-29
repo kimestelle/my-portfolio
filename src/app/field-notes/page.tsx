@@ -179,10 +179,6 @@ export default function FieldNotesIndex() {
             <ShimmerText as="h1" className={styles.coverTitle}>
               how i design & engineer (in long form)
             </ShimmerText>
-            <ShimmerText as="p" className={styles.coverDeck} priority={2}>
-              three projects with the conversations, tests, and technical
-              choices behind what shipped
-            </ShimmerText>
           </div>
           <FieldNoteDetail label="made by:">
             throwing a ton of docs, repos, and stories into Codex & directing it to organize it with my portfolio&apos;s design system.
