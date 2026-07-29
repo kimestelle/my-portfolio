@@ -148,6 +148,15 @@ const explorations = [
     position: '50% 50%',
     fit: 'cover',
   },
+  {
+    src: '/creative-images/interactive-forest/movable-forest.png',
+    medium: 'physical computing',
+    caption:
+      'a moss-covered Arduino landscape with movable trees and light beneath the surface.',
+    alt: 'A hand moving small green trees across a moss-covered electronic landscape with pink lights',
+    position: '50% 50%',
+    fit: 'cover',
+  },
 ] as const;
 
 export default function FieldNotesIndex() {
@@ -270,36 +279,31 @@ export default function FieldNotesIndex() {
           <div className={styles.readerAlignedContent}>
             <div className={styles.nowCopy}>
               <p>
-                At PayPal, I took over a project from a senior engineer within a
-                broader CTO initiative. Daily check-ins with PMs, data
-                engineers, and software engineers keep product questions, data
-                constraints, and implementation decisions in the same
-                conversation. Because the work was already on the team&apos;s
-                roadmap, I&apos;m learning to inherit decisions I didn&apos;t
-                make, work within production frontend standards, and respond to
-                detailed review.
+                At PayPal, I took over a senior engineer&apos;s project within a
+                broader CTO initiative. I work through daily check-ins with PMs,
+                data engineers, and software engineers, plus detailed code
+                review with my engineering buddy and senior engineers. Because
+                the project was already on the roadmap, I&apos;m learning to
+                inherit decisions and build within production frontend
+                standards.
               </p>
               <p>
-                I&apos;m turning the project into a Next.js hub for finding
-                checkout friction that disappears in aggregate reporting. It
-                began with multi-dimensional visualizations, user journeys, and
-                tables so product teammates could move from broad patterns to
-                the underlying records. The hub didn&apos;t start as an LLM
-                project. When PMs wanted to ask questions in natural language,
-                my technical manager set one constraint: every answer should
-                still expose its data. I designed and implemented a layer that
-                lets teammates ask questions or test hypotheses, review
-                generated insights and possible next steps, then use data tags
-                and dynamic CSS classes to trace each response to the exact
-                cells or marks behind it.
+                I&apos;m building a Next.js hub for finding checkout friction
+                hidden by aggregate reporting. It began as multi-dimensional
+                visualizations, user journeys, and tables that let product
+                teammates move from broad patterns to source records. When PMs
+                asked for natural-language analysis, my technical manager added
+                one constraint: every answer had to expose its data. I built an
+                LLM layer that returns insights and possible next steps while
+                data tags and dynamic CSS classes trace each response to the
+                exact cells or marks behind it.
               </p>
               <p>
-                One view has already surfaced a large area of previously
-                unnoticed friction that engineers are now investigating. The
-                hub is separate from PayPal&apos;s modular Checkout codebase.
-                Alongside it, I&apos;ve made PRs directly to that production
-                codebase; every change goes through full review with my
-                engineering buddy and senior engineers.
+                One view has already surfaced a large area of unnoticed friction
+                that engineers are investigating. The hub is separate from
+                PayPal&apos;s modular Checkout codebase; alongside it, I make
+                PRs directly to that production codebase through the full review
+                process.
               </p>
             </div>
           </div>

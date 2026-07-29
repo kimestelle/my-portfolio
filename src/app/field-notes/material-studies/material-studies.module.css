@@ -152,6 +152,29 @@
   background: rgba(255, 255, 255, 0.7);
 }
 
+.processGallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.35rem 1rem;
+}
+
+.processGallery .studyFigure,
+.evolutionMedia .studyFigure {
+  min-width: 0;
+  margin: 0;
+}
+
+.evolutionMedia {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.evolutionMedia :global(.media-clip-surface) {
+  background: rgba(255, 255, 255, 0.72);
+}
+
 .studyCopy {
   min-width: 0;
 }
@@ -443,6 +466,11 @@
   }
 
   .evolutionList {
+    grid-template-columns: 1fr;
+  }
+
+  .processGallery,
+  .evolutionMedia {
     grid-template-columns: 1fr;
   }
 

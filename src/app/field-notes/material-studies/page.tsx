@@ -557,7 +557,10 @@ export default function MaterialStudiesFieldNotes() {
                   <p className={styles.studyDate}>
                     jul 18–19, 2026 · hackathon R&amp;D
                   </p>
-                  <h3>generate the body once; keep the character tunable</h3>
+                  <h3>
+                    separate generative variation from what the character has
+                    to keep
+                  </h3>
                 </div>
               </div>
 
@@ -565,19 +568,60 @@ export default function MaterialStudiesFieldNotes() {
                 <div className={styles.studyCopy}>
                   <p>
                     Pip started after I generated a Codex pet. That workflow
-                    left the image model a lot of freedom, then used an LLM and
-                    written guidelines to validate every pose and frame one by
-                    one. The run took about eight hours and still left me with
-                    a result I could not really tune. In the hackathon brief, I
-                    reframed that as a control problem: use generation for
-                    variation, then keep the rig, motion, and material logic
-                    stable in code.
+                    let the image model redraw every pose, then used an LLM and
+                    written rules to check the frames one by one. It took about
+                    eight hours, and I still could not directly tune the body,
+                    rig, expressions, or material. For the hackathon, I treated
+                    that as a pipeline problem: use generation to propose the
+                    character, then move repeatable structure into code.
                   </p>
                   <StudyTurn
-                    problem="Generated bodies could give me a piprite, bunny, or chibi form quickly, but every GLB arrived with different proportions, topology, and rigging. That is manageable for one render, not for a character that needs to stay recognizable and animatable across variations."
-                    choice="I compared conformalized mean-curvature flow and Taubin smoothing on the same bodies, then implemented a rig-preserving plushify pass. It welds UV-split vertices, applies Laplacian smoothing plus outward pressure, and writes positions and normals back into the original GLB accessor order."
-                    reason="Generation stayed responsible for the themed body. The deterministic pass gave different bodies one softer material language without changing vertex IDs, so existing joints, weights, textures, and animation data stayed attached. Mean-curvature flow rounded by shrinking; pressure let me round and inflate instead."
-                    boundary="This was two days of asset-pipeline R&amp;D, not the complete Pip product. Automatic rerigging, live expression controls, PATINA material reuse, and the Gemma personality layer remained directions in the brief. The implemented pass assumes a readable, roughly upright mesh with a usable rig."
+                    problem="A generated image can vary freely. A reusable character cannot. Its front, side, and back need to agree; eyes and mouths need stable anchors; seams need to survive the jump to 3D; and the final mesh needs a usable rig. Single-view 3D generation kept inventing the hidden sides and returned inconsistent topology or unreliable rigs."
+                    choice="The brief split the system into four bounded stages: generate a parameter-controlled sketch, restyle it to the target material, create front, side, and back views with marked facial features and seam lines, then reconstruct and rig the 3D mesh. During the hackathon, I tested Taubin and conformalized mean-curvature smoothing on generated GLBs, then wrote a rig-preserving plushify pass that welds UV splits, smooths and inflates the surface, and writes the result back in the original accessor order."
+                    reason="Multi-view references reduce what the 3D model has to invent. Marked features give rigging and seam projection explicit anchors. The deterministic plushify pass can give different generated bodies one material language without changing vertex IDs, joints, skin weights, textures, or animations."
+                    boundary="The end-to-end pipeline below is the system I designed, not a claim that every stage shipped in two days. The hackathon implementation covered mesh-treatment tests, rig-preserving plushify, panel flattening, sewing-pattern output, and offline texture baking. Automatic turnaround-to-rig transfer, live expression controls, PATINA material reuse, and the Gemma layer remained follow-up work."
+                  />
+                </div>
+
+                <div
+                  className={styles.processGallery}
+                  aria-label="Pip Foundry pipeline experiments"
+                >
+                  <FieldNoteFigure
+                    src="/project-images/material-studies/pip-foundry/multiview-and-component-maps.png"
+                    alt="Pip character moving from a sketch to material render, front side and back views, and fixed-color component maps"
+                    width={2142}
+                    height={1956}
+                    caption="sketch → material pass → front, side, and back views → fixed-color component maps."
+                    className={styles.studyFigure}
+                    sizes="(max-width: 767px) 100vw, 23rem"
+                  />
+                  <FieldNoteFigure
+                    src="/project-images/material-studies/pip-foundry/turnaround-and-rig-marks.png"
+                    alt="Three-view Pip turnaround with component colors used as rigging and projection cues"
+                    width={2060}
+                    height={1956}
+                    caption="the component map made each limb identifiable before projecting the marks onto the 3D mesh."
+                    className={styles.studyFigure}
+                    sizes="(max-width: 767px) 100vw, 23rem"
+                  />
+                  <FieldNoteFigure
+                    src="/project-images/material-studies/pip-foundry/seam-marked-turnaround.png"
+                    alt="Pip turnaround with colored component regions and a plush render with marked seams"
+                    width={2060}
+                    height={1956}
+                    caption="a separate seam-marked turnaround tested how fabrication cues could survive the same transfer."
+                    className={styles.studyFigure}
+                    sizes="(max-width: 767px) 100vw, 23rem"
+                  />
+                  <FieldNoteFigure
+                    src="/project-images/material-studies/pip-foundry/rig-lab.png"
+                    alt="Pip Rig Lab showing a generated character with selectable bodies, moods, and plushification"
+                    width={2782}
+                    height={1956}
+                    caption="the rig lab reused one state machine across generated bodies and exposed plushification as a tunable pass."
+                    className={styles.studyFigure}
+                    sizes="(max-width: 767px) 100vw, 23rem"
                   />
                 </div>
 
@@ -592,22 +636,23 @@ export default function MaterialStudiesFieldNotes() {
                 />
               </div>
 
-              <FieldNoteDetail label="the paper techniques">
+              <FieldNoteDetail label="what I implemented from the papers">
                 <p>
                   Taubin&apos;s 1995 smoothing method and Kazhdan, Solomon, and
                   Ben-Chen&apos;s 2012 conformalized mean-curvature flow gave me
-                  two different baselines for rounding generated geometry. I
-                  also rebuilt a compact approximation of Mori and
-                  Igarashi&apos;s <i>Plushie</i> from SIGGRAPH 2007: split the
-                  mesh into near-developable panels, flatten each panel with
-                  LSCM, smooth the outlines, and use the layout as both a sewing
-                  pattern and pattern-space UV map.
+                  two baselines: one reduced shrinkage; the other rounded by
+                  shrinking. The plushify pass added outward pressure so I
+                  could soften and inflate the body while keeping the original
+                  rigged file structure.
                 </p>
                 <p>
-                  The offline texture pass reused that layout to tile fabric per
-                  panel, darken the seams, derive quilt-puff normals, draw stitch
-                  dashes, and bleed edge texels so texture sampling would not
-                  pull the background into a seam.
+                  Separately, I rebuilt the core geometry path from Mori and
+                  Igarashi&apos;s <i>Plushie</i>: split the mesh into
+                  near-developable panels, flatten each panel with LSCM, smooth
+                  the outlines, and lay them out as a sewing pattern. The same
+                  pattern coordinates became the UV atlas for tiled fabric,
+                  seam darkening, stitch dashes, quilt-puff normals, and edge
+                  bleed.
                 </p>
               </FieldNoteDetail>
             </FieldNoteSection>
@@ -623,43 +668,78 @@ export default function MaterialStudiesFieldNotes() {
                 >
                   {'\uE000'}
                 </span>
-                <p>one system I pulled back</p>
+                <p>mood ring shader</p>
               </div>
               <div>
-                <h3 id="mood-ring-evolution">
-                  I kept improving the mood ring, then made it optional.
-                </h3>
+                <h3 id="mood-ring-evolution">why I made it opt-in</h3>
                 <ol className={styles.evolutionList}>
                   <li>
-                    <span>01 · warmth</span>
+                    <span>01 · pointer heat</span>
                     <p>
-                      The first shader left slow, overlapping color blooms
-                      behind mouse and touch movement. I wanted mouse motion,
-                      which can feel mechanical and unintentional, to leave
-                      something closer to warmth on a surface.
+                      The first version stored each pointer or touch contact as
+                      a timestamped heat spot. A fragment shader expanded and
+                      decayed up to 50 spots, mixing purple, orange, and teal
+                      while the page showed through the cooler center. I wanted
+                      cursor movement to leave evidence of contact instead of
+                      reading like a detached pointer.
                     </p>
                   </li>
                   <li>
-                    <span>02 · portal</span>
+                    <span>02 · more system, more cost</span>
                     <p>
-                      I layered a Conway cellular-automata star field underneath
-                      it, then added sparse hollow rings around each heat spot.
-                      The warmth stayed, but moving through it briefly revealed
-                      a larger system.
+                      I added a second canvas of star glyphs driven by
+                      Conway-style cellular automata and hollow rings around new
+                      heat spots. I also added a WebGPU path, kept a WebGL
+                      fallback, rendered the low-frequency field at half
+                      resolution, added dithering, and stopped the frame loop
+                      after the spots expired. The background still asked
+                      people to parse two systems before reading the portfolio.
                     </p>
                   </li>
                   <li>
                     <span>03 · opt-in</span>
                     <p>
-                      By July, the full-page effect was competing with text
-                      contrast, reduced-motion preferences, performance, and the
-                      work itself. I added accessibility and rendering
-                      safeguards, then made the shader opt-in. The simpler
-                      default explains how I build more directly without giving
-                      the effect the whole viewport.
+                      Optimization did not solve the main problem. The default
+                      still put motion behind text, changed local contrast, and
+                      competed with project imagery. I kept the renderer,
+                      fallback, saved preference, and reduced-motion behavior,
+                      but changed the default to off. The toggle now treats it
+                      as an optional interaction study.
                     </p>
                   </li>
                 </ol>
+                <div
+                  className={styles.evolutionMedia}
+                  aria-label="Mood ring shader evolution"
+                >
+                  <FieldNoteFigure
+                    src="/project-images/material-studies/mood-ring/first-heat-spots.png"
+                    alt="October 2025 portfolio with soft pink heat spots following the pointer"
+                    width={2225}
+                    height={1481}
+                    caption="oct 2025 · the first soft heat spots."
+                    className={styles.studyFigure}
+                    sizes="(max-width: 767px) 100vw, 15rem"
+                  />
+                  <FieldNoteFigure
+                    src="/project-images/material-studies/mood-ring/stars-and-heat.png"
+                    alt="January 2026 portfolio with large heat fields and a star layer"
+                    width={2940}
+                    height={1912}
+                    caption="jan 2026 · the cellular-automata stars became a second canvas."
+                    className={styles.studyFigure}
+                    sizes="(max-width: 767px) 100vw, 15rem"
+                  />
+                  <FieldNoteFigure
+                    src="/project-images/material-studies/mood-ring/portal-rings.png"
+                    alt="January 2026 portfolio with hollow portal-like rings and star glyphs"
+                    width={2940}
+                    height={1912}
+                    caption="jan 2026 · rings exposed the field beneath each contact."
+                    className={styles.studyFigure}
+                    sizes="(max-width: 767px) 100vw, 15rem"
+                  />
+                </div>
               </div>
             </aside>
 
