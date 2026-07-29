@@ -7,9 +7,9 @@ import { FieldNoteBreadcrumbs, FieldNoteDetail } from './components/FieldNotePri
 import styles from './field-notes.module.css';
 
 export const metadata: Metadata = {
-  title: 'Working files · Estelle Kim',
+  title: 'field notes · Estelle Kim',
   description:
-    'Three working files about the conversations, tests, and technical choices behind what shipped.',
+    'Three field notes about the conversations, tests, and technical choices behind what shipped.',
   robots: {
     index: false,
     follow: false,

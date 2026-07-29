@@ -20,10 +20,10 @@ export function FieldNoteBreadcrumbs({ current }: { current: string }) {
   return (
     <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
       {current === 'index' ? (
-        <span aria-current="page">working files</span>
+        <span aria-current="page">field notes</span>
       ) : (
         <>
-          <Link href="/field-notes">working files</Link>
+          <Link href="/field-notes">field notes</Link>
           <span aria-hidden="true">/</span>
           <span aria-current="page">{current}</span>
         </>
