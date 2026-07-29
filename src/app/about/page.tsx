@@ -82,6 +82,69 @@ export default function About() {
             I ended up in interactive software because I like caring about both
             the system and the person using it.
           </p>
+
+          <ol className="mt-2 border-y border-[color:var(--line-color)]">
+            <li className="grid gap-1 border-b border-[color:var(--line-color)] py-3 sm:grid-cols-[8.5rem_1fr] sm:gap-5">
+              <ShimmerText
+                as="span"
+                className="type-meta text-[color:var(--text-meta)]"
+              >
+                may–sep 2024
+              </ShimmerText>
+              <ShimmerText
+                as="span"
+                className="text-[color:var(--text-secondary)]"
+              >
+                learned by shipping: mobile interaction, APIs, user state,
+                persistence, and deployment
+              </ShimmerText>
+            </li>
+            <li className="grid gap-1 border-b border-[color:var(--line-color)] py-3 sm:grid-cols-[8.5rem_1fr] sm:gap-5">
+              <ShimmerText
+                as="span"
+                className="type-meta text-[color:var(--text-meta)]"
+              >
+                nov–dec 2024
+              </ShimmerText>
+              <ShimmerText
+                as="span"
+                className="text-[color:var(--text-secondary)]"
+              >
+                moved into C++, OpenGL, procedural systems, and real-time
+                graphics
+              </ShimmerText>
+            </li>
+            <li className="grid gap-1 border-b border-[color:var(--line-color)] py-3 sm:grid-cols-[8.5rem_1fr] sm:gap-5">
+              <ShimmerText
+                as="span"
+                className="type-meta text-[color:var(--text-meta)]"
+              >
+                feb–apr 2025
+              </ShimmerText>
+              <ShimmerText
+                as="span"
+                className="text-[color:var(--text-secondary)]"
+              >
+                built two team products in parallel and learned how much good
+                integration depends on communication
+              </ShimmerText>
+            </li>
+            <li className="grid gap-1 py-3 sm:grid-cols-[8.5rem_1fr] sm:gap-5">
+              <ShimmerText
+                as="span"
+                className="type-meta text-[color:var(--text-meta)]"
+              >
+                late 2025–now
+              </ShimmerText>
+              <ShimmerText
+                as="span"
+                className="text-[color:var(--text-secondary)]"
+              >
+                turning focused graphics + media experiments into fuller
+                creative tools
+              </ShimmerText>
+            </li>
+          </ol>
         </section>
 
         <section className="flex flex-col gap-4">
@@ -93,9 +156,9 @@ export default function About() {
           </div>
           <p>
             I&apos;m rarely interested in only one thing at a time. Outside of
-            code, I&apos;m usually walking around whichever city I&apos;m in,
-            listening to music, collecting images, or getting overly interested
-            in paper, fabric, light, and other things that feel good to touch.
+            code, I&apos;m usually wandering around whichever city I&apos;m in,
+            listening to three songs on repeat, collecting images of interesting textures, or
+            in .
           </p>
 
           <details className="glass-interactive ui-radius-panel p-2">
