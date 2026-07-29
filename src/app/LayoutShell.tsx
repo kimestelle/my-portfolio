@@ -74,12 +74,12 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
 
   const onToggleShader = useCallback(() => {
     if (shaderDisabled) return;
-    setShaderPref((value) => !(value ?? false));
+    setShaderPref((value) => !(value ?? true));
   }, [shaderDisabled]);
 
   const onToggleCellAutomata = useCallback(() => {
     if (shaderDisabled) return;
-    setCellAutomataPref((value) => !(value ?? false));
+    setCellAutomataPref((value) => !(value ?? true));
   }, [shaderDisabled]);
 
   const onFps = useCallback((value: number) => {
