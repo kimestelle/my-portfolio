@@ -8,6 +8,7 @@ import {
   FieldNoteSequence,
   FieldNoteSourceLink,
 } from '../components/FieldNotePrimitives';
+import FieldNoteScrollLink from '../components/FieldNoteScrollLink';
 import styles from './internet-atlas.module.css';
 
 export const metadata: Metadata = {
@@ -859,7 +860,9 @@ export default function InternetAtlasFieldNotes() {
           </FieldNoteSection>
 
           <div className={styles.endMatter}>
-            <a href="#path">back to top ↑</a>
+            <FieldNoteScrollLink href="#path">
+              back to top ↑
+            </FieldNoteScrollLink>
           </div>
         </FieldNoteReader>
 

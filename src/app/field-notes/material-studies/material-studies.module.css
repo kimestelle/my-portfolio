@@ -73,7 +73,7 @@
 .substrateNote span {
   color: var(--text-decorative);
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: var(--type-micro);
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
@@ -235,7 +235,7 @@
   margin-bottom: 0.35rem;
   color: var(--text-meta);
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--type-micro);
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -272,7 +272,7 @@
   margin-top: 0.4rem;
   color: var(--text-meta);
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--type-micro);
 }
 
 .substrateNote {
@@ -363,7 +363,7 @@
 .evolutionList span {
   color: var(--text-decorative);
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--type-micro);
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -403,7 +403,7 @@
 .rangeGrid span {
   color: var(--text-decorative);
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--type-micro);
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -412,7 +412,7 @@
   margin-top: 0.55rem;
   color: var(--text-primary);
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: var(--type-body);
   font-weight: 400;
   line-height: 1.25;
 }

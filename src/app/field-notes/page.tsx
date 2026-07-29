@@ -279,24 +279,24 @@ export default function FieldNotesIndex() {
           <div className={styles.readerAlignedContent}>
             <div className={styles.nowCopy}>
               <p>
-                At PayPal, I took over a senior engineer&apos;s project within a
+                At PayPal, I took over the frontend / UI layer of a senior engineer&apos;s project within a
                 broader CTO initiative. I work through{' '}
                 <strong>
                   daily feedback meetings with PMs, data engineers, and software
                   engineers
                 </strong>
-                , plus <strong>rigorous code reviews</strong> with my insanely smart! engineering buddy on every PR. Because the project was already on the roadmap,
+                , plus <strong>rigorous code reviews</strong> with the most insane engineering team on every PR. Because the project was already on the roadmap,
                 I&apos;m learning to inherit decisions and build within
-                production frontend standards.
+                production standards.
               </p>
               <p>
-                I&apos;m building a Next.js hub for{' '}
+                I&apos;m building a Next.js hub with live data querying for{' '}
                 <strong>
                   finding checkout friction hidden by aggregate reporting
                 </strong>
                 . It began as multi-dimensional visualizations, user journeys,
                 and tables that let product teammates move from broad patterns
-                to source records. When PMs asked for natural-language analysis,
+                to individual records. When PMs asked for natural-language analysis,
                 my technical manager added one constraint:{' '}
                 <strong>every answer had to expose its data.</strong> I built an
                 LLM layer that returns insights and possible next steps while

@@ -10,6 +10,7 @@ import {
   FieldNoteSequence,
   FieldNoteSourceLink,
 } from '../components/FieldNotePrimitives';
+import FieldNoteScrollLink from '../components/FieldNoteScrollLink';
 import styles from './into-the-blue.module.css';
 
 export const metadata: Metadata = {
@@ -510,7 +511,9 @@ export default function IntoTheBlueFieldNotes() {
           </FieldNoteDetail>
 
           <div className={styles.endMatter}>
-            <a href="#brief">back to top ↑</a>
+            <FieldNoteScrollLink href="#brief">
+              back to top ↑
+            </FieldNoteScrollLink>
           </div>
         </FieldNoteReader>
 
