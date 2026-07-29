@@ -156,9 +156,8 @@ export default function About() {
           </div>
           <p>
             I&apos;m rarely interested in only one thing at a time. Outside of
-            code, I&apos;m usually wandering around whichever city I&apos;m in,
-            listening to three songs on repeat, collecting images of interesting textures, or
-            in .
+            code, I&apos;m usually scouting wine bars in the city,
+            listening to three songs on repeat, collecting images of interesting textures, or reading books with new perspectives.
           </p>
 
           <details className="glass-interactive ui-radius-panel p-2">
