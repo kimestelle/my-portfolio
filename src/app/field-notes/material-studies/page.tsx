@@ -219,9 +219,12 @@ export default function MaterialStudiesFieldNotes() {
                     I&apos;m currently interested in. The generated image does
                     not have to remain a fixed 2D result, and the model does not
                     have to invent physics it cannot infer. Patina supplies
-                    editable surface evidence; the rendering and simulation
-                    system makes it relightable, deformable, tunable, and
-                    exportable.
+                    editable surface evidence;{' '}
+                    <strong>
+                      the rendering and simulation system makes it relightable,
+                      deformable, tunable, and exportable
+                    </strong>
+                    .
                   </p>
                   <p>
                     Underneath, a 48 × 48 XPBD mesh carries the drape. The
@@ -293,9 +296,11 @@ export default function MaterialStudiesFieldNotes() {
                   <p>
                     The handoff was an interaction decision. I did not want
                     WebGL to decide what counted as valid input. Anything the
-                    CPU canvas could draw could reach the same lower edge; the
-                    GPU took over only once those pixels entered the drip. The
-                    later substrate R&amp;D moves the paper itself into
+                    CPU canvas could draw could reach the same lower edge;{' '}
+                    <strong>
+                      the GPU took over only once those pixels entered the drip
+                    </strong>
+                    . The later substrate R&amp;D moves the paper itself into
                     full-surface compute passes so it can affect diffusion,
                     wetness, deposition, and edge darkening.
                   </p>
@@ -408,8 +413,11 @@ export default function MaterialStudiesFieldNotes() {
                   />
                   <p>
                     The profile is the source of truth for geometry and motion.
-                    The surface adds depth without introducing a second shape
-                    model, and the symmetry constraint prevents the editor from
+                    <strong>
+                      The surface adds depth without introducing a second shape
+                      model
+                    </strong>
+                    , and the symmetry constraint prevents the editor from
                     generating forms that stop reading as the same character.
                   </p>
                 </div>
@@ -572,8 +580,12 @@ export default function MaterialStudiesFieldNotes() {
                     written rules to check the frames one by one. It took about
                     eight hours, and I still could not directly tune the body,
                     rig, expressions, or material. For the hackathon, I treated
-                    that as a pipeline problem: use generation to propose the
-                    character, then move repeatable structure into code.
+                    that as a pipeline problem:{' '}
+                    <strong>
+                      use generation to propose the character, then move
+                      repeatable structure into code
+                    </strong>
+                    .
                   </p>
                   <StudyTurn
                     problem="A generated image can vary freely. A reusable character cannot. Its front, side, and back need to agree; eyes and mouths need stable anchors; seams need to survive the jump to 3D; and the final mesh needs a usable rig. Single-view 3D generation kept inventing the hidden sides and returned inconsistent topology or unreliable rigs."
@@ -703,8 +715,8 @@ export default function MaterialStudiesFieldNotes() {
                       still put motion behind text, changed local contrast, and
                       competed with project imagery. I kept the renderer,
                       fallback, saved preference, and reduced-motion behavior,
-                      but changed the default to off. The toggle now treats it
-                      as an optional interaction study.
+                      but <strong>changed the default to off.</strong> The toggle
+                      now treats it as an optional interaction study.
                     </p>
                   </li>
                 </ol>

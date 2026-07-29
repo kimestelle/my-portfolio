@@ -1,0 +1,110 @@
+.scope {
+  --field-copy-size: 1rem;
+  --type-body: 1.0625rem;
+  --type-meta: 0.95rem;
+  --type-lead: 1.2rem;
+}
+
+.scope[data-reading-size="compact"] {
+  --field-copy-size: 0.9375rem;
+  --type-body: 1rem;
+  --type-meta: 0.875rem;
+  --type-lead: 1.125rem;
+}
+
+.scope[data-reading-size="large"] {
+  --field-copy-size: 1.0875rem;
+  --type-body: 1.15rem;
+  --type-meta: 1.025rem;
+  --type-lead: 1.3rem;
+}
+
+.scope :global(main strong) {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.control {
+  position: fixed;
+  z-index: 40;
+  top: 1.5rem;
+  left: 50%;
+  display: grid;
+  grid-template-columns: 2.2rem 2.4rem 2.2rem;
+  align-items: center;
+  width: max-content;
+  min-height: 2.45rem;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background-color: rgb(255, 255, 255);
+  color: var(--text-primary);
+  transform: translateX(-50%);
+}
+
+.control button {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  height: 100%;
+  min-height: 2.45rem;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 400;
+  transition:
+    background-color 160ms ease,
+    opacity 160ms ease;
+}
+
+.control button:hover:not(:disabled),
+.control button:focus-visible {
+  background-color: rgba(22, 22, 22, 0.055);
+}
+
+.control button:focus-visible {
+  outline: 1px solid var(--text-primary);
+  outline-offset: -4px;
+}
+
+.control button:disabled {
+  cursor: default;
+  opacity: 0.28;
+}
+
+.sample {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  min-height: 1.25rem;
+  place-items: center;
+  border-inline: 1px solid var(--line-color);
+  font-family: var(--font-body);
+  font-size: var(--type-meta);
+  line-height: 1;
+  transition: font-size 180ms ease;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .control {
+    top: 0.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .control button,
+  .sample {
+    transition: none;
+  }
+}

@@ -160,13 +160,14 @@ export default function InternetAtlasFieldNotes() {
             </p>
 
             <p>
-              The source study gave us websites and transitions from 2,148
-              participants, but no definitions for words like <em>fuzzy</em>,{' '}
-              <em>organic</em>, or <em>heavy</em>. A source-study participant
-              supplied a recorded path; an Atlas visitor supplied the words
-              used to interpret it. A history list could preserve the route,
-              but not the visitor&apos;s interpretation. We needed to keep each
-              path intact while letting those words reorganize the map.
+              The source study gave us websites and transitions from{' '}
+              <strong>2,148 participants</strong>, but no definitions for words
+              like <em>fuzzy</em>, <em>organic</em>, or <em>heavy</em>. A
+              source-study participant supplied a recorded path;{' '}
+              <strong>an Atlas visitor supplied the words used to interpret it.</strong>{' '}
+              A history list could preserve the route, but not the
+              visitor&apos;s interpretation. We needed to keep each path intact
+              while letting those words reorganize the map.
             </p>
 
             <p>
@@ -243,7 +244,7 @@ export default function InternetAtlasFieldNotes() {
               layer. Then teammates wanted to explore clustering, embeddings,
               and vector databases, so the project became unintentionally
               ML-heavy. I spoke with each teammate before splitting up the work
-              and shaped the roles around what they wanted to learn.
+              and <strong>shaped the roles around what they wanted to learn.</strong>
             </p>
 
             <div className={styles.peopleGrid} aria-label="Internet Atlas team roles">
@@ -297,10 +298,11 @@ export default function InternetAtlasFieldNotes() {
             </p>
 
             <p>
-              I did not direct every technical choice. I kept the handoffs
-              clear, supported what teammates wanted to try, and handled Git
-              practices, merge milestones, API wiring, branch integration, and
-              deployment. That let every branch run together in the demo. The{' '}
+              <strong>I did not direct every technical choice.</strong> I kept
+              the handoffs clear, supported what teammates wanted to try, and
+              handled Git practices, merge milestones, API wiring, branch
+              integration, and deployment. That let every branch run together
+              in the demo. The{' '}
               <a
                 href="https://github.com/PennSpark/sp25-internet-atlas/commit/747b427"
                 target="_blank"
@@ -462,10 +464,12 @@ export default function InternetAtlasFieldNotes() {
             <p>
               We stopped treating those words as labels the model needed to
               define. The ML teammates embedded each Atlas visitor&apos;s words
-              in the same text + image space as the sites. I wired the
-              resulting similarity scores into graph coordinates, so the model
-              could position sites relative to an Atlas visitor&apos;s words
-              without defining those words or retraining for each one. We used{' '}
+              in <strong>the same text + image space as the sites.</strong> I
+              wired the resulting similarity scores into graph coordinates, so
+              the model could position sites relative to an Atlas
+              visitor&apos;s words{' '}
+              <strong>without defining those words or retraining for each one.</strong>{' '}
+              We used{' '}
               <FieldNoteSourceLink id="07" href="https://arxiv.org/abs/2103.00020">
                 CLIP
               </FieldNoteSourceLink>{' '}
@@ -599,14 +603,15 @@ export default function InternetAtlasFieldNotes() {
             </div>
 
             <p>
-              I structured and built these four interaction states, including
-              the camera behavior, screen freeze, and node, edge-selection, and
-              participant-path overlays. Jimin explored the landmark visuals; I
-              integrated them into the graph and selection behavior. Eric and I
-              coordinated the data contracts behind each level: aggregate edges
-              for the overview, participant lookups for a selected transition,
-              and full per-participant paths for the route view. I added the
-              node-statistics endpoint for the node-detail level.
+              <strong>I structured and built these four interaction states</strong>,
+              including the camera behavior, screen freeze, and node,
+              edge-selection, and participant-path overlays. Jimin explored the
+              landmark visuals; I integrated them into the graph and selection
+              behavior. Eric and I coordinated the data contracts behind each
+              level: aggregate edges for the overview, participant lookups for
+              a selected transition, and full per-participant paths for the
+              route view. I added the node-statistics endpoint for the
+              node-detail level.
             </p>
           </FieldNoteSection>
 
@@ -658,9 +663,9 @@ export default function InternetAtlasFieldNotes() {
             <p>
               I merged the branches, resolved a teammate merge conflict, and
               fixed storage, URL, CORS, position, and build failures before
-              deployment. The finished graph held more than 300 sites and 1,000
-              navigation edges, and more than 40 demo attendees opened it at
-              once.{' '}
+              deployment. The finished graph held{' '}
+              <strong>more than 300 sites and 1,000 navigation edges</strong>,
+              and more than 40 demo attendees opened it at once.{' '}
               <a
                 href="https://github.com/PennSpark/sp25-internet-atlas/commit/811685c"
                 target="_blank"
@@ -671,9 +676,10 @@ export default function InternetAtlasFieldNotes() {
             </p>
 
             <p>
-              Across the project, I authored or merged 63 of 131 commits,
-              including the frontend, API wiring, branch integration,
-              deployment, and preservation work.
+              Across the project, I{' '}
+              <strong>authored or merged 63 of 131 commits</strong>, including
+              the frontend, API wiring, branch integration, deployment, and
+              preservation work.
             </p>
 
           </FieldNoteSection>
@@ -686,18 +692,19 @@ export default function InternetAtlasFieldNotes() {
           >
 
             <p className={styles.lead}>
-              After the demo, the database, API, and ML services would cost about
-              $60 a month even when the Atlas had little traffic. In November,
-              I checked which parts of the live stack the finished experience
-              still needed.
+              After the demo, the database, API, and ML services would cost
+              about <strong>$60 a month</strong> even when the Atlas had little
+              traffic. In November, I checked which parts of the live stack the
+              finished experience still needed.
             </p>
 
             <p>
               Atlas visitors did not need new sites to be scraped or
-              embeddings to be recomputed. I exported the graph data, replaced
-              the live endpoints with static files, and repaired the resulting
-              type and build errors. Hosting fell to roughly $7 a month while
-              selection, path tracing, and camera interactions stayed intact.{' '}
+              embeddings to be recomputed. I exported the graph data,{' '}
+              <strong>replaced the live endpoints with static files</strong>,
+              and repaired the resulting type and build errors. Hosting fell to
+              roughly <strong>$7 a month</strong> while selection, path tracing,
+              and camera interactions stayed intact.{' '}
               <a
                 href="https://github.com/PennSpark/sp25-internet-atlas/commit/eba0b7c"
                 target="_blank"

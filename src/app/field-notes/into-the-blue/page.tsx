@@ -121,8 +121,12 @@ export default function IntoTheBlueFieldNotes() {
               collect-a-thon from four early concepts. The playfulness was
               useful, but staff did not want culturally significant objects
               treated like props or made to &quot;come to life.&quot; The
-              interaction needed to keep a short piece of context and point
-              visitors back to the physical object and label.
+              interaction needed to{' '}
+              <strong>
+                keep a short piece of context and point visitors back to the
+                physical object and label
+              </strong>
+              .
             </p>
 
             <p>
@@ -165,9 +169,9 @@ export default function IntoTheBlueFieldNotes() {
               Second, more than 200 museum objects were blue, but many were too
               high, dim, distant, hard to frame, or not appropriate to turn
               into a collectible. Museum staff, designers, and developers
-              walked the galleries together and reduced the list to roughly
-              three dozen objects that worked for both the visit and the
-              camera.
+              walked the galleries together and{' '}
+              <strong>reduced the list to roughly three dozen objects</strong>{' '}
+              that worked for both the visit and the camera.
             </p>
 
             <FieldNoteFigure
@@ -195,16 +199,17 @@ export default function IntoTheBlueFieldNotes() {
               I worked with the lead designer to establish the handoff: a PNG
               overlay so visitors could see what they were looking for, one or
               more SVG paths for tracing and sticker cutting, tagged metadata,
-              and the same 300 × 360 viewBox for every layer. Earlier
-              screen-by-screen offsets worked for a prototype, then drifted
-              across objects and devices.
+              and <strong>the same 300 × 360 viewBox for every layer.</strong>{' '}
+              Earlier screen-by-screen offsets worked for a prototype, then
+              drifted across objects and devices.
             </p>
 
             <p>
-              The shared geometry let the overlay, outline, captured crop, and
-              final sticker line up without a separate set of corrections for
-              every object. It also gave the design team a repeatable way to
-              prepare new artifacts as gallery content changed.
+              <strong>The shared geometry</strong> let the overlay, outline,
+              captured crop, and final sticker line up without a separate set
+              of corrections for every object. It also gave the design team a
+              repeatable way to prepare new artifacts as gallery content
+              changed.
             </p>
 
             <FieldNoteFigure
@@ -277,9 +282,12 @@ export default function IntoTheBlueFieldNotes() {
 
             <p>
               The multi-path result was right, but recomputing it continuously
-              made the preview less responsive. I kept the live view light and
-              moved the full cutout to the moment after the visitor pressed the
-              shutter. The{' '}
+              made the preview less responsive.{' '}
+              <strong>
+                I kept the live view light and moved the full cutout to the
+                moment after the visitor pressed the shutter.
+              </strong>{' '}
+              The{' '}
               <FieldNoteSourceLink
                 id="03"
                 href="https://github.com/PennSpark/into-the-blue/commit/0b43dd5"
@@ -320,10 +328,11 @@ export default function IntoTheBlueFieldNotes() {
               >
               first IndexedDB image store
               </FieldNoteSourceLink>{' '}
-              keyed by artifact ID. Captures could survive refreshes without a
-              visitor account or a new media backend. The development team then
-              integrated that local data with gallery content, progress,
-              labels, the ending, analytics, static routes, and deployment.
+              keyed by artifact ID. Captures could survive refreshes{' '}
+              <strong>without a visitor account or a new media backend.</strong>{' '}
+              The development team then integrated that local data with gallery
+              content, progress, labels, the ending, analytics, static routes,
+              and deployment.
             </p>
 
             <p>
@@ -378,8 +387,8 @@ export default function IntoTheBlueFieldNotes() {
             <p className={styles.lead}>
               <strong>mar 05–sep 20.</strong> The five-person development team
               integrated and launched the experience for the
-              exhibition&apos;s opening weekend. It stayed deployed for roughly
-              nine months.
+              exhibition&apos;s opening weekend. It stayed deployed for{' '}
+              <strong>roughly nine months.</strong>
             </p>
 
             <p>
@@ -405,10 +414,13 @@ export default function IntoTheBlueFieldNotes() {
             />
 
             <p>
-              I expected the camera math to take most of the work. In practice,
-              object choice, cultural context, and maintenance changed more
-              decisions. The route, assets, storage, and copy kept pointing
-              visitors back to the museum object.
+              I expected the camera math to take most of the work. In practice,{' '}
+              <strong>
+                object choice, cultural context, and maintenance changed more
+                decisions.
+              </strong>{' '}
+              The route, assets, storage, and copy kept pointing visitors back
+              to the museum object.
             </p>
           </FieldNoteSection>
 

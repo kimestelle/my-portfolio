@@ -280,29 +280,36 @@ export default function FieldNotesIndex() {
             <div className={styles.nowCopy}>
               <p>
                 At PayPal, I took over a senior engineer&apos;s project within a
-                broader CTO initiative. I work through daily check-ins with PMs,
-                data engineers, and software engineers, plus detailed code
-                review with my engineering buddy and senior engineers. Because
-                the project was already on the roadmap, I&apos;m learning to
-                inherit decisions and build within production frontend
-                standards.
+                broader CTO initiative. I work through{' '}
+                <strong>
+                  daily check-ins with PMs, data engineers, and software
+                  engineers
+                </strong>
+                , plus detailed code review with my engineering buddy and senior
+                engineers. Because the project was already on the roadmap,
+                I&apos;m learning to inherit decisions and build within
+                production frontend standards.
               </p>
               <p>
-                I&apos;m building a Next.js hub for finding checkout friction
-                hidden by aggregate reporting. It began as multi-dimensional
-                visualizations, user journeys, and tables that let product
-                teammates move from broad patterns to source records. When PMs
-                asked for natural-language analysis, my technical manager added
-                one constraint: every answer had to expose its data. I built an
+                I&apos;m building a Next.js hub for{' '}
+                <strong>
+                  finding checkout friction hidden by aggregate reporting
+                </strong>
+                . It began as multi-dimensional visualizations, user journeys,
+                and tables that let product teammates move from broad patterns
+                to source records. When PMs asked for natural-language analysis,
+                my technical manager added one constraint:{' '}
+                <strong>every answer had to expose its data.</strong> I built an
                 LLM layer that returns insights and possible next steps while
                 data tags and dynamic CSS classes trace each response to the
                 exact cells or marks behind it.
               </p>
               <p>
-                One view has already surfaced a large area of unnoticed friction
-                that engineers are investigating. The hub is separate from
-                PayPal&apos;s modular Checkout codebase; alongside it, I make
-                PRs directly to that production codebase through the full review
+                One view has already surfaced{' '}
+                <strong>a large area of unnoticed friction</strong> that
+                engineers are investigating. The hub is separate from
+                PayPal&apos;s modular Checkout codebase; alongside it, I make PRs
+                directly to that production codebase through the full review
                 process.
               </p>
             </div>
