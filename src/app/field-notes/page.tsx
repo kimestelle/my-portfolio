@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ShimmerText } from '../design-deets/text-shimmer/TextShimmer';
 import { FieldNoteDisclosure } from './components/FieldNoteDisclosure';
-import { FieldNoteBreadcrumbs } from './components/FieldNotePrimitives';
+import { FieldNoteBreadcrumbs, FieldNoteDetail } from './components/FieldNotePrimitives';
 import styles from './field-notes.module.css';
 
 export const metadata: Metadata = {
@@ -175,6 +175,9 @@ export default function FieldNotesIndex() {
               choices behind what shipped
             </ShimmerText>
           </div>
+          <FieldNoteDetail label="made by:">
+            throwing a ton of docs, repos, and stories into Codex & directing it to organize it with my portfolio&apos;s design system.
+          </FieldNoteDetail>
         </header>
 
         <nav className={styles.noteShelf} aria-label="Project studies">
