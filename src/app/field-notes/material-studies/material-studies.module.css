@@ -122,13 +122,17 @@
 
 .studyGrid {
   display: grid;
-  grid-template-columns: minmax(0, 0.93fr) minmax(0, 1.07fr);
-  gap: clamp(1.6rem, 4vw, 2.5rem);
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
   align-items: start;
 }
 
 .studyGridReverse {
-  grid-template-columns: minmax(0, 1.07fr) minmax(0, 0.93fr);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.studyGrid .studyCopy {
+  max-width: 48rem;
 }
 
 .studyStack {

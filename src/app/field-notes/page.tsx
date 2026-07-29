@@ -162,7 +162,7 @@ export default function FieldNotesIndex() {
               className={styles.portfolioReturn}
               aria-label="Return to Estelle Kim’s portfolio"
             >
-              ← portfolio
+              ← real portfolio
             </Link>
           </div>
 
@@ -220,7 +220,7 @@ export default function FieldNotesIndex() {
                     className={styles.studyAction}
                     priority={index + 5}
                   >
-                    open study →
+                    read me →
                   </ShimmerText>
                 </div>
 
@@ -265,13 +265,10 @@ export default function FieldNotesIndex() {
         <FieldNoteDisclosure
           title="now"
           preview="summer 2026 · san jose, california"
+          defaultOpen
         >
           <div className={styles.readerAlignedContent}>
             <div className={styles.nowCopy}>
-              <p className={styles.nowMoment}>
-                <time dateTime="2026-06">summer 2026</time>
-                <span>san jose, california</span>
-              </p>
               <p>
                 At PayPal, I took over a project from a senior engineer within a
                 broader CTO initiative. Daily check-ins with PMs, data

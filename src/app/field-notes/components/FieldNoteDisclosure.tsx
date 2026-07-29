@@ -7,12 +7,14 @@ export function FieldNoteDisclosure({
   title,
   preview,
   children,
+  defaultOpen = false,
 }: {
   title: string;
   preview: string;
   children: ReactNode;
+  defaultOpen?: boolean;
 }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(defaultOpen);
   const disclosureId = useId();
   const contentId = `${disclosureId}-content`;
   const headingId = `${disclosureId}-heading`;
