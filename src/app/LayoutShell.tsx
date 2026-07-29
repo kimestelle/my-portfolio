@@ -23,6 +23,10 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
     () => pathname.startsWith('/playground'),
     [pathname]
   );
+  const fieldNotesMode = useMemo(
+    () => pathname.startsWith('/field-notes'),
+    [pathname]
+  );
 
   // user shader preference
   const [shaderPref, setShaderPref] = useState<boolean | null>(null);
@@ -91,8 +95,10 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
   }, [pathname]);
 
   useEffect(() => {
-    router.prefetch('/playground');
-  }, [router]);
+    if (!fieldNotesMode) {
+      router.prefetch('/playground');
+    }
+  }, [fieldNotesMode, router]);
 
   const onRouteNavigate = useCallback((
     event: React.MouseEvent<HTMLAnchorElement>,
@@ -187,18 +193,20 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
 
   return (
     <EntranceReadyProvider ready={entranceReady}>
-      <NavBar
-        shaderOn={shaderEnabled}
-        cellAutomataOn={cellAutomataPref === true}
-        playground={shaderDisabled}
-        shaderDisabled={shaderDisabled}
-        collapsingToPlayground={playgroundTransition === 'out'}
-        playgroundTransitioning={playgroundTransition !== 'idle'}
-        onToggleShader={onToggleShader}
-        onToggleCellAutomata={onToggleCellAutomata}
-        onRouteNavigate={onRouteNavigate}
-        onPlaygroundNavigate={onPlaygroundNavigate}
-      />
+      {!fieldNotesMode && (
+        <NavBar
+          shaderOn={shaderEnabled}
+          cellAutomataOn={cellAutomataPref === true}
+          playground={shaderDisabled}
+          shaderDisabled={shaderDisabled}
+          collapsingToPlayground={playgroundTransition === 'out'}
+          playgroundTransitioning={playgroundTransition !== 'idle'}
+          onToggleShader={onToggleShader}
+          onToggleCellAutomata={onToggleCellAutomata}
+          onRouteNavigate={onRouteNavigate}
+          onPlaygroundNavigate={onPlaygroundNavigate}
+        />
+      )}
 
       <TextShimmerGroup
         key={pathname}
@@ -210,7 +218,7 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
           {children}
         </div>
       </TextShimmerGroup>
-      {!shaderDisabled && <Footer />}
+      {!shaderDisabled && !fieldNotesMode && <Footer />}
       <MoodRingBackground
         enabled={shaderEnabled}
         onFps={onFps}

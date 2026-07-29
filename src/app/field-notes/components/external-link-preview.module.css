@@ -1,0 +1,241 @@
+.linkScope {
+  display: contents;
+}
+
+.dialog {
+  width: min(72rem, calc(100vw - 2rem));
+  height: min(48rem, calc(100svh - 2rem));
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-color);
+  border-radius: var(--radius-surface);
+  background: var(--background);
+  color: var(--text-primary);
+  box-shadow:
+    0 1px 2px rgba(22, 22, 22, 0.08),
+    0 24px 70px rgba(22, 22, 22, 0.2);
+}
+
+.dialog[open] {
+  animation: preview-in 210ms var(--motion-mood-ease) both;
+}
+
+.dialog[data-closing='true'] {
+  animation: preview-out 150ms ease-in both;
+  pointer-events: none;
+}
+
+.dialog::backdrop {
+  background: rgba(22, 22, 22, 0.2);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  animation: backdrop-in 180ms ease-out both;
+}
+
+.dialog[data-closing='true']::backdrop {
+  animation: backdrop-out 150ms ease-in both;
+}
+
+.window {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  width: 100%;
+  height: 100%;
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 1rem;
+  align-items: center;
+  min-height: 3rem;
+  padding: 0.55rem 0.65rem 0.55rem 0.9rem;
+  border-bottom: 1px solid var(--line-color);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.source {
+  display: flex;
+  min-width: 0;
+  gap: 0.65rem;
+  align-items: baseline;
+  font-family: var(--font-body);
+  font-size: var(--type-meta);
+  line-height: 1.2;
+}
+
+.source strong {
+  overflow: hidden;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.source span {
+  flex: none;
+  color: var(--text-meta);
+  font-size: 0.76rem;
+}
+
+.directLink,
+.closeButton {
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: var(--type-meta);
+  line-height: 1;
+  transition: color 160ms ease;
+}
+
+.directLink {
+  text-decoration: underline;
+  text-decoration-color: var(--line-color);
+  text-underline-offset: 0.18em;
+}
+
+.closeButton {
+  display: grid;
+  width: 1.9rem;
+  height: 1.9rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-control);
+  background: transparent;
+  place-items: center;
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.directLink:hover,
+.directLink:focus-visible,
+.closeButton:hover,
+.closeButton:focus-visible {
+  color: var(--text-primary);
+}
+
+.directLink:focus-visible,
+.closeButton:focus-visible {
+  outline: 1px solid var(--text-primary);
+  outline-offset: 3px;
+}
+
+.frameArea {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  background: rgb(247, 247, 247);
+}
+
+.frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: white;
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: var(--text-meta);
+  font-family: var(--font-body);
+  font-size: var(--type-meta);
+  transform: translate(-50%, -50%);
+}
+
+.blocked {
+  display: grid;
+  height: 100%;
+  padding: 2rem;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  text-align: center;
+  place-content: center;
+  justify-items: center;
+}
+
+.blocked a {
+  margin-top: 0.65rem;
+  color: var(--text-primary);
+  font-size: var(--type-meta);
+  text-decoration: underline;
+  text-decoration-color: var(--line-color);
+  text-underline-offset: 0.18em;
+}
+
+.blocked a:hover,
+.blocked a:focus-visible {
+  text-decoration-color: currentColor;
+}
+
+@keyframes preview-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.992);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes preview-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(5px) scale(0.995);
+  }
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes backdrop-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .dialog {
+    width: calc(100vw - 0.75rem);
+    height: calc(100svh - 0.75rem);
+  }
+
+  .toolbar {
+    gap: 0.7rem;
+    padding-left: 0.75rem;
+  }
+
+  .source span {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialog[open],
+  .dialog[data-closing='true'],
+  .dialog::backdrop,
+  .dialog[data-closing='true']::backdrop {
+    animation: none;
+  }
+}

@@ -1,0 +1,516 @@
+.page {
+  --field-accent: rgb(86, 112, 102);
+  min-height: 100svh;
+  padding-top: clamp(5rem, 7vw, 5.5rem);
+  padding-bottom: 2.5rem;
+}
+
+.cover {
+  padding: 0.75rem 0 clamp(1.5rem, 3vw, 2rem);
+  border-bottom: 1px solid var(--line-color);
+}
+
+.coverUtility {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.coverUtility > nav {
+  margin-bottom: 0;
+}
+
+.portfolioReturn {
+  flex: none;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--type-meta);
+  font-weight: 300;
+  text-decoration: underline;
+  text-decoration-color: var(--line-color);
+  text-underline-offset: 0.18em;
+  transition: color 180ms ease;
+}
+
+.portfolioReturn:hover,
+.portfolioReturn:focus-visible {
+  color: var(--field-accent);
+}
+
+.coverIntroduction {
+  max-width: 42rem;
+}
+
+.coverTitle {
+  font-family: var(--font-display);
+  font-size: var(--type-page-title);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+.coverDeck {
+  max-width: 40rem;
+  margin-top: 0.45rem;
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+
+.noteShelf {
+  display: grid;
+  border-bottom: 1px solid var(--line-color);
+}
+
+.noteCard {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.noteCard article {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(13rem, 16rem);
+  gap: clamp(1.25rem, 3vw, 2.25rem);
+  align-items: start;
+  padding-block: clamp(1rem, 2.2vw, 1.4rem);
+  border-top: 1px solid var(--line-color);
+}
+
+.noteCopy {
+  position: relative;
+  min-width: 0;
+  padding-left: 1.75rem;
+}
+
+.noteIndex {
+  position: absolute;
+  top: 0.28rem;
+  left: 0;
+  color: var(--text-decorative);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+}
+
+.noteCard h2 {
+  font-family: var(--font-display);
+  font-size: var(--type-section);
+  font-weight: 400;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.noteQuestion {
+  max-width: 31rem;
+  margin-top: 0.5rem;
+}
+
+.noteQuestion :global(.star-glyph-north) {
+  color: currentColor;
+  margin-right: 0.45rem;
+  font-size: 0.82rem;
+}
+
+.noteQuestion :global(.star-copy-north) {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.noteDescription {
+  max-width: 35rem;
+  margin-top: 0.65rem;
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.studyAction {
+  display: inline-block;
+  margin-top: 0.65rem;
+  color: var(--text-primary);
+  font-size: 0.82rem;
+  text-decoration: underline;
+  text-decoration-color: var(--line-color);
+  text-underline-offset: 0.2em;
+  transition:
+    color 180ms ease,
+    text-decoration-color 180ms ease,
+    transform 260ms var(--motion-mood-ease);
+}
+
+.noteImage {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.noteImage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.84) contrast(0.97);
+  transition:
+    filter 220ms ease,
+    transform 520ms var(--motion-mood-ease);
+}
+
+.noteCard:hover .noteImage img,
+.noteCard:focus-visible .noteImage img {
+  filter: saturate(1) contrast(1);
+  transform: scale(1.014);
+}
+
+.noteCard:hover .studyAction,
+.noteCard:focus-visible .studyAction {
+  color: var(--field-accent);
+  text-decoration-color: currentColor;
+  transform: translateX(2px);
+}
+
+.noteCard:focus-visible {
+  border-radius: var(--radius-control);
+  outline: 1px solid var(--text-primary);
+  outline-offset: 5px;
+}
+
+.disclosure {
+  border-bottom: 1px solid var(--line-color);
+}
+
+.disclosureHeading {
+  margin: 0;
+}
+
+.disclosureButton {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.2rem 1rem;
+  align-items: baseline;
+  width: 100%;
+  padding-block: 0.9rem;
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+}
+
+.disclosureLabel {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  gap: 0.4rem;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.disclosureLabel :global(.star-glyph-section) {
+  flex: none;
+  color: currentColor;
+  font-size: 1rem;
+}
+
+.disclosureLabel :global(.star-copy-section) {
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.disclosurePreview {
+  grid-column: 1;
+  grid-row: 2;
+  padding-left: 1.4rem;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: var(--type-meta);
+  font-weight: 300;
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+.disclosureToggle {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: center;
+  width: 1rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1;
+  text-align: center;
+  transition:
+    color 180ms ease,
+    transform 260ms var(--motion-mood-ease);
+}
+
+.disclosureButton:hover .disclosureToggle,
+.disclosureButton:focus-visible .disclosureToggle {
+  color: var(--field-accent);
+  transform: scale(1.08);
+}
+
+.disclosureButton:focus-visible {
+  border-radius: var(--radius-control);
+  outline: 1px solid var(--text-primary);
+  outline-offset: 5px;
+}
+
+.disclosureBody {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    grid-template-rows 360ms var(--motion-mood-ease),
+    opacity 180ms ease,
+    visibility 0s linear 360ms;
+}
+
+.disclosureOpen .disclosureBody {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  opacity: 1;
+  transition:
+    grid-template-rows 360ms var(--motion-mood-ease),
+    opacity 220ms 80ms ease,
+    visibility 0s linear;
+}
+
+.disclosureClip {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.disclosureContent {
+  padding-bottom: clamp(1.25rem, 3vw, 2rem);
+}
+
+.readerAlignedContent {
+  padding-left: 1.4rem;
+}
+
+.developmentPathGrid {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line-color);
+  border-bottom: 1px solid var(--line-color);
+  list-style: none;
+}
+
+.developmentPathGrid li {
+  display: grid;
+  grid-template-columns: minmax(9.5rem, 0.36fr) minmax(0, 1fr);
+  gap: clamp(0.9rem, 2.5vw, 1.5rem);
+  min-width: 0;
+  padding-block: 0.72rem 0.82rem;
+}
+
+.developmentPathGrid li + li {
+  border-top: 1px solid var(--line-color);
+}
+
+.developmentPathMeta {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.18rem 0.65rem;
+  align-content: start;
+  color: var(--text-decorative);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.035em;
+  line-height: 1.35;
+}
+
+.developmentPathMeta > span:first-child {
+  grid-row: 1 / 3;
+}
+
+.developmentPathMeta > span:last-child {
+  grid-column: 2;
+}
+
+.developmentPathGrid h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.developmentPathGrid p {
+  margin-top: 0.28rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.nowCopy {
+  max-width: 43rem;
+}
+
+.nowCopy .nowMoment {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--line-color);
+  color: var(--text-decorative);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.035em;
+  line-height: 1.35;
+}
+
+.nowCopy p {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.48;
+  text-wrap: pretty;
+}
+
+.nowCopy p + p {
+  margin-top: 0.5rem;
+}
+
+.explorationGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.9rem, 1.8vw, 1.25rem) clamp(0.65rem, 1.4vw, 0.9rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.explorationItem {
+  min-width: 0;
+}
+
+.explorationItem figure {
+  margin: 0;
+}
+
+.explorationImage {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: rgba(22, 22, 22, 0.035);
+}
+
+.explorationImage img {
+  object-fit: cover;
+  filter: saturate(0.9) contrast(0.98);
+  transition:
+    filter 220ms ease,
+    transform 480ms var(--motion-mood-ease);
+}
+
+.explorationItem:hover .explorationImage img {
+  filter: saturate(1) contrast(1);
+  transform: scale(1.012);
+}
+
+.explorationCaption {
+  display: grid;
+  gap: 0.22rem;
+  margin-top: 0.45rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+
+.explorationMedium {
+  color: var(--text-decorative);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.035em;
+  line-height: 1.2;
+}
+
+@media (max-width: 760px) {
+  .cover {
+    padding-top: 0.5rem;
+  }
+
+  .coverIntroduction {
+    margin-top: 0;
+  }
+
+  .noteCard article {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    min-height: 0;
+    padding-block: 1.35rem 1.5rem;
+  }
+
+  .noteCopy {
+    padding-left: 1.5rem;
+  }
+
+  .noteImage {
+    grid-row: 1;
+  }
+
+  .noteCopy {
+    grid-row: 2;
+  }
+
+  .disclosureButton {
+    gap: 0.22rem 0.8rem;
+  }
+
+  .disclosurePreview {
+    padding-left: 1.4rem;
+    font-size: var(--type-meta);
+  }
+
+  .readerAlignedContent {
+    padding-left: 0;
+  }
+
+  .explorationGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 0.65rem;
+  }
+}
+
+@media (max-width: 440px) {
+  .coverTitle {
+    font-size: 1.7rem;
+  }
+
+  .noteCard h2 {
+    font-size: var(--type-section);
+  }
+
+  .noteImage {
+    aspect-ratio: 16 / 11;
+  }
+
+  .explorationCaption {
+    font-size: 0.78rem;
+  }
+
+  .developmentPathGrid li {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .studyAction,
+  .noteImage img,
+  .explorationImage img,
+  .disclosureBody,
+  .disclosureToggle {
+    transition: none;
+  }
+}

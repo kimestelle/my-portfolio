@@ -1,0 +1,333 @@
+.page {
+  --blue-soft: rgba(53, 126, 179, 0.1);
+  --blue-ink: rgb(28, 50, 68);
+}
+
+.page :where(a, summary) {
+  text-underline-offset: 0.19em;
+}
+
+.heroArtifacts {
+  position: absolute;
+  top: 49%;
+  right: -4%;
+  width: min(29rem, 52%);
+  height: 20rem;
+  opacity: 0.11;
+  transform: translateY(-48%) rotate(-2deg);
+}
+
+.heroArtifacts img {
+  position: absolute;
+  width: 9.5rem;
+  height: auto;
+  filter: saturate(0.72);
+}
+
+.heroArtifacts img:nth-child(1) {
+  top: 2.5rem;
+  right: 0;
+  transform: rotate(8deg);
+}
+
+.heroArtifacts img:nth-child(2) {
+  top: 0;
+  right: 8.4rem;
+  transform: rotate(-7deg);
+}
+
+.heroArtifacts img:nth-child(3) {
+  top: 5.2rem;
+  right: 16rem;
+  transform: rotate(4deg);
+}
+
+.heroFigure {
+  margin-top: 1.2rem;
+  margin-bottom: 5rem;
+}
+
+.section {
+  position: relative;
+  scroll-margin-top: 6.5rem;
+  margin-bottom: clamp(4.5rem, 10vw, 6.5rem);
+}
+
+.section > p,
+.ownershipGrid + p {
+  margin-bottom: 1.35rem;
+  color: var(--text-secondary);
+}
+
+.lead {
+  color: var(--text-primary) !important;
+  font-size: var(--type-lead);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.artifactGeometry {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+  margin: 3rem auto 2rem;
+  width: min(34rem, 100%);
+}
+
+.artifactGeometry > span {
+  color: var(--field-accent);
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+}
+
+.artifactGeometry figure {
+  min-width: 0;
+}
+
+.artifactImage {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 5 / 6;
+  border: 1px solid var(--line-color);
+  background: rgba(255, 255, 255, 0.64);
+}
+
+.artifactImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.artifactGeometry figcaption {
+  margin-top: 0.55rem;
+  color: var(--text-meta);
+  font-size: var(--type-meta);
+  line-height: 1.35;
+}
+
+
+.references li::marker {
+  content: "";
+}
+
+.ownershipGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 2rem;
+  border: 1px solid var(--line-color);
+}
+
+.ownershipGrid > div {
+  padding: 1.25rem;
+}
+
+.ownershipGrid > div + div {
+  border-left: 1px solid var(--line-color);
+}
+
+.ownershipGrid h3 {
+  margin: 0 0 1rem;
+  font-size: var(--type-lead);
+  font-weight: 400;
+}
+
+.ownershipGrid ul {
+  display: grid;
+  gap: 0.55rem;
+  padding-left: 1rem;
+  color: var(--text-secondary);
+  font-size: var(--type-meta);
+  line-height: 1.42;
+  list-style: disc;
+}
+
+.ownershipGrid li::marker {
+  color: var(--field-accent);
+  font-size: 0.65em;
+}
+
+.retrospectiveSection {
+  margin-bottom: 2rem;
+  padding: 1.25rem 1.4rem 1.4rem;
+  border: 1px solid var(--line-color);
+  background: color-mix(in srgb, var(--field-accent) 3%, transparent);
+}
+
+.improvementList {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line-color);
+  list-style: none;
+  counter-reset: improvements;
+}
+
+.improvementList li {
+  counter-increment: improvements;
+  display: grid;
+  grid-template-columns: 1.8rem minmax(11rem, 0.7fr) minmax(0, 1.3fr);
+  gap: 0.75rem 1.15rem;
+  padding-block: 0.95rem;
+  border-bottom: 1px solid var(--line-color);
+}
+
+.improvementList li::before {
+  content: "0" counter(improvements);
+  grid-column: 1;
+  grid-row: 1;
+  color: var(--field-accent);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+}
+
+.improvementList h3 {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+.improvementList p {
+  grid-column: 3;
+  grid-row: 1;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.48;
+  text-wrap: pretty;
+}
+
+.references {
+  list-style: none;
+  counter-reset: references;
+  border-top: 1px solid var(--line-color);
+}
+
+.references li {
+  counter-increment: references;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(10rem, 0.72fr);
+  gap: 1.4rem;
+  padding-block: 0.85rem;
+  border-bottom: 1px solid var(--line-color);
+  font-size: var(--type-meta);
+}
+
+.references li > :first-child {
+  color: var(--text-primary);
+}
+
+.references li > a {
+  text-decoration: underline;
+  text-decoration-color: color-mix(
+    in srgb,
+    var(--field-accent) 42%,
+    transparent
+  );
+  transition: color 180ms ease;
+}
+
+.references li > a:hover,
+.references li > a:focus-visible {
+  color: var(--field-accent);
+}
+
+.references li > span:last-child {
+  color: var(--text-meta);
+}
+
+.archiveReference {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.endMatter {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line-color);
+  color: var(--text-meta);
+  font-size: var(--type-meta);
+}
+
+.endMatter a {
+  flex: none;
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-decoration-color: var(--line-color);
+}
+
+.page :where(a, summary):focus-visible {
+  border-radius: var(--radius-control);
+  outline: 1px solid var(--text-primary);
+  outline-offset: 4px;
+}
+
+@media (max-width: 720px) {
+  .heroArtifacts {
+    right: -34%;
+    width: 86%;
+    opacity: 0.08;
+  }
+
+  .heroFigure {
+    margin-bottom: 3.5rem;
+  }
+
+  .section {
+    margin-bottom: 5.25rem;
+  }
+
+
+  .ownershipGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .ownershipGrid > div + div {
+    border-top: 1px solid var(--line-color);
+    border-left: 0;
+  }
+
+  .references li {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+
+  .retrospectiveSection {
+    padding: 1rem;
+  }
+
+  .improvementList li {
+    grid-template-columns: 1.5rem minmax(0, 1fr);
+    gap: 0.3rem 0.7rem;
+  }
+
+  .improvementList h3,
+  .improvementList p {
+    grid-column: 2;
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 500px) {
+  .artifactGeometry {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    width: min(17rem, 100%);
+  }
+
+  .artifactGeometry > span {
+    display: none;
+  }
+
+  .endMatter {
+    display: grid;
+  }
+}
