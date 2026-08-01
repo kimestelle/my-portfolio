@@ -65,11 +65,11 @@ export default function ProjectHTML() {
                       ↗
                     </span>
                   </div>
+                  <p className="type-meta mt-2 text-[color:var(--text-meta)]">
+                    {project.collapsed.roleLine}
+                  </p>
                   <p className="mt-1.5 text-[color:var(--text-secondary)]">
                     {project.collapsed.purpose}
-                  </p>
-                  <p className="type-meta mt-2 text-[color:var(--text-meta)]">
-                    {project.collapsed.resultLine}
                   </p>
                 </div>
               </article>

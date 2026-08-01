@@ -71,7 +71,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
         'Helping Penn Museum visitors collect and remix the artifacts they discovered.',
       indexLine:
         'Helping 180,000+ Penn Museum visitors collect and remix the artifacts they discovered.',
-      roleLine: 'frontend developer · 5-person development team',
+      roleLine:
+        'frontend developer · proposed + owned the core camera interaction',
       resultLine:
         'camera-to-sticker pipeline · 180,000+ visitors · nine-month deployment',
     },
@@ -126,10 +127,11 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        'Turning recorded browsing paths into a 3D map that visitors could reorganize with their own words.',
+        'Turning browsing paths into a 3D map that visitors can reorganize with their own words.',
       indexLine:
         'Turning 300+ websites and 1,000+ navigation edges into a map visitors could reorganize with their own words.',
-      roleLine: 'technical lead · 8-person team',
+      roleLine:
+        'technical lead · shaped the product + integrated an 8-person build',
       resultLine:
         'technical lead · 300+ sites · 1,000+ edges · 40+ live demo',
     },
@@ -284,7 +286,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
         'Turning a fabric photograph into a material you can inspect, tune, simulate, and export.',
       indexLine:
         'Turning a fabric photo into a tunable material for live cloth, PBR maps, and GLB export.',
-      roleLine: 'solo designer + engineer · material and simulation R&D',
+      roleLine: 'solo designer + engineer · built the product 0→1',
       resultLine: 'solo build · photo-to-PBR · XPBD cloth · portable export',
     },
     story: {

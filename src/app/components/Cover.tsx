@@ -22,8 +22,8 @@ export default function Cover() {
           </div>
 
           <p className="mt-3 text-[color:var(--text-secondary)]">
-            I work across graphics, full-stack engineering, and design,
-            choosing the technology based on what the product needs and how
+            design engineer with graphics and full-stack background,
+            choosing technology based on what the product needs and how
             people will use it.
           </p>
 
