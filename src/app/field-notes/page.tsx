@@ -180,9 +180,9 @@ export default function FieldNotesIndex() {
               how i design & engineer (in long form)
             </ShimmerText>
           </div>
-          <FieldNoteDetail label="made by:">
+          {/* <FieldNoteDetail label="made by:">
             throwing a ton of docs, repos, and stories into Codex & directing it to organize it with my portfolio&apos;s design system.
-          </FieldNoteDetail>
+          </FieldNoteDetail> */}
         </header>
 
         <nav className={styles.noteShelf} aria-label="Project studies">
