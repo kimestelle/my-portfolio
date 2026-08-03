@@ -91,6 +91,40 @@ export const INTERACTION_STUDIES: InteractionStudy[] = [
     stage: 'released',
   },
   {
+    id: 'duck-customization',
+    name: 'Duck Customization',
+    category: 'avatar customization',
+    date: 'Summer 2024',
+    dateTime: '2024-08',
+    explores:
+      'two color controls and swappable accessories for one duck avatar',
+    technical:
+      'Two color pickers update the duck’s SVG fill and gradient. Accessory state swaps paired front and side SVG layers.',
+    image: '/project-images/interaction-studies/duck-customization-poster.png',
+    imageAlt: 'Better Spelling Bee profile with duck color and accessory controls',
+    video: '/project-images/interaction-studies/duck-customization.m4v',
+    videoFit: 'contain',
+    githubUrl: 'https://github.com/kimestelle/better-spelling-bee',
+    stage: 'released',
+  },
+  {
+    id: 'duck-gameplay',
+    name: 'Duck Gameplay',
+    category: 'word game interaction',
+    date: 'Summer 2024',
+    dateTime: '2024-08',
+    explores:
+      'clicking, dragging, shuffling, and submitting ducks as letters',
+    technical:
+      'Each letter is a stack of draggable ducks. dnd-kit manages the word line while fly and sink states show accepted and rejected words.',
+    image: '/project-images/interaction-studies/duck-gameplay-poster.png',
+    imageAlt: 'Better Spelling Bee ducks being arranged into a word',
+    video: '/project-images/interaction-studies/duck-gameplay.m4v',
+    videoFit: 'contain',
+    githubUrl: 'https://github.com/kimestelle/better-spelling-bee',
+    stage: 'released',
+  },
+  {
     id: 'image-to-scene',
     name: 'Image to Scene',
     category: 'spatial authoring tool',
