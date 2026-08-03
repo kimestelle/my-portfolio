@@ -38,6 +38,21 @@ export const INTERACTION_STUDIES: InteractionStudy[] = [
     stage: 'current',
   },
   {
+    id: 'boid-crowd',
+    name: 'Boid Crowd',
+    category: 'crowd simulation',
+    date: 'Jan 2026',
+    dateTime: '2026-01',
+    explores:
+      'hand-modeled, hand-rigged humanoids driven by local boid and pointer rules',
+    technical:
+      'Nearby agents switch between idle and active rigs. Hover attracts the crowd; press repels it.',
+    image: '/project-images/interaction-studies/boid-crowd-poster.png',
+    imageAlt: 'A crowd of low-poly humanoids gathering around a pointer radius',
+    video: '/project-images/interaction-studies/boid-crowd.m4v',
+    stage: 'released',
+  },
+  {
     id: 'iridescence',
     name: 'Iridescence',
     category: 'npm library in testing',
@@ -122,6 +137,24 @@ export const INTERACTION_STUDIES: InteractionStudy[] = [
     video: '/project-images/interaction-studies/duck-gameplay.m4v',
     videoFit: 'contain',
     githubUrl: 'https://github.com/kimestelle/better-spelling-bee',
+    stage: 'released',
+  },
+  {
+    id: 'city-skyline',
+    name: 'City Skyline',
+    category: 'interactive sandbox',
+    date: 'Nov 2024',
+    dateTime: '2024-11',
+    explores:
+      'press-and-hold city building with weather and destruction states',
+    technical:
+      'Press duration sets each block’s height. Weather and sky run as separate scene layers; a tornado scatters the placed blocks and sprites.',
+    image: '/project-images/interaction-studies/city-skyline-poster.png',
+    imageAlt: 'A blue city-building sandbox with an empty ground plane and click-and-hold prompt',
+    video: '/project-images/interaction-studies/city-skyline.m4v',
+    videoFit: 'contain',
+    liveUrl: 'https://kimestelle.github.io/city-skyline/',
+    githubUrl: 'https://github.com/kimestelle/city-skyline',
     stage: 'released',
   },
   {
