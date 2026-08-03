@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from 'react';
 import type { InteractionStudy } from '../playground/components/studyData';
 import styles from './interaction-grid.module.css';
 
+const MOBILE_MEDIA_QUERY = '(max-width: 767px)';
+
 function StudyMedia({
   study,
   playing,
@@ -38,10 +40,15 @@ function StudyMedia({
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || !videoReady) return;
-    if (playing) void video.play().catch(() => undefined);
-    else video.pause();
-  }, [playing, videoReady]);
+    if (!video) return;
+    if (playing) {
+      // Calling play initiates loading on mobile browsers that do not emit
+      // canplay for metadata-only video until playback has been requested.
+      void video.play().catch(() => undefined);
+    } else {
+      video.pause();
+    }
+  }, [entered, playing]);
 
   return (
     <div ref={mediaRef} className={styles.media}>
@@ -49,7 +56,7 @@ function StudyMedia({
         src={study.image}
         alt={study.imageAlt}
         fill
-        sizes="(max-width: 700px) 100vw, 33vw"
+        sizes="(max-width: 767px) 100vw, 33vw"
         className={styles.poster}
       />
       {study.video && entered ? (
@@ -64,6 +71,7 @@ function StudyMedia({
           aria-label={study.imageAlt}
           onCanPlay={() => setVideoReady(true)}
           onLoadedData={() => setVideoReady(true)}
+          onPlaying={() => setVideoReady(true)}
         />
       ) : null}
     </div>
@@ -97,7 +105,7 @@ export default function InteractionGrid({
   const [hoveredStudy, setHoveredStudy] = useState<string | null>(null);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 700px)');
+    const mediaQuery = window.matchMedia(MOBILE_MEDIA_QUERY);
     let frame = 0;
 
     const updateActiveStudy = () => {
@@ -133,13 +141,23 @@ export default function InteractionGrid({
     updateActiveStudy();
     window.addEventListener('scroll', updateActiveStudy, { passive: true });
     window.addEventListener('resize', updateActiveStudy);
+    window.visualViewport?.addEventListener('scroll', updateActiveStudy, { passive: true });
+    window.visualViewport?.addEventListener('resize', updateActiveStudy);
     mediaQuery.addEventListener('change', updateActiveStudy);
+
+    const resizeObserver = typeof ResizeObserver === 'undefined'
+      ? null
+      : new ResizeObserver(updateActiveStudy);
+    if (gridRef.current) resizeObserver?.observe(gridRef.current);
 
     return () => {
       window.cancelAnimationFrame(frame);
       window.removeEventListener('scroll', updateActiveStudy);
       window.removeEventListener('resize', updateActiveStudy);
+      window.visualViewport?.removeEventListener('scroll', updateActiveStudy);
+      window.visualViewport?.removeEventListener('resize', updateActiveStudy);
       mediaQuery.removeEventListener('change', updateActiveStudy);
+      resizeObserver?.disconnect();
     };
   }, []);
 
