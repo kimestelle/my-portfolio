@@ -53,12 +53,6 @@
   scroll-margin-top: 6.5rem;
 }
 
-.section > p {
-  max-width: 48rem;
-  margin-bottom: 1.3rem;
-  color: var(--text-secondary);
-}
-
 .section .lead {
   color: var(--text-primary);
   font-size: var(--type-lead);

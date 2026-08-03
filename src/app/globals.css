@@ -333,6 +333,27 @@ code {
   line-height: 1.4;
 }
 
+/* Shared reading rhythm: paragraphs stay together; sections and media create
+   the larger breaks. This avoids stacking paragraph margins with block margins. */
+.prose-stack {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.prose-stack > p,
+.reading-flow > p {
+  margin: 0;
+}
+
+.reading-flow > p {
+  max-width: 48rem;
+  color: var(--text-secondary);
+}
+
+.reading-flow > p + p {
+  margin-top: 0.8rem;
+}
+
 .case-study-reading-scope {
   --field-accent: var(--text-primary);
   --type-page-title: clamp(2.25rem, 4vw, 2.75rem);

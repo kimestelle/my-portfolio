@@ -80,8 +80,9 @@ export default function ProjectBlock({ project }: ProjectBlockProps) {
                 active
                 preload="auto"
                 maxResolution="1080p"
+                objectFit="contain"
                 onReady={() => setMediaReady(true)}
-                className="h-full w-full bg-neutral-950 object-cover"
+                className="h-full w-full bg-neutral-950 object-contain"
               />
             </div>
           )}

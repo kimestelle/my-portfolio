@@ -14,6 +14,7 @@ const mapEntries = [
   ['model', 'contract model'],
   ['setup', 'contract setup'],
   ['surfaces', 'wallet, profile, and settings'],
+  ['system', 'design system'],
   ['states', 'proof and contract states'],
   ['reviews', 'implementation review'],
   ['retrospective', 'retrospective', 'retrospective'],
@@ -146,6 +147,11 @@ export default function TallyCaseStudy({
           hideBreadcrumb={inline}
         />
 
+        <p className={styles.consentNote} role="note">
+          All files shown in this case study are shared with consent from
+          Tally&apos;s founder.
+        </p>
+
         <FieldNoteProjectSummary
           facts={[
             ['role', 'product designer'],
@@ -155,9 +161,9 @@ export default function TallyCaseStudy({
           ]}
           keyDetails={[
             'mapped the full flow from choosing a habit through proof and payout',
-            'designed contract setup, partner approval, and money-at-stake decisions',
+            'designed contract setup, partner approval, money-at-stake, and proof decisions',
             'prototyped wallet, funding, profile, friends, feed, notifications, and settings',
-            'gave photo and Screen Time proof the same submission and review states',
+            'built the design system across type, color, icons, controls, cards, navigation, and modals',
             'covered waiting, failure, dispute, retry, recovery, and empty states',
           ]}
         />
@@ -334,6 +340,54 @@ export default function TallyCaseStudy({
 
           <FieldNoteSection
             number="03"
+            id="system"
+            title="design system"
+            className={styles.section}
+          >
+            <p className={styles.lead}>
+              I built the interface system alongside the flows so the product
+              did not have to be restyled or reinterpreted screen by screen.
+            </p>
+
+            <div className={styles.surfaceRoles} aria-label="Tally design system scope">
+              <div>
+                <span>foundations</span>
+                <strong>type scale, color roles, texture, and elevation</strong>
+              </div>
+              <div>
+                <span>navigation and actions</span>
+                <strong>tab bar, buttons, selection, and loading states</strong>
+              </div>
+              <div>
+                <span>inputs and status</span>
+                <strong>fields, labels, timers, icons, and contract states</strong>
+              </div>
+              <div>
+                <span>product patterns</span>
+                <strong>cards, informational modals, confirmation, and errors</strong>
+              </div>
+            </div>
+
+            <FieldNoteFigure
+              src="/project-images/tally/design-system.png"
+              alt="Tally design system board covering identity, typography, color, navigation, actions, selection controls, labels, inputs, cards, icons, and modal patterns"
+              width={1800}
+              height={1256}
+              caption="the working system covered foundations, reusable controls, product states, and modal patterns."
+              imageClassName={styles.darkBoard}
+              sizes="(max-width: 767px) 100vw, 70rem"
+            />
+
+            <p>
+              The components carried the same hierarchy across routine actions
+              and higher-risk moments. Funding permission, failed proof,
+              confirmation, and error states use repeatable patterns instead of
+              one-off screens.
+            </p>
+          </FieldNoteSection>
+
+          <FieldNoteSection
+            number="04"
             id="states"
             title="proof and contract states"
             className={styles.section}
@@ -415,7 +469,7 @@ export default function TallyCaseStudy({
           </FieldNoteSection>
 
           <FieldNoteSection
-            number="04"
+            number="05"
             id="reviews"
             title="implementation review"
             className={styles.section}
@@ -471,7 +525,7 @@ export default function TallyCaseStudy({
           </FieldNoteSection>
 
           <FieldNoteSection
-            number="05"
+            number="06"
             id="retrospective"
             title="retrospective"
             className={styles.section}

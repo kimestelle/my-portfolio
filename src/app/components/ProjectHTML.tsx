@@ -91,8 +91,9 @@ function SelectedProjectCard({ project }: { project: PortfolioProject }) {
                       active={active}
                       preload="metadata"
                       maxResolution="720p"
+                      objectFit="contain"
                       onReady={() => setMediaReady(true)}
-                      className="h-full w-full bg-neutral-950 object-cover"
+                      className="h-full w-full bg-neutral-950 object-contain"
                     />
                   </div>
                 ) : null}
@@ -107,7 +108,7 @@ function SelectedProjectCard({ project }: { project: PortfolioProject }) {
                     preload="metadata"
                     onLoadedData={() => setMediaReady(true)}
                     onCanPlay={() => setMediaReady(true)}
-                    className={`pointer-events-none absolute inset-0 h-full w-full bg-neutral-950 object-cover transition-opacity duration-300 ${
+                    className={`pointer-events-none absolute inset-0 h-full w-full bg-neutral-950 object-contain transition-opacity duration-300 ${
                       showPreview ? 'opacity-100' : 'opacity-0'
                     }`}
                     aria-hidden="true"

@@ -221,7 +221,7 @@ export function FieldNoteSection({
   children: ReactNode;
 }) {
   return (
-    <section id={id} className={className}>
+    <section id={id} className={`${className} reading-flow`}>
       <header
         id={`${id}-heading`}
         className={`${styles.sectionHeading} star-line-section`}

@@ -2,10 +2,16 @@
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+import { useEntranceReady } from '../../EntranceReadyContext';
 import { LAB_BY_TECH, type LabItem } from './labData';
-import BubblePrototype from './BubblePrototype';
 import MagnifierImage from './MagnifierImage';
 import { LAB_COMPONENTS } from './labComponents';
+
+const BubblePrototype = dynamic(() => import('./BubblePrototype'), {
+  ssr: false,
+  loading: () => null,
+});
 
 function wallpaperNoise(value: number, seed: number) {
   const hash = (cell: number) => {
@@ -18,10 +24,11 @@ function wallpaperNoise(value: number, seed: number) {
   return (hash(cell) + (hash(cell + 1) - hash(cell)) * eased) * 2 - 1;
 }
 
-function BrewingBubbles() {
+function BrewingBubbles({ readyForMedia }: { readyForMedia: boolean }) {
   const wallpaperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!readyForMedia) return;
     const wallpaper = wallpaperRef.current;
     if (!wallpaper || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     let frame = 0;
@@ -40,7 +47,7 @@ function BrewingBubbles() {
 
     frame = requestAnimationFrame(moveWallpaper);
     return () => cancelAnimationFrame(frame);
-  }, []);
+  }, [readyForMedia]);
 
   return (
     <div
@@ -63,7 +70,13 @@ function BrewingBubbles() {
         }}
         aria-hidden="true"
       />
-      <BubblePrototype />
+      <div
+        className={`absolute inset-0 transition-opacity duration-[var(--motion-mood-duration)] ease-[var(--motion-mood-ease)] ${
+          readyForMedia ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        {readyForMedia ? <BubblePrototype /> : null}
+      </div>
     </div>
   );
 }
@@ -90,6 +103,7 @@ function findLabItem(groups: typeof LAB_BY_TECH, id: string) {
 
 export default function LabExperiments() {
   const all = LAB_BY_TECH;
+  const entranceReady = useEntranceReady();
 
   const initial = useMemo(() => firstItem(all), [all]);
   const [activeId, setActiveId] = useState<string>(initial?.id ?? '');
@@ -211,11 +225,11 @@ export default function LabExperiments() {
           </div>
 
           {view === 'brewing' ? (
-            <BrewingBubbles />
+            <BrewingBubbles readyForMedia={entranceReady} />
           ) : (
           <div className="ui-radius-surface overflow-hidden">
             <div className="relative w-full h-[48svh] max-h-[50svh] md:h-auto md:max-h-[80svh] md:aspect-[16/9] bg-neutral-100 flex justify-center items-center overflow-hidden">
-              {ActiveComponent ? (
+              {!entranceReady ? null : ActiveComponent ? (
                 <ActiveComponent />
               ) : preview?.type === 'iframe' ? (
                 <iframe

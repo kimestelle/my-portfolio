@@ -19,7 +19,6 @@ import {
 import { useEntranceReady } from '../EntranceReadyContext';
 import { ShimmerText } from '../design-deets/text-shimmer/TextShimmer';
 import LazyVideo from './components/DeferredLazyVideo';
-import TallyCover from './components/TallyCover';
 import {
   PORTFOLIO_PROJECTS,
   PROJECT_SECTIONS,
@@ -162,15 +161,6 @@ function ProjectMedia({
 
   const shouldMountPreview = active && allowMotion && Boolean(preview);
 
-  if (project.id === 'tally') {
-    return (
-      <TallyCover
-        animated={active && allowMotion}
-        className={className}
-      />
-    );
-  }
-
   return (
     <div className={`relative overflow-hidden bg-neutral-950 ${className}`}>
       <Image
@@ -202,8 +192,9 @@ function ProjectMedia({
             active
             preload="metadata"
             maxResolution="1080p"
+            objectFit="contain"
             onReady={() => setMediaReady(true)}
-            className="h-full w-full bg-neutral-950 object-cover"
+            className="h-full w-full bg-neutral-950 object-contain"
           />
         </div>
       )}
@@ -211,7 +202,7 @@ function ProjectMedia({
       {shouldMountPreview && preview && isFileVideo(preview) && (
         <video
           src={preview}
-          className={`absolute inset-0 h-full w-full bg-neutral-950 object-cover ${
+          className={`absolute inset-0 h-full w-full bg-neutral-950 object-contain ${
             mediaReady ? 'opacity-100' : 'opacity-0'
           }`}
           style={{ transition: FULL_MEDIA_TRANSITION }}
@@ -527,17 +518,13 @@ function ProjectRow({
               className="media-clip-surface relative aspect-[16/10] w-full bg-neutral-950"
               aria-hidden="true"
             >
-              {project.id === 'tally' ? (
-                <TallyCover compact className="h-full" />
-              ) : (
-                <Image
-                  src={project.media.cover}
-                  alt=""
-                  fill
-                  sizes="(max-width: 639px) 5.5rem, (max-width: 767px) 7.5rem, 10rem"
-                  className="object-cover"
-                />
-              )}
+              <Image
+                src={project.media.cover}
+                alt=""
+                fill
+                sizes="(max-width: 639px) 5.5rem, (max-width: 767px) 7.5rem, 10rem"
+                className="object-cover"
+              />
             </div>
           ) : null}
 

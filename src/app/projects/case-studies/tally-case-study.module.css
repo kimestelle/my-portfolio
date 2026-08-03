@@ -2,6 +2,13 @@
   overflow-x: clip;
 }
 
+.consentNote {
+  margin-top: 0.8rem;
+  color: var(--text-meta);
+  font-size: var(--type-meta);
+  line-height: 1.4;
+}
+
 .heroFigure {
   display: grid;
   gap: 0.65rem;
@@ -83,12 +90,6 @@
 .section {
   margin-bottom: clamp(4rem, 9vw, 6.5rem);
   scroll-margin-top: 6.5rem;
-}
-
-.section > p {
-  max-width: 48rem;
-  margin-bottom: 1.3rem;
-  color: var(--text-secondary);
 }
 
 .section .lead {

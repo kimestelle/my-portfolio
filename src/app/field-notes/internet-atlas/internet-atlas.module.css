@@ -61,12 +61,6 @@
   margin-bottom: clamp(4.5rem, 10vw, 6.5rem);
 }
 
-.section > p,
-.ownershipGrid + p {
-  margin-bottom: 1.35rem;
-  color: var(--text-secondary);
-}
-
 .lead {
   color: var(--text-primary) !important;
   font-family: var(--font-body);

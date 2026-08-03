@@ -18,6 +18,7 @@ export type LazyVideoProps = {
   active?: boolean;
   preload?: "none" | "metadata" | "auto";
   maxResolution?: MuxPlayerProps["maxResolution"];
+  objectFit?: "cover" | "contain";
   onReady?: () => void;
 };
 
@@ -31,6 +32,7 @@ export default function LazyVideo({
   active,
   preload = "metadata",
   maxResolution,
+  objectFit = "cover",
   onReady,
 }: LazyVideoProps) {
   const { isVisible, targetRef } = useIsVisible(
@@ -101,7 +103,7 @@ export default function LazyVideo({
         style={
           {
             "--controls": "none",
-            "--media-object-fit": "cover",
+            "--media-object-fit": objectFit,
             "--media-object-position": "center",
           } as MuxCSSProperties
         }

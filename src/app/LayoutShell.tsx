@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState, ReactNode } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, ReactNode } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
@@ -11,13 +11,16 @@ import { EntranceReadyProvider } from './EntranceReadyContext';
 const SHADER_PREF_KEY = 'estelle-portfolio:shader-enabled-v2';
 const CELL_AUTOMATA_PREF_KEY = 'estelle-portfolio:cell-automata-enabled';
 const PLAYGROUND_ROUTE_OUT_MS = 180;
-const PLAYGROUND_ROUTE_IN_MS = 280;
+const PLAYGROUND_ROUTE_IN_MS = 360;
+
+type PlaygroundTransition = 'idle' | 'out' | 'enter' | 'reveal';
 
 export default function LayoutShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const [playgroundTransition, setPlaygroundTransition] = useState<'idle' | 'out' | 'reveal'>('idle');
+  const [playgroundTransition, setPlaygroundTransition] = useState<PlaygroundTransition>('idle');
   const pendingRouteRef = useRef<string | null>(null);
+  const previousPathnameRef = useRef(pathname);
 
   const shaderDisabled = useMemo(
     () => pathname.startsWith('/playground'),
@@ -158,16 +161,35 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
     return () => window.clearTimeout(timer);
   }, [pathname, playgroundTransition, router]);
 
-  useEffect(() => {
-    if (
-      playgroundTransition !== 'out'
-      || pendingRouteRef.current !== pathname
-    ) return;
+  useLayoutEffect(() => {
+    const previousPathname = previousPathnameRef.current;
+    previousPathnameRef.current = pathname;
+    if (previousPathname === pathname) return;
+
+    const crossesPlayground = (
+      previousPathname.startsWith('/playground')
+      || pathname.startsWith('/playground')
+    );
+    if (!crossesPlayground) {
+      pendingRouteRef.current = null;
+      setPlaygroundTransition('idle');
+      return;
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      pendingRouteRef.current = null;
+      setPlaygroundTransition('idle');
+      return;
+    }
+
+    // Put the newly rendered route at zero opacity before the browser paints,
+    // including when navigation came from Back or Forward rather than the nav.
+    setPlaygroundTransition('enter');
     const frame = window.requestAnimationFrame(
       () => setPlaygroundTransition('reveal'),
     );
     return () => window.cancelAnimationFrame(frame);
-  }, [pathname, playgroundTransition]);
+  }, [pathname]);
 
   useEffect(() => {
     if (playgroundTransition !== 'reveal') return;
@@ -180,14 +202,19 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
 
   const routeContentStyle = {
     width: '100%',
-    opacity: playgroundTransition === 'out' ? 0.78 : 1,
-    transform: playgroundTransition === 'out'
-      ? `translateY(${shaderDisabled ? '5px' : '-5px'})`
-      : 'translateY(0)',
+    opacity: playgroundTransition === 'out' || playgroundTransition === 'enter'
+      ? 0
+      : 1,
+    pointerEvents: playgroundTransition === 'out' || playgroundTransition === 'enter'
+      ? 'none' as const
+      : 'auto' as const,
+    willChange: playgroundTransition === 'idle' ? 'auto' : 'opacity',
     transition: playgroundTransition === 'out'
-      ? `opacity ${PLAYGROUND_ROUTE_OUT_MS}ms ease-out, transform ${PLAYGROUND_ROUTE_OUT_MS}ms ease-out`
+      ? `opacity ${PLAYGROUND_ROUTE_OUT_MS}ms cubic-bezier(0.4, 0, 1, 1)`
+      : playgroundTransition === 'enter'
+        ? 'none'
       : playgroundTransition === 'reveal'
-        ? `opacity ${PLAYGROUND_ROUTE_IN_MS}ms cubic-bezier(0.22, 0.7, 0.25, 1), transform ${PLAYGROUND_ROUTE_IN_MS}ms cubic-bezier(0.22, 0.7, 0.25, 1)`
+        ? `opacity ${PLAYGROUND_ROUTE_IN_MS}ms cubic-bezier(0.22, 0.7, 0.25, 1)`
         : 'none',
   };
 

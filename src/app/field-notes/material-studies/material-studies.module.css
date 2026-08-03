@@ -55,11 +55,6 @@
 }
 
 
-.studySection > p {
-  margin-bottom: 1.35rem;
-  color: var(--text-secondary);
-}
-
 .studyHeader {
   display: flex;
   justify-content: space-between;

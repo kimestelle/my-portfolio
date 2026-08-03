@@ -73,7 +73,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       indexLine:
         'A habit app where proof, partners, and small bets have to make sense.',
       roleLine:
-        'product design · flows, states, and mobile UI',
+        'product design · flows, states, design system, and mobile UI',
       resultLine:
         '10 starting flows → a complete product structure',
     },
@@ -81,12 +81,13 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       goal:
         'Tally lets someone put a small amount of money behind a habit, then prove it with a photo or Screen Time.',
       role:
-        'I mapped and designed the full mobile product: contract setup and proof, wallet and funding, profiles and friends, feed, settings, and failure states.',
+        'I mapped and designed the full mobile product and its design system: contract setup and proof, wallet and funding, profiles and friends, feed, settings, and failure states.',
       owned: [
         'the full app map',
         'contract setup',
         'photo and Screen Time proof',
         'wallet, profile, feed, and settings flows',
+        'the visual and component design system',
         'success, failure, waiting, and recovery states',
       ],
       challenge:
@@ -99,7 +100,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
         'I started by designing habit screens. The project got much easier once I realized the contract—not the habit card—was the thing moving through the app.',
     },
     media: {
-      cover: '/project-images/tally/demo/personalized.png',
+      cover: '/project-images/covers/tally-cover.webp',
       preview: '/project-images/tally/demo/personalize-and-activate.m4v',
     },
     technicalLabel:

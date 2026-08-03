@@ -17,27 +17,29 @@ export default function About() {
           </div>
         </header>
 
-        <section className="flex flex-col gap-4">
+        <section className="flex flex-col gap-6">
           <div className="star-line-section">
             <span className="star-glyph-section" aria-hidden="true">✶</span>
             <ShimmerText as="h3" className="star-copy-section">
               how i work
             </ShimmerText>
           </div>
-          <p>
-            I get inspiration from all over: a material, an interaction, or a
-            question someone asks in a meeting. I like following those threads
-            until they turn into something people can actually use.
-          </p>
-          <p>
-            On a team, I like understanding what we&apos;re making and why,
-            writing things down, and sharing what I learn as I go. The best
-            projects feel less like rationing work and more like
-            learning together.
-          </p>
+          <div className="prose-stack">
+            <p>
+              I get inspiration from all over: a material, an interaction, or a
+              question someone asks in a meeting. I like following those threads
+              until they turn into something people can actually use.
+            </p>
+            <p>
+              On a team, I like understanding what we&apos;re making and why,
+              writing things down, and sharing what I learn as I go. The best
+              projects feel less like rationing work and more like learning
+              together.
+            </p>
+          </div>
 
-          <div className="glass-surface ui-radius-panel mt-2 grid md:grid-cols-[1.2fr_0.8fr]">
-            <figure className="flex flex-col p-5 md:p-6">
+          <div className="glass-surface ui-radius-panel grid md:grid-cols-[1.2fr_0.8fr]">
+            <figure className="flex flex-col p-4">
               <blockquote className="font-body font-normal leading-[1.5]">
                 “Working with you felt like everything was very planned out and
                 organized. When we needed to speed things up, you made sure to
@@ -49,7 +51,7 @@ export default function About() {
               </figcaption>
             </figure>
 
-            <figure className="flex flex-col border-t border-[color:var(--line-color)] p-5 md:border-l md:border-t-0 md:p-6">
+            <figure className="flex flex-col border-t border-[color:var(--line-color)] p-4 md:border-l md:border-t-0">
               <blockquote className="font-body font-normal leading-[1.5]">
                 “Estelle&apos;s work ethic and enthusiasm for learning have
                 been evident in all her projects.”
@@ -62,28 +64,30 @@ export default function About() {
           </div>
         </section>
 
-        <section className="flex flex-col gap-4">
+        <section className="flex flex-col gap-6">
           <div className="star-line-section">
             <span className="star-glyph-section" aria-hidden="true">✶</span>
             <ShimmerText as="h3" className="star-copy-section">
               how i got here
             </ShimmerText>
           </div>
-          <p>
-            I came to engineering a little sideways. Before computer science, I
-            spent most of my time organizing students, building coalitions, and
-            working in education policy. It taught me how to listen, make
-            complicated ideas easier to act on, and keep people moving toward
-            the same goal.
-          </p>
-          <p>
-            Learning to code gave me another way to do something I already
-            loved: take a messy idea, give it structure, and bring it to life.
-            I ended up in interactive software because I like caring about both
-            the system and the person using it.
-          </p>
+          <div className="prose-stack">
+            <p>
+              I came to engineering a little sideways. Before computer science, I
+              spent most of my time organizing students, building coalitions, and
+              working in education policy. It taught me how to listen, make
+              complicated ideas easier to act on, and keep people moving toward
+              the same goal.
+            </p>
+            <p>
+              Learning to code gave me another way to do something I already
+              loved: take a messy idea, give it structure, and bring it to life.
+              I ended up in interactive software because I like caring about both
+              the system and the person using it.
+            </p>
+          </div>
 
-          <ol className="glass-surface ui-radius-panel mt-2">
+          <ol className="glass-surface ui-radius-panel">
             <li className="grid gap-1 border-b border-[color:var(--line-color)] p-4 sm:grid-cols-[8.5rem_1fr] sm:gap-5">
               <ShimmerText
                 as="span"
@@ -147,7 +151,7 @@ export default function About() {
           </ol>
         </section>
 
-        <section className="flex flex-col gap-4">
+        <section className="flex flex-col gap-6">
           <div className="star-line-section">
             <span className="star-glyph-section" aria-hidden="true">✶</span>
             <ShimmerText as="h3" className="star-copy-section">
@@ -160,7 +164,7 @@ export default function About() {
             listening to three songs on repeat, collecting images of interesting textures, or reading books with new perspectives.
           </p>
 
-          <details className="glass-interactive ui-radius-panel p-2">
+          <details className="glass-interactive ui-radius-panel p-4">
             <summary className="star-line-detail cursor-pointer">
               <span className="star-glyph-detail" aria-hidden="true">
                 {'\uE000'}
