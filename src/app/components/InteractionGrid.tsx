@@ -57,7 +57,7 @@ function StudyMedia({
         alt={study.imageAlt}
         fill
         sizes="(max-width: 767px) 100vw, 33vw"
-        className={styles.poster}
+        className={`${styles.poster} ${videoReady && playing ? styles.posterHidden : ''}`}
       />
       {study.video && entered ? (
         <video

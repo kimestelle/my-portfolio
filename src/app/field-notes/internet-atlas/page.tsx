@@ -11,11 +11,11 @@ import FieldNoteScrollLink from '../components/FieldNoteScrollLink';
 import styles from './internet-atlas.module.css';
 
 const mapEntries = [
-  ['path', 'product goal and dataset'],
-  ['team', 'team and ownership'],
-  ['prototype', '2D prototype'],
-  ['axes', 'semantic axes'],
-  ['layers', '3D graph interaction'],
+  ['path', 'dataset and visitor input'],
+  ['team', 'ownership'],
+  ['prototype', '2D system test'],
+  ['axes', 'semantic layout'],
+  ['layers', 'graph interaction'],
   ['ship', 'integration and launch'],
   ['preserve', 'static preservation'],
   ['improve', 'what i would change', 'retrospective'],
@@ -69,7 +69,7 @@ export default function InternetAtlasFieldNotes({
         <FieldNoteHeader
           eyebrow="collaborative project"
           title="internet atlas"
-          deck="a 3D map of browsing paths. Visitors enter descriptive words, reorganize 300+ websites by semantic similarity, and inspect individual or aggregate journeys."
+          deck="3D map of recorded browsing paths. Visitors enter descriptive words, reorganize 300+ websites by semantic similarity, and trace the journeys behind the graph."
           meta={[]}
           links={[
             {
@@ -91,16 +91,16 @@ export default function InternetAtlasFieldNotes({
 
         <FieldNoteProjectSummary
           facts={[
-            ['role', 'technical lead · product, visualization, and integration'],
+            ['role', 'technical lead · graph interaction, APIs, and integration'],
             ['timeline', 'march–april 2025 · static rebuild november 2025'],
             ['team', '7 developers + 1 designer'],
             ['outcome', '300+ sites · 1,000+ edges · 40+ live-demo users'],
           ]}
           keyDetails={[
-            'co-led the product and assigned work around each teammate’s goals',
-            'built the 2D proof, then the React Three Fiber graph and camera behavior',
-            'turned visitor-entered words into semantic axes for website placement',
-            'integrated branches, APIs, data layers, deployment, and the static preservation build',
+            'co-led the product and split work around each teammate’s learning goals',
+            'built the 2D system test, then the React Three Fiber graph and camera behavior',
+            'mapped visitor-entered words to website coordinates through shared embeddings',
+            'integrated branches, APIs, data layers, deployment, and the static rebuild',
           ]}
         />
 
@@ -122,14 +122,14 @@ export default function InternetAtlasFieldNotes({
           <FieldNoteSection
             number="00"
             id="path"
-            title="product goal and dataset"
+            title="dataset and visitor input"
             className={styles.section}
           >
 
             <p className={styles.lead}>
-              Internet Atlas turns a 2,148-participant browsing dataset into a
-              map. Visitors choose how websites are organized, then inspect
-              the recorded paths behind each pattern.
+              Internet Atlas maps recorded paths from a 2,148-participant web
+              study. An Atlas visitor enters descriptive words, the sites move
+              along those semantic axes, and the original paths stay intact.
             </p>
 
             <aside className={styles.marginNote}>
@@ -140,42 +140,28 @@ export default function InternetAtlasFieldNotes({
                 {'\uE000'}
               </span>
               <span>from the pitch deck</span>
-              our first deck named three goals: data autonomy, data
-              visualization, and simply making a cool website. We wanted a
-              playful interface that kept the complexity visible.
+              data autonomy, data visualization, and simply making a cool
+              website. The third goal was useful.
             </aside>
 
             <p>
-              We were inspired by Kevin Kelly&apos;s{' '}
+              Kevin Kelly&apos;s{' '}
               <FieldNoteSourceLink
                 id="01"
                 href="https://kk.org/ct2/the-internet-mapping-project/"
               >
                 Internet Mapping Project
               </FieldNoteSourceLink>
-              , which asked people of different ages and technical backgrounds
-              to draw the internet as they saw it, along with other independent
-              maps of the web&apos;s cultural regions. Because every map was
-              subjective, we let each Atlas visitor shape the geography with
-              their own words.
+              {' '}showed that maps of the web are subjective. We made that
+              subjectivity an input: each Atlas visitor chooses the words that
+              organize the geography.
             </p>
 
             <p>
-              The source study gave us websites and transitions from{' '}
-              <strong>2,148 participants</strong>, but no definitions for words
-              like <em>fuzzy</em>, <em>organic</em>, or <em>heavy</em>. A
-              source-study participant supplied a recorded path;{' '}
-              <strong>an Atlas visitor supplied the words used to interpret it.</strong>{' '}
-              A history list could preserve the route, but not the
-              visitor&apos;s interpretation. We needed to keep each path intact
-              while letting those words reorganize the map.
-            </p>
-
-            <p>
-              We used the research dataset, not an Atlas visitor&apos;s own
-              history, to test the interaction model: choose a lens, move
-              between the whole graph and individual paths, then inspect the
-              sites and journeys behind a pattern.
+              The source-study participants supply the browsing paths. The
+              Atlas visitor supplies words such as <em>fuzzy</em>,{' '}
+              <em>organic</em>, or <em>heavy</em>. We used the research dataset,
+              not the Atlas visitor&apos;s own history.
             </p>
 
             <Figure
@@ -229,22 +215,21 @@ export default function InternetAtlasFieldNotes({
           <FieldNoteSection
             number="01"
             id="team"
-            title="team and ownership"
+            title="ownership"
             className={styles.section}
           >
 
             <p className={styles.lead}>
-              This was a semester-long Penn Spark project with seven developers
-              and one designer. Ruth and I co-led the product; I also led the
-              technical work and integration.
+              Ruth and I co-led the product with six other teammates. I led the
+              graph interaction, API wiring, branch integration, and
+              deployment.
             </p>
 
             <p>
-              We were originally just going to use ChatGPT for the language
-              layer. Then teammates wanted to explore clustering, embeddings,
-              and vector databases, so the project became unintentionally
-              ML-heavy. I spoke with each teammate before splitting up the work
-              and <strong>shaped the roles around what they wanted to learn.</strong>
+              I asked each teammate what they wanted to learn before splitting
+              the work. That expanded the original language layer into
+              clustering, embedding, vector-database, scraping, and model
+              experiments.
             </p>
 
             <div className={styles.peopleGrid} aria-label="Internet Atlas team roles">
@@ -283,26 +268,11 @@ export default function InternetAtlasFieldNotes({
             </div>
 
             <p>
-              Those interests led to experiments we would not have planned
-              upfront, including PCA clustering, model comparisons, and
-              implementation discussions across roles.
-            </p>
-
-            <p>
-              I hesitated to lead because I knew very little ML then. Eric and
-              Joseph knew much more about clustering, vector databases, and
-              embeddings, so I asked them to document their research in our
-              shared dev doc. I used their notes and our meetings to understand
-              the tradeoffs and connect their choices to the interface and API.
-              I learned the ML side of the project from them.
-            </p>
-
-            <p>
-              <strong>I did not direct every technical choice.</strong> I kept
-              the handoffs clear, supported what teammates wanted to try, and
-              handled Git practices, merge milestones, API wiring, branch
-              integration, and deployment. That let every branch run together
-              in the demo. The{' '}
+              Eric and Joseph knew more about ML and vector storage than I did.
+              They documented their decisions; I connected their outputs to
+              the interface and API. I did not direct every model choice. I did
+              define handoffs, merge milestones, API contracts, and the final
+              integration. The{' '}
               <a
                 href="https://github.com/PennSpark/sp25-internet-atlas/commit/747b427"
                 target="_blank"
@@ -310,8 +280,7 @@ export default function InternetAtlasFieldNotes({
               >
                 first preserved commit ↗
               </a>{' '}
-              captures the stack decisions that followed the March 1–2 role
-              conversations.
+              captures the stack after the first role split.
             </p>
 
             <aside className={styles.marginNote}>
@@ -322,9 +291,8 @@ export default function InternetAtlasFieldNotes({
                 {'\uE000'}
               </span>
               <span>what surprised me</span>
-              I expected the ML teammates to focus on the pipeline. Once their
-              clusters and embeddings appeared in the interface, they got
-              invested in the interaction and visual framing too.
+              once clusters and embeddings appeared in the interface, the ML
+              work stopped feeling separate from the interaction.
             </aside>
 
           </FieldNoteSection>
@@ -332,22 +300,21 @@ export default function InternetAtlasFieldNotes({
           <FieldNoteSection
             number="02"
             id="prototype"
-            title="2D prototype"
+            title="2D system test"
             className={styles.section}
           >
 
             <p className={styles.lead}>
-              I built a 2D D3 prototype first to verify the complete data path:
-              scraped sites, embeddings, storage, API responses, and browser
-              rendering.
+              I built a 2D D3 version before the 3D graph. Its job was to prove
+              the full path from scraped sites and embeddings to storage, API
+              responses, coordinates, and selection in the browser.
             </p>
 
             <div className={styles.decisionList}>
               <article>
                 <span>one site record, many participant paths</span>
                 <h3>
-                  store each site once; keep each participant&apos;s path
-                  separate.
+                  store sites once; keep participant paths separate.
                 </h3>
                 <p>
                   I stored each site&apos;s vector once in{' '}
@@ -358,28 +325,25 @@ export default function InternetAtlasFieldNotes({
                   <FieldNoteSourceLink id="05" href="https://supabase.com/">
                     Supabase
                   </FieldNoteSourceLink>
-                  . That let us reuse the semantic index while switching
-                  between individual and aggregate views.
+                  . The interface could reuse one semantic index while
+                  switching between individual and aggregate paths.
                 </p>
               </article>
 
               <article>
                 <span>the first end-to-end frontend</span>
-                <h3>I built a 100 × 100 D3 grid before committing to 3D.</h3>
+                <h3>100 × 100 D3 grid before 3D.</h3>
                 <p>
-                  By April 7, we could embed website data, query one backend
-                  path, and display coordinates, directed edges, zoom, and
-                  selection in the D3 grid. This end-to-end slice was small
-                  enough for all eight teammates to debug together.
+                  By April 7, the grid displayed coordinates, directed edges,
+                  zoom, and selection from live API data. It was small enough
+                  for the whole team to debug together.
                 </p>
               </article>
             </div>
 
             <p>
-              We focused the March 10–23 faculty reviews on data consistency,
-              model tests, architecture, and the point where each
-              teammate&apos;s output became another&apos;s input; styling came
-              later.
+              Early reviews focused on data consistency and the point where one
+              teammate&apos;s output became another&apos;s input. Styling came later.
             </p>
 
             <Figure
@@ -412,14 +376,15 @@ export default function InternetAtlasFieldNotes({
           <FieldNoteSection
             number="03"
             id="axes"
-            title="semantic axes"
+            title="semantic layout"
             className={styles.section}
           >
 
             <p className={styles.lead}>
-              We embedded each visitor-entered word in the same vector space as
-              the websites. Similarity scores became the graph axes, so the
-              layout could change without retraining a model.
+              Atlas embeds the visitor&apos;s words in the same space as the
+              websites. Two similarity scores become x and y coordinates; z
+              carries time. New words can rearrange the map without retraining
+              a model.
             </p>
 
             <div className={styles.modelResearchGrid}>
@@ -461,14 +426,9 @@ export default function InternetAtlasFieldNotes({
             </div>
 
             <p>
-              We stopped treating those words as labels the model needed to
-              define. The ML teammates embedded each Atlas visitor&apos;s words
-              in <strong>the same text + image space as the sites.</strong> I
-              wired the resulting similarity scores into graph coordinates, so
-              the model could position sites relative to an Atlas
-              visitor&apos;s words{' '}
-              <strong>without defining those words or retraining for each one.</strong>{' '}
-              We used{' '}
+              The words are coordinates, not categories the model has to
+              define. The ML team tested text and image embeddings. I wired the
+              resulting similarity scores into the graph. We used{' '}
               <FieldNoteSourceLink id="07" href="https://arxiv.org/abs/2103.00020">
                 CLIP
               </FieldNoteSourceLink>{' '}
@@ -484,12 +444,11 @@ export default function InternetAtlasFieldNotes({
             </p>
 
             <p>
-              The 2D grid proved the logic, but dense clusters and browsing
-              paths overlapped. A third axis reduced the overlap, so from April
-              13–20 I rebuilt the view in React Three Fiber. I carried over the
-              axes, clusters, and selection logic, then added camera
-              choreography, nodes, edges, path tracing, and screen-freeze
-              behavior.{' '}
+              The 2D grid proved the data path, but dense clusters and browsing
+              paths overlapped. I rebuilt it in React Three Fiber, kept the two
+              semantic scores on x and y, and used z for time. I also added
+              camera movement, node and edge selection, path tracing, and
+              screen-freeze behavior.{' '}
               <a
                 href="https://github.com/PennSpark/sp25-internet-atlas/commit/15f30b1"
                 target="_blank"
@@ -503,26 +462,24 @@ export default function InternetAtlasFieldNotes({
           <FieldNoteSection
             number="04"
             id="layers"
-            title="3D graph interaction"
+            title="graph interaction"
             className={styles.section}
           >
 
             <p className={styles.lead}>
-              The interface moves from the full graph to landmarks, connected
-              edges, and finally one participant&apos;s route. Each selection
-              reduces density without removing the underlying path data.
+              The graph has four levels: overview, node, edge, and participant
+              path. Each selection removes visual noise while keeping the
+              recorded route available.
             </p>
 
             <div className={styles.layerList}>
               <article>
                 <div className={styles.layerCopy}>
                   <span>01 / aggregate graph</span>
-                  <h3>keep the full graph visible.</h3>
+                  <h3>all sites + aggregate transitions</h3>
                   <p>
-                    The overview kept all sites and aggregate transitions
-                    visible. Changing the descriptive words rearranged the same
-                    graph, so an Atlas visitor could compare interpretations
-                    instead of accepting one fixed categorization.
+                    Changing the descriptive words rearranges the same graph.
+                    Sites and aggregate transitions stay visible for comparison.
                   </p>
                 </div>
                 <div className={`${styles.layerImage} media-clip-surface`}>
@@ -539,7 +496,7 @@ export default function InternetAtlasFieldNotes({
               <article>
                 <div className={styles.layerCopy}>
                   <span>02 / landmark or node</span>
-                  <h3>mark highly connected hubs; show their statistics.</h3>
+                  <h3>connected hubs + site statistics</h3>
                   <p>
                     Sites with at least 25 outgoing connections became
                     landmarks; those with at least 40 received a larger aura.
@@ -561,7 +518,7 @@ export default function InternetAtlasFieldNotes({
               <article>
                 <div className={styles.layerCopy}>
                   <span>03 / selected edge</span>
-                  <h3>show which participants made a transition.</h3>
+                  <h3>participants behind one transition</h3>
                   <p>
                     Selecting an edge revealed the source-study participants who
                     made that transition. The Atlas visitor could then choose
@@ -582,7 +539,7 @@ export default function InternetAtlasFieldNotes({
               <article>
                 <div className={styles.layerCopy}>
                   <span>04 / source-study participant route</span>
-                  <h3>trace one participant&apos;s route in place.</h3>
+                  <h3>one participant&apos;s full route</h3>
                   <p>
                     Choosing a participant froze the camera, dimmed the rest of
                     the graph, and traced their full journey as an animated
@@ -602,15 +559,11 @@ export default function InternetAtlasFieldNotes({
             </div>
 
             <p>
-              <strong>I structured and built these four interaction states</strong>,
-              including the camera behavior, screen freeze, and node,
-              edge-selection, and participant-path overlays. Jimin explored the
-              landmark visuals; I integrated them into the graph and selection
-              behavior. Eric and I coordinated the data contracts behind each
-              level: aggregate edges for the overview, participant lookups for
-              a selected transition, and full per-participant paths for the
-              route view. I added the node-statistics endpoint for the
-              node-detail level.
+              I structured and built the four interaction states, camera
+              behavior, screen freeze, and screen-space overlays. Jimin
+              explored the landmark visuals. Eric and I defined the data
+              contracts for aggregate edges, participant lookup, full paths,
+              and node statistics.
             </p>
           </FieldNoteSection>
 
@@ -622,8 +575,8 @@ export default function InternetAtlasFieldNotes({
           >
 
             <p className={styles.lead}>
-              From April 25–27, I focused on integrating the API, loader, model,
-              graph, and feature branches for the class demo.
+              Before the class demo, I integrated the API, loader, model,
+              graph, and feature branches into one deployment.
             </p>
 
             <div className={styles.ownershipGrid}>
@@ -660,9 +613,8 @@ export default function InternetAtlasFieldNotes({
             </div>
 
             <p>
-              I merged the branches, resolved a teammate merge conflict, and
-              fixed storage, URL, CORS, position, and build failures before
-              deployment. The finished graph held{' '}
+              I merged the branches and fixed storage, URL, CORS, position, and
+              build failures. The finished graph held{' '}
               <strong>more than 300 sites and 1,000 navigation edges</strong>,
               and more than 40 demo attendees opened it at once.{' '}
               <a
@@ -691,18 +643,17 @@ export default function InternetAtlasFieldNotes({
           >
 
             <p className={styles.lead}>
-              The live database, API, and ML services cost about{' '}
-              <strong>$60 a month</strong>. In November, I replaced runtime
-              queries with precomputed rankings and static graph data.
+              The live database, API, and ML services cost about $60 a month.
+              In November, I replaced runtime queries with precomputed rankings
+              and static graph data.
             </p>
 
             <p>
-              Atlas visitors did not need new sites to be scraped or
-              embeddings to be recomputed. I exported the graph data,{' '}
-              <strong>replaced the live endpoints with static files</strong>,
-              and repaired the resulting type and build errors. Hosting fell to
-              roughly <strong>$7 a month</strong> while selection, path tracing,
-              and camera interactions stayed intact.{' '}
+              The preserved site did not need to scrape new websites or
+              recompute embeddings. I exported the graph data, replaced live
+              endpoints with static files, and repaired the resulting type and
+              build errors. Hosting fell to roughly $7 a month while selection,
+              path tracing, and camera behavior stayed intact.{' '}
               <a
                 href="https://github.com/PennSpark/sp25-internet-atlas/commit/eba0b7c"
                 target="_blank"
@@ -713,10 +664,8 @@ export default function InternetAtlasFieldNotes({
             </p>
 
             <p>
-              I expected the live ML pipeline to remain central, but removing
-              it did not change axis selection, path tracing, or graph
-              comparison. I would still organize project roles around what each
-              teammate wanted to learn, but I would plan the static version
+              Removing the live ML pipeline did not change axis selection, path
+              tracing, or graph comparison. I would plan the static version
               earlier.
             </p>
 

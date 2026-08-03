@@ -63,7 +63,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     variant: 'featured',
     metadata: {
       date: 'Spring 2026',
-      role: 'product designer',
+      role: 'mobile UI designer',
       result: '10 starting flows → a full product structure',
       stack: 'Figma · Mobile Flows · Interaction States · Prototypes',
     },
@@ -73,7 +73,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       indexLine:
         'A habit app where proof, partners, and small bets have to make sense.',
       roleLine:
-        'product design · flows, states, design system, and mobile UI',
+        'mobile UI design · flows, states, design system, and prototypes',
       resultLine:
         '10 starting flows → a complete product structure',
     },
@@ -205,7 +205,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       challenge:
         'The system had to translate open-ended words into a useful layout while keeping hundreds of sites and more than 1,000 path connections readable. The team was also building the data, ML, and interface layers in parallel.',
       decision:
-        'We embedded each visitor’s words in the same semantic space as the websites, then used similarity as the graph’s spatial axis. Site embeddings stayed separate from browsing-session paths, which let the interface switch between semantic layout, individual journeys, and aggregate traffic.',
+        'We embedded the visitor’s two words in the same semantic space as the websites, used the similarity scores as x and y, and used z for time. Browsing paths stayed separate from site embeddings, so the interface could switch between the semantic layout, individual journeys, and aggregate traffic.',
       outcome:
         'We shipped a graph with more than 300 sites and 1,000 navigation edges. More than 40 people used it during the live demo, and I later preserved the core interaction as a static site when the experimental backend became too expensive to run.',
       changedMind:
@@ -222,49 +222,49 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
   },
   {
     id: 'sce-data-engineering',
-    name: 'Data Visualization Engineering at SoCal Edison',
+    name: 'Data Engineering at Southern California Edison',
     section: 'shipped with teams',
     variant: 'standard',
     metadata: {
-      date: 'Summer 2024',
-      role: 'data viz engineering intern',
-      result: '10+ production data solutions · utility serving 15 million residents',
-      stack: 'SQL · Python · Power BI · Power Apps · Power Automate',
+      date: 'Summer 2025',
+      role: 'data engineering intern',
+      result: '10+ production data solutions · return offer',
+      stack: 'SQL · Python · SAP · Snowflake · Palantir',
     },
     collapsed: {
       purpose:
-        'Nine departments needed the same operational data to stop producing different answers.',
+        'ETL pipelines connecting legacy SAP and Microsoft systems with Snowflake and Palantir.',
       indexLine:
-        'Shared reporting for nine departments at a utility serving 15 million residents.',
-      roleLine: 'data viz engineering intern · 9 partner departments',
-      resultLine: '10 production solutions · systems serving 15 million residents',
+        'Production data engineering for a utility serving 15 million residents.',
+      roleLine: 'data engineering intern · cross-team production work',
+      resultLine: '10+ production data solutions · return offer',
     },
     story: {
       goal:
-        'Different teams were pulling the same operational data from different systems and ending up with different answers. They needed reporting they could actually trust.',
+        'Southern California Edison needed production ETL and reporting work across legacy SAP and Microsoft systems and newer Snowflake and Palantir tools.',
       role:
-        'I worked directly with 9+ departments, learned their workflows, and turned their questions into SQL pipelines, reporting views, data models, and an internal dashboard redesign that made a core reporting tool easier to use.',
+        'I designed and optimized ETL pipelines, integrated legacy and newer platforms, and worked with cross-team stakeholders to ship more than ten production data solutions.',
       feedback:
-        'Stakeholders taught me the operations behind each request and told me whether the tools were actually usable. My teammates pushed me to plan for continuity after I left, so I documented every pipeline and worked inside the existing stack. I also started sending my manager short nightly updates so progress and blockers stayed visible.',
+        'I learned SQL in two days for the role. I also started sending my manager short daily check-ins so progress and blockers stayed visible. Their recommendation later called out my data modeling, SQL and Python optimization, ETL, data management, dashboard work, and enthusiasm for learning.',
       owned: [
-        'cross-platform SQL transformations',
-        'reporting views and dashboard data models',
+        'ETL pipeline design and optimization',
+        'data models and cross-platform integration',
+        'reducing one bloated SQL file to one-third of its original size',
         'internal reporting dashboard redesign',
-        'legacy ETL diagnosis and optimization',
+        'production data analysis and visualization',
       ],
       workedWith: [
-        'operations stakeholders',
-        'enterprise data teams',
-        'more than nine internal departments',
+        'cross-team stakeholders',
+        'data engineering teammates',
       ],
       challenge:
-        'The same facts lived across multiple database environments, and old assumptions were buried inside pipelines that people still depended on. I could not just rewrite them without understanding who would be affected.',
+        'Data moved between legacy SAP and Microsoft systems and newer Snowflake and Palantir tools. Each production solution had to fit existing enterprise workflows and tight timelines.',
       decision:
-        'Instead of writing a new query for every dashboard, I pulled repeated logic into shared transformations. It took longer upfront, but each new request became easier to validate and teams spent less time reconciling different versions of the same number.',
+        'The work varied by request: optimize an ETL pipeline, build a data model, connect platforms, or repair a reporting tool. I worked inside the existing enterprise stack instead of describing every request as a dashboard project.',
       outcome:
-        'I delivered more than ten production data solutions for a utility serving 15 million residents and received a return offer.',
+        'I shipped more than ten production data solutions for a utility serving 15 million residents and received a return offer.',
       changedMind:
-        'I came in thinking the dashboard was the product. Most of the real work was underneath it. If the shared data model was clear, the next team could trust it and build on it without starting over.',
+        'This was primarily data engineering. Visualization was one output alongside ETL, data modeling, platform integration, and reporting work.',
     },
     media: { cover: '/project-images/covers/edison-cover.webp' },
   },
@@ -292,8 +292,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
         'Penn Spark needed one public home for its projects, community, clients, applications, and writing. It also had to survive a student team that changes every year.',
       role:
         'I led the technical update, consolidated three fragmented codebases into one Vite app, and moved frequently edited content into typed data instead of hiding it inside page markup.',
-      feedback:
-        'I sent a survey to club members, then followed up with people who had specific thoughts. They kept saying the site felt too colorful and playful, so we made the interactions quieter while keeping the visual pieces people still recognized.',
       owned: [
         'React and Vite architecture',
         'project and community content models',
@@ -306,7 +304,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
         'future maintainers with different levels of frontend experience',
       ],
       challenge:
-        'Years of projects and visual history were split across three codebases, including an outdated Gatsby site. Starting over would have been cleaner for me, but worse for the organization. People needed to recognize the site and update it without asking the same person every semester.',
+        'Years of projects and visual history were split across three codebases. Starting over would have been cleaner for me, but worse for the organization. People needed to recognize the site and update it without asking the same person every semester.',
       decision:
         'I kept the useful content and visual pieces, but simplified the structure underneath them. Frequently updated areas became typed data, deployment stayed static, and the README points future contributors to the exact files they need.',
       outcome:
@@ -425,7 +423,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     section: 'graphics systems',
     variant: 'standard',
     metadata: {
-      date: 'June 2026 · active local 3D iteration continues',
+      date: 'June 2026',
       role: 'solo designer and engineer',
       result: 'private, on-device depth inference with dependency-light exports',
       stack: 'TypeScript · transformers.js · WebGPU · WebGL',

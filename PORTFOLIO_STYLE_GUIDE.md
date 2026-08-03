@@ -490,36 +490,30 @@ Construction rules:
 
 ## 7. Content and voice
 
+`PORTFOLIO_WRITING_GUIDE.md` is the source of truth. Its rules are derived from
+Estelle's direct copy edits and override older formulas in this document.
+
 ### Voice
 
-- Precise, curious, and direct.
-- Describe the physical or computational behavior before naming a library.
-- Prefer “I built a solver that lets ramie keep sharper creases” to “Built with React Three Fiber.”
-- Avoid inflated claims and generic design language.
-- Explain why a detail matters to the experience.
+- Dry, specific, compressed, and slightly strange.
+- Name the object and the mechanism that makes it interesting.
+- Let compact surfaces use lowercase fragments rather than forcing full prose.
+- Let exact technical terms appear without a long translation when they are the shortest accurate description.
+- Use `+`, `/`, `=`, and `→` when they communicate a real structural relationship.
+- Allow one restrained aside when the project's scope is genuinely odd.
+- Avoid inflated claims, generic design language, and polished thesis statements.
 
-### Project-card formula
+### Surface-specific register
 
-```text
-[Project name]
-[Role · medium · year]
-[What the piece lets someone feel, understand, or do]
-```
+- **Status:** recognized role or fact, usually one line and no period.
+- **Project card:** concrete product first; omit repeated leading articles.
+- **Interaction snippet:** mechanism or behavior label; the video does most of the explaining.
+- **Case study:** full sentences, literal headings, visible evidence, and exact ownership.
+- **Retrospective:** direct judgment about what works and what should change.
 
-### Case-study detail formula
-
-```text
-Observation → design decision → implementation → perceptual result
-```
-
-Example:
-
-```text
-Uniform cloth looked synthetic. I gave each textile its own bend stiffness,
-crease memory, and transmission profile. Ramie now folds sharply while silk
-settles and catches backlight. The material difference is visible before it is
-explained.
-```
+Do not apply one formula everywhere. A fragment such as `bottom pixel row of a
+CPU canvas feeds top row of a GPU diffusion shader` belongs beside a demo. A
+case-study paragraph should restore the context and consequence.
 
 ### What to show
 

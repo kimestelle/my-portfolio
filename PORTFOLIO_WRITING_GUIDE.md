@@ -1,621 +1,833 @@
 # Estelle Kim Portfolio Writing Guide
 
-**Voice:** candid, exact, lightly conversational  
-**Job:** make the work easy to understand without sanding off how Estelle actually thinks  
-**Prepared from:** portfolio history from 2024–2026, with the strongest weight given to Estelle's long-form writing and her own copy revisions
+**Voice:** dry, specific, compressed, slightly strange
+
+**Job:** make the object and its key mechanism obvious without turning every label into a pitch
+
+**Current source of truth:** Estelle's direct copy edits, especially commits `5777dc8` and `396068b` from August 3, 2026
 
 ---
 
 ## 1. The voice in one sentence
 
-> Say what happened, what did not sit right, and what you changed—in the words you would use while showing the work to someone smart beside you.
+> Name the thing, name the mechanism that makes it interesting, and stop before it starts sounding professionally explained.
 
-The voice is not “casual.” It is **plainspoken and observant**. It can explain a shader, a product flow, or a team decision without changing personalities. Technical depth comes from naming the mechanism. Nuance comes from naming the tension. Neither needs to be announced.
+The portfolio should sound like Estelle pointing at working software and telling someone what is actually unusual about it. It is closer to an annotated demo or engineering notebook than an award submission.
+
+The writing is:
+
+- technically literate without translating every term;
+- concise enough to use fragments when the surface is already doing explanatory work;
+- dry rather than performatively clever;
+- specific about mechanisms, inputs, and visible behavior;
+- comfortable with `+`, `/`, `=`, and `→` when they communicate structure faster than prose;
+- occasionally a little odd in a way that sounds observed, not branded.
 
 The desired impression is:
 
-> Estelle sees the real shape of a problem, builds carefully, and is honest about what changed along the way.
+> Estelle knows what she made, knows which part matters, and does not need to inflate it.
 
 Not:
 
-> Estelle has a polished theory for everything she has ever made.
+> Estelle has converted every experiment into a polished product-design thesis.
 
 ---
 
-## 2. What in the history is actually the source of truth
+## 2. Latest edits override older theory
 
-Not all old copy is equally “Estelle.” The history contains three distinct modes.
+When this guide conflicts with Estelle's recent direct edits, the edits win.
 
-### Primary voice references
+The two most useful recent commits are:
 
-Use these to judge cadence, candor, and point of view:
+- `5777dc8` — rewrote status copy and every interaction-snippet description;
+- `396068b` — rewrote project-card descriptions and removed repeated opening articles.
 
-- `on compressing thought` (June 2025)
-- `another portfolio update` (June 2025)
-- `magnet poetry board` (July 2025)
-- the July 27, 2026 commit `38764b5` — **make about copy more personal**
-- the current Tally retrospective, especially “I like the contract model more than I like every screen.”
+Together they establish several rules that the old guide missed.
 
-These pieces sound like one person because they begin with a real observation, allow uncertainty, and use ordinary verbs.
+### 2.1 A compact surface does not need a full sentence
 
-### Secondary references
+Old:
 
-Use these for factual precision and scannability, not voice:
+> A shared 30 fps ticker drives the companion pixels' orbit, chase, and burst states.
 
-- the January–June 2026 project data
-- technical bullets and stack descriptions
-- deployment numbers, team sizes, and implementation details
+Estelle:
 
-This copy is useful but often reads like a résumé. Preserve its facts; rewrite its posture.
+> orbit, chase, and burst behavior that follows user attention
 
-### Anti-reference
+The revision is not trying to summarize the implementation. It labels what to notice in the demo.
 
-Later copy sometimes becomes smoother while becoming less specific. The clearest example appears in the parent of `38764b5`:
+### 2.2 The key mechanism can come first
 
-> “I build software where design, engineering, and interaction feel like one decision.”
+Old:
 
-Estelle changed it to:
+> Canvas input feeds alternating WebGL textures that advect, diffuse, and dry persistent pigment.
 
-> “I get excited by ideas and like figuring out how to make them real.”
+Estelle:
 
-The first sentence sounds finished. The second sounds true.
+> bottom pixel row of a CPU canvas feeds top row of a GPU diffusion shader
 
-Another revision replaced:
+The second version is denser, more technical, and more memorable because it names the exact handoff.
 
-> “Engineering gave those instincts a different medium. I now build interactive software because it sits where technical systems and human experience meet.”
+### 2.3 Operators are part of the voice
 
-with:
+Estelle's revisions use compact structural notation:
 
-> “Learning to code gave me another way to do something I already loved: take a messy idea, give it structure, and bring it to life. I ended up in interactive software because I like caring about both the system and the person using it.”
+- `WebGL / SVG overlay`
+- `noise field + cursor becomes dancing spark`
+- `packing algorithms + POS tagging + d3-force = organic but ordered text layouts`
 
-This is the recurring edit to make: **move from category language to lived language.**
+Do not expand these into connective prose unless the relationship becomes unclear.
+
+### 2.4 A dry aside can do real voice work
+
+Estelle:
+
+> Social habit app built around contracts, proof, partners, transaction incentives, and somehow crypto wallets.
+
+`somehow` acknowledges the project's odd scope without adding a paragraph of commentary. This kind of aside is useful because it is specific and restrained.
+
+### 2.5 Repeated articles make cards sound templated
+
+Estelle removed `A` from several project descriptions:
+
+- `Mobile museum scavenger hunt...`
+- `3D map of browsing paths...`
+- `Material editor that turns...`
+
+Project cards are captions. They do not need to pretend to be prose paragraphs.
+
+### 2.6 Headline status copy should use recognized labels
+
+Old:
+
+> SWE intern @ PayPal · checkout-friction tooling + frontend
+
+Estelle:
+
+> Frontend SWE intern @ PayPal
+
+Use the role someone will recognize immediately. Put internal scope elsewhere if it matters.
 
 ---
 
-## 3. The four qualities
+## 3. The four registers
 
-### 3.1 Candid, not diaristic
+The portfolio does not need one grammatical register everywhere. Match the amount of prose to the job of the surface.
 
-Candor means admitting the useful thing:
+### Register A: status and metadata
 
-- “I kept adding sliders because I thought more control would make the fabric more expressive.”
-- “It didn't feel like a big deal. But by the sixth week, I noticed how quickly I'd adapted.”
-- “The burgundy looks nice, but primary actions and contract status still disappear inside some dense screens.”
+Use for role, timeline, availability, stack, recognition, and small interface labels.
 
-The admission must help someone understand the work. Do not include private feeling merely to sound vulnerable.
+Style:
 
-Good candor answers one of these:
-
-- What did I assume at first?
-- What stayed confusing longer than expected?
-- What did the first version get wrong?
-- What tradeoff did I knowingly accept?
-- What would I keep, even if I changed the rest?
-
-### 3.2 Concise, not compressed
-
-Estelle's old writing is concise because it gives each paragraph one job. It is not compressed into dense noun phrases.
+- direct;
+- recognizable;
+- usually one line;
+- no explanatory clause unless necessary;
+- sentence case or lowercase according to the component;
+- no period.
 
 Good:
 
-> “The app kept asking one more question: what counts, who checks, what happens to the money, and what if someone disagrees?”
+- `Frontend SWE intern @ PayPal`
+- `CS + Computer Graphics @ UPenn`
+- `solo design + engineering`
+- `SF Make-a-thon · Best Design + Use of CopilotKit`
 
-Compressed:
+Avoid:
 
-> “The contract lifecycle introduced compounding trust, verification, incentive, and exception-handling complexity.”
+- `SWE intern focused on checkout-friction tooling and frontend systems at PayPal`
+- `Awarded Best Design and Best Use of CopilotKit at the SF Make-a-thon`
 
-The second is shorter in characters and slower to understand.
+The small surface already supplies context. Do not restate it.
 
-### 3.3 Technical, after the object is clear
+### Register B: project-card caption
 
-Name the thing before the machinery.
+Use for the one-line description beneath or beside a project cover.
 
-Good order:
+Style:
 
-1. What the person sees or does.
-2. What made that difficult.
-3. The mechanism that solved it.
-4. The visible consequence.
+- concrete object first;
+- omit a leading `A` or `An` by default;
+- one human action, transformation, or unusual constraint;
+- one sentence or fragment;
+- dry aside allowed once;
+- no role, stack, and outcome crammed into the same line.
 
-Example:
+Good:
 
-> A visitor cuts an artifact out through the camera and keeps it as a sticker. Because museum Wi-Fi was unreliable, the PNG, metadata, and progress state were written to IndexedDB immediately. The interaction still worked after a restart.
+> Mobile museum scavenger hunt where visitors photograph artifacts and collect them as stickers.
 
-Do not open with IndexedDB unless the reader already knows why it matters.
+Good:
 
-### 3.4 Nuanced through tension, not qualification
+> Material editor that turns one fabric photo into PBR textures, simulated cloth, and an exportable 3D asset.
 
-Nuance is not a pile of caveats. Show the two true things that pulled against each other.
+Good:
 
-- The interface needed structure, but too much setup felt like paperwork.
-- The live ML pipeline was interesting, but the static version kept the interaction that mattered.
-- More controls looked expressive, but made the renderer and solver disagree.
-- Rebuilding would have been cleaner for one engineer, but worse for a rotating team.
+> Social habit app built around contracts, proof, partners, transaction incentives, and somehow crypto wallets.
 
-State both sides plainly. Then say what you chose.
+Avoid:
 
----
+> A thoughtfully designed mobile experience that empowers museum visitors to engage more deeply with artifacts.
 
-## 4. Sentence-level fingerprint
+Avoid:
 
-### Use ordinary subjects and active verbs
+> An innovative material platform at the intersection of GenAI and traditional rendering.
 
-Preferred subjects:
+### Register C: interaction-snippet label
 
-- I
-- we
-- the visitor
-- the app
-- the camera
-- the graph
-- the shader
-- the first version
-- one shared canvas
+Use for `explores` copy beside a working video.
 
-Preferred verbs:
+This is not a miniature case study. Its job is to tell someone what to watch for.
 
-- built
-- made
-- kept
-- split
-- moved
-- drew
-- lined up
-- stored
-- changed
-- broke
-- noticed
-- tried
-- asked
-- chose
-- stayed
+Style:
 
-The portfolio should contain more verbs than professional nouns.
+- lowercase fragment;
+- no period;
+- mechanism-first is encouraged;
+- exact libraries, algorithms, media, and data paths are allowed;
+- `+`, `/`, and `=` are allowed;
+- 6–14 words is a useful target, not a hard limit;
+- one key mechanism, or one mechanism plus its visible behavior.
 
-### Let short sentences carry judgment
+Good:
 
-Estelle often explains, then lands on a short sentence:
+- `orbit, chase, and burst behavior that follows user attention`
+- `non-intrusive WebGL / SVG overlay to enhance everyday DOM objects`
+- `minimal feedback loop for collaborative editing with WebSockets`
+- `using Depth Anything v2 to create hi-fi, low-load 2.5D parallax scenes`
+- `bottom pixel row of a CPU canvas feeds top row of a GPU diffusion shader`
+- `packing algorithms + POS tagging + d3-force = organic but ordered text layouts`
 
-> “So I compressed to move on.”
+Avoid:
 
-> “And now, this.”
+> This interaction explores how a shared animation system can create responsive companion behavior.
 
-> “The first sentence sounds finished. The second sounds true.”
+Avoid:
 
-Use this sparingly. One short sentence can give a paragraph shape; five in a row becomes affected.
+> A custom WebGL solution that delivers a seamless and immersive visual experience.
 
-### Contractions are normal
+The adjacent technical field can explain the implementation in full sentences. Do not force both fields to do the same job.
 
-Use `I'm`, `didn't`, `couldn't`, `what I'd change`, and `it's`. Uncontracted prose sounds like an application essay unless formality is required.
+### Register D: case-study prose
 
-### Starting with And, But, or So is allowed
+Use full sentences when the reader needs causality, ownership, or a decision.
 
-These words often reveal the actual relationship between thoughts more clearly than “However,” “Therefore,” or “Additionally.”
+Style:
 
-### Concrete lists are part of the voice
+- straightforward headings;
+- short paragraphs;
+- ordinary verbs;
+- exact scope;
+- mechanism after the object is clear, unless the mechanism is the point of the section;
+- no requirement to turn every decision into a story arc.
 
-Estelle naturally lists things she can see or handle:
+Good headings:
 
-- “paper, fabric, light”
-- “a purpose, a structure, and a set of needs”
-- “the PNG, metadata, and progress state”
+- `contract setup`
+- `design system`
+- `proof and contract states`
+- `implementation review`
+- `genAI as material input`
+- `shared material model`
+- `exports`
 
-Keep lists concrete. Avoid polished abstract triads such as “design, innovation, and impact” unless they name literal team functions.
+Avoid witty or thesis-like headings when a literal label is clearer:
 
-### One metaphor at a time
+- `the contract was the product`
+- `where proof becomes trust`
+- `giving fabric a memory`
+- `the moment everything clicked`
 
-The writing can use an image—compression, a thread, a contract moving through an app—but should not keep decorating it. Introduce the metaphor, use it to clarify structure, then return to the work.
-
----
-
-## 5. What to prefer and what to distrust
-
-### Prefer
-
-- first person when it reveals a decision, limit, or change—not as the default way to introduce intent
-- “At first…” when the project changed your mind
-- “The first version…” when showing an iteration
-- “The hard part was…” followed by a concrete conflict
-- “I kept…” when a deliberate constraint matters
-- “I split…” when explaining architecture
-- “This meant…” when translating technical cause into product consequence
-- “I would…” for an honest retrospective
-- numbers attached to nouns: `300 sites`, `one worker`, `nine months`
-
-### Distrust on sight
-
-These words are not forbidden, but each needs evidence immediately after it:
-
-- thoughtful
-- intentional
-- expressive
-- ambitious
-- coherent
-- seamless
-- robust
-- innovative
-- novel
-- intuitive
-- scalable
-- meaningful
-- human-centered
-- technically ambitious
-- end-to-end
-- product surface
-- intersection of
-- leverage
-- empower
-
-“I design and build technically ambitious product interactions” can remain as a positioning line. It should not become the grammar of the site.
-
-### Phrases that usually sound generated
-
-- “sits at the intersection of…”
-- “bridges the gap between…”
-- “not just X, but Y” repeated across sections
-- “This project explores…”
-- “The result is a seamless…”
-- “A system designed to empower…”
-- “where X, Y, and Z come together”
-- “one claim, one mechanism”
-- “causally coherent physical behavior” in marketing copy
-- “from idea to polished implementation” without the actual middle
-
-When one appears, ask: **what literally happened?** Write that instead.
+The heading should help a design lead find the relevant work quickly.
 
 ---
 
-## 6. The recurring structure of Estelle's best writing
+## 4. Default construction rules
 
-The natural shape is not `problem → process → solution → impact`. It is:
+### 4.1 Put the concrete noun early
 
-1. **Observation** — something felt off, interesting, or unexpectedly hard.
-2. **Tension** — two reasonable needs did not fit together.
-3. **Move** — a concrete decision, prototype, or split.
-4. **Consequence** — what became possible or clearer.
-5. **Revision** — what Estelle would keep or change now.
+Start with something that can be pointed to:
 
-Example:
+- app;
+- map;
+- overlay;
+- canvas;
+- shader;
+- pixel row;
+- wallet;
+- contract;
+- fabric photo;
+- 2D mesh.
 
-> The input needed to stay loose, but persistent watercolor needed GPU state. Rebuilding every falling glyph inside a fluid solver would have made the whole piece harder to change. I kept the interaction in Canvas2D and sent only its bottom row into a ping-pong WebGL surface. The marks could stay loose while the pigment accumulated underneath.
+Avoid making the reader cross an abstract introduction to reach the object.
 
-This structure works because it preserves causality without pretending the solution was obvious from the beginning.
+Weak:
+
+> Exploring new forms of collaborative expression through spatial interaction.
+
+Stronger:
+
+> Shared writing surface built around arranging rather than typing.
+
+### 4.2 Prefer the distinguishing mechanism over a feature list
+
+Ask:
+
+> What makes this implementation different from the obvious version?
+
+Then name that.
+
+Examples:
+
+- not `watercolor text effect`; use the CPU-canvas-to-GPU-shader handoff;
+- not `interactive controls`; use the overlay that leaves DOM behavior intact;
+- not `3D text`; use POS tagging plus collision-constrained force packing;
+- not `fabric generator`; use GenAI maps feeding a deterministic renderer and cloth solver.
+
+### 4.3 Omit scaffolding phrases
+
+Cut these when the sentence works without them:
+
+- `This project explores...`
+- `I wanted to create...`
+- `The goal was to...`
+- `The result is...`
+- `A system that...`
+- `An experience designed to...`
+- `This allowed me to...`
+- `In order to...`
+
+The object or mechanism can usually be the subject.
+
+### 4.4 Do not make every line persuasive
+
+Some copy is labeling. Some copy is explaining. Only a small amount needs to persuade.
+
+If the video clearly demonstrates the behavior, the caption can simply name it. If a table already lists role and timeline, the paragraph should not repeat them.
+
+### 4.5 Preserve exact technical nouns
+
+Use the actual term when it is the shortest accurate phrase:
+
+- `CPU canvas`
+- `GPU diffusion shader`
+- `WebGL / SVG overlay`
+- `Depth Anything v2`
+- `d3-force`
+- `WebSockets`
+- `PBR textures`
+- `2.5D parallax`
+
+Do not replace these with `custom technology`, `advanced rendering`, or `technical system`.
+
+### 4.6 Use adjectives only when they encode a constraint
+
+Useful:
+
+- `lightweight` when bundle or runtime weight matters;
+- `low-load` when rendering cost matters;
+- `non-intrusive` when the overlay preserves DOM behavior;
+- `shared` when one ticker, canvas, or state source replaces many;
+- `persistent` when pigment or state survives frames or sessions.
+
+Weak without evidence:
+
+- thoughtful;
+- intentional;
+- expressive;
+- seamless;
+- innovative;
+- robust;
+- intuitive;
+- ambitious;
+- meaningful;
+- human-centered.
+
+---
+
+## 5. Operators and shorthand
+
+Operators are editorial tools, not decoration.
+
+### `/` means parallel media, alternatives, or a hybrid
+
+Use:
+
+- `WebGL / SVG overlay`
+- `design engineering / creative tech`
+
+Do not use `/` when `and` would communicate a causal sequence.
+
+### `+` means components combined in one mechanism or scope
+
+Use:
+
+- `POS tagging + d3-force`
+- `design + engineering`
+- `Best Design + Use of CopilotKit`
+
+Avoid stacking more than three items unless the list is intentionally equation-like.
+
+### `=` means a visible or conceptual result
+
+Use:
+
+> packing algorithms + POS tagging + d3-force = organic but ordered text layouts
+
+Do not use `=` for a vague brand conclusion.
+
+### `→` means transformation or pipeline
+
+Use:
+
+- `GenAI input → editable renderer → portable export`
+- `photo → PBR maps → cloth asset`
+
+Do not mix `→`, `+`, `/`, and `=` in one line unless the notation stays immediately readable.
+
+### Typography
+
+- Put spaces around `+`, `/`, `=`, and `→` in prose labels.
+- Keep library and protocol names correctly cased.
+- Use numerals when the number is part of the mechanism: `2.5D`, `30 fps`, `300+ websites`.
+- Use `hi-fi` only for perceptual fidelity, not as generic praise.
+
+---
+
+## 6. Dryness, humor, and personality
+
+The voice is dry, not sterile.
+
+Useful personality usually comes from one of three places:
+
+1. an unexpectedly honest scope detail;
+2. a restrained aside;
+3. a concrete preference.
+
+Good:
+
+> and somehow crypto wallets
+
+Good:
+
+> The burgundy looks nice, but primary actions still disappear inside some dense screens.
+
+Good:
+
+> I like the contract model more than I like every screen.
+
+Rules:
+
+- one aside is enough;
+- do not add a wink to every project;
+- do not use cute language to soften technical uncertainty;
+- do not write jokes around collaborators, users, accessibility, privacy, or risk;
+- keep `idk`, `j`, and chat shorthand out of published copy unless the surface is intentionally conversational;
+- smileys are acceptable in personal copy, not as a substitute for a point of view.
+
+Dry does not mean aloof. It means the sentence does not oversell itself.
 
 ---
 
 ## 7. Rules by portfolio surface
 
-### Homepage
+### Homepage identity
 
-The homepage is routing copy, not a manifesto.
-
-- One recognized role or capability line.
-- One sentence a founder can turn into an assignment.
-- No more than one abstract phrase in the first viewport.
-- Let the projects supply the nuance.
-
-Current positioning is acceptable:
-
-> I design and build technically ambitious product interactions.
-
-Do not repeat “technically ambitious,” “product interactions,” or the graphics/design/engineering triad elsewhere just to reinforce the brand.
-
-### Project row
-
-Answer: **What did you make, and why would someone care?**
-
-Use one concrete object and one human action.
+Use recognizable information before internal detail.
 
 Good:
 
-> A habit app where proof, partners, and small bets have to make sense.
+- `Frontend SWE intern @ PayPal`
+- `CS + Computer Graphics @ UPenn`
+- `available mid-august 2026 · full-time design engineering / creative tech`
 
-Good:
+Do not make the margin note carry a résumé bullet. The project pages can explain the work.
 
-> A museum scavenger hunt that turns found artifacts into a personal sticker collection.
-
-Avoid beginning every row with `Turning…`. Repeated participles make different projects sound generated from one template.
-
-### Project opening
-
-The first paragraph should contain:
-
-1. the real context;
-2. what the product lets someone do;
-3. Estelle's role, including collaborators.
-
-Keep the stack out until the reader understands the product.
-
-### Case-study sections
-
-Use declarative, lowercase headings that name the decision or problem:
-
-- `the contract was the product`
-- `one reference box for every crop`
-- `the model leaves after authoring`
-- `why i kept the interaction local`
-
-Avoid headings that merely name the design-process stage:
-
-- Research
-- Ideation
-- Solution
-- Final Design
-- Reflection
-
-### Technical explanation
-
-Use this order:
-
-> visible behavior → constraint → mechanism → payoff
-
-The mechanism should name real parts. “A custom system” says nothing. “A worker runs depth inference once, then the image and depth map are baked into a small WebGL renderer” does.
-
-### Outcome
-
-State what shipped or what can be done now. Use numbers when they change the reader's understanding.
-
-Avoid pretending every exploration created business impact. For experiments, the outcome can be a working behavior, a learned constraint, or a reusable primitive.
-
-### Retrospective
-
-This is where the voice should be most recognizable.
-
-Strong forms:
-
-- `I thought ___. Once ___, I realized ___.`
-- `I would keep ___. I would change ___.`
-- `The ___ works better than the ___.`
-- `I would not call it finished until ___.`
-
-Never end with “This project taught me the importance of…” Name the changed decision instead.
-
-### About page
-
-Personal details should explain how Estelle works, not prove that she has a personality.
-
-Good:
-
-> I came to engineering a little sideways.
-
-Good:
-
-> I like caring about both the system and the person using it.
-
-Keep the smiley, contractions, and small odd details. They are doing more voice work than another paragraph about multidisciplinary collaboration.
-
-### Interaction studies
-
-These currently drift furthest toward either exhibition-label language or the repeated cadence `I wanted → I built`. Each should read like a compact build note whose opening reveals the project's model.
-
-Prefer:
-
-> A material layer that sits on top of existing controls instead of replacing them. Buttons, inputs, and sliders keep their original behavior.
-
-over:
-
-> Adding material response to existing UI elements without replacing or intercepting them.
-
-This keeps the fuller idea—the relationship between material and interface—rather than reducing the project to a visual effect. Then give the mechanism in one direct sentence:
-
-> One pointer-transparent WebGL layer mirrors each element's bounds and corner radius, so the original DOM keeps handling focus, clicks, and form state.
-
-Use `explores` as an interface label if useful, but do not force the sentence underneath to sound like curatorial copy.
-
----
-
-## 8. Collaboration and ownership
-
-The old résumé mode either hid the team or compressed everyone into a team count. The right voice names both without ceremony.
+### Project cards
 
 Use:
 
-- `I` for what Estelle personally decided or built.
-- `we` for a shared product decision.
-- a person's name or role when their contribution changes the story.
+> `[Concrete product] + [main action or transformation]`
 
-Good:
+This is a check, not a fixed template.
 
-> Ruth and I shaped the product. I led the visualization and handled the integration, API, and deployment work.
+Keep:
 
-Good:
+- one object;
+- one action;
+- one weird or consequential constraint if it earns the space.
 
-> I built Drift with a friend.
+Cut:
 
-Avoid:
+- leading articles;
+- role and stack repetition;
+- generic value claims;
+- a second sentence that merely interprets the first.
 
-> Led a cross-functional team to deliver an end-to-end spatial navigation experience.
+### Interaction snippets
 
-Do not inflate solo work with `0→1 ownership`. Say what was built. Do not hide collaboration to sound more impressive; clear boundaries make ownership more credible.
+The video is primary. The copy is an annotation.
 
----
+The first line should answer one of:
 
-## 9. Templates to use as checks, not fill-in-the-blank prose
+- what behavior should I watch?
+- what is the unusual handoff?
+- what systems are combined?
+- what familiar object is being changed?
 
-### Compact project description
+The technical line underneath can answer:
 
-> A [concrete object] that lets [person] [action], even when [real constraint].
+- how does it work?
+- what remains local?
+- what is shared?
+- what is recomputed?
 
-### Interaction study
+Do not duplicate the same mechanism in both lines using different words.
 
-> [Object or interface] sits between [two competing models]. [Mechanism] handles [one job], while [existing system] keeps [important behavior].
+### Case-study opening
 
-This is a diagnostic shape, not a sentence pattern. If adjacent projects all use “sits between,” change the syntax while preserving the tension.
+The first screen should answer:
 
-### Technical decision
+- what is it?
+- what was Estelle's role?
+- when was it made?
+- who else was involved?
+- what parts of the product are actually covered?
 
-> At first I [first approach]. It [specific failure]. I [change], so [visible consequence].
+Use a factual deck and a compact summary table. Do not warm up with a philosophy.
 
-### Team role
+### Case-study sections
 
-> [Collaborator] handled [scope]. I handled [scope], and we decided [shared decision] together.
+Use literal headings and one clear job per section.
+
+Within a section:
+
+1. state the problem or decision plainly;
+2. show the relevant screen, diagram, or demo;
+3. explain the mechanism or revision;
+4. stop when the evidence is clear.
+
+Not every section needs a dramatic tension, a lesson, and a concluding thesis.
+
+### Technical explanation
+
+Choose the order that matches the point.
+
+If the reader first needs context:
+
+> visible behavior → constraint → mechanism → consequence
+
+If the mechanism is the hook:
+
+> mechanism → visible behavior → why it matters
+
+Both are valid. Do not bury an unusual mechanism behind product-language setup.
 
 ### Retrospective
 
-> I would keep [core decision]. I would change [weak part]. I would not call it finished until [real test].
+Be direct about what works and what does not.
 
-If the final copy still sounds like the template, rewrite it once more.
+Good forms:
+
+- `I would keep ___.`
+- `I would change ___.`
+- `The ___ works better than the ___.`
+- `I would not call it finished until ___.`
+- `I like ___ more than ___.`
+
+Avoid:
+
+> This project taught me the importance of balancing user needs with technical constraints.
+
+Name the part you would actually change.
+
+### Links and proof
+
+Only show a source, live demo, or deep dive when it helps the reader inspect something real.
+
+It is fine to omit a link when:
+
+- the build is not ready;
+- the repository is noisy or misleading;
+- the live version no longer represents the work;
+- the snippet already shows the relevant behavior.
+
+More links do not automatically make the work more credible.
 
 ---
 
-## 10. The AI smell test
+## 8. Sentence-level fingerprint
 
-Before shipping a sentence, ask:
+### Fragments are allowed on compact surfaces
 
-1. Could this sentence appear unchanged on another design engineer's portfolio?
-2. Are there three abstract nouns before the first thing I can picture?
-3. Did an adjective replace evidence?
-4. Did I summarize the meaning before saying what happened?
-5. Is the sentence perfectly balanced in a way I would never say aloud?
-6. Did I use an em dash to make an ordinary claim sound profound?
-7. Did I turn one honest limitation into a triumphant lesson?
-8. Does every project now have the same `I wanted → challenge → solution` cadence?
-9. Did I erase the collaborator, false start, or constraint that makes the decision believable?
-10. Does the paragraph end with a thesis when it should end with a result?
+Good:
+
+> lathing, baking, and deforming a lightweight 2D mesh with 3D features
+
+Do not add `This experiment explores` just to make it grammatical.
+
+### Full prose should still sound spoken
+
+Use contractions:
+
+- `I'm`
+- `didn't`
+- `couldn't`
+- `it's`
+- `I'd`
+
+Uncontracted prose often sounds like an application essay.
+
+### Ordinary verbs beat professional nouns
+
+Prefer:
+
+- built;
+- made;
+- kept;
+- split;
+- moved;
+- stored;
+- changed;
+- broke;
+- tried;
+- chose;
+- drew;
+- packed;
+- fed;
+- baked;
+- lathed;
+- deformed.
+
+Distrust:
+
+- leveraged;
+- facilitated;
+- enabled;
+- empowered;
+- operationalized;
+- ideated;
+- delivered, when `built` is more accurate.
+
+### Lists should be concrete
+
+Good:
+
+> contracts, proof, partners, transaction incentives, and somehow crypto wallets
+
+Weak:
+
+> trust, accountability, motivation, and community
+
+### Short sentences can carry judgment
+
+Use them in case studies, not every card.
+
+Good:
+
+> The state model works. Some screens still do not.
+
+Do not manufacture a dramatic landing sentence for every paragraph.
+
+---
+
+## 9. What to distrust on sight
+
+These are not banned, but they require immediate evidence:
+
+- thoughtful;
+- intentional;
+- expressive;
+- ambitious;
+- coherent;
+- seamless;
+- robust;
+- innovative;
+- novel;
+- intuitive;
+- scalable;
+- meaningful;
+- human-centered;
+- end-to-end;
+- product surface;
+- intersection of;
+- leverage;
+- empower.
+
+Usually generated-sounding:
+
+- `sits at the intersection of...`
+- `bridges the gap between...`
+- `not just X, but Y`
+- `This project explores...`
+- `The result is a seamless...`
+- `A system designed to empower...`
+- `where X, Y, and Z come together`
+- `from idea to polished implementation`
+- `one claim, one mechanism`
+- `technically ambitious` repeated outside the main positioning line
+- headings that announce a revelation rather than naming the section
+
+When one appears, ask:
+
+> What is the noun, mechanism, or visible behavior hiding underneath this phrase?
+
+Write that.
+
+---
+
+## 10. Calibration from the August 3 edits
+
+| Before | After | Rule |
+| --- | --- | --- |
+| `SWE intern @ PayPal · checkout-friction tooling + frontend` | `Frontend SWE intern @ PayPal` | Use the recognized role in status copy. |
+| `full-time design engineering / product frontend` | `full-time design engineering / creative tech` | Name the field you actually want, not the narrowest adjacent job title. |
+| `A shared 30 fps ticker drives...` | `orbit, chase, and burst behavior that follows user attention` | Label the behavior in the preview; keep implementation in technical copy. |
+| `One non-interactive WebGL overlay tracks...` | `non-intrusive WebGL / SVG overlay to enhance everyday DOM objects` | Name the media and the familiar objects being changed. |
+| `A Hume voice agent delivers route cues...` | `voice agent and interactive artifact-driven take on maps for detours` | Describe the actual product model without making it a polished thesis. |
+| `Drag state stays local...` | `minimal feedback loop for collaborative editing with WebSockets` | Summarize the interaction model, not every state update. |
+| `Depth Anything runs in a worker...` | `using Depth Anything v2 to create hi-fi, low-load 2.5D parallax scenes` | Name the model and the performance/fidelity target. |
+| `Radial distance and layered noise drive...` | `one noise field for multiple visual effects + cursor becomes dancing spark` | Let one line contain mechanism plus the fun visible behavior. |
+| `Canvas input feeds alternating WebGL textures...` | `bottom pixel row of a CPU canvas feeds top row of a GPU diffusion shader` | Prefer the exact handoff over a generalized pipeline summary. |
+| `D3 forces pack grammar-tagged words...` | `packing algorithms + POS tagging + d3-force = organic but ordered text layouts` | Equation-like shorthand is allowed when the combination is the point. |
+| `A material editor that turns...` | `Material editor that turns...` | Treat project descriptions as captions; omit repeated articles. |
+| `A habit app built around...` | `Social habit app built around... and somehow crypto wallets.` | A restrained aside can make an odd scope feel honest. |
+
+---
+
+## 11. Revision workflow
+
+### Pass 1: identify the surface
+
+Is this:
+
+- status metadata;
+- a project-card caption;
+- an interaction label;
+- technical explanation;
+- case-study prose;
+- retrospective copy?
+
+Do not apply long-form grammar to a label or fragment shorthand to a paragraph.
+
+### Pass 2: find the key noun
+
+Write the object first. If the sentence starts with `This project`, delete those words and try again.
+
+### Pass 3: find the differentiating mechanism
+
+Ask what the obvious implementation would have been and what this one does differently.
+
+### Pass 4: choose behavior-first or mechanism-first
+
+- Behavior-first when the mechanism needs context.
+- Mechanism-first when the handoff, algorithm, or medium is the interesting part.
+
+### Pass 5: compress with structure
+
+Try one of these only if it clarifies:
+
+- `X + Y`
+- `X / Y`
+- `X = Y`
+- `X → Y`
+
+Do not use operators merely to make ordinary copy look technical.
+
+### Pass 6: remove the professional wrapper
+
+Cut claims that the work is thoughtful, innovative, expressive, seamless, or human-centered. Keep the fact that creates that impression.
+
+### Pass 7: add personality only if it is already there
+
+If the project has an honestly weird constraint, one dry aside may belong. Do not invent one.
+
+### Pass 8: compare adjacent cards
+
+Check for repeated openings, sentence shapes, and operators. The portfolio should share a voice without looking generated from one syntax template.
+
+### Pass 9: read it aloud once
+
+If it sounds like a panel abstract, shorten it. If it sounds like raw notes no one else can parse, restore one noun or relationship.
+
+---
+
+## 12. Fast review checklist
+
+### Every compact line
+
+- [ ] Does it name a concrete object, mechanism, or behavior?
+- [ ] Can the leading `A`, `An`, `This project`, or `I wanted` be removed?
+- [ ] Is a fragment clearer than a full sentence here?
+- [ ] Is the key mechanism specific enough to be memorable?
+- [ ] Are operators communicating a real relationship?
+- [ ] Is there only one main idea?
+- [ ] Does the line stop before it explains itself twice?
+
+### Every case-study section
+
+- [ ] Is the heading literal enough to scan?
+- [ ] Are role, timeline, and scope easy to find?
+- [ ] Does the paragraph say what changed, not just what was considered?
+- [ ] Is technical detail attached to a visible screen, behavior, or output?
+- [ ] Did the copy avoid turning the section into a universal lesson?
+- [ ] Is the strongest evidence visual rather than adjectival?
+
+### AI smell test
+
+- [ ] Could this appear unchanged on another design engineer's portfolio?
+- [ ] Are there three abstract nouns before the first visible thing?
+- [ ] Did an adjective replace a mechanism?
+- [ ] Is the sentence more balanced or polished than Estelle would say aloud?
+- [ ] Did an em dash make an ordinary claim sound profound?
+- [ ] Did every project acquire the same narrative arc?
+- [ ] Did the copy explain a video instead of annotating what to notice?
+- [ ] Did a dry sentence get rewritten into an aloof one?
 
 If two answers are yes, revise.
 
 ---
 
-## 11. Revision method
+## 13. Protected moves
 
-### Pass 1: facts only
+Protect these patterns in future edits:
 
-Write down:
+- recognized role labels: `Frontend SWE intern @ PayPal`;
+- project captions without opening articles;
+- lowercase interaction fragments;
+- exact mechanism handoffs;
+- equation-like combinations when the combination is the point;
+- one restrained aside when the scope is genuinely odd;
+- straightforward case-study headings;
+- candid retrospective judgments;
+- technical terms that do not apologize for being technical;
+- copy that leaves room for the demo to do the explaining.
 
-- who it was for;
-- what they could do;
-- what Estelle built;
-- who else built it;
-- what went wrong;
-- the decision that changed the work;
-- what exists now.
+Protect these existing lines or the move behind them:
 
-No adjectives.
-
-### Pass 2: say it aloud
-
-Explain the project as if showing it to one engineering manager. Transcribe the sentence that feels most natural. This is often better than the prepared opening.
-
-### Pass 3: restore the tension
-
-Add the one conflict that made the decision non-obvious. Do not add every constraint.
-
-### Pass 4: check nouns against the screen
-
-Underline every noun. Could the reader point to it in the interface, architecture, or team? Replace floating nouns with visible ones.
-
-### Pass 5: cut the interpretation
-
-Remove sentences that tell the reader the work is thoughtful, polished, ambitious, coherent, or human-centered. Leave the evidence that creates that impression.
-
-### Pass 6: vary the cadence
-
-Look at adjacent projects. If all of them begin with `Turning`, `I wanted`, or `The challenge was`, change the opening—not the facts.
-
-### Pass 7: read for embarrassment
-
-The copy should feel a little exposed because it states what Estelle actually thought. It should not feel embarrassing because it overshares or overclaims.
+- `I came to engineering a little sideways.`
+- `I like caring about both the system and the person using it.`
+- `The app kept asking one more question...`
+- `I like the contract model more than I like every screen.`
+- `I would not call the rest finished until...`
+- `bottom pixel row of a CPU canvas feeds top row of a GPU diffusion shader`
+- `packing algorithms + POS tagging + d3-force = organic but ordered text layouts`
+- `and somehow crypto wallets`
 
 ---
 
-## 12. Current portfolio: what already sounds right
+## 14. Final standard
 
-Protect these lines and the moves behind them:
+The copy is ready when:
 
-- “I came to engineering a little sideways.”
-- “I like caring about both the system and the person using it.”
-- “The app kept asking one more question…”
-- “I like the contract model more than I like every screen.”
-- “I would not call the rest finished until…”
-- “I kept adding sliders because I thought more control would make the fabric more expressive.”
-- “I came in thinking the dashboard was the product. Most of the real work was underneath it.”
-- “There was the first one, which looked like the first.”
+- a recruiter can name the product and role quickly;
+- a design lead can scan the case-study headings without decoding them;
+- an engineer can identify the key mechanism without searching for it;
+- the interaction labels tell someone what to watch rather than narrating the whole build;
+- the copy sounds dry and alive, not polished and aloof;
+- the screen, demo, or diagram still does most of the proving.
 
-They are specific, a little dry, and confident without pretending certainty.
+The target is not perfect prose.
 
----
-
-## 13. Current portfolio: first places to revise
-
-When the guide is applied, begin here:
-
-1. Interaction-study header, group descriptions, and footer. Phrases such as “Interaction ideas, proven through working mechanisms” and “One interaction claim, one implemented mechanism” are polished but impersonal.
-2. The `explores` lines in the interaction data. Several read like museum labels rather than build notes.
-3. Repeated `Turning…` openings across project rows.
-4. Any project paragraph that could be reduced to a role label plus an abstract result.
-5. Any new case-study conclusion that turns a concrete decision into a universal philosophy.
-
-Do not rewrite the whole site into first person. The goal is not more `I`; it is more **cause, choice, and visible detail**.
-
----
-
-## 14. Calibration examples from the current site
-
-These are not mandatory final lines. They show how to apply the guide without making every project sound the same.
-
-### Interactions page introduction
-
-Current:
-
-> Interaction ideas, proven through working mechanisms.
-
-Closer to the voice:
-
-> Small interfaces I built to see whether the interaction still worked outside the idea.
-
-The revision gives the page a person, an action, and a standard of proof.
-
-### Iridescence
-
-Current:
-
-> Adding material response to existing UI elements without replacing or intercepting them.
-
-Closer to the voice:
-
-> A material layer that sits on top of existing controls instead of replacing them. Buttons, inputs, and sliders keep their original behavior.
-
-The second names visible objects, preserves the larger system idea, and states the constraint in the same sentence.
-
-### Drift
-
-Current:
-
-> Navigation that rewards attention and memory instead of shortest-path arrival.
-
-Closer to the voice:
-
-> A friend and I built a walking app without a map. It traces where you've been and sometimes asks you to stop and notice something instead of getting there faster.
-
-The idea is still unusual, but the prose no longer has to announce that it is.
-
-### Paper Between Us
-
-Current:
-
-> Remote drawing through partial visibility: live blur or reveal only after both people finish.
-
-Closer to the voice:
-
-> Most shared canvases maximize visibility. This one keeps part of the other person's drawing uncertain: marks can arrive blurred, or both drawings can stay hidden until the reveal.
-
-This keeps the nuance while using the actual interaction to explain it.
-
-### Magnetic Poetry
-
-The underlying intent is worth preserving without reusing the same first-person opening:
-
-> A shared writing surface built around arranging rather than typing. Every word stays movable, so meaning stays provisional.
-
-It contains a point of view, behavior, and consequence without reading like a feature list.
-
----
-
-## 15. Final standard
-
-The copy is ready when a recruiter can skim it and understand the assignment Estelle could own, while a design or engineering lead can keep reading and find a real mind at work.
-
-It should be possible to remove every adjective of praise without weakening the impression.
-
-The work supplies the ambition. The writing supplies the shape.
+The target is copy that knows exactly why it is there.

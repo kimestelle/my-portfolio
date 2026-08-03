@@ -73,12 +73,14 @@ function SelectedProjectCard({ project }: { project: PortfolioProject }) {
                   alt={`${project.name} preview`}
                   fill
                   sizes="(max-width: 767px) 100vw, 50vw"
-                  className="object-cover transition duration-500 ease-out group-hover:scale-[1.018] group-hover:saturate-[1.03]"
+                  className={`object-cover transition-[opacity,transform,filter] duration-[420ms] ease-[var(--motion-mood-ease)] motion-reduce:transition-none group-hover:scale-[1.018] group-hover:saturate-[1.03] ${
+                    showPreview ? 'opacity-0' : 'opacity-100'
+                  }`}
                 />
 
                 {allowMotion && preview && isMuxVideo(preview) ? (
                   <div
-                    className={`pointer-events-none absolute inset-0 transition-opacity duration-300 ${
+                    className={`pointer-events-none absolute inset-0 transition-opacity duration-[420ms] ease-[var(--motion-mood-ease)] motion-reduce:transition-none ${
                       showPreview ? 'opacity-100' : 'opacity-0'
                     }`}
                     aria-hidden="true"
@@ -108,7 +110,7 @@ function SelectedProjectCard({ project }: { project: PortfolioProject }) {
                     preload="metadata"
                     onLoadedData={() => setMediaReady(true)}
                     onCanPlay={() => setMediaReady(true)}
-                    className={`pointer-events-none absolute inset-0 h-full w-full bg-neutral-950 object-contain transition-opacity duration-300 ${
+                    className={`pointer-events-none absolute inset-0 h-full w-full bg-neutral-950 object-contain transition-opacity duration-[420ms] ease-[var(--motion-mood-ease)] motion-reduce:transition-none ${
                       showPreview ? 'opacity-100' : 'opacity-0'
                     }`}
                     aria-hidden="true"

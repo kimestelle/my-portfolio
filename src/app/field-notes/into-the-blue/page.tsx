@@ -13,9 +13,9 @@ import FieldNoteScrollLink from '../components/FieldNoteScrollLink';
 import styles from './into-the-blue.module.css';
 
 const mapEntries = [
-  ['brief', 'product brief and constraints'],
-  ['gallery', 'selecting artifacts in the gallery'],
-  ['assets', 'camera and asset alignment'],
+  ['brief', 'visitor flow and constraints'],
+  ['gallery', 'artifact selection'],
+  ['assets', 'shared camera geometry'],
   ['camera', 'sticker processing'],
   ['integration', 'offline storage and recovery'],
   ['launch', 'testing and launch'],
@@ -39,7 +39,7 @@ export default function IntoTheBlueFieldNotes({
         <FieldNoteHeader
           eyebrow="collaborative project"
           title="into the blue"
-          deck="a mobile scavenger hunt for Penn Museum. Visitors photograph selected artifacts, turn them into stickers, and arrange a personal stickerboard."
+          deck="Mobile scavenger hunt for Penn Museum. Visitors photograph selected artifacts through a guide, save the cutouts as stickers, and arrange a personal stickerboard."
           meta={[]}
           links={[
             {
@@ -61,16 +61,16 @@ export default function IntoTheBlueFieldNotes({
 
         <FieldNoteProjectSummary
           facts={[
-            ['role', 'frontend developer · camera-to-sticker feature'],
+            ['role', 'frontend developer · camera, stickers, and local storage'],
             ['timeline', 'february–april 2025 · deployed about nine months'],
             ['team', '5 developers within an 8-person project group'],
             ['outcome', 'shipped in eight weeks for Penn Museum'],
           ]}
           keyDetails={[
-            'proposed and built the guided camera capture and SVG cutout pipeline',
-            'used one 300 × 360 coordinate system for guides, masks, crops, and stickers',
-            'stored stickers, progress, and interface state in IndexedDB for recovery',
-            'co-built the stickerboard and worked with museum staff on artifact constraints',
+            'proposed and built the guided camera capture + SVG cutout pipeline',
+            'aligned guides, masks, crops, and stickers in one 300 × 360 coordinate system',
+            'stored stickers and progress in IndexedDB so visits survived refreshes',
+            'co-built the stickerboard and adapted the flow to museum constraints',
           ]}
         />
 
@@ -94,33 +94,20 @@ export default function IntoTheBlueFieldNotes({
           <FieldNoteSection
             number="00"
             id="brief"
-            title="product brief and constraints"
+            title="visitor flow and constraints"
             className={styles.section}
           >
 
             <p className={styles.lead}>
-              <strong>dec 29–jan 31.</strong> Into the Blue started with a
-              simple loop: find a blue object, photograph it, and keep the
-              cutout as a sticker.
+              Visitors scan a QR code, find a selected blue artifact,
+              photograph it inside a guide, and keep the cutout as a sticker.
             </p>
 
             <p>
-              The project leads interviewed museum staff and chose the
-              collect-a-thon from four early concepts. The playfulness was
-              useful, but staff did not want culturally significant objects
-              treated like props or made to &quot;come to life.&quot; The
-              interaction needed to{' '}
-              <strong>
-                keep a short piece of context and point visitors back to the
-                physical object and label
-              </strong>
-              .
-            </p>
-
-            <p>
-              It also had to begin from a QR code, use little text, work
-              without visitor accounts, and create almost no support burden. I
-              joined for implementation and took on the first
+              Museum staff wanted the interaction to point back to the real
+              object, not turn culturally significant artifacts into animated
+              props. The app also had to work from a QR code, without accounts,
+              with little text and almost no support burden. I owned the first
               camera-to-cutout prototype and local image store.
             </p>
 
@@ -136,30 +123,26 @@ export default function IntoTheBlueFieldNotes({
           <FieldNoteSection
             number="01"
             id="gallery"
-            title="selecting artifacts in the gallery"
+            title="artifact selection"
             className={styles.section}
           >
 
             <p className={styles.lead}>
-              <strong>feb 03–07.</strong> A gallery walk made two assumptions
-              in the early concept fall apart.
+              A gallery walk changed the route and the artifact list.
             </p>
 
             <p>
-              First, Public Programs pointed out that families enter from
-              different floors and could find the QR code halfway through a
-              visit. The project leads and Penn Museum staff dropped the
-              prescribed route. The five-person development team made each
-              gallery module work as a starting point instead.
+              Families could enter from different floors or find the QR code
+              halfway through a visit, so we removed the prescribed route.
+              Every gallery module became a valid starting point.
             </p>
 
             <p>
-              Second, more than 200 museum objects were blue, but many were too
-              high, dim, distant, hard to frame, or not appropriate to turn
-              into a collectible. Museum staff, designers, and developers
-              walked the galleries together and{' '}
-              <strong>reduced the list to roughly three dozen objects</strong>{' '}
-              that worked for both the visit and the camera.
+              More than 200 objects were blue. Many were too high, dim,
+              distant, hard to frame, or not appropriate as collectibles.
+              Museum staff, designers, and developers reduced the list to
+              roughly three dozen objects that worked for both the visit and
+              the camera.
             </p>
 
             <FieldNoteFigure
@@ -174,30 +157,26 @@ export default function IntoTheBlueFieldNotes({
           <FieldNoteSection
             number="02"
             id="assets"
-            title="camera and asset alignment"
+            title="shared camera geometry"
             className={styles.section}
           >
 
             <p className={styles.lead}>
-              Once we had an object list, the designers and camera pipeline
-              needed to describe every artifact the same way.
+              The camera guide, crop mask, and saved sticker needed to align on
+              different phones.
             </p>
 
             <p>
-              I worked with the lead designer to establish the handoff: a PNG
-              overlay so visitors could see what they were looking for, one or
-              more SVG paths for tracing and sticker cutting, tagged metadata,
-              and <strong>the same 300 × 360 viewBox for every layer.</strong>{' '}
-              Earlier screen-by-screen offsets worked for a prototype, then
-              drifted across objects and devices.
+              I worked with the lead designer on one asset contract: a PNG
+              guide, one or more SVG cutout paths, tagged metadata, and the same
+              300 × 360 viewBox for every layer. Per-screen offsets worked in a
+              prototype, then drifted across artifacts and devices.
             </p>
 
             <p>
-              <strong>The shared geometry</strong> let the overlay, outline,
-              captured crop, and final sticker line up without a separate set
-              of corrections for every object. It also gave the design team a
-              repeatable way to prepare new artifacts as gallery content
-              changed.
+              Shared geometry kept the guide, outline, camera crop, and sticker
+              aligned. It also gave the design team one way to prepare new
+              artifacts when gallery content changed.
             </p>
 
             <FieldNoteFigure
@@ -217,15 +196,15 @@ export default function IntoTheBlueFieldNotes({
           >
 
             <p className={styles.lead}>
-              <strong>feb 16–mar 02.</strong> My first prototype clipped the
-              live camera feed against the artifact SVG on every frame. It
-              proved the idea and made the preview do too much work.
+              My first prototype clipped the live camera feed against the SVG
+              on every frame. It proved the interaction and made the preview
+              do too much work.
             </p>
 
             <p>
-              A single outline was not enough. Handles, holes, beads, and
-              disconnected pieces needed several SVG paths combined into one
-              even-odd clipping region. I first proved the{' '}
+              Handles, holes, beads, and disconnected parts needed multiple SVG
+              paths combined into one even-odd clipping region. I first proved
+              the{' '}
               <FieldNoteSourceLink
                 id="01"
                 href="https://github.com/PennSpark/into-the-blue/commit/5ef5aed"
@@ -269,29 +248,23 @@ export default function IntoTheBlueFieldNotes({
             </div>
 
             <p>
-              The multi-path result was right, but recomputing it continuously
-              made the preview less responsive.{' '}
-              <strong>
-                I kept the live view light and moved the full cutout to the
-                moment after the visitor pressed the shutter.
-              </strong>{' '}
-              The{' '}
+              Recomputing the multi-path crop continuously slowed the preview.
+              I kept the live guide light and moved the full cutout to the
+              moment after the visitor pressed the shutter. The{' '}
               <FieldNoteSourceLink
                 id="03"
                 href="https://github.com/PennSpark/into-the-blue/commit/0b43dd5"
               >
                 capture-time version
               </FieldNoteSourceLink>{' '}
-              kept the same result without running the multi-path crop on every
-              frame.
+              kept the same output without processing every frame.
             </p>
 
             <p>
-              A museum review from feb 22–mar 02 also caught difficult objects,
-              unclear progress, context that was too thin, and a stickerbook
-              that felt too much like Facebook. The designers and developers
-              revised the progress labels and stickerbook before launch instead
-              of treating the camera prototype as the only task.
+              Museum review also caught difficult objects, unclear progress,
+              thin context, and a stickerbook that felt too much like Facebook.
+              We revised the object list, progress labels, and stickerboard
+              before launch.
             </p>
           </FieldNoteSection>
 
@@ -303,9 +276,8 @@ export default function IntoTheBlueFieldNotes({
           >
 
             <p className={styles.lead}>
-              <strong>feb 19–mar 29.</strong> The app could not turn Visitor
-              Services into a support desk, so progress and captured media
-              stayed on the visitor&apos;s device.
+              Stickers and progress stayed on the visitor&apos;s device so a
+              refresh or bad museum Wi-Fi did not erase the visit.
             </p>
 
             <p>
@@ -316,25 +288,23 @@ export default function IntoTheBlueFieldNotes({
               >
               first IndexedDB image store
               </FieldNoteSourceLink>{' '}
-              keyed by artifact ID. Captures could survive refreshes{' '}
-              <strong>without a visitor account or a new media backend.</strong>{' '}
-              The development team then integrated that local data with gallery
-              content, progress, labels, the ending, analytics, static routes,
-              and deployment.
+              keyed by artifact ID. Captures survived refreshes without visitor
+              accounts or a media backend. The team connected that local data
+              to gallery progress, labels, the ending, analytics, and
+              deployment.
             </p>
 
             <p>
               I also built the first stickerboard export and the rasterized
-              outline pipeline used in{' '}
+              outline pipeline for{' '}
               <FieldNoteSourceLink
                 id="05"
                 href="https://github.com/PennSpark/into-the-blue/commit/759bc07"
               >
                 capture-time sticker processing
               </FieldNoteSourceLink>
-              . The production camera was substantially refactored after my
-              prototype, and other developers extended the local database and
-              stickerboard.
+              . Other developers later refactored the production camera and
+              extended the local database and stickerboard.
             </p>
 
             <div className={styles.ownershipGrid}>
@@ -373,10 +343,9 @@ export default function IntoTheBlueFieldNotes({
           >
 
             <p className={styles.lead}>
-              <strong>mar 05–sep 20.</strong> The five-person development team
-              integrated and launched the experience for the
-              exhibition&apos;s opening weekend. It stayed deployed for{' '}
-              <strong>roughly nine months.</strong>
+              The five-person development team shipped the experience in eight
+              weeks for opening weekend. It stayed deployed for roughly nine
+              months.
             </p>
 
             <p>
@@ -402,12 +371,9 @@ export default function IntoTheBlueFieldNotes({
             />
 
             <p>
-              I expected the camera math to take most of the work. In practice,{' '}
-              <strong>
-                object choice, cultural context, and maintenance changed more
-                decisions.
-              </strong>{' '}
-              The route, assets, storage, and copy kept pointing visitors back
+              I expected camera math to drive most decisions. Object choice,
+              cultural context, and maintenance changed more. The route,
+              assets, storage, and copy all had to keep pointing visitors back
               to the museum object.
             </p>
           </FieldNoteSection>

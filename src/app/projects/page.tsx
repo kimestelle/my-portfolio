@@ -28,7 +28,7 @@ import {
 const isFileVideo = (url: string) => /\.(mp4|webm|mov|m4v)$/i.test(url);
 const isMuxVideo = (url: string) => !url.includes('/') && !url.includes('.');
 const PROJECT_MOTION_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
-const FULL_MEDIA_TRANSITION = `opacity 280ms ${PROJECT_MOTION_EASE}`;
+const FULL_MEDIA_TRANSITION = `opacity 420ms ${PROJECT_MOTION_EASE}`;
 const VIEW_TRANSITION_EASE = [0.2, 0.72, 0.24, 1] as const;
 
 const IntoTheBlueCaseStudy = dynamic(
@@ -160,6 +160,7 @@ function ProjectMedia({
   }
 
   const shouldMountPreview = active && allowMotion && Boolean(preview);
+  const showPreview = shouldMountPreview && mediaReady;
 
   return (
     <div className={`relative overflow-hidden bg-neutral-950 ${className}`}>
@@ -171,16 +172,16 @@ function ProjectMedia({
         priority={priority}
         className={`object-cover motion-reduce:transition-none ${
           active ? 'scale-[1.012]' : 'scale-100'
-        } ${imageClassName}`}
+        } ${showPreview ? 'opacity-0' : 'opacity-100'} ${imageClassName}`}
         style={{
-          transition: `transform 340ms ${PROJECT_MOTION_EASE}`,
+          transition: `transform 340ms ${PROJECT_MOTION_EASE}, ${FULL_MEDIA_TRANSITION}`,
         }}
       />
 
       {shouldMountPreview && preview && isMuxVideo(preview) && (
         <div
           className={`absolute inset-0 ${
-            mediaReady ? 'opacity-100' : 'opacity-0'
+            showPreview ? 'opacity-100' : 'opacity-0'
           }`}
           style={{ transition: FULL_MEDIA_TRANSITION }}
         >
@@ -203,7 +204,7 @@ function ProjectMedia({
         <video
           src={preview}
           className={`absolute inset-0 h-full w-full bg-neutral-950 object-contain ${
-            mediaReady ? 'opacity-100' : 'opacity-0'
+            showPreview ? 'opacity-100' : 'opacity-0'
           }`}
           style={{ transition: FULL_MEDIA_TRANSITION }}
           autoPlay

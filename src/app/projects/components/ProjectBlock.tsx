@@ -64,11 +64,13 @@ export default function ProjectBlock({ project }: ProjectBlockProps) {
             alt={`${project.name} preview`}
             fill
             sizes="(max-width: 768px) 100vw, 48rem"
-            className="object-cover"
+            className={`object-cover transition-opacity duration-[420ms] ease-[var(--motion-mood-ease)] motion-reduce:transition-none ${
+              mediaReady ? 'opacity-0' : 'opacity-100'
+            }`}
           />
           {project.media.preview && isMuxVideo(project.media.preview) && (
             <div
-              className={`absolute inset-0 transition-opacity duration-[var(--motion-mood-duration)] ease-[var(--motion-mood-ease)] ${
+              className={`absolute inset-0 transition-opacity duration-[420ms] ease-[var(--motion-mood-ease)] motion-reduce:transition-none ${
                 mediaReady ? 'opacity-100' : 'opacity-0'
               }`}
             >

@@ -63,7 +63,7 @@ export const INTERACTION_STUDIES: InteractionStudy[] = [
       'voice agent and interactive artifact-driven take on maps for detours',
     technical:
       'Hume EVI provides the voice layer; CopilotKit agent actions set audible cues and render typed journey tickets.',
-    image: '/project-images/interaction-studies/drift.png',
+    image: '/project-images/interaction-studies/drift-poster.png',
     imageAlt: 'Drift mobile interface showing a hand-drawn walking route and a prompt to let the route arrive slowly',
     video: '/project-images/interaction-studies/drift.mp4',
     videoFit: 'contain',
@@ -83,7 +83,7 @@ export const INTERACTION_STUDIES: InteractionStudy[] = [
       'minimal feedback loop for collaborative editing with WebSockets',
     technical:
       'Dragging stays local so it feels immediate. WebSockets only send the word that was added, moved, deleted, or reset.',
-    image: '/project-images/covers/poetry-cover.webp',
+    image: '/project-images/interaction-studies/magnetic-poetry-poster.png',
     imageAlt: 'Magnetic Poetry interface with draggable words arranged on a shared board',
     video: '/project-images/interaction-studies/magnetic-poetry.mp4',
     liveUrl: 'https://magnetic-poetry.vercel.app/',
@@ -100,7 +100,7 @@ export const INTERACTION_STUDIES: InteractionStudy[] = [
       'using depth anything v2 to create hi-fi, low-load 2.5D parallax scenes',
     technical:
       'A worker estimates depth once. The image, depth map, and settings are then baked into a small WebGL renderer for HTML or React export.',
-    image: '/project-images/covers/image-to-scene-cover.webp',
+    image: '/project-images/interaction-studies/image-to-scene-poster.png',
     imageAlt: 'Image to Scene depth-aware parallax editor',
     video: '/project-images/interaction-studies/image-to-scene.mp4',
     githubUrl: 'https://github.com/kimestelle/image-to-scene',
@@ -116,7 +116,7 @@ export const INTERACTION_STUDIES: InteractionStudy[] = [
       'one noise field for multiple visual effects + cursor becomes dancing spark',
     technical:
       'One noisy distance field keeps the hole, char, ember, grain, and text aligned while a small particle sheet moves the paper.',
-    image: '/project-images/covers/burning-cover.webp',
+    image: '/project-images/interaction-studies/burning-paper-poster.png',
     imageAlt: 'A letter burning outward from a pointer-selected origin',
     video: '/project-images/interaction-studies/burning-paper.mp4',
     liveUrl: 'https://burning-paper.vercel.app/',
@@ -133,7 +133,7 @@ export const INTERACTION_STUDIES: InteractionStudy[] = [
       'bottom pixel row of a CPU canvas feeds top row of a GPU diffusion shader',
     technical:
       'Canvas2D handles the playful input. Its pixels feed two alternating WebGL textures that keep diffusing and drying the pigment underneath.',
-    image: '/project-images/covers/watercolor-cover.webp',
+    image: '/project-images/interaction-studies/watercolor-drip-poster.png',
     imageAlt: 'Watercolor pigment dripping and diffusing through a textured paper surface',
     video: '/project-images/interaction-studies/watercolor-drip.mp4',
     liveUrl: 'https://watercolor-drip-shader.vercel.app/',
@@ -150,7 +150,7 @@ export const INTERACTION_STUDIES: InteractionStudy[] = [
       'packing algorithms + POS tagging + d3-force = organic but ordered text layouts',
     technical:
       'Paragraphs, sentences, and parts of speech constrain a force layout with measured text bounds, collisions, live editing, and export.',
-    image: '/project-images/covers/textellation-cover.webp',
+    image: '/project-images/interaction-studies/textellation-poster.png',
     imageAlt: 'Textellation poster arranging a passage into a typographic constellation',
     video: '/project-images/interaction-studies/textellation.mp4',
     liveUrl: 'https://www.textellation.com/',
@@ -167,7 +167,7 @@ export const INTERACTION_STUDIES: InteractionStudy[] = [
       'lathing, baking, and deforming a lightweight 2D mesh with 3D features',
     technical:
       'A 2D spring system deforms a drawn half-profile. I lathe that profile into 3D and recompute its normals so the changing silhouette also changes the light.',
-    image: '/project-images/covers/blob-cover.webp',
+    image: '/project-images/interaction-studies/softbody-jelly-poster.png',
     imageAlt: 'Customizable softbody jelly rendered with dimensional lighting',
     video: '/project-images/interaction-studies/softbody-jelly.mp4',
     liveUrl: 'https://2d-softbody-lathe.vercel.app/',

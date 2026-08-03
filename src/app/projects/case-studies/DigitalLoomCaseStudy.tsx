@@ -60,7 +60,7 @@ export default function DigitalLoomCaseStudy({
           <FieldNoteHeader
             eyebrow="solo design + engineering"
             title="digital loom"
-            deck="Digital Loom tests GenAI as structured input to a traditional rendering system. One fabric photo becomes an editable material, live cloth, and portable exports."
+            deck="Material editor that turns one fabric photo into PBR maps, live cloth, and exportable assets. GenAI proposes the surface; an editable renderer and cloth solver make the material."
             meta={[]}
             links={[
               {
@@ -97,13 +97,13 @@ export default function DigitalLoomCaseStudy({
             ['role', 'solo designer and engineer'],
             ['timeline', 'july–august 2026 · active development'],
             ['team', 'solo project'],
-            ['outcome', 'GenAI input → editable renderer → portable export'],
+            ['outcome', 'photo → editable material → PBR + GLB export'],
           ]}
           keyDetails={[
-            'GenAI converts a fabric photo into structured PBR evidence instead of a final image',
-            'an opinionated seven-field fabric core supplies renderer and solver defaults',
-            'detailed transmission, weight, stiffness, and surface controls remain editable',
-            'exports include PBR textures, packed ORM, GLB, cloth settings, and provenance',
+            'GenAI turns a fabric photo into source maps instead of a finished render',
+            'seven fabric properties supply shared renderer and solver defaults',
+            'transmission, weight, stiffness, and surface controls remain editable',
+            'exports include PBR maps, packed ORM, GLB, cloth settings, and provenance',
           ]}
         />
 
@@ -115,23 +115,22 @@ export default function DigitalLoomCaseStudy({
             className={styles.section}
           >
             <p className={styles.lead}>
-              GenAI is the input layer, not the final renderer. Patina turns a
-              fabric photo into structured PBR maps; Digital Loom passes those
-              maps into a deterministic material model, cloth solver, and
-              WebGL renderer.
+              Patina generates albedo, normal, roughness, height, and metalness
+              maps from a fabric photo. Digital Loom treats those maps as
+              source material for a WebGL renderer and cloth solver.
             </p>
 
             <div className={styles.thesisFlow} aria-label="Digital Loom product approach">
               <div>
                 <span>genAI input</span>
-                <strong>photo → PBR evidence</strong>
-                <small>generate structure, not a finished image</small>
+                <strong>photo → PBR maps</strong>
+                <small>surface information, not a finished render</small>
               </div>
               <FlowArrow />
               <div>
                 <span>opinionated framework</span>
                 <strong>fabric core + derived defaults</strong>
-                <small>start inside a believable material family</small>
+                <small>renderer and solver start from the same fabric</small>
               </div>
               <FlowArrow />
               <div>
@@ -143,15 +142,15 @@ export default function DigitalLoomCaseStudy({
               <div>
                 <span>preserved freedom</span>
                 <strong>manual controls + export</strong>
-                <small>override the defaults and take the result elsewhere</small>
+                <small>tune the result and take it elsewhere</small>
               </div>
             </div>
 
             <p>
-              The generated albedo, normal, roughness, height, and metalness
-              maps describe visible surface cues. They do not decide weight,
-              weave, bend, transmission, wind response, or crease behavior.
-              The framework adds those decisions while keeping them editable.
+              The maps describe color, relief, and light response. A photograph
+              cannot determine mass, weave, bend, transmission, or crease
+              behavior, so the editor supplies those values and keeps them
+              editable.
             </p>
 
             <div className={styles.mapContactSheet} aria-label="Extracted material maps">
@@ -177,9 +176,8 @@ export default function DigitalLoomCaseStudy({
             </div>
 
             <p>
-              I use the generated maps as a starting point. They give me color,
-              visible relief, and light spread. The cloth model still has to
-              decide how the material moves.
+              GenAI supplies the visible surface. The material model still
+              decides how the fabric moves.
             </p>
           </FieldNoteSection>
 
@@ -190,10 +188,9 @@ export default function DigitalLoomCaseStudy({
             className={styles.section}
           >
             <p className={styles.lead}>
-              The editor needs separate controls for inspection and tuning.
-              The problem was starting a material from unrelated optical and
-              mechanical values, which made contradictory fabrics easy to
-              create by accident.
+              Starting from unrelated optical and mechanical sliders made it
+              easy to pair one fabric&apos;s surface with another fabric&apos;s
+              motion. I added a shared starting model for both.
             </p>
 
             <div className={styles.sourceDiagram} aria-label="Material source of truth diagram">
@@ -225,11 +222,10 @@ export default function DigitalLoomCaseStudy({
             </div>
 
             <p>
-              Each fabric profile starts from seven physical facts. One
-              function derives renderer and solver defaults from them, then
-              applies sparse preset overrides. The editor still exposes the
-              lower-level controls; the shared core gives them a coherent
-              starting point.
+              Each profile starts from seven fabric properties. One function
+              derives renderer and solver defaults, then applies small preset
+              overrides. Lower-level controls remain available; the shared
+              model only supplies their starting point.
             </p>
           </FieldNoteSection>
 
@@ -240,8 +236,8 @@ export default function DigitalLoomCaseStudy({
             className={styles.section}
           >
             <p className={styles.lead}>
-              The XPBD mesh handles large-scale drape and creases. The shader
-              handles thread-scale relief, transmission, and highlights.
+              A 48 × 48 XPBD mesh handles drape and creases. The shader handles
+              thread-scale relief, transmission, and highlights.
             </p>
 
             <div className={styles.scaleDiagram}>
@@ -265,10 +261,9 @@ export default function DigitalLoomCaseStudy({
             </div>
 
             <p>
-              A small XPBD mesh carries the causes of motion. Normal and height
-              maps add thread-scale relief in the renderer. The mesh handles
-              drape and creases; the shader handles the fibers you only notice
-              when light moves across them.
+              The mesh carries motion without trying to model every thread.
+              Normal and height maps add the fiber detail that appears when
+              light moves across the surface.
             </p>
 
             <FieldNoteDetail label="cloth solver">
@@ -288,9 +283,8 @@ export default function DigitalLoomCaseStudy({
             className={styles.section}
           >
             <p className={styles.lead}>
-              The editor still includes detailed controls. The change was not
-              removing them; it was deciding what a material should start
-              from before someone tunes it.
+              Detailed controls remain. The change was giving them a material-
+              specific starting point before someone tunes them.
             </p>
 
             <div className={styles.controlComparison}>
@@ -312,10 +306,9 @@ export default function DigitalLoomCaseStudy({
             </div>
 
             <p>
-              The fabric core provides the baseline used to resolve a
-              material. The studio layers independent controls over it, and
-              saves those choices with the material. The coupling is a
-              baseline, not a restriction.
+              The fabric core supplies the baseline. Independent overrides sit
+              on top and save with the material. Coupling defines the starting
+              point, not the allowed result.
             </p>
           </FieldNoteSection>
 
@@ -326,8 +319,8 @@ export default function DigitalLoomCaseStudy({
             className={styles.section}
           >
             <p className={styles.lead}>
-              Export includes the information needed to reuse the material:
-              textures, a GLB, cloth settings, and provenance metadata.
+              Export includes the maps, 3D asset, cloth settings, and source
+              metadata needed to reuse the material elsewhere.
             </p>
 
             <div className={styles.exportFlow}>
@@ -347,10 +340,9 @@ export default function DigitalLoomCaseStudy({
             </div>
 
             <p>
-              The studio exports named PBR maps, a packed ORM texture, a
-              self-contained GLB, cloth-physics values, and provenance
-              metadata. The same material facts used in the preview leave with
-              the export instead of being trapped inside the studio.
+              The studio writes named PBR maps, a packed ORM texture, a
+              self-contained GLB, cloth values, and provenance metadata. The
+              preview and export use the same resolved material.
             </p>
           </FieldNoteSection>
 
@@ -361,9 +353,9 @@ export default function DigitalLoomCaseStudy({
             className={styles.section}
           >
             <p className={styles.lead}>
-              A flat photograph cannot recover physical truth. The system can
-              suggest a useful starting point, but it should not disguise
-              uncertainty as measurement.
+              A flat photograph cannot measure a fabric&apos;s physical behavior.
+              Digital Loom suggests a starting point and leaves the uncertain
+              values editable.
             </p>
 
             <div className={styles.boundaryGrid}>
@@ -378,10 +370,9 @@ export default function DigitalLoomCaseStudy({
             </div>
 
             <p>
-              Every map-derived suggestion stays conservative and overridable.
-              The next step is better calibration: reference fabrics with
-              known measurements, interaction tests across material families,
-              and clearer confidence signals in the authoring interface.
+              The next step is calibration against fabrics with known
+              measurements, followed by interaction tests across material
+              families and clearer confidence labels in the editor.
             </p>
           </FieldNoteSection>
 

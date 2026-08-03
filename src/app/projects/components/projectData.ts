@@ -117,22 +117,22 @@ export const PROJECTS: Project[] = [
 
   {
     id: 'sce-data-engineering',
-    name: 'Data Visualization Engineering at SoCal Edison',
+    name: 'Data Engineering at Southern California Edison',
     category: 'production experience',
-    date: 'Summer 2024',
+    date: 'Summer 2025',
     role: 'Data Engineering Intern',
-    impact: '10+ production data solutions / utility serving 15 million residents',
+    impact: '10+ production data solutions / return offer',
 
     cover: {
       imageSrc: '/project-images/covers/edison-cover.webp',
-      blurb: 'Turning fragmented utility data into reporting systems that internal teams could trust.',
+      blurb: 'ETL and platform-integration work across SAP, Microsoft systems, Snowflake, and Palantir.',
       tags: ['Snowflake', 'SAP', 'SQL'],
     },
 
     details: {
       label: 'Enterprise Data Infrastructure',
       overview:
-        'Designed and optimized SQL-based data pipelines serving utility infrastructure at scale for Southern California Edison.',
+        'Designed and optimized ETL pipelines and shipped 10+ production data solutions for Southern California Edison.',
       techStack: {
         languages: ['SQL', 'Python'],
         frameworks: [],
@@ -145,9 +145,10 @@ export const PROJECTS: Project[] = [
         {
           title: 'Internal Tooling',
           items: [
-            'Worked independently with 9+ internal departments to create data visualizations, optimize legacy ETL pipelines, and build new data models',
-            'Funneled data between multiple enterprise SQL databases to create unified reporting views',
-            'Received positive performance reviews and return offer, please contact for manager recommendation!',
+            'Learned SQL in two days, then designed and optimized ETL pipelines with cross-team stakeholders',
+            'Integrated SAP and Microsoft systems with Snowflake and Palantir',
+            'Reduced one bloated SQL file to one-third of its original size and shipped 10+ production data solutions',
+            'Used short daily manager check-ins to keep progress and blockers visible; received a return offer',
           ],
         },
         // {
@@ -185,13 +186,13 @@ export const PROJECTS: Project[] = [
     
     cover: {
       imageSrc: '/project-images/covers/atlas-cover.webp',
-      blurb: 'Turning personal browsing history into an explorable 3D map of the web.',
+      blurb: 'Mapping recorded browsing paths with two visitor-supplied semantic axes and time on z.',
       tags: ['Three.js', 'Pinecone', 'FastAPI'],
     },
     
     details: {
       label: '3D Web Visualization with ML Embeddings',
-      overview: "Experimental interface and ML pipeline exploring web browsing behavior through spatial representation. Turned design lead's vision into technical architecture and led full-stack development.",
+      overview: "3D interface for a browsing-study dataset. Two visitor-supplied words organize websites on x and y, while z carries time and recorded navigation paths remain inspectable.",
       techStack: {
         languages: ['TypeScript', 'Python'],
         frameworks: ['Vite', 'FastAPI'],
@@ -203,7 +204,8 @@ export const PROJECTS: Project[] = [
         {
           title: 'Visualization Engineering',
           items: [
-            'Draggable 3D force graph using react-force-graph for 300+ nodes',
+            '3D graph containing 300+ websites and 1,000+ recorded navigation edges',
+            'Two semantic similarity scores set x and y while time is carried on z',
             'Dynamic camera transitions that zoom to nodes and user paths',
             'SVG overlays and animations synchronized with 3D scene using world to screen space conversions',
           ],
@@ -211,7 +213,7 @@ export const PROJECTS: Project[] = [
         {
           title: "Capturing the 'Feel' of a Website",
           items: [
-            'Tested and evaluated 5 combinations of local models, APIs, PCA clustering, and reduction strategies',
+            'Tested text, image, and multimodal embedding strategies',
             'Used LLM-optimized web scraper for text and screenshot collection and FastAPI for minimal backend',
             'Separated website embedding storage (Pinecone) from metadata (Supabase) for efficient retrieval',
           ],
@@ -219,10 +221,10 @@ export const PROJECTS: Project[] = [
         {
           title: 'Live Deployment',
           items: [
-            'Backend built for scalability and modularity, accommodates live addition + embedding of new user paths',
-            'Data schema is able to aggregate overlapping paths into a collaborative graph and isolate individual user journeys',
+            'Kept website embeddings separate from source-study navigation paths',
+            'Data schema aggregates overlapping paths and isolates individual source-study journeys',
             'Deployed full application with Vercel and Render, handled 40+ simultaneous users',
-            'Currently static due to costs',
+            'Later replaced runtime services with static data because of hosting cost',
           ],
         },
       ],

@@ -138,9 +138,9 @@ export default function TallyCaseStudy({
     >
       <article className={inline ? undefined : 'page-frame-wide'}>
         <FieldNoteHeader
-          eyebrow="product design"
+          eyebrow="mobile UI design"
           title="tally"
-          deck="a mobile habit-contract product covering setup, proof, stakes, wallet activity, social accountability, and account management."
+          deck="Mobile habit app where a contract connects the habit, proof, an accountability partner, and money at stake. I designed the full product and its design system."
           meta={[]}
           links={[]}
           breadcrumbRoot={{ href: '/projects', label: 'selected work' }}
@@ -154,17 +154,17 @@ export default function TallyCaseStudy({
 
         <FieldNoteProjectSummary
           facts={[
-            ['role', 'product designer'],
+            ['role', 'mobile UI designer'],
             ['timeline', 'spring 2026'],
-            ['team', 'founder team'],
-            ['outcome', '10 starting flows → full product structure'],
+            ['team', 'Tally founders'],
+            ['outcome', '10 requested flows → full app structure + design system'],
           ]}
           keyDetails={[
-            'mapped the full flow from choosing a habit through proof and payout',
-            'designed contract setup, partner approval, money-at-stake, and proof decisions',
-            'prototyped wallet, funding, profile, friends, feed, notifications, and settings',
-            'built the design system across type, color, icons, controls, cards, navigation, and modals',
-            'covered waiting, failure, dispute, retry, recovery, and empty states',
+            'mapped one contract from setup through proof, review, and payout',
+            'designed setup, photo and Screen Time proof, partner approval, and stakes',
+            'prototyped wallet, profile, friends, feed, notifications, and settings',
+            'built the visual system and reusable controls, cards, navigation, and modals',
+            'covered permission, waiting, failure, dispute, retry, and recovery states',
           ]}
         />
 
@@ -202,16 +202,16 @@ export default function TallyCaseStudy({
             className={styles.section}
           >
             <p className={styles.lead}>
-              The brief started with ten flows, then expanded to photo and
-              Screen Time proof, accountability partners, stakes, wallet
-              funding and history, profiles, friends, feed, notifications,
-              settings, and activity states.
+              The brief started with ten flows. As the product grew, setup,
+              proof, partners, money, and account settings were being treated
+              as separate features. I mapped them around one object: a
+              contract moving from draft to payout.
             </p>
 
             <p>
-              I stopped designing one flow at a time and mapped a single
-              contract from “i want to do this” to “it counted” or “it
-              didn&apos;t.” New ideas had to fit somewhere on that path.
+              Every contract records the habit, schedule, proof method,
+              reviewer, stake, and result. New screens had to read or change
+              one of those parts.
             </p>
 
             <div className={styles.contractLoop} aria-label="Tally contract lifecycle">
@@ -227,9 +227,9 @@ export default function TallyCaseStudy({
             <FieldNoteDetail label="role and scope">
               <p>
                 I turned the founders&apos; brief into the app structure, flows,
-                states, and mobile UI in Figma, then revised it against the
-                working app. I did not build the app. The burgundy and cream
-                palette was already part of Tally when I joined.
+                states, design system, and mobile UI in Figma, then reviewed
+                the working app in TestFlight. I did not build the app. Tally
+                already used burgundy and cream when I joined.
               </p>
             </FieldNoteDetail>
           </FieldNoteSection>
@@ -241,15 +241,15 @@ export default function TallyCaseStudy({
             className={styles.section}
           >
             <p className={styles.lead}>
-              Contract setup combines the habit, schedule, proof method,
-              reviewer, and stake. Putting every decision on one screen made
-              setup feel like paperwork.
+              A contract needs a habit, schedule, proof method, reviewer, and
+              stake. Putting all five decisions on one screen made setup feel
+              like paperwork.
             </p>
 
             <p>
-              I split setup into small decisions and saved the complete
-              contract for the final review. The person moves quickly, but the
-              money and proof are never hidden from them.
+              I split setup into short steps, then showed the full terms before
+              activation. Proof and money stay visible at the point where they
+              can still be changed.
             </p>
 
             <div className={styles.demoStrip} aria-label="Tally app demonstration sequence">
@@ -284,9 +284,9 @@ export default function TallyCaseStudy({
             className={styles.section}
           >
             <p className={styles.lead}>
-              The contract flow depended on the rest of the product. People
-              needed to fund stakes, understand where money moved, manage
-              accountability partners, and change permissions later.
+              Contracts could not work alone. People needed to fund stakes,
+              see where money moved, manage reviewers, and change permissions
+              later.
             </p>
 
             <div className={styles.surfaceRoles} aria-label="Tally product surfaces">
@@ -330,11 +330,10 @@ export default function TallyCaseStudy({
             </div>
 
             <p>
-              These were not secondary screens. Funding and one-time
-              authorization determine whether a contract can start. Profiles,
-              friends, and the feed explain who can review progress. Settings
-              contain the permissions and notification controls the main flow
-              relies on.
+              Funding and one-time authorization decide whether a contract can
+              start. Profiles and friends show who can review proof. The feed
+              holds requests and outcomes. Settings hold the permissions and
+              notifications used by the main flow.
             </p>
           </FieldNoteSection>
 
@@ -345,8 +344,8 @@ export default function TallyCaseStudy({
             className={styles.section}
           >
             <p className={styles.lead}>
-              I built the interface system alongside the flows so the product
-              did not have to be restyled or reinterpreted screen by screen.
+              I built the design system alongside the flows so recurring
+              actions and states did not have to be redrawn screen by screen.
             </p>
 
             <div className={styles.surfaceRoles} aria-label="Tally design system scope">
@@ -379,10 +378,10 @@ export default function TallyCaseStudy({
             />
 
             <p>
-              The components carried the same hierarchy across routine actions
-              and higher-risk moments. Funding permission, failed proof,
-              confirmation, and error states use repeatable patterns instead of
-              one-off screens.
+              The same hierarchy carries from routine actions into funding
+              permission, failed proof, confirmation, and error states. Those
+              higher-risk moments use repeatable patterns instead of one-off
+              screens.
             </p>
           </FieldNoteSection>
 
@@ -393,9 +392,10 @@ export default function TallyCaseStudy({
             className={styles.section}
           >
             <p className={styles.lead}>
-              I designed the states outside the success path: failed proof,
-              partner disagreement, contracts that had not started, missed
-              habits, manual review, and recovery.
+              Tally handles money, privacy, and device permissions. I designed
+              explicit states and language for one-time funding authorization,
+              Screen Time access, failed proof, partner disagreement, manual
+              review, and recovery.
             </p>
 
             <div className={styles.proofGrid}>
@@ -419,9 +419,9 @@ export default function TallyCaseStudy({
             </div>
 
             <p>
-              Photo proof and Screen Time need different setup, but after that
-              they should speak the same language. A person should not have to
-              guess whether their proof counted or whether money moved.
+              Photo and Screen Time use different inputs, then enter the same
+              contract states. The interface always says whether proof counted,
+              who can review it, and whether the stake changed.
             </p>
 
             <div className={styles.stateLegend}>
@@ -475,9 +475,9 @@ export default function TallyCaseStudy({
             className={styles.section}
           >
             <p className={styles.lead}>
-              Figma and TestFlight reviews exposed missing navigation,
-              incomplete state transitions, and screens that had no clear
-              place in the app.
+              Reviewing Figma against TestFlight exposed missing navigation,
+              incomplete state changes, and screens with no clear place in the
+              app.
             </p>
 
             <div className={styles.briefTranslation} aria-label="Changes made during review">
@@ -518,9 +518,9 @@ export default function TallyCaseStudy({
             />
 
             <p>
-              I left open questions directly in Figma and shared unfinished
-              structure early. That made reviews messier, but it also stopped
-              me from polishing the wrong thing for very long.
+              I kept open questions in Figma and reviewed unfinished structure
+              early. That stopped me from polishing flows before their place in
+              the app was clear.
             </p>
           </FieldNoteSection>
 
@@ -531,9 +531,8 @@ export default function TallyCaseStudy({
             className={styles.section}
           >
             <p className={styles.lead}>
-              The contract lifecycle is the strongest part of the work. The
-              next pass should simplify visual hierarchy without changing that
-              state model.
+              I would keep the contract model and simplify the visual hierarchy
+              around it.
             </p>
 
             <div className={styles.retrospectiveGrid}>
@@ -547,9 +546,10 @@ export default function TallyCaseStudy({
               <div>
                 <span>risk and permission states</span>
                 <p>
-                  I designed informational modals and permission screens for
-                  one-time funding authorization, Screen Time, privacy,
-                  failed proof, and manual review.
+                  The informational modals and permission screens already cover
+                  one-time funding authorization, Screen Time, privacy, failed
+                  proof, and manual review. I would test whether the language is
+                  understood before changing the state model.
                 </p>
               </div>
               <div>
@@ -563,8 +563,8 @@ export default function TallyCaseStudy({
 
             <p>
               I would keep the one-contract model. I would not call the rest
-              finished until someone could walk through a contract and tell me
-              what they thought would happen next.
+              finished until someone could predict what happens to their proof,
+              reviewer, and money at each step.
             </p>
           </FieldNoteSection>
 
