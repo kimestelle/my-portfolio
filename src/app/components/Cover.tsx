@@ -17,14 +17,12 @@ export default function Cover() {
           <div className="star-line-north mt-2">
             <span className="star-glyph-north" aria-hidden="true">✦</span>
             <ShimmerText as="h2" className="star-copy-north">
-              building for how people think, make, and explore.
+              graphics · interaction · engineering
             </ShimmerText>
           </div>
 
           <p className="mt-3 text-[color:var(--text-secondary)]">
-            design engineer with graphics and full-stack background,
-            choosing technology based on what the product needs and how
-            people will use it.
+            designing and building technically ambitious product interactions.
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">

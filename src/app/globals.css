@@ -474,6 +474,33 @@ summary::marker {
   z-index: 1;
 }
 
+.project-case-study-inline {
+  overflow: visible;
+  background-color: rgba(255, 255, 255, 0.62);
+}
+
+.project-case-study-toolbar {
+  position: relative;
+  z-index: 1;
+  background: rgba(250, 249, 246, 0.88);
+  backdrop-filter: blur(16px) saturate(0.8);
+}
+
+.project-case-study-toolbar button:hover,
+.project-case-study-toolbar button:focus-visible {
+  color: var(--text-primary);
+}
+
+.project-case-study-inline-content {
+  width: 100%;
+  padding: 0 clamp(1rem, 3.2vw, 2.75rem) clamp(2.5rem, 6vw, 4rem);
+}
+
+.project-case-study-inline-content > article {
+  width: 100%;
+  margin-inline: auto;
+}
+
 .project-row-trigger {
   opacity: 0.82;
   transition:

@@ -16,14 +16,22 @@ type FieldNoteLink = {
   external?: boolean;
 };
 
-export function FieldNoteBreadcrumbs({ current }: { current: string }) {
+export function FieldNoteBreadcrumbs({
+  current,
+  rootHref = '/field-notes',
+  rootLabel = 'field notes',
+}: {
+  current: string;
+  rootHref?: string;
+  rootLabel?: string;
+}) {
   return (
     <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
-      {current === 'index' ? (
-        <span aria-current="page">field notes</span>
+      {current === 'index' && rootHref === '/field-notes' ? (
+        <span aria-current="page">{rootLabel}</span>
       ) : (
         <>
-          <Link href="/field-notes">field notes</Link>
+          <Link href={rootHref}>{rootLabel}</Link>
           <span aria-hidden="true">/</span>
           <span aria-current="page">{current}</span>
         </>
@@ -39,6 +47,8 @@ export function FieldNoteHeader({
   meta,
   links,
   motif,
+  breadcrumbRoot,
+  hideBreadcrumb = false,
 }: {
   eyebrow: string;
   title: string;
@@ -46,12 +56,23 @@ export function FieldNoteHeader({
   meta: string[];
   links: FieldNoteLink[];
   motif?: ReactNode;
+  breadcrumbRoot?: {
+    href: string;
+    label: string;
+  };
+  hideBreadcrumb?: boolean;
 }) {
   return (
     <header className={styles.hero}>
       {motif ? <div className={styles.heroMotif}>{motif}</div> : null}
       <div className={styles.heroCopy}>
-        <FieldNoteBreadcrumbs current={title} />
+        {!hideBreadcrumb ? (
+          <FieldNoteBreadcrumbs
+            current={title}
+            rootHref={breadcrumbRoot?.href}
+            rootLabel={breadcrumbRoot?.label}
+          />
+        ) : null}
         <ShimmerText as="p" className={styles.heroEyebrow} priority={1}>
           {eyebrow}
         </ShimmerText>

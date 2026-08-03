@@ -310,7 +310,10 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       changedMind:
         'I kept adding sliders because I thought more control would make the fabric more expressive. It mostly made the renderer and solver disagree. A smaller source of truth gave me a much larger range of believable materials.',
     },
-    media: { cover: '/project-images/covers/loom-cover.webp' },
+    media: {
+      cover: '/project-images/covers/loom-cover.webp',
+      preview: '/project-images/previews/digital-loom-hover.webp',
+    },
     technicalLabel:
       'how one fabric model drives rendering, motion, and export →',
     liveUrl: 'https://digital-loom-nine.vercel.app/',

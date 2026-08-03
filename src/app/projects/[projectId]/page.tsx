@@ -1,6 +1,8 @@
-import Link from 'next/link';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import ProjectBlock from '../components/ProjectBlock';
+import IntoTheBlueCaseStudy from '../../field-notes/into-the-blue/page';
+import InternetAtlasCaseStudy from '../../field-notes/internet-atlas/page';
+import DigitalLoomCaseStudy from '../case-studies/DigitalLoomCaseStudy';
 import {
   FEATURED_PROJECT_IDS,
   getPortfolioProject,
@@ -10,6 +12,22 @@ export function generateStaticParams() {
   return FEATURED_PROJECT_IDS.map((projectId) => ({
     projectId,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ projectId: string }>;
+}): Promise<Metadata> {
+  const { projectId } = await params;
+  const project = getPortfolioProject(projectId);
+
+  if (!project || project.variant !== 'featured') return {};
+
+  return {
+    title: `${project.name} case study · Estelle Kim`,
+    description: project.collapsed.purpose,
+  };
 }
 
 export default async function ProjectDetailPage({
@@ -22,17 +40,17 @@ export default async function ProjectDetailPage({
 
   if (!project || project.variant !== 'featured') notFound();
 
-  return (
-    <main className="responsive-padding w-full">
-      <div className="page-frame-wide">
-        <Link
-          href={`/projects#${project.id}`}
-          className="mb-8 inline-block text-sm text-neutral-600"
-        >
-          ← selected work
-        </Link>
-        <ProjectBlock project={project} />
-      </div>
-    </main>
-  );
+  if (projectId === 'into-the-blue') {
+    return <IntoTheBlueCaseStudy asProject />;
+  }
+
+  if (projectId === 'internet-atlas') {
+    return <InternetAtlasCaseStudy asProject />;
+  }
+
+  if (projectId === 'digital-loom') {
+    return <DigitalLoomCaseStudy />;
+  }
+
+  notFound();
 }

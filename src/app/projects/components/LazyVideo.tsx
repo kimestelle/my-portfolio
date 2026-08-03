@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import MuxPlayer, {
   MuxPlayerRefAttributes,
+  type MuxCSSProperties,
   type MuxPlayerProps,
 } from "@mux/mux-player-react";
 import { useIsVisible } from "../../hooks/use-is-visible";
@@ -97,6 +98,13 @@ export default function LazyVideo({
         onCanPlay={reportReady}
         onPlaying={reportReady}
         className={className}
+        style={
+          {
+            "--controls": "none",
+            "--media-object-fit": "cover",
+            "--media-object-position": "center",
+          } as MuxCSSProperties
+        }
         aria-label={alt || "video"}
       />
     </span>

@@ -1,5 +1,4 @@
 import type { CSSProperties } from 'react';
-import type { Metadata } from 'next';
 import Image from 'next/image';
 import {
   FieldNoteDetail,
@@ -13,33 +12,31 @@ import {
 import FieldNoteScrollLink from '../components/FieldNoteScrollLink';
 import styles from './into-the-blue.module.css';
 
-export const metadata: Metadata = {
-  title: 'Into the Blue working file · Estelle Kim',
-  description:
-    'An unlisted build notebook about the museum conversations, camera geometry, and shared decisions behind Into the Blue.',
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
-
 const mapEntries = [
-  ['brief', 'make stickers without losing artifact context'],
-  ['gallery', 'the gallery changed the plan'],
-  ['assets', 'one format for every artifact asset'],
-  ['camera', 'the camera prototype changed'],
-  ['integration', 'keep captures local and reduce support work'],
-  ['launch', 'launch + later fixes'],
+  ['brief', 'a collectible can still point back to its source'],
+  ['gallery', 'the gallery determines the interaction'],
+  ['assets', 'one coordinate system aligns every artifact'],
+  ['camera', 'expensive work belongs at capture time'],
+  ['integration', 'local-first reduces visitor friction'],
+  ['launch', 'production is part of the design'],
   ['improve', 'what i would improve now', 'retrospective'],
 ] as const;
 
-export default function IntoTheBlueFieldNotes() {
+export default function IntoTheBlueFieldNotes({
+  asProject = false,
+  inline = false,
+}: {
+  asProject?: boolean;
+  inline?: boolean;
+}) {
+  const Root = inline ? 'div' : 'main';
+
   return (
-    <main
-      className={`responsive-padding ${styles.page}`}
+    <Root
+      className={`${inline ? 'project-case-study-inline-content' : 'responsive-padding'} ${styles.page}`}
       style={{ '--field-accent': 'rgb(53, 126, 179)' } as CSSProperties}
     >
-      <article className="page-frame-wide">
+      <article className={inline ? undefined : 'page-frame-wide'}>
         <FieldNoteHeader
           eyebrow="collaborative project"
           title="into the blue"
@@ -60,6 +57,12 @@ export default function IntoTheBlueFieldNotes() {
               label: 'browse the source ↗',
             },
           ]}
+          breadcrumbRoot={
+            asProject
+              ? { href: '/projects', label: 'selected work' }
+              : undefined
+          }
+          hideBreadcrumb={inline}
           motif={
             <div className={styles.heroArtifacts} aria-hidden="true">
               <Image
@@ -107,7 +110,7 @@ export default function IntoTheBlueFieldNotes() {
           <FieldNoteSection
             number="00"
             id="brief"
-            title="make stickers without losing artifact context"
+            title="a collectible can still point back to its source"
             className={styles.section}
           >
 
@@ -149,7 +152,7 @@ export default function IntoTheBlueFieldNotes() {
           <FieldNoteSection
             number="01"
             id="gallery"
-            title="the gallery changed the plan"
+            title="the gallery determines the interaction"
             className={styles.section}
           >
 
@@ -187,7 +190,7 @@ export default function IntoTheBlueFieldNotes() {
           <FieldNoteSection
             number="02"
             id="assets"
-            title="one format for every artifact asset"
+            title="one coordinate system aligns every artifact"
             className={styles.section}
           >
 
@@ -225,7 +228,7 @@ export default function IntoTheBlueFieldNotes() {
           <FieldNoteSection
             number="03"
             id="camera"
-            title="the camera prototype changed"
+            title="expensive work belongs at capture time"
             className={styles.section}
           >
 
@@ -311,7 +314,7 @@ export default function IntoTheBlueFieldNotes() {
           <FieldNoteSection
             number="04"
             id="integration"
-            title="keep captures local and reduce support work"
+            title="local-first reduces visitor friction"
             className={styles.section}
           >
 
@@ -381,7 +384,7 @@ export default function IntoTheBlueFieldNotes() {
           <FieldNoteSection
             number="05"
             id="launch"
-            title="launch + later fixes"
+            title="production is part of the design"
             className={styles.section}
           >
 
@@ -517,19 +520,21 @@ export default function IntoTheBlueFieldNotes() {
           </div>
         </FieldNoteReader>
 
-        <FieldNoteSequence
-          current={2}
-          total={3}
-          previous={{
-            href: '/field-notes/internet-atlas',
-            title: 'internet atlas',
-          }}
-          next={{
-            href: '/field-notes/material-studies',
-            title: 'material studies',
-          }}
-        />
+        {!asProject ? (
+          <FieldNoteSequence
+            current={2}
+            total={3}
+            previous={{
+              href: '/field-notes/internet-atlas',
+              title: 'internet atlas',
+            }}
+            next={{
+              href: '/field-notes/material-studies',
+              title: 'material studies',
+            }}
+          />
+        ) : null}
       </article>
-    </main>
+    </Root>
   );
 }

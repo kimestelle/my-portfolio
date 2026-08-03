@@ -1,5 +1,4 @@
 import type { CSSProperties } from 'react';
-import type { Metadata } from 'next';
 import Image from 'next/image';
 import {
   FieldNoteHeader,
@@ -11,24 +10,14 @@ import {
 import FieldNoteScrollLink from '../components/FieldNoteScrollLink';
 import styles from './internet-atlas.module.css';
 
-export const metadata: Metadata = {
-  title: 'Internet Atlas working file · Estelle Kim',
-  description:
-    'An unlisted build notebook about the questions, teammates, decisions, and commits behind Internet Atlas.',
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
-
 const mapEntries = [
   ['path', 'a path is not a list of sites'],
-  ['team', 'start with what each teammate wanted to learn'],
-  ['prototype', 'prove the data path in 2D'],
-  ['axes', 'use each Atlas visitor’s words as axes'],
-  ['layers', 'move from the whole graph to one participant’s path'],
-  ['ship', 'connect the parts and ship'],
-  ['preserve', 'replace the live backend with static data'],
+  ['team', 'team structure shapes the system'],
+  ['prototype', 'prove the data path before adding depth'],
+  ['axes', 'visitor language becomes spatial structure'],
+  ['layers', 'layers make a dense graph legible'],
+  ['ship', 'integration is its own engineering task'],
+  ['preserve', 'preserve the interaction, not the infrastructure'],
   ['improve', 'what i would improve now', 'retrospective'],
 ] as const;
 
@@ -63,13 +52,21 @@ function Figure({
   );
 }
 
-export default function InternetAtlasFieldNotes() {
+export default function InternetAtlasFieldNotes({
+  asProject = false,
+  inline = false,
+}: {
+  asProject?: boolean;
+  inline?: boolean;
+}) {
+  const Root = inline ? 'div' : 'main';
+
   return (
-    <main
-      className={`responsive-padding ${styles.page}`}
+    <Root
+      className={`${inline ? 'project-case-study-inline-content' : 'responsive-padding'} ${styles.page}`}
       style={{ '--field-accent': 'rgb(69, 151, 126)' } as CSSProperties}
     >
-      <article className="page-frame-wide">
+      <article className={inline ? undefined : 'page-frame-wide'}>
         <FieldNoteHeader
           eyebrow="collaborative project"
           title="internet atlas"
@@ -90,6 +87,12 @@ export default function InternetAtlasFieldNotes() {
               label: 'browse the source ↗',
             },
           ]}
+          breadcrumbRoot={
+            asProject
+              ? { href: '/projects', label: 'selected work' }
+              : undefined
+          }
+          hideBreadcrumb={inline}
           motif={
             <Image
               className={styles.heroOrbits}
@@ -229,7 +232,7 @@ export default function InternetAtlasFieldNotes() {
           <FieldNoteSection
             number="01"
             id="team"
-            title="start with what each teammate wanted to learn"
+            title="team structure shapes the system"
             className={styles.section}
           >
 
@@ -333,7 +336,7 @@ export default function InternetAtlasFieldNotes() {
           <FieldNoteSection
             number="02"
             id="prototype"
-            title="prove the data path in 2D"
+            title="prove the data path before adding depth"
             className={styles.section}
           >
 
@@ -413,7 +416,7 @@ export default function InternetAtlasFieldNotes() {
           <FieldNoteSection
             number="03"
             id="axes"
-            title="use each Atlas visitor's words as axes"
+            title="visitor language becomes spatial structure"
             className={styles.section}
           >
 
@@ -505,7 +508,7 @@ export default function InternetAtlasFieldNotes() {
           <FieldNoteSection
             number="04"
             id="layers"
-            title="move from the aggregate graph to one participant's route"
+            title="layers make a dense graph legible"
             className={styles.section}
           >
 
@@ -619,7 +622,7 @@ export default function InternetAtlasFieldNotes() {
           <FieldNoteSection
             number="05"
             id="ship"
-            title="connect the parts and ship"
+            title="integration is its own engineering task"
             className={styles.section}
           >
 
@@ -688,7 +691,7 @@ export default function InternetAtlasFieldNotes() {
           <FieldNoteSection
             number="06"
             id="preserve"
-            title="replace the live backend with static data"
+            title="preserve the interaction, not the infrastructure"
             className={styles.section}
           >
 
@@ -866,15 +869,17 @@ export default function InternetAtlasFieldNotes() {
           </div>
         </FieldNoteReader>
 
-        <FieldNoteSequence
-          current={1}
-          total={3}
-          next={{
-            href: '/field-notes/into-the-blue',
-            title: 'into the blue',
-          }}
-        />
+        {!asProject ? (
+          <FieldNoteSequence
+            current={1}
+            total={3}
+            next={{
+              href: '/field-notes/into-the-blue',
+              title: 'into the blue',
+            }}
+          />
+        ) : null}
       </article>
-    </main>
+    </Root>
   );
 }

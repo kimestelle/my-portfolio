@@ -1,6 +1,8 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import {
   useCallback,
   useEffect,
@@ -29,6 +31,43 @@ const PROJECT_MOTION_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
 const FULL_MEDIA_TRANSITION = `opacity 280ms ${PROJECT_MOTION_EASE}`;
 const VIEW_TRANSITION_EASE = [0.2, 0.72, 0.24, 1] as const;
 
+const IntoTheBlueCaseStudy = dynamic(
+  () => import('../field-notes/into-the-blue/page'),
+  { loading: () => <CaseStudyLoading /> },
+);
+const InternetAtlasCaseStudy = dynamic(
+  () => import('../field-notes/internet-atlas/page'),
+  { loading: () => <CaseStudyLoading /> },
+);
+const DigitalLoomCaseStudy = dynamic(
+  () => import('./case-studies/DigitalLoomCaseStudy'),
+  { loading: () => <CaseStudyLoading /> },
+);
+
+function CaseStudyLoading() {
+  return (
+    <div className="grid min-h-[55svh] place-items-center px-5 py-20 text-[color:var(--text-meta)]">
+      <span className="type-meta">opening case study…</span>
+    </div>
+  );
+}
+
+function FeaturedCaseStudy({ projectId }: { projectId: string }) {
+  if (projectId === 'into-the-blue') {
+    return <IntoTheBlueCaseStudy inline />;
+  }
+
+  if (projectId === 'internet-atlas') {
+    return <InternetAtlasCaseStudy inline />;
+  }
+
+  if (projectId === 'digital-loom') {
+    return <DigitalLoomCaseStudy inline />;
+  }
+
+  return null;
+}
+
 function setScrollPositionInstantly(top: number) {
   const root = document.documentElement;
   const body = document.body;
@@ -40,6 +79,23 @@ function setScrollPositionInstantly(top: number) {
   window.scrollTo({ top, left: 0, behavior: 'auto' });
   root.style.scrollBehavior = rootBehavior;
   body.style.scrollBehavior = bodyBehavior;
+}
+
+function getProjectIdFromLocation() {
+  const queryId = new URLSearchParams(window.location.search).get('study');
+  if (
+    queryId &&
+    PORTFOLIO_PROJECTS.some((project) => project.id === queryId)
+  ) {
+    return queryId;
+  }
+
+  const legacyHashId = window.location.hash.slice(1);
+  return PORTFOLIO_PROJECTS.some(
+    (project) => project.id === legacyHashId,
+  )
+    ? legacyHashId
+    : null;
 }
 
 type ProjectLayoutProps = {
@@ -183,12 +239,24 @@ function StoryField({
 }
 
 function ProjectActions({ project }: { project: PortfolioProject }) {
-  if (!project.liveUrl && !project.githubUrl) {
+  if (
+    project.variant !== 'featured' &&
+    !project.liveUrl &&
+    !project.githubUrl
+  ) {
     return null;
   }
 
   return (
     <div className="flex flex-wrap gap-x-8 gap-y-3 border-t py-5">
+      {project.variant === 'featured' && (
+        <Link
+          href={`/projects/${project.id}`}
+          className="type-meta py-1 underline decoration-black/20 underline-offset-4"
+        >
+          read the case study →
+        </Link>
+      )}
       {project.liveUrl && (
         <a
           href={project.liveUrl}
@@ -321,21 +389,34 @@ function ExpandedProject({
   project: PortfolioProject;
   onClose?: () => void;
 }) {
+  const isFeaturedCaseStudy = project.variant === 'featured';
+
   return (
     <div
       data-project-story
-      className="project-story-panel ui-radius-surface"
+      className={`project-story-panel ui-radius-surface ${
+        isFeaturedCaseStudy ? 'project-case-study-inline' : ''
+      }`}
     >
       {onClose && (
-        <header className="border-b border-[color:var(--line-color)] px-4 py-4 md:px-5">
+        <header
+          className={`border-b border-[color:var(--line-color)] px-4 py-4 md:px-5 ${
+            isFeaturedCaseStudy ? 'project-case-study-toolbar' : ''
+          }`}
+        >
           <button
             type="button"
             onClick={onClose}
             className="group flex w-full items-center justify-between gap-6 text-left"
             aria-label={`Return to projects from ${project.name}`}
           >
-            <ShimmerText as="h2" className="type-project-title">
-              {project.name}
+            <ShimmerText
+              as={isFeaturedCaseStudy ? 'span' : 'h2'}
+              className={
+                isFeaturedCaseStudy ? 'type-meta' : 'type-project-title'
+              }
+            >
+              {isFeaturedCaseStudy ? '← all projects' : project.name}
             </ShimmerText>
             <span className="flex items-center gap-4">
               <ShimmerText
@@ -344,49 +425,57 @@ function ExpandedProject({
               >
                 {project.collapsed.resultLine}
               </ShimmerText>
-              <span
-                aria-hidden
-                className="type-meta shrink-0 text-[color:var(--text-meta)] transition-transform duration-[180ms] ease-out group-hover:-translate-x-1"
-              >
-                ←
-              </span>
+              {!isFeaturedCaseStudy ? (
+                <span
+                  aria-hidden
+                  className="type-meta shrink-0 text-[color:var(--text-meta)] transition-transform duration-[180ms] ease-out group-hover:-translate-x-1"
+                >
+                  ←
+                </span>
+              ) : null}
             </span>
           </button>
         </header>
       )}
 
-      <div className="type-meta grid gap-3 border-b border-[color:var(--line-color)] px-4 py-3 text-[color:var(--text-meta)] sm:grid-cols-2 md:px-5">
-        <ShimmerText as="span">{project.metadata.date}</ShimmerText>
-        <ShimmerText as="span" className="sm:text-right">
-          {project.collapsed.roleLine}
-        </ShimmerText>
-      </div>
-
-      <div className="px-4 md:px-5">
-        <ProjectStoryIntro project={project} />
-        {project.story.feedback && (
-          <StoryField
-            label="how feedback shaped it"
-            className="border-t border-[color:var(--line-color)] py-7 md:py-8"
-            innerClassName="mx-auto w-full max-w-[68ch]"
-          >
-            <ShimmerText as="p" className="leading-[1.55]">
-              {project.story.feedback}
+      {isFeaturedCaseStudy ? (
+        <FeaturedCaseStudy projectId={project.id} />
+      ) : (
+        <>
+          <div className="type-meta grid gap-3 border-b border-[color:var(--line-color)] px-4 py-3 text-[color:var(--text-meta)] sm:grid-cols-2 md:px-5">
+            <ShimmerText as="span">{project.metadata.date}</ShimmerText>
+            <ShimmerText as="span" className="sm:text-right">
+              {project.collapsed.roleLine}
             </ShimmerText>
-          </StoryField>
-        )}
-      </div>
+          </div>
 
-      <ProjectMedia
-        project={project}
-        active
-        sizes="(max-width: 767px) 100vw, 48rem"
-        className="aspect-[16/10] w-full border-y border-[color:var(--line-color)]"
-      />
+          <div className="px-4 md:px-5">
+            <ProjectStoryIntro project={project} />
+            {project.story.feedback && (
+              <StoryField
+                label="how feedback shaped it"
+                className="border-t border-[color:var(--line-color)] py-7 md:py-8"
+                innerClassName="mx-auto w-full max-w-[68ch]"
+              >
+                <ShimmerText as="p" className="leading-[1.55]">
+                  {project.story.feedback}
+                </ShimmerText>
+              </StoryField>
+            )}
+          </div>
 
-      <div className="px-4 md:px-5">
-        <ProjectStoryDetails project={project} />
-      </div>
+          <ProjectMedia
+            project={project}
+            active
+            sizes="(max-width: 767px) 100vw, 48rem"
+            className="aspect-[16/10] w-full border-y border-[color:var(--line-color)]"
+          />
+
+          <div className="px-4 md:px-5">
+            <ProjectStoryDetails project={project} />
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -395,6 +484,8 @@ function ProjectRow({
   project,
   onOpen,
 }: ProjectLayoutProps) {
+  const hasCover = Boolean(project.media?.cover);
+
   return (
     <article
       id={project.id}
@@ -406,10 +497,40 @@ function ProjectRow({
         aria-label={`Open ${project.name}`}
         onClick={onOpen}
       >
-        <div className="flex items-start justify-between gap-6">
-          <ShimmerText as="h4" className="type-project-title">
-            {project.name}
-          </ShimmerText>
+        <div
+          className={`grid items-center gap-4 md:gap-5 ${
+            hasCover
+              ? 'grid-cols-[5.5rem_minmax(0,1fr)_auto] sm:grid-cols-[7.5rem_minmax(0,1fr)_auto] md:grid-cols-[10rem_minmax(0,1fr)_auto]'
+              : 'grid-cols-[minmax(0,1fr)_auto]'
+          }`}
+        >
+          {project.media?.cover ? (
+            <div
+              className="media-clip-surface relative aspect-[16/10] w-full bg-neutral-950"
+              aria-hidden="true"
+            >
+              <Image
+                src={project.media.cover}
+                alt=""
+                fill
+                sizes="(max-width: 639px) 5.5rem, (max-width: 767px) 7.5rem, 10rem"
+                className="object-cover transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.025] group-focus-within:scale-[1.025]"
+              />
+            </div>
+          ) : null}
+
+          <div className="min-w-0">
+            <ShimmerText as="h4" className="type-project-title">
+              {project.name}
+            </ShimmerText>
+            <ShimmerText
+              as="p"
+              className="mt-1 max-w-[46rem] text-[color:var(--text-secondary)]"
+            >
+              {project.collapsed.indexLine}
+            </ShimmerText>
+          </div>
+
           <span
             aria-hidden
             className="type-meta shrink-0 pt-0.5 text-[color:var(--text-meta)] transition-transform duration-[180ms] ease-out group-hover:translate-x-1"
@@ -417,12 +538,6 @@ function ProjectRow({
             →
           </span>
         </div>
-        <ShimmerText
-          as="p"
-          className="mt-1 max-w-[46rem] text-[color:var(--text-secondary)]"
-        >
-          {project.collapsed.indexLine}
-        </ShimmerText>
       </button>
     </article>
   );
@@ -459,25 +574,36 @@ export default function Projects() {
     PORTFOLIO_PROJECTS.find((project) => project.id === expandedId) ?? null;
 
   useLayoutEffect(() => {
-    const id = window.location.hash.slice(1);
-    const projectId = PORTFOLIO_PROJECTS.some((project) => project.id === id)
-      ? id
-      : null;
+    const projectId = getProjectIdFromLocation();
     setExpandedId(projectId);
-    if (projectId) setScrollPositionInstantly(0);
+    if (projectId) {
+      if (!window.location.search.includes('study=')) {
+        window.history.replaceState(
+          null,
+          '',
+          `/projects?study=${projectId}`,
+        );
+      }
+      setScrollPositionInstantly(0);
+    }
   }, []);
 
   useEffect(() => {
-    const openFromHash = () => {
-      const id = window.location.hash.slice(1);
-      const projectId = PORTFOLIO_PROJECTS.some((project) => project.id === id)
-        ? id
-        : null;
-      setExpandedId(projectId);
-      if (projectId) setScrollPositionInstantly(0);
+    const openFromLocation = () => {
+      const projectId = getProjectIdFromLocation();
+      setExpandedId((currentProjectId) => {
+        if (projectId && projectId !== currentProjectId) {
+          setScrollPositionInstantly(0);
+        }
+        return projectId;
+      });
     };
-    window.addEventListener('hashchange', openFromHash);
-    return () => window.removeEventListener('hashchange', openFromHash);
+    window.addEventListener('hashchange', openFromLocation);
+    window.addEventListener('popstate', openFromLocation);
+    return () => {
+      window.removeEventListener('hashchange', openFromLocation);
+      window.removeEventListener('popstate', openFromLocation);
+    };
   }, []);
 
   useEffect(() => {
@@ -500,7 +626,7 @@ export default function Projects() {
 
     listScrollPosition.current = window.scrollY;
     setTransitionTarget(projectId);
-    window.history.replaceState(null, '', `/projects#${projectId}`);
+    window.history.replaceState(null, '', `/projects?study=${projectId}`);
   }, [entranceReady, transitionTarget]);
 
   const closeProject = useCallback(() => {

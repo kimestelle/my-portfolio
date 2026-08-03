@@ -54,10 +54,13 @@ When working on her behalf, be grounded and true to the work. Focus on the why a
 - Dark-mode pieces go terminal: bg `#0b0e11`, panel `#12161c`, text `#e6edf3`
 - No gradients unless the gradient is the concept (e.g. a 24-hour sky: `#0C1020` → `#E7E6DF` → `#4C2E3C`)
 
-**Typography as design tool, not afterthought.** Pair a serif with a grotesque: EB Garamond or Calluna for body/cultural content, Hanken Grotesk / Ysabeau Office (light weights, 100–300) for UI, Geist as the Next.js default, monospace (SF Mono stack or VT323) for technical/archival readouts. Serif for artifacts, mono for instruments. Weights: 100–400 body, 600–700 headings only.
+**Typography as design tool, not afterthought.** Pair a serif with a grotesque: EB Garamond or Calluna for body/cultural content, Hanken Grotesk / Ysabeau Office (light weights, 100–300) for UI, Geist as the Next.js default, monospace (SF Mono stack or VT323) for technical/archival readouts. Serif for artifacts, mono for instruments. Weights: 100–400 body, 600–700 headings only. Import an existing product's actual font files and family assignments instead of approximating them with similar fallbacks. For Digital Loom-derived instruments, use locally bundled Absans for identity/body and Necto Mono for controls and measurements.
+
+Define typography by role, not by tuning isolated elements. Avoid a drift of unrelated half-pixel sizes. For a very compact instrument, start with three explicit tiers—12px identity, 8px interface/navigation, and 7px metadata or icon captions—then adjust the whole scale only if the context requires it. Preserve the relative hierarchy.
 
 **Motion.** Eased, never bouncy-for-its-own-sake:
 - Default transitions: `cubic-bezier(0.4, 0, 0.2, 1)` at 180–240ms
+- For Digital Loom-style discrete instrument state, use its exact `cubic-bezier(0.65, 0, 0.35, 1)` with 140ms tap, 180ms fast, and 240ms medium tiers. Reserve the portfolio's `cubic-bezier(0.22, 0.7, 0.25, 1)` around 700ms for rare whole-view mood changes, never ordinary controls.
 - Entrances: `cubic-bezier(0.22, 1, 0.36, 1)` or `(0.2, 0.8, 0.3, 1)`, 380–600ms
 - Tactile press: `cubic-bezier(0.34, 1.7, 0.5, 1)` with tiny transform (`translateY(-2px) rotate(-1.2deg)`)
 - Animate CSS custom properties via `@property` for smooth color/angle interpolation
@@ -67,6 +70,21 @@ When working on her behalf, be grounded and true to the work. Focus on the why a
 **Texture — surfaces are never flat, but texture is substrate, not memorabilia.** This is where "transparency into quality" lives, and where it most often goes wrong. Texture means the surface itself has material presence: paper grain and noise overlays (subtle canvas-generated or SVG turbulence), ink bleed at edges, slight per-item rotation or misregistration so things feel placed by hand rather than laid out by a grid engine. Texture does NOT mean nostalgic props: no tape scraps, polaroid frames, film sprocket holes, torn-scrapbook ephemera, or vintage-studio set dressing. Her work is contemporary — the material realism is in how things *behave* (weight, light, response), never in dressing the page up as an old object. If a decorative element can't answer "why is this here," cut it. Flat solid-color panels are a tell that something went wrong; so is a page that looks like a mood board of analog artifacts.
 
 **Depth.** Soft and papery, never neon: `backdrop-filter: blur()`, shadows like `0 10px 28px rgba(40,38,32,0.07)`, hairline borders via `color-mix`. Glass cards at `rgba(255,255,255,0.55)`.
+
+## Instrument interfaces and spatial organization
+
+- Keep the primary specimen visible in one viewport. Do not make users scroll or lose the main view while tuning it.
+- Protect the test surface. Put authoring controls in separate rails, docks, or sheets; allow only measurement evidence such as axes, bounds, and pass readouts inside the specimen region.
+- Organize controls by cause—construction, stock, assembly, environment, then output—not as an undifferentiated parameter grid.
+- Make parent/child relationships spatially truthful. Keep a parent mode switch compact and let it govern the complete editor below. Do not stretch two parent modes into half-width cells above a three-column child editor; stacked incompatible grids create false ownership.
+- Use lines only where real layers meet. Prefer a slight surface shift and a restrained edge highlight over outlining every option, label, or row.
+- Treat navigation as a quiet instrument edge: one baseline, compact type, and secondary visual weight. Avoid the generic three-column SaaS header, oversized height, stacked branding, and centered navigation when the material is the actual center.
+- Group related discrete choices in one shallow recessed track. Let the track express grouping and use a small detent, pigment shift, or short indicator for selection; avoid large filled tiles.
+- Let meaningful pictograms carry compact choices. Use roughly 14–18px diagrammatic icons, a 7px caption below, 4px icon-to-caption spacing, and about 34px total control height. The icon must encode profile, direction, gauge, state, or another real property—not decorate the button.
+- Match motion to mounting. Embedded controls may change light on hover and press inward by at most one pixel; they must not float upward like loose objects. A floating artifact may lift only when its construction supports that behavior.
+- Make mobile degradation intentional. Preserve the specimen and core choices first; scale icons modestly, then remove secondary domain descriptions below very narrow widths. Never wrap compact option labels, squeeze unrelated groups together, or introduce page scrolling to save optional metadata.
+- Switch bounded editor surfaces on narrow screens instead of stacking every desktop rail. Keep output-pass navigation isolated from authoring controls, and contain any necessary horizontal overflow inside that output strip rather than the page.
+- Judge the composition at its actual live viewport. Verify grouping, readable density, focus states, overflow, and the balance between stage and chrome after every structural change; a stylesheet viewed in isolation conceals spatial failures.
 
 ## Interaction patterns
 
