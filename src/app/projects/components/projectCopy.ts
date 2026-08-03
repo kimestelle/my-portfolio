@@ -69,7 +69,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        'A habit app built around contracts, proof, partners, wallet activity, and account states.',
+        "Social habit app built around contracts, proof, partners, transaction incentives, and somehow crypto wallets.",
       indexLine:
         'A habit app where proof, partners, and small bets have to make sense.',
       roleLine:
@@ -120,7 +120,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        'A mobile museum scavenger hunt where visitors photograph artifacts and collect them as stickers.',
+        'Mobile museum scavenger hunt where visitors photograph artifacts and collect them as stickers.',
       indexLine:
         'A camera-to-sticker scavenger hunt built for Penn Museum’s Into the Blue exhibition.',
       roleLine:
@@ -178,7 +178,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        'A 3D map of browsing paths that reorganizes websites around words entered by the visitor.',
+        '3D map of browsing paths that reorganizes websites around words entered by the visitor.',
       indexLine:
         'Visitors enter descriptive words, move through a 3D graph, and inspect how people traveled between 300+ websites.',
       roleLine:
@@ -334,7 +334,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        'A material editor that turns one fabric photo into PBR textures, simulated cloth, and an exportable 3D asset.',
+        'Material editor that turns one fabric photo into PBR textures, simulated cloth, and an exportable 3D asset.',
       indexLine:
         'Upload a fabric photo, tune its appearance and motion together, then export the material and cloth asset.',
       roleLine: 'solo dev · material model, cloth solver, renderer, and export',
