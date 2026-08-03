@@ -11,6 +11,7 @@ import {
 } from '../projects/components/projectCopy';
 import LazyVideo from '../projects/components/DeferredLazyVideo';
 import { ShimmerText } from '../design-deets/text-shimmer/TextShimmer';
+import InteractionStudiesPreview from './InteractionStudiesPreview';
 
 const selectedProjects = FEATURED_PROJECT_IDS
   .map((id) => PORTFOLIO_PROJECTS.find((project) => project.id === id))
@@ -19,7 +20,7 @@ const selectedProjects = FEATURED_PROJECT_IDS
 const EMAIL = 'kestelle@sas.upenn.edu';
 
 const isMuxVideo = (url: string) => !url.includes('/') && !url.includes('.');
-const isFileVideo = (url: string) => /\.(mp4|webm|mov)(\?.*)?$/i.test(url);
+const isFileVideo = (url: string) => /\.(mp4|webm|mov|m4v)(\?.*)?$/i.test(url);
 const isAnimatedImage = (url: string) => /\.webp(\?.*)?$/i.test(url);
 
 function SelectedProjectCard({ project }: { project: PortfolioProject }) {
@@ -71,7 +72,7 @@ function SelectedProjectCard({ project }: { project: PortfolioProject }) {
                   src={project.media.cover}
                   alt={`${project.name} preview`}
                   fill
-                  sizes="(max-width: 767px) 100vw, 33vw"
+                  sizes="(max-width: 767px) 100vw, 50vw"
                   className="object-cover transition duration-500 ease-out group-hover:scale-[1.018] group-hover:saturate-[1.03]"
                 />
 
@@ -120,7 +121,7 @@ function SelectedProjectCard({ project }: { project: PortfolioProject }) {
                     alt=""
                     fill
                     unoptimized
-                    sizes="(max-width: 767px) 100vw, 33vw"
+                    sizes="(max-width: 767px) 100vw, 50vw"
                     onLoad={() => setMediaReady(true)}
                     className={`pointer-events-none object-cover transition-opacity duration-300 ${
                       mediaReady ? 'opacity-100' : 'opacity-0'
@@ -182,12 +183,14 @@ export default function ProjectHTML() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 gap-x-5 gap-y-10 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-2">
           {selectedProjects.map((project) => (
             <SelectedProjectCard key={project.id} project={project} />
           ))}
         </div>
       </section>
+
+      <InteractionStudiesPreview />
 
       <button
         type="button"

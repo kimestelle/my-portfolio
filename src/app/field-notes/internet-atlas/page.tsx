@@ -1,7 +1,7 @@
-import type { CSSProperties } from 'react';
 import Image from 'next/image';
 import {
   FieldNoteHeader,
+  FieldNoteProjectSummary,
   FieldNoteReader,
   FieldNoteSection,
   FieldNoteSequence,
@@ -11,14 +11,14 @@ import FieldNoteScrollLink from '../components/FieldNoteScrollLink';
 import styles from './internet-atlas.module.css';
 
 const mapEntries = [
-  ['path', 'a path is not a list of sites'],
-  ['team', 'team structure shapes the system'],
-  ['prototype', 'prove the data path before adding depth'],
-  ['axes', 'visitor language becomes spatial structure'],
-  ['layers', 'layers make a dense graph legible'],
-  ['ship', 'integration is its own engineering task'],
-  ['preserve', 'preserve the interaction, not the infrastructure'],
-  ['improve', 'what i would improve now', 'retrospective'],
+  ['path', 'product goal and dataset'],
+  ['team', 'team and ownership'],
+  ['prototype', '2D prototype'],
+  ['axes', 'semantic axes'],
+  ['layers', '3D graph interaction'],
+  ['ship', 'integration and launch'],
+  ['preserve', 'static preservation'],
+  ['improve', 'what i would change', 'retrospective'],
 ] as const;
 
 function Figure({
@@ -63,20 +63,14 @@ export default function InternetAtlasFieldNotes({
 
   return (
     <Root
-      className={`${inline ? 'project-case-study-inline-content' : 'responsive-padding'} ${styles.page}`}
-      style={{ '--field-accent': 'rgb(69, 151, 126)' } as CSSProperties}
+      className={`${inline ? 'project-case-study-inline-content' : 'responsive-padding'} ${asProject || inline ? 'case-study-reading-scope' : ''} ${styles.page}`}
     >
       <article className={inline ? undefined : 'page-frame-wide'}>
         <FieldNoteHeader
           eyebrow="collaborative project"
           title="internet atlas"
-          deck="eight of us turned recorded browsing paths into a layered 3D map that Atlas visitors could rearrange with their own words."
-          meta={[
-            'frontend + integration lead',
-            'built mar–apr 2025',
-            '8-person project team',
-            'preserved nov 2025',
-          ]}
+          deck="a 3D map of browsing paths. Visitors enter descriptive words, reorganize 300+ websites by semantic similarity, and inspect individual or aggregate journeys."
+          meta={[]}
           links={[
             {
               href: 'https://the-internet-atlas.com/',
@@ -93,17 +87,21 @@ export default function InternetAtlasFieldNotes({
               : undefined
           }
           hideBreadcrumb={inline}
-          motif={
-            <Image
-              className={styles.heroOrbits}
-              src="/project-images/internet-atlas/field-notes/atlas-orbits.svg"
-              alt=""
-              width={1728}
-              height={1117}
-              priority
-              aria-hidden="true"
-            />
-          }
+        />
+
+        <FieldNoteProjectSummary
+          facts={[
+            ['role', 'technical lead · product, visualization, and integration'],
+            ['timeline', 'march–april 2025 · static rebuild november 2025'],
+            ['team', '7 developers + 1 designer'],
+            ['outcome', '300+ sites · 1,000+ edges · 40+ live-demo users'],
+          ]}
+          keyDetails={[
+            'co-led the product and assigned work around each teammate’s goals',
+            'built the 2D proof, then the React Three Fiber graph and camera behavior',
+            'turned visitor-entered words into semantic axes for website placement',
+            'integrated branches, APIs, data layers, deployment, and the static preservation build',
+          ]}
         />
 
         <Figure
@@ -120,19 +118,18 @@ export default function InternetAtlasFieldNotes({
           className={styles.heroFigure}
         />
 
-        <FieldNoteReader mapLabel="turning points" entries={mapEntries}>
+        <FieldNoteReader mapLabel="sections" entries={mapEntries}>
           <FieldNoteSection
             number="00"
             id="path"
-            title="a browsing path is not a list of sites"
+            title="product goal and dataset"
             className={styles.section}
           >
 
             <p className={styles.lead}>
-              Most of us generate browsing data every day, but only see it
-              after a company has interpreted it inside a black box. My friend
-              Ruth and I wanted Atlas visitors to choose how the data was
-              organized and inspect the paths behind each pattern.
+              Internet Atlas turns a 2,148-participant browsing dataset into a
+              map. Visitors choose how websites are organized, then inspect
+              the recorded paths behind each pattern.
             </p>
 
             <aside className={styles.marginNote}>
@@ -232,15 +229,14 @@ export default function InternetAtlasFieldNotes({
           <FieldNoteSection
             number="01"
             id="team"
-            title="team structure shapes the system"
+            title="team and ownership"
             className={styles.section}
           >
 
             <p className={styles.lead}>
-              Internet Atlas was a semester-long Penn Spark club project. Ruth
-              and I expected a mix of designers and developers, but Spark
-              matched us with seven developers, leaving Ruth as the only
-              designer.
+              This was a semester-long Penn Spark project with seven developers
+              and one designer. Ruth and I co-led the product; I also led the
+              technical work and integration.
             </p>
 
             <p>
@@ -336,14 +332,14 @@ export default function InternetAtlasFieldNotes({
           <FieldNoteSection
             number="02"
             id="prototype"
-            title="prove the data path before adding depth"
+            title="2D prototype"
             className={styles.section}
           >
 
             <p className={styles.lead}>
-              I expected the graph to be the risky part, but first we had to
-              prove that data could move cleanly from scraping through
-              embeddings, storage, an API, and into the browser.
+              I built a 2D D3 prototype first to verify the complete data path:
+              scraped sites, embeddings, storage, API responses, and browser
+              rendering.
             </p>
 
             <div className={styles.decisionList}>
@@ -416,15 +412,14 @@ export default function InternetAtlasFieldNotes({
           <FieldNoteSection
             number="03"
             id="axes"
-            title="visitor language becomes spatial structure"
+            title="semantic axes"
             className={styles.section}
           >
 
             <p className={styles.lead}>
-              Scraped text told us what a site was about, not whether an Atlas
-              visitor would call it fuzzy. The ML teammates tested five model
-              and parameter combinations; screenshots and summaries added
-              context, but there was no ground-truth label.
+              We embedded each visitor-entered word in the same vector space as
+              the websites. Similarity scores became the graph axes, so the
+              layout could change without retraining a model.
             </p>
 
             <div className={styles.modelResearchGrid}>
@@ -508,14 +503,14 @@ export default function InternetAtlasFieldNotes({
           <FieldNoteSection
             number="04"
             id="layers"
-            title="layers make a dense graph legible"
+            title="3D graph interaction"
             className={styles.section}
           >
 
             <p className={styles.lead}>
-              I wanted the full graph to stay approachable without flattening
-              the data. I structured each selection as a step from the
-              aggregate view toward one source-study participant&apos;s route.
+              The interface moves from the full graph to landmarks, connected
+              edges, and finally one participant&apos;s route. Each selection
+              reduces density without removing the underlying path data.
             </p>
 
             <div className={styles.layerList}>
@@ -622,7 +617,7 @@ export default function InternetAtlasFieldNotes({
           <FieldNoteSection
             number="05"
             id="ship"
-            title="integration is its own engineering task"
+            title="integration and launch"
             className={styles.section}
           >
 
@@ -633,7 +628,7 @@ export default function InternetAtlasFieldNotes({
 
             <div className={styles.ownershipGrid}>
               <div>
-                <h3>what I owned by launch</h3>
+                <h3>what I built by launch</h3>
                 <ul>
                   <li>
                     the interaction sequence from the aggregate graph through
@@ -691,15 +686,14 @@ export default function InternetAtlasFieldNotes({
           <FieldNoteSection
             number="06"
             id="preserve"
-            title="preserve the interaction, not the infrastructure"
+            title="static preservation"
             className={styles.section}
           >
 
             <p className={styles.lead}>
-              After the demo, the database, API, and ML services would cost
-              about <strong>$60 a month</strong> even when the Atlas had little
-              traffic. In November, I checked which parts of the live stack the
-              finished experience still needed.
+              The live database, API, and ML services cost about{' '}
+              <strong>$60 a month</strong>. In November, I replaced runtime
+              queries with precomputed rankings and static graph data.
             </p>
 
             <p>
@@ -805,7 +799,7 @@ export default function InternetAtlasFieldNotes({
           <FieldNoteSection
             number="07"
             id="improve"
-            title="what i would improve now"
+            title="what i would change"
             className={`${styles.section} ${styles.retrospectiveSection}`}
           >
             <p className={styles.lead}>

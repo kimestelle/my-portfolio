@@ -129,6 +129,78 @@
   text-decoration-color: currentColor;
 }
 
+.projectSummary {
+  margin-block: clamp(1.5rem, 4vw, 2.75rem) clamp(2.5rem, 6vw, 4rem);
+  border-block: 1px solid var(--line-color);
+}
+
+.summaryFacts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.summaryFacts > div {
+  min-width: 0;
+  padding: 1rem;
+}
+
+.summaryFacts > div + div {
+  border-left: 1px solid var(--line-color);
+}
+
+.summaryFacts dt,
+.summaryDetails > p {
+  color: var(--text-meta);
+  font-family: var(--font-mono);
+  font-size: var(--type-micro);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.summaryFacts dd {
+  margin-top: 0.4rem;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--type-meta);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.summaryDetails {
+  display: grid;
+  grid-template-columns: minmax(7rem, 0.28fr) minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+  border-top: 1px solid var(--line-color);
+}
+
+.summaryDetails ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.summaryDetails li {
+  position: relative;
+  padding-left: 0.9rem;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: var(--type-meta);
+  line-height: 1.45;
+}
+
+.summaryDetails li::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--field-accent);
+  content: '•';
+}
+
 .figure {
   position: relative;
   margin-block: 2.25rem;
@@ -136,7 +208,7 @@
 
 .figureImage {
   border: 1px solid var(--line-color);
-  background: rgba(255, 255, 255, 0.62);
+  background: color-mix(in srgb, var(--text-primary) 2%, var(--background));
 }
 
 .figureImage img {
@@ -149,6 +221,7 @@
   max-width: 42rem;
   margin-top: 0.75rem;
   color: var(--text-meta);
+  font-family: var(--font-body);
   font-size: var(--type-meta);
   line-height: 1.45;
 }
@@ -293,7 +366,7 @@
 
 .sectionTitle {
   color: var(--text-primary);
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-size: var(--type-section);
   font-weight: 400;
 }
@@ -508,6 +581,26 @@
 
   .heroMeta span::after {
     display: none;
+  }
+
+  .summaryFacts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .summaryFacts > div:nth-child(3) {
+    border-left: 0;
+  }
+
+  .summaryFacts > div:nth-child(n + 3) {
+    border-top: 1px solid var(--line-color);
+  }
+
+  .summaryDetails {
+    grid-template-columns: 1fr;
+  }
+
+  .summaryDetails ul {
+    grid-template-columns: 1fr;
   }
 
 }

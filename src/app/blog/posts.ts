@@ -7,6 +7,13 @@ export type BlogPost = {
 };
 
 export const allPostsSorted: BlogPost[] = [
+    {
+        title: "the astronaut had somewhere to return to",
+        date: "2026-08-02",
+        slug: "the-astronaut-had-somewhere-to-return-to",
+        description: "adaptability is not the same as having a home",
+        category: "thinking"
+    },
     // {
     //     title: "</> webGL mood ring shader",
     //     date: "2025-06-26",

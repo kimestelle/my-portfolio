@@ -19,6 +19,7 @@ import {
 import { useEntranceReady } from '../EntranceReadyContext';
 import { ShimmerText } from '../design-deets/text-shimmer/TextShimmer';
 import LazyVideo from './components/DeferredLazyVideo';
+import TallyCover from './components/TallyCover';
 import {
   PORTFOLIO_PROJECTS,
   PROJECT_SECTIONS,
@@ -43,6 +44,10 @@ const DigitalLoomCaseStudy = dynamic(
   () => import('./case-studies/DigitalLoomCaseStudy'),
   { loading: () => <CaseStudyLoading /> },
 );
+const TallyCaseStudy = dynamic(
+  () => import('./case-studies/TallyCaseStudy'),
+  { loading: () => <CaseStudyLoading /> },
+);
 
 function CaseStudyLoading() {
   return (
@@ -63,6 +68,10 @@ function FeaturedCaseStudy({ projectId }: { projectId: string }) {
 
   if (projectId === 'digital-loom') {
     return <DigitalLoomCaseStudy inline />;
+  }
+
+  if (projectId === 'tally') {
+    return <TallyCaseStudy inline />;
   }
 
   return null;
@@ -152,6 +161,15 @@ function ProjectMedia({
   }
 
   const shouldMountPreview = active && allowMotion && Boolean(preview);
+
+  if (project.id === 'tally') {
+    return (
+      <TallyCover
+        animated={active && allowMotion}
+        className={className}
+      />
+    );
+  }
 
   return (
     <div className={`relative overflow-hidden bg-neutral-950 ${className}`}>
@@ -336,7 +354,7 @@ function ProjectStoryDetails({ project }: { project: PortfolioProject }) {
       {(story.owned?.length || story.workedWith?.length) && (
         <div className="grid gap-7 py-7 md:grid-cols-2 md:gap-10 md:py-8">
           {story.owned && (
-            <StoryField label="owned">
+            <StoryField label="what i built">
               <ul className="project-story-list type-body space-y-1.5 text-[color:var(--text-secondary)]">
                 {story.owned.map((item) => (
                   <ShimmerText as="li" key={item}>
@@ -489,7 +507,7 @@ function ProjectRow({
   return (
     <article
       id={project.id}
-      className="group relative scroll-mt-28 border-b last:border-b-0"
+      className="project-row-shell group relative scroll-mt-28 border-b last:border-b-0"
     >
       <button
         type="button"
@@ -509,13 +527,17 @@ function ProjectRow({
               className="media-clip-surface relative aspect-[16/10] w-full bg-neutral-950"
               aria-hidden="true"
             >
-              <Image
-                src={project.media.cover}
-                alt=""
-                fill
-                sizes="(max-width: 639px) 5.5rem, (max-width: 767px) 7.5rem, 10rem"
-                className="object-cover transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.025] group-focus-within:scale-[1.025]"
-              />
+              {project.id === 'tally' ? (
+                <TallyCover compact className="h-full" />
+              ) : (
+                <Image
+                  src={project.media.cover}
+                  alt=""
+                  fill
+                  sizes="(max-width: 639px) 5.5rem, (max-width: 767px) 7.5rem, 10rem"
+                  className="object-cover"
+                />
+              )}
             </div>
           ) : null}
 
@@ -533,7 +555,7 @@ function ProjectRow({
 
           <span
             aria-hidden
-            className="type-meta shrink-0 pt-0.5 text-[color:var(--text-meta)] transition-transform duration-[180ms] ease-out group-hover:translate-x-1"
+            className="type-meta shrink-0 pt-0.5 text-[color:var(--text-meta)]"
           >
             →
           </span>
@@ -699,7 +721,7 @@ export default function Projects() {
                           </ShimmerText>
                         </div>
 
-                        <div className="border-y">
+                        <div className="project-list border-y">
                           {projects.map((project) => (
                             <ProjectRow
                               key={project.id}

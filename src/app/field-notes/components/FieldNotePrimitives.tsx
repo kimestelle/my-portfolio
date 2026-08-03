@@ -89,13 +89,15 @@ export function FieldNoteHeader({
         </div>
       </div>
 
-      <div className={styles.heroMeta}>
-        {meta.map((item) => (
-          <ShimmerText as="span" key={item} priority={3}>
-            {item}
-          </ShimmerText>
-        ))}
-      </div>
+      {meta.length ? (
+        <div className={styles.heroMeta}>
+          {meta.map((item) => (
+            <ShimmerText as="span" key={item} priority={3}>
+              {item}
+            </ShimmerText>
+          ))}
+        </div>
+      ) : null}
 
       <nav className={styles.heroLinks} aria-label="Project links">
         {links.map((item) => {
@@ -123,6 +125,35 @@ export function FieldNoteHeader({
         })}
       </nav>
     </header>
+  );
+}
+
+export function FieldNoteProjectSummary({
+  facts,
+  keyDetails,
+}: {
+  facts: readonly (readonly [label: string, value: string])[];
+  keyDetails: readonly string[];
+}) {
+  return (
+    <section className={styles.projectSummary} aria-label="Project summary">
+      <dl className={styles.summaryFacts}>
+        {facts.map(([label, value]) => (
+          <div key={label}>
+            <dt>{label}</dt>
+            <dd>{value}</dd>
+          </div>
+        ))}
+      </dl>
+      <div className={styles.summaryDetails}>
+        <p>key details</p>
+        <ul>
+          {keyDetails.map((detail) => (
+            <li key={detail}>{detail}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 }
 

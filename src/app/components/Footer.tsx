@@ -1,4 +1,3 @@
-import Link from "next/link";
 import BouncingText from "../design-deets/BouncingText";
 
 export default function Footer() {
@@ -9,12 +8,6 @@ export default function Footer() {
           <BouncingText className="type-meta text-[color:var(--text-meta)]">
             thank you for visiting :-)
           </BouncingText>
-          <Link
-            href="/blog"
-            className="type-meta text-[color:var(--text-primary)] transition-transform duration-200 hover:-translate-y-px"
-          >
-            read my blog ↗
-          </Link>
         </div>
       </div>
     </footer>

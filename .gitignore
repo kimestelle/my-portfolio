@@ -20,6 +20,13 @@
 .DS_Store
 *.pem
 
+# private local message archives
+/ScreenRecording_*.MOV
+/ScreenRecording_*.MP4
+/tmp/pdfs/
+/output/pdf/
+/output/work-texts-handoff.md
+
 # debug
 npm-debug.log*
 yarn-debug.log*

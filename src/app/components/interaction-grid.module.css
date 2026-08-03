@@ -1,0 +1,147 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3rem 1rem;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  min-width: 0;
+  scroll-margin-top: 6rem;
+  flex-direction: column;
+}
+
+.media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--line-color);
+  border-radius: var(--radius-surface);
+  background: color-mix(in srgb, var(--text-primary) 3%, var(--background));
+}
+
+.poster,
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition:
+    opacity 280ms var(--motion-mood-ease),
+    transform 520ms var(--motion-mood-ease),
+    filter 520ms var(--motion-mood-ease);
+}
+
+.poster {
+  z-index: 0;
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+}
+
+.videoReady {
+  opacity: 1;
+}
+
+.contain {
+  object-fit: contain;
+}
+
+.card:hover .poster,
+.card:hover .video {
+  transform: scale(1.012);
+  filter: saturate(1.025);
+}
+
+.copy {
+  display: flex;
+  padding-top: 0.75rem;
+  flex-direction: column;
+}
+
+.name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--type-lead);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.meta {
+  margin-top: 0.25rem;
+  color: var(--text-meta);
+  font-family: var(--font-body);
+  font-size: var(--type-meta);
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+.explores {
+  display: -webkit-box;
+  margin-top: 0.45rem;
+  overflow: hidden;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.recognition {
+  margin-top: 0.55rem;
+  color: var(--text-meta);
+  font-size: var(--type-meta);
+  line-height: 1.4;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.8rem;
+  margin-top: 0.7rem;
+}
+
+.actions a {
+  color: var(--text-primary);
+  font-size: var(--type-meta);
+  text-decoration: underline;
+  text-decoration-color: var(--line-color);
+  text-underline-offset: 0.2em;
+  transition:
+    color 280ms var(--motion-mood-ease),
+    text-decoration-color 280ms var(--motion-mood-ease),
+    transform 320ms var(--motion-mood-ease);
+}
+
+.actions a:hover,
+.actions a:focus-visible {
+  text-decoration-color: currentColor;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3.25rem;
+  }
+
+  .explores {
+    -webkit-line-clamp: unset;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poster,
+  .video,
+  .actions a {
+    transition: none;
+  }
+}

@@ -3,13 +3,14 @@ import { notFound } from 'next/navigation';
 import IntoTheBlueCaseStudy from '../../field-notes/into-the-blue/page';
 import InternetAtlasCaseStudy from '../../field-notes/internet-atlas/page';
 import DigitalLoomCaseStudy from '../case-studies/DigitalLoomCaseStudy';
+import TallyCaseStudy from '../case-studies/TallyCaseStudy';
 import {
-  FEATURED_PROJECT_IDS,
+  CASE_STUDY_PROJECT_IDS,
   getPortfolioProject,
 } from '../components/projectCopy';
 
 export function generateStaticParams() {
-  return FEATURED_PROJECT_IDS.map((projectId) => ({
+  return CASE_STUDY_PROJECT_IDS.map((projectId) => ({
     projectId,
   }));
 }
@@ -50,6 +51,10 @@ export default async function ProjectDetailPage({
 
   if (projectId === 'digital-loom') {
     return <DigitalLoomCaseStudy />;
+  }
+
+  if (projectId === 'tally') {
+    return <TallyCaseStudy />;
   }
 
   notFound();

@@ -1,9 +1,9 @@
-import type { CSSProperties } from 'react';
 import Image from 'next/image';
 import {
   FieldNoteDetail,
   FieldNoteFigure,
   FieldNoteHeader,
+  FieldNoteProjectSummary,
   FieldNoteReader,
   FieldNoteSection,
   FieldNoteSequence,
@@ -13,13 +13,13 @@ import FieldNoteScrollLink from '../components/FieldNoteScrollLink';
 import styles from './into-the-blue.module.css';
 
 const mapEntries = [
-  ['brief', 'a collectible can still point back to its source'],
-  ['gallery', 'the gallery determines the interaction'],
-  ['assets', 'one coordinate system aligns every artifact'],
-  ['camera', 'expensive work belongs at capture time'],
-  ['integration', 'local-first reduces visitor friction'],
-  ['launch', 'production is part of the design'],
-  ['improve', 'what i would improve now', 'retrospective'],
+  ['brief', 'product brief and constraints'],
+  ['gallery', 'selecting artifacts in the gallery'],
+  ['assets', 'camera and asset alignment'],
+  ['camera', 'sticker processing'],
+  ['integration', 'offline storage and recovery'],
+  ['launch', 'testing and launch'],
+  ['improve', 'what i would change', 'retrospective'],
 ] as const;
 
 export default function IntoTheBlueFieldNotes({
@@ -33,20 +33,14 @@ export default function IntoTheBlueFieldNotes({
 
   return (
     <Root
-      className={`${inline ? 'project-case-study-inline-content' : 'responsive-padding'} ${styles.page}`}
-      style={{ '--field-accent': 'rgb(53, 126, 179)' } as CSSProperties}
+      className={`${inline ? 'project-case-study-inline-content' : 'responsive-padding'} ${asProject || inline ? 'case-study-reading-scope' : ''} ${styles.page}`}
     >
       <article className={inline ? undefined : 'page-frame-wide'}>
         <FieldNoteHeader
           eyebrow="collaborative project"
           title="into the blue"
-          deck="how much can you turn an artifact into a collectible without losing its context?"
-          meta={[
-            'camera prototype, local media + integration',
-            'built feb–apr 2025',
-            '5-person development team',
-            'updated through sep 2025',
-          ]}
+          deck="a mobile scavenger hunt for Penn Museum. Visitors photograph selected artifacts, turn them into stickers, and arrange a personal stickerboard."
+          meta={[]}
           links={[
             {
               href: 'https://penn.museum/sites/blue/welcome/',
@@ -63,31 +57,21 @@ export default function IntoTheBlueFieldNotes({
               : undefined
           }
           hideBreadcrumb={inline}
-          motif={
-            <div className={styles.heroArtifacts} aria-hidden="true">
-              <Image
-                src="/blog/blue/lion.png"
-                alt=""
-                width={300}
-                height={360}
-                priority
-              />
-              <Image
-                src="/blog/blue/diadems.png"
-                alt=""
-                width={300}
-                height={360}
-                priority
-              />
-              <Image
-                src="/blog/blue/ram.png"
-                alt=""
-                width={300}
-                height={360}
-                priority
-              />
-            </div>
-          }
+        />
+
+        <FieldNoteProjectSummary
+          facts={[
+            ['role', 'frontend developer · camera-to-sticker feature'],
+            ['timeline', 'february–april 2025 · deployed about nine months'],
+            ['team', '5 developers within an 8-person project group'],
+            ['outcome', 'shipped in eight weeks for Penn Museum'],
+          ]}
+          keyDetails={[
+            'proposed and built the guided camera capture and SVG cutout pipeline',
+            'used one 300 × 360 coordinate system for guides, masks, crops, and stickers',
+            'stored stickers, progress, and interface state in IndexedDB for recovery',
+            'co-built the stickerboard and worked with museum staff on artifact constraints',
+          ]}
         />
 
         <FieldNoteFigure
@@ -106,11 +90,11 @@ export default function IntoTheBlueFieldNotes({
           priority
         />
 
-        <FieldNoteReader mapLabel="decision trace" entries={mapEntries}>
+        <FieldNoteReader mapLabel="sections" entries={mapEntries}>
           <FieldNoteSection
             number="00"
             id="brief"
-            title="a collectible can still point back to its source"
+            title="product brief and constraints"
             className={styles.section}
           >
 
@@ -152,7 +136,7 @@ export default function IntoTheBlueFieldNotes({
           <FieldNoteSection
             number="01"
             id="gallery"
-            title="the gallery determines the interaction"
+            title="selecting artifacts in the gallery"
             className={styles.section}
           >
 
@@ -190,7 +174,7 @@ export default function IntoTheBlueFieldNotes({
           <FieldNoteSection
             number="02"
             id="assets"
-            title="one coordinate system aligns every artifact"
+            title="camera and asset alignment"
             className={styles.section}
           >
 
@@ -228,7 +212,7 @@ export default function IntoTheBlueFieldNotes({
           <FieldNoteSection
             number="03"
             id="camera"
-            title="expensive work belongs at capture time"
+            title="sticker processing"
             className={styles.section}
           >
 
@@ -314,7 +298,7 @@ export default function IntoTheBlueFieldNotes({
           <FieldNoteSection
             number="04"
             id="integration"
-            title="local-first reduces visitor friction"
+            title="offline storage and recovery"
             className={styles.section}
           >
 
@@ -384,7 +368,7 @@ export default function IntoTheBlueFieldNotes({
           <FieldNoteSection
             number="05"
             id="launch"
-            title="production is part of the design"
+            title="testing and launch"
             className={styles.section}
           >
 
@@ -431,7 +415,7 @@ export default function IntoTheBlueFieldNotes({
           <FieldNoteSection
             number="06"
             id="improve"
-            title="what i would improve now"
+            title="what i would change"
             className={`${styles.section} ${styles.retrospectiveSection}`}
           >
             <p className={styles.lead}>

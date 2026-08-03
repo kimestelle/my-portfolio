@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 const postMap: Record<string, any> = {
+  'the-astronaut-had-somewhere-to-return-to': dynamic(() => import('../pages/the-astronaut-had-somewhere-to-return-to')),
   // 'building-taste': dynamic(() => import('../pages/building-taste')),
   'into-the-blue': dynamic(() => import('../pages/into-the-blue')),
   'watercolor-shader': dynamic(() => import('../pages/watercolor-shader')),

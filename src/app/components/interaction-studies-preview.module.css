@@ -1,0 +1,16 @@
+.section {
+  margin-top: 5rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.line {
+  height: 1px;
+  flex: 1;
+  background: var(--line-color);
+}

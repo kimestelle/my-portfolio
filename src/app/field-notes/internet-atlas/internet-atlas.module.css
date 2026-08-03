@@ -1,25 +1,10 @@
 .page {
-  --atlas-green: var(--field-accent);
-  --atlas-green-soft: rgba(69, 151, 126, 0.12);
-  --atlas-ink: rgb(35, 31, 29);
+  --atlas-accent: var(--field-accent);
+  --atlas-accent-soft: color-mix(in srgb, var(--field-accent) 10%, transparent);
 }
 
 .page :where(a, summary) {
   text-underline-offset: 0.19em;
-}
-
-.heroOrbits {
-  position: absolute;
-  z-index: -1;
-  top: 50%;
-  right: -22%;
-  width: min(52rem, 104%);
-  max-width: none;
-  height: auto;
-  opacity: 0.15;
-  filter: contrast(0.85);
-  transform: translateY(-50%);
-  pointer-events: none;
 }
 
 .decisionList article > span,
@@ -39,7 +24,7 @@
 
 .figureImage {
   border: 1px solid var(--line-color);
-  background: rgba(255, 255, 255, 0.62);
+  background: color-mix(in srgb, var(--text-primary) 2%, var(--background));
 }
 
 .figureImage img {
@@ -107,7 +92,7 @@
   top: 1.05rem;
   left: 0.8rem;
   margin: 0;
-  color: var(--atlas-green);
+  color: var(--atlas-accent);
   font-size: 0.9rem;
 }
 
@@ -176,13 +161,13 @@
 }
 
 .peopleGrid .personHighlight {
-  background: var(--atlas-green-soft);
+  background: var(--atlas-accent-soft);
 }
 
 .peopleGrid .personHighlight span::after {
   content: " you are here";
   margin-left: 0.45rem;
-  color: var(--atlas-green);
+  color: var(--atlas-accent);
   font-family: var(--font-mono);
   font-size: var(--type-micro);
   font-weight: 400;
@@ -320,7 +305,7 @@
 }
 
 .ownershipGrid li::marker {
-  color: var(--atlas-green);
+  color: var(--atlas-accent);
   font-size: 0.65em;
 }
 
@@ -328,7 +313,7 @@
   margin-bottom: 2rem;
   padding: 1.25rem 1.4rem 1.4rem;
   border: 1px solid var(--line-color);
-  background: color-mix(in srgb, var(--atlas-green) 3%, transparent);
+  background: color-mix(in srgb, var(--atlas-accent) 3%, transparent);
 }
 
 .improvementList {
@@ -352,7 +337,7 @@
   content: "0" counter(improvements);
   grid-column: 1;
   grid-row: 1;
-  color: var(--atlas-green);
+  color: var(--atlas-accent);
   font-family: var(--font-mono);
   font-size: var(--type-micro);
   letter-spacing: 0.04em;
@@ -404,13 +389,17 @@
   grid-template-columns: 2rem minmax(0, 1fr);
   color: var(--text-primary);
   text-decoration: underline;
-  text-decoration-color: rgba(69, 151, 126, 0.4);
+  text-decoration-color: color-mix(
+    in srgb,
+    var(--text-primary) 40%,
+    transparent
+  );
   transition: color 180ms ease;
 }
 
 .references a::before {
   content: "[" counter(references, decimal-leading-zero) "]";
-  color: var(--atlas-green);
+  color: var(--atlas-accent);
   font-family: var(--font-mono);
   font-size: var(--type-micro);
   text-decoration: none;
@@ -418,7 +407,7 @@
 
 .references a:hover,
 .references a:focus-visible {
-  color: var(--atlas-green);
+  color: var(--atlas-accent);
 }
 
 .references li > span {
@@ -451,12 +440,6 @@
 }
 
 @media (max-width: 720px) {
-  .heroOrbits {
-    right: -52%;
-    width: 148%;
-    opacity: 0.12;
-  }
-
   .heroFigure {
     margin-bottom: 3.5rem;
   }

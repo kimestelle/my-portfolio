@@ -1,4 +1,5 @@
 export type ProjectSection =
+  | 'product design'
   | 'shipped with teams'
   | 'graphics systems'
   | 'creative tools';
@@ -49,11 +50,61 @@ export const PROJECT_SECTIONS: {
   label: string;
 }[] = [
   { id: 'shipped with teams', label: 'shipped with teams' },
+  { id: 'product design', label: 'product design' },
   { id: 'graphics systems', label: 'graphics systems' },
   { id: 'creative tools', label: 'creative tools' },
 ];
 
 export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
+  {
+    id: 'tally',
+    name: 'tally',
+    section: 'product design',
+    variant: 'featured',
+    metadata: {
+      date: 'Spring 2026',
+      role: 'product designer',
+      result: '10 starting flows → a full product structure',
+      stack: 'Figma · Mobile Flows · Interaction States · Prototypes',
+    },
+    collapsed: {
+      purpose:
+        'A habit app built around contracts, proof, partners, wallet activity, and account states.',
+      indexLine:
+        'A habit app where proof, partners, and small bets have to make sense.',
+      roleLine:
+        'product design · flows, states, and mobile UI',
+      resultLine:
+        '10 starting flows → a complete product structure',
+    },
+    story: {
+      goal:
+        'Tally lets someone put a small amount of money behind a habit, then prove it with a photo or Screen Time.',
+      role:
+        'I mapped and designed the full mobile product: contract setup and proof, wallet and funding, profiles and friends, feed, settings, and failure states.',
+      owned: [
+        'the full app map',
+        'contract setup',
+        'photo and Screen Time proof',
+        'wallet, profile, feed, and settings flows',
+        'success, failure, waiting, and recovery states',
+      ],
+      challenge:
+        'The app kept asking one more question: what counts, who checks, what happens to the money, and what if someone disagrees? Put together, setup started to feel like paperwork.',
+      decision:
+        'I made one contract path, split setup into smaller decisions, and gave photo and Screen Time the same states after proof was submitted.',
+      outcome:
+        'The final file covers setup, partner approval, daily proof, disputes, missed habits, wallet funding and history, profiles, friends, feed, settings, and the empty states between them.',
+      changedMind:
+        'I started by designing habit screens. The project got much easier once I realized the contract—not the habit card—was the thing moving through the app.',
+    },
+    media: {
+      cover: '/project-images/tally/demo/personalized.png',
+      preview: '/project-images/tally/demo/personalize-and-activate.m4v',
+    },
+    technicalLabel:
+      'how contracts connect setup, proof, money, people, and account surfaces →',
+  },
   {
     id: 'into-the-blue',
     name: 'Into the Blue',
@@ -63,53 +114,52 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       date: 'February–April 2025',
       role: 'frontend developer',
       team: '5-person development team within an 8-person project group',
-      result: '180,000+ visitors; maintained for nine months',
+      result: 'shipped in eight weeks · ran in the exhibition for nine months',
       stack: 'Next.js · TypeScript · Canvas API · SVG · IndexedDB',
     },
     collapsed: {
       purpose:
-        'Helping Penn Museum visitors collect and remix the artifacts they discovered.',
+        'A mobile museum scavenger hunt where visitors photograph artifacts and collect them as stickers.',
       indexLine:
-        'Helping 180,000+ Penn Museum visitors collect and remix the artifacts they discovered.',
+        'A camera-to-sticker scavenger hunt built for Penn Museum’s Into the Blue exhibition.',
       roleLine:
-        'frontend developer · proposed + owned the core camera interaction',
+        'frontend developer · camera, sticker creation, and offline storage',
       resultLine:
-        'camera-to-sticker pipeline · 180,000+ visitors · nine-month deployment',
+        'eight-week build · nine-month exhibition deployment',
     },
     story: {
       goal:
-        'With its new exhibition Into the Blue, Penn Museum wanted a virtual companion. In eight weeks, our team built an offline-first scavenger hunt that guides visitors to find blue artifacts, “cut” them in place, and keep + remix a personal sticker collection.',
+        'We built a mobile scavenger hunt for Penn Museum’s Into the Blue exhibition. Visitors find selected artifacts, photograph them through a guided outline, and save the cutouts as stickers for a personal board.',
       role:
-        'I proposed the cutout feature, built the camera-to-sticker and IndexedDB pipelines, and co-developed the stickerboard. With the lead designer, I also defined a 300 × 360 asset contract that kept each PNG overlay, SVG cut path, captured crop, and exported sticker aligned.',
+        'I proposed and built the camera-to-sticker interaction. I also built local storage for stickers and progress, then worked with another developer on the stickerboard.',
       feedback:
-        'A gallery walk narrowed more than 200 blue objects to roughly three dozen that visitors could actually see, frame, and responsibly turn into collectibles. We kept returning to how far we could manipulate cutouts and stickers without separating artifacts from their original context.',
+        'A gallery walk narrowed more than 200 blue objects to about 30 that visitors could see, frame, and responsibly use as collectibles. Museum staff also set limits on how artifacts could be cropped and altered.',
       owned: [
-        'camera capture, dynamic SVG clipping, and sticker processing',
-        'IndexedDB image, metadata, UI-state, and progress storage',
-        'device-safe scaling, clipping, and zoom behavior',
-        'collection flow and progress indicators',
-        'stickerboard input math and PNG composition export',
+        'camera capture and guided artifact framing',
+        'SVG masking and sticker generation',
+        'offline sticker and progress storage',
+        'collection states and stickerboard export',
       ],
       workedWith: [
-        'the lead designer on the shared 300 × 360 PNG, SVG, and metadata contract',
-        'another developer on the custom stickerboard',
-        'museum stakeholders on cultural and technical constraints',
+        'the lead designer on camera framing and asset rules',
+        'another developer on the stickerboard',
+        'museum staff on cultural and exhibit constraints',
       ],
       challenge:
-        'The museum Wi-Fi was spotty, so backend dependencies were not an option. We also could not distort the appearance or cultural meaning of artifacts. That meant the camera image, SVG cutout, PNG overlay, device pixel ratio, cover-fit math, and zoom all had to line up across phones.',
+        'The camera image, guide outline, cutout mask, and exported sticker had to align across different phones. The experience also had to recover from unreliable museum Wi-Fi without losing a visitor’s collection.',
       decision:
-        'I proposed writing each sticker to IndexedDB immediately. The PNG, metadata, and progress state were keyed by artifact ID, so the app could recover after a restart, prevent duplicate captures, and keep working without waiting for the museum network.',
+        'We put every camera and sticker asset in one 300 × 360 coordinate system. I saved each completed sticker and its progress state to IndexedDB immediately, so the app could restore the collection after a refresh or connection drop.',
       outcome:
-        'The web app supported more than 180,000 museum visitors and remained in active deployment and maintenance for nine months.',
+        'We shipped the experience in eight weeks. It remained in the exhibition for nine months while Penn Museum received more than 180,000 visitors.',
       changedMind:
-        'At first I treated the camera, outline, and exported sticker as separate layers to align. It became much simpler once they shared one reference box and every crop, transform, and export came from the same geometry.',
+        'I initially fixed alignment one layer at a time. A shared coordinate system removed most of those exceptions and made the interaction consistent across devices.',
     },
     media: {
       cover: '/project-images/covers/museum-cover.webp',
       preview: 'GASgNQMNNJ016tzUTngLXSXFZ000228UTfdlfs5007gD8Y4',
     },
     technicalLabel:
-      'how the camera, cutout, and offline storage pipeline fit together →',
+      'camera-to-sticker system and offline storage →',
     liveUrl: 'https://penn.museum/sites/blue/welcome/',
     githubUrl: 'https://github.com/PennSpark/into-the-blue',
   },
@@ -127,45 +177,45 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        'Turning browsing paths into a 3D map that visitors can reorganize with their own words.',
+        'A 3D map of browsing paths that reorganizes websites around words entered by the visitor.',
       indexLine:
-        'Turning 300+ websites and 1,000+ navigation edges into a map visitors could reorganize with their own words.',
+        'Visitors enter descriptive words, move through a 3D graph, and inspect how people traveled between 300+ websites.',
       roleLine:
-        'technical lead · shaped the product + integrated an 8-person build',
+        'technical lead · product, visualization, integration, and deployment',
       resultLine:
-        'technical lead · 300+ sites · 1,000+ edges · 40+ live demo',
+        '300+ sites · 1,000+ navigation edges · 40+ people at live demo',
     },
     story: {
       goal:
-        'My friend Ruth and I wanted to show how people move through the web without reducing a browsing path to a list of sites. We used paths from a 2,148-participant research dataset, then let each Atlas visitor choose words like “fuzzy,” “organic,” or “heavy” to reorganize the map.',
+        'Internet Atlas turns web-browsing histories into a 3D map. A visitor enters words such as “fuzzy” or “heavy,” the websites reorganize by semantic similarity, and the visitor can inspect individual or aggregate browsing paths.',
       role:
-        'Ruth and I shaped the product. I spoke with each teammate and assigned roles around what they wanted to learn, then led the visualization and handled the integration, Git, API, and deployment work that made the team’s experiments run as one system.',
+        'I co-led the product with the designer and served as technical lead for seven developers. I built the main graph interaction, assigned work, integrated the team’s branches, connected the data services, and deployed the project.',
       owned: [
-        '100 × 100 D3 prototype that proved the full data path before 3D',
-        'whole-graph, landmark, edge-journey, and node interaction layers',
-        'React Three Fiber graph, camera choreography, selection behavior, and SVG overlays',
-        'API integration, branch merges, deployment, and later static preservation',
+        'early 2D prototype used to validate the data and interaction',
+        '3D graph, camera movement, selection, and path inspection',
+        'API integration and team branch merges',
+        'deployment and later static preservation',
       ],
       workedWith: [
-        'Ruth, the design co-lead, on the core question and interaction model',
-        'Eric on clustering, data handling, and how navigation paths appeared in the graph',
-        'ML teammates on model, embedding, vector-database, and scraping experiments',
+        'the design co-lead on the product and interaction model',
+        'a data engineer on clustering and navigation paths',
+        'ML teammates on embeddings, scraping, and model experiments',
       ],
       challenge:
-        'There was no preexisting model for a word like “fuzzy.” We had to scrape and summarize site content, test different models + parameters, combine text and image embeddings, and still make hundreds of moving nodes and edges understandable in the browser.',
+        'The system had to translate open-ended words into a useful layout while keeping hundreds of sites and more than 1,000 path connections readable. The team was also building the data, ML, and interface layers in parallel.',
       decision:
-        'We kept website vertices in Pinecone and user-specific edges + paths in Supabase. That kept session noise out of the semantic index and let us show either one person’s journey or an aggregate graph. User-supplied adjectives were embedded into the same space, so similarity could become a spatial axis without retraining anything.',
+        'We embedded each visitor’s words in the same semantic space as the websites, then used similarity as the graph’s spatial axis. Site embeddings stayed separate from browsing-session paths, which let the interface switch between semantic layout, individual journeys, and aggregate traffic.',
       outcome:
-        'We shipped an interactive graph of more than 300 sites and 1,000 navigation edges, deployed it for a live class demo with more than 40 simultaneous users, and later preserved the experience as a static deployment when keeping the experimental backend online no longer justified the cost.',
+        'We shipped a graph with more than 300 sites and 1,000 navigation edges. More than 40 people used it during the live demo, and I later preserved the core interaction as a static site when the experimental backend became too expensive to run.',
       changedMind:
-        'I originally thought the live ML pipeline was central to the project. The static version kept the parts that mattered: choosing the words, moving between scales, and inspecting the paths behind a pattern.',
+        'I expected the live ML pipeline to be the main value. The preserved version showed that the important parts were entering a point of view, seeing the graph change, and tracing the paths behind a pattern.',
     },
     media: {
       cover: '/project-images/covers/atlas-cover.webp',
       preview: 'aDL519jpf01J01rs1fZqqXPHw996LWwx9UD6Jh4ecZ9Xk',
     },
     technicalLabel:
-      'how free-text adjectives became axes in a 3D graph →',
+      'semantic graph layout and browsing-path data →',
     liveUrl: 'https://the-internet-atlas.com/',
     githubUrl: 'https://github.com/PennSpark/sp25-internet-atlas',
   },
@@ -182,9 +232,9 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        'Turning fragmented utility data into reporting systems that internal teams could trust.',
+        'Nine departments needed the same operational data to stop producing different answers.',
       indexLine:
-        'Building reporting systems internal teams could trust at a utility serving 15 million residents.',
+        'Shared reporting for nine departments at a utility serving 15 million residents.',
       roleLine: 'data viz engineering intern · 9 partner departments',
       resultLine: '10 production solutions · systems serving 15 million residents',
     },
@@ -194,7 +244,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       role:
         'I worked directly with 9+ departments, learned their workflows, and turned their questions into SQL pipelines, reporting views, data models, and an internal dashboard redesign that made a core reporting tool easier to use.',
       feedback:
-        'Stakeholders taught me the language and business operations behind each request, then gave me feedback on whether the resulting tools were actually usable. My teammates also pushed me to plan for continuity after I left, so I documented every pipeline and built within existing frameworks instead of introducing a new stack. I became more proactive about communication too, sending my manager concise nightly updates without being prompted so progress and blockers stayed visible.',
+        'Stakeholders taught me the operations behind each request and told me whether the tools were actually usable. My teammates pushed me to plan for continuity after I left, so I documented every pipeline and worked inside the existing stack. I also started sending my manager short nightly updates so progress and blockers stayed visible.',
       owned: [
         'cross-platform SQL transformations',
         'reporting views and dashboard data models',
@@ -230,9 +280,9 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        "Making Penn Spark's site easier to maintain without erasing its visual history.",
+        'One public site that a rotating student team could update without starting over.',
       indexLine:
-        "Making Penn Spark's site easier for a rotating student team to maintain without erasing its visual history.",
+        "Consolidating three aging codebases without erasing Penn Spark's visual history.",
       roleLine: 'technical lead · built for a rotating student team',
       resultLine: 'one typed codebase · documented updates and deployment',
     },
@@ -242,7 +292,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       role:
         'I led the technical update, consolidated three fragmented codebases into one Vite app, and moved frequently edited content into typed data instead of hiding it inside page markup.',
       feedback:
-        'I distributed Google Forms to club members, then reached out to people with specific thoughts for longer conversations. A repeated theme was that the site felt too colorful and playful, so we made the interactions and components more subtle and mature while keeping the parts of Spark’s visual history people still recognized.',
+        'I sent a survey to club members, then followed up with people who had specific thoughts. They kept saying the site felt too colorful and playful, so we made the interactions quieter while keeping the visual pieces people still recognized.',
       owned: [
         'React and Vite architecture',
         'project and community content models',
@@ -283,39 +333,39 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        'Turning a fabric photograph into a material you can inspect, tune, simulate, and export.',
+        'A material editor that turns one fabric photo into PBR textures, simulated cloth, and an exportable 3D asset.',
       indexLine:
-        'Turning a fabric photo into a tunable material for live cloth, PBR maps, and GLB export.',
-      roleLine: 'solo designer + engineer · built the product 0→1',
+        'Upload a fabric photo, tune its appearance and motion together, then export the material and cloth asset.',
+      roleLine: 'solo dev · material model, cloth solver, renderer, and export',
       resultLine: 'solo build · photo-to-PBR · XPBD cloth · portable export',
     },
     story: {
       goal:
-        'Patina could factor one flat fabric photo into useful PBR maps, but those maps only described cues visible from that view. I built Digital Loom to turn that output into a material you can inspect, tune on live cloth or a 3D object, and export into another workflow.',
+        'Digital Loom is a browser-based fabric material editor. A user uploads a photo, gets starting PBR textures and cloth properties, previews the result on live cloth or a 3D object, adjusts it, and exports the asset.',
       role:
-        'I built the full system: image-to-material processing, the fabric model, cloth solver, custom rendering, editing UI, preset storage, and exports.',
+        'I designed and built the full product: image processing, material controls, cloth simulation, rendering, preset storage, and export.',
       owned: [
-        'photo-to-material pipeline',
-        'physically motivated fabric model',
-        'XPBD cloth simulation and crease behavior',
-        'weave, transmission, and parallax shading',
-        'GLB, PBR-map, physics, and provenance export',
+        'photo-to-PBR starting point',
+        'shared fabric parameter model',
+        'cloth simulation and crease controls',
+        'weave, light transmission, and surface rendering',
+        'GLB, texture, and cloth-settings export',
       ],
       challenge:
-        'Patina’s maps describe how a surface looks. They do not explain how the cloth should bend, shear, catch wind, transmit light, or hold a crease. When I treated rendering and motion as separate controls, it was easy to make a fabric that looked right while still moving completely wrong.',
+        'The editor exposes detailed controls for appearance and motion, so it is still possible to make a material that looks like silk but bends like canvas. The problem was giving each fabric a coherent starting point without removing useful overrides.',
       decision:
-        'I reduced each fabric to seven core facts: areal density, cover factor, thickness, fiber modulus, fiber type, weave, and twist. One function derives both solver and renderer values from them, so warp, weft, bend, porosity, translucency, sheen, fray, and relief all describe the same material.',
+        'I built each fabric profile from seven source properties: density, cover, thickness, fiber stiffness, fiber type, weave, and twist. A derivation function turns those into renderer and solver defaults, then the editor keeps the lower-level controls available for deliberate tuning.',
       outcome:
-        'The studio can extract a material from one image, preview it on deforming cloth or a model, save and transfer swatches, and export named PBR maps, a packed ORM texture, a self-contained GLB, and machine-readable material and cloth-physics metadata.',
+        'The current build creates a starting material from one image, previews it on cloth or a model, and exports PBR textures, a packed ORM map, a self-contained GLB, and the cloth settings.',
       changedMind:
-        'I kept adding sliders because I thought more control would make the fabric more expressive. It mostly made the renderer and solver disagree. A smaller source of truth gave me a much larger range of believable materials.',
+        'The detailed controls were not the problem by themselves. The missing piece was a coherent default. Fabric profiles now supply that baseline, while lower-level controls remain available and are saved as overrides.',
     },
     media: {
       cover: '/project-images/covers/loom-cover.webp',
-      preview: '/project-images/previews/digital-loom-hover.webp',
+      preview: '/project-images/digital-loom/demo/material-studio.m4v',
     },
     technicalLabel:
-      'how one fabric model drives rendering, motion, and export →',
+      'shared material model for rendering, simulation, and export →',
     liveUrl: 'https://digital-loom-nine.vercel.app/',
   },
   {
@@ -332,9 +382,9 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        'Building a voxel world from scratch to understand how rendering, simulation, and streaming fit together.',
+        'A C++ and OpenGL voxel world built without a game engine or prebuilt renderer.',
       indexLine:
-        'Building a voxel world from scratch with chunked rendering, procedural terrain, and animated materials.',
+        'A from-scratch voxel engine with streamed terrain, procedural biomes, and animated materials.',
       roleLine: 'graphics engineer · team of 3',
       resultLine: 'chunk renderer · animated materials · procedural sky and water',
     },
@@ -358,7 +408,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       decision:
         'I only generated faces next to air, then split opaque and transparent geometry into separate indexed buffers. That kept GPU work tied to visible surfaces and gave blending its own pass without duplicating the world.',
       outcome:
-        'The team shipped a voxel engine with streamed terrain, procedural biomes and caves, multithreaded generation, player physics, shadows, and post-processing. My rendering work added chunk visibility, texture-atlas materials, a procedural day–night sky, Worley-noise clouds, and animated water with analytic wave normals.',
+        'Together we shipped streamed terrain, procedural biomes and caves, multithreaded generation, player physics, shadows, and post-processing. My rendering work covered visible-face chunks, texture-atlas materials, the day–night sky, Worley-noise clouds, and animated water.',
       changedMind:
         'I expected the rendering work to stay fairly self-contained. It did not. Chunks, terrain, player physics, materials, and post-processing all crossed the same code, so clear ownership, careful version control, and frequent integration mattered as much as the graphics.',
     },
@@ -381,15 +431,15 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        'Turning one photo into a depth-aware scene without sending it to a server.',
+        'A private, on-device authoring tool where one photo becomes a depth-aware scene and leaves as a small renderer.',
       indexLine:
-        'Turning one photograph into a depth-aware interactive scene entirely on device.',
+        'One photograph becomes a depth-aware scene without leaving the browser.',
       roleLine: 'solo designer + engineer',
       resultLine: 'on-device depth · interactive parallax · HTML/React export',
     },
     story: {
       goal:
-        'I wanted to turn one still image into a small spatial scene, keep the image on-device, and let people take the result outside the original tool.',
+        'The depth model is useful during authoring, but it should not own the image or follow the scene into production. One still becomes a spatial scene locally, then leaves the tool as a small renderer.',
       role:
         'I built the browser inference worker, raw WebGL renderer, depth-layer editor, and self-contained export pipeline.',
       challenge:
@@ -420,21 +470,21 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        'Letting people shape and play with a responsive 3D jelly in the browser.',
+        'A character editor where a 2D silhouette supplies the motion and a 3D surface supplies the light.',
       indexLine:
-        'Letting people shape a responsive 3D jelly driven by a live 2D spring system.',
+        'An editable jelly that uses 2D springs for motion and a lathed 3D surface for depth and light.',
       roleLine: 'solo designer + graphics engineer',
       resultLine: '2D spring motion · lathed 3D mesh · live material editing',
     },
     story: {
       goal:
-        'After playing with David Li’s Blob Opera, I wanted to see how little simulation geometry could still read as soft, dimensional jelly. People could draw a profile, turn it into a 3D form, and poke it without a full 3D soft-body solver.',
+        'David Li’s Blob Opera made softness look like an agreement between silhouette, rebound, and light—not a demand for a general-purpose solver. People can draw a profile, turn it into a 3D form, and poke it while the live motion stays two-dimensional.',
       challenge:
         'The interaction is mostly frontal, so a full 3D solver felt like overkill. But a flat simulation could not catch light or feel like jelly on its own.',
       decision:
         'I sampled a drawn half-profile and revolved it into a 3D mesh, while keeping the live spring motion in 2D. I recompute normals as the mesh deforms and anchor the face to specific particles so everything moves together.',
       outcome:
-        'The result is a build-your-own jelly that can be reshaped, textured, squished, and rendered with live specular and rim lighting on pointer and touch devices.',
+        'People can draw a jelly profile, turn it into a 3D form, texture it, and squish it with a pointer or touch.',
       changedMind:
         'The simulation did not need to reproduce every internal force. If the silhouette rebounded well and the normals changed with it, people still read the object as soft and dimensional.',
     },
@@ -458,15 +508,15 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        'Making digital pigment feel absorbed by paper without simulating an entire fluid.',
+        'A loose drawing surface where falling glyphs and pointer marks become persistent pigment.',
       indexLine:
-        'Making digital pigment diffuse and accumulate like watercolor through a GPU feedback loop.',
+        'A Canvas2D drawing layer feeds a GPU loop where pigment diffuses, accumulates, and dries.',
       roleLine: 'solo designer + graphics engineer',
       resultLine: 'CPU interaction layer · GPU ping-pong diffusion',
     },
     story: {
       goal:
-        'I wanted drawings and falling emoji to leave pigment that actually bled through paper instead of sitting flat on top of a canvas.',
+        'Falling emoji, pointer forces, and direct painting should remain easy to invent in Canvas2D, while every mark still crosses into pigment that diffuses, dries, and appears absorbed by paper.',
       challenge:
         'The playful parts were easiest to build in a regular 2D canvas, but the persistent diffusion needed GPU state. Rebuilding everything as a fluid simulation would have added a lot of work without improving the one cue I cared about: pigment slowly soaking downward.',
       decision:
@@ -474,7 +524,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       outcome:
         'The live playground supports pointer and touch painting, interactive emoji rain, pigment blending, and a continuous drip surface in the browser.',
       changedMind:
-        'I thought believable watercolor would need a general fluid model. A constrained diffusion rule + good paper texture produced the part people actually recognized.',
+        'I thought believable watercolor would need a general fluid model. A constrained diffusion rule and good paper texture produced the part people actually recognized.',
     },
     media: {
       cover: '/project-images/covers/watercolor-cover.webp',
@@ -496,15 +546,15 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        'Making a click feel like it ignites the page rather than starts a canned animation.',
+        'A paper letter where touch, deformation, and fire share the same cause.',
       indexLine:
-        'Making a click deform, char, and ignite a sheet of procedural paper.',
+        'One burn field keeps the hole, char, ember, and moving paper aligned.',
       roleLine: 'solo designer + graphics engineer',
       resultLine: 'deforming paper mesh · shared burn field · procedural char and ember',
     },
     story: {
       goal:
-        'I wanted a letter to flutter like paper and start burning from the exact point someone touched.',
+        'The burn had to read as a consequence of touching the paper, not as a canned animation layered over it. Its origin, moving sheet, text, char, and hole all needed to remain part of one event.',
       challenge:
         'The hole, charred paper, glowing edge, text, grain, and moving surface all had to stay aligned while the burn expanded.',
       decision:
@@ -534,9 +584,9 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        'Studying how scene data, light, material, and screen-space effects combine inside a renderer.',
+        'Small renderers for understanding how scene data becomes light, material, and screen-space effects.',
       indexLine:
-        'Building deferred PBR, screen-space effects, and SDF ray marching to understand a renderer from the inside.',
+        'Deferred PBR, screen-space effects, and SDF ray marching built from the inside out.',
       roleLine: 'individual graphics coursework',
       resultLine: 'deferred PBR · screen-space effects · SDF ray marching',
     },
@@ -546,7 +596,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       challenge:
         'Reflections, ambient occlusion, lighting, and post effects all needed the same geometry information. Repeating that work in every pass would have made the renderer slower and harder to reason about.',
       decision:
-        'I used a deferred pipeline so albedo, normals, depth, and material masks could be shared across lighting + screen-space passes.',
+        'I used a deferred pipeline so albedo, normals, depth, and material masks could be shared across lighting and screen-space passes.',
       outcome:
         'The studies span Cook–Torrance material shading, screen-space reflections and ambient occlusion, image-space effects, and signed-distance-field ray marching.',
       changedMind:
@@ -567,19 +617,19 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        'Turning passages into typographic constellations without erasing how their words relate.',
+        'A poster generator between typesetting and a word cloud: loose in space, still shaped by grammar.',
       indexLine:
-        'Turning passages into exportable typographic constellations without erasing how their words relate.',
+        'A passage becomes an editable typographic constellation shaped by its own grammar.',
       roleLine: 'solo designer + engineer',
       resultLine: 'linguistic layout · force simulation · exportable poster',
     },
     story: {
       goal:
-        'I wanted to turn a passage into something visual without flattening it into a random word cloud.',
+        'Textellation treats a passage as both language and visual material. The composition can loosen beyond reading order without flattening paragraphs, sentences, and grammar into a random word cloud.',
       challenge:
-        'Strict reading order looked like normal typesetting. A fully unconstrained force layout looked organic, but lost everything meaningful about the original passage.',
+        'Strict reading order looked like normal typesetting. A fully unconstrained force layout looked organic, but lost the sentence and grammar relationships in the original passage.',
       decision:
-        'I built the layout in layers. Paragraphs become reading-order-biased ellipses sized by word count. Sentences get sunflower-distributed centers, and part-of-speech tags shape the typography + relationships inside a constrained force simulation.',
+        'I built the layout in layers. Paragraphs become reading-order-biased ellipses sized by word count. Sentences get sunflower-distributed centers, and part-of-speech tags shape the typography and relationships inside a constrained force simulation.',
       outcome:
         'The tool turns a passage into an editable, zoomable typographic poster whose composition is shaped by paragraph, sentence, and grammatical structure.',
       changedMind:
@@ -605,20 +655,20 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     },
     collapsed: {
       purpose:
-        'Making remote writing feel as tactile and low-stakes as moving words on a refrigerator.',
+        'A shared writing surface built around arranging words rather than typing them.',
       indexLine:
-        'Making remote writing tactile and low-stakes through shared rooms and a roughly 4,000-word magnetic vocabulary.',
+        'A shared board with roughly 4,000 magnetic words that stay quick to move on pointer and touch.',
       roleLine: 'solo designer + engineer',
       resultLine:
         'roughly 4,000 words · shared rooms · pointer and touch controls',
     },
     story: {
       goal:
-        'I wanted people on different devices to move the same small set of words around and feel the immediacy of a physical magnetic board.',
+        'Composing happens through arrangement rather than a text cursor. Thoughts move into shape on a board where every word stays provisional: another person can open it, move it, or continue from it.',
       challenge:
         'Dragging had to feel immediate locally while a shared room stayed in sync. Sending the whole board on every pointer move would have made both worse.',
       decision:
-        'I kept direct manipulation local and only sent small word actions over the socket: add, move, delete, and reset. New collaborators receive the full room once, but ongoing movement only sends the changed word + normalized position.',
+        'I kept direct manipulation local and only sent small word actions over the socket: add, move, delete, and reset. New collaborators receive the full room once, but ongoing movement only sends the changed word and normalized position.',
       outcome:
         'The tool supports local and shareable boards, a curated source set of roughly 4,000 words, mouse and touch dragging, snapshots, and optional camera-backed surfaces.',
       changedMind:
@@ -637,6 +687,11 @@ export const FEATURED_PROJECT_IDS = [
   'into-the-blue',
   'internet-atlas',
   'digital-loom',
+  'tally',
+] as const;
+
+export const CASE_STUDY_PROJECT_IDS = [
+  ...FEATURED_PROJECT_IDS,
 ] as const;
 
 export function getPortfolioProject(id: string) {

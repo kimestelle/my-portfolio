@@ -32,29 +32,29 @@ export default function About() {
           <p>
             On a team, I like understanding what we&apos;re making and why,
             writing things down, and sharing what I learn as I go. The best
-            projects feel less like handing work back and forth and more like
+            projects feel less like rationing work and more like
             learning together.
           </p>
 
-          <div className="mt-2 border-y border-[color:var(--line-color)]">
-            <figure className="py-5">
-              <blockquote>
+          <div className="glass-surface ui-radius-panel mt-2 grid md:grid-cols-[1.2fr_0.8fr]">
+            <figure className="flex flex-col p-5 md:p-6">
+              <blockquote className="font-body font-normal leading-[1.5]">
                 “Working with you felt like everything was very planned out and
                 organized. When we needed to speed things up, you made sure to
                 communicate that well with everyone. We asked each other a lot
                 of questions, so we learned together.”
               </blockquote>
-              <figcaption className="type-meta mt-3 text-[color:var(--text-meta)]">
+              <figcaption className="type-meta mt-4 text-[color:var(--text-meta)]">
                 collaborator at Penn Spark
               </figcaption>
             </figure>
 
-            <figure className="border-t border-[color:var(--line-color)] py-5">
-              <blockquote>
+            <figure className="flex flex-col border-t border-[color:var(--line-color)] p-5 md:border-l md:border-t-0 md:p-6">
+              <blockquote className="font-body font-normal leading-[1.5]">
                 “Estelle&apos;s work ethic and enthusiasm for learning have
                 been evident in all her projects.”
               </blockquote>
-              <figcaption className="type-meta mt-3 text-[color:var(--text-meta)]">
+              <figcaption className="type-meta mt-4 text-[color:var(--text-meta)]">
                 Aleksandr Dmitriev · Data Engineering Manager, Southern
                 California Edison
               </figcaption>
@@ -83,11 +83,11 @@ export default function About() {
             the system and the person using it.
           </p>
 
-          <ol className="mt-2 border-y border-[color:var(--line-color)]">
-            <li className="grid gap-1 border-b border-[color:var(--line-color)] py-3 sm:grid-cols-[8.5rem_1fr] sm:gap-5">
+          <ol className="glass-surface ui-radius-panel mt-2">
+            <li className="grid gap-1 border-b border-[color:var(--line-color)] p-4 sm:grid-cols-[8.5rem_1fr] sm:gap-5">
               <ShimmerText
                 as="span"
-                className="type-meta text-[color:var(--text-meta)]"
+                className="font-medium text-[color:var(--text-primary)]"
               >
                 may–sep 2024
               </ShimmerText>
@@ -95,14 +95,14 @@ export default function About() {
                 as="span"
                 className="text-[color:var(--text-secondary)]"
               >
-                learned by shipping: mobile interaction, APIs, user state,
+                learned by building with friends: mobile interaction, APIs, user state,
                 persistence, and deployment
               </ShimmerText>
             </li>
-            <li className="grid gap-1 border-b border-[color:var(--line-color)] py-3 sm:grid-cols-[8.5rem_1fr] sm:gap-5">
+            <li className="grid gap-1 border-b border-[color:var(--line-color)] p-4 sm:grid-cols-[8.5rem_1fr] sm:gap-5">
               <ShimmerText
                 as="span"
-                className="type-meta text-[color:var(--text-meta)]"
+                className="font-medium text-[color:var(--text-primary)]"
               >
                 nov–dec 2024
               </ShimmerText>
@@ -114,10 +114,10 @@ export default function About() {
                 graphics
               </ShimmerText>
             </li>
-            <li className="grid gap-1 border-b border-[color:var(--line-color)] py-3 sm:grid-cols-[8.5rem_1fr] sm:gap-5">
+            <li className="grid gap-1 border-b border-[color:var(--line-color)] p-4 sm:grid-cols-[8.5rem_1fr] sm:gap-5">
               <ShimmerText
                 as="span"
-                className="type-meta text-[color:var(--text-meta)]"
+                className="font-medium text-[color:var(--text-primary)]"
               >
                 feb–apr 2025
               </ShimmerText>
@@ -129,10 +129,10 @@ export default function About() {
                 integration depends on communication
               </ShimmerText>
             </li>
-            <li className="grid gap-1 py-3 sm:grid-cols-[8.5rem_1fr] sm:gap-5">
+            <li className="grid gap-1 p-4 sm:grid-cols-[8.5rem_1fr] sm:gap-5">
               <ShimmerText
                 as="span"
-                className="type-meta text-[color:var(--text-meta)]"
+                className="font-medium text-[color:var(--text-primary)]"
               >
                 late 2025–now
               </ShimmerText>

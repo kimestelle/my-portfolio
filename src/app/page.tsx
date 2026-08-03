@@ -4,11 +4,11 @@ import ProjectHTML from './components/ProjectHTML'
 
 export default function Portfolio() {
   return (
-    <div className='responsive-padding'>
+    <main className="responsive-padding w-full">
       <div className="page-frame-wide">
         <Cover/>
         <ProjectHTML />
       </div>
-    </div>
+    </main>
   )
 }

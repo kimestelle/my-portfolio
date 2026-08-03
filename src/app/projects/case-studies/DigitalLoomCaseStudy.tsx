@@ -1,9 +1,9 @@
-import type { CSSProperties } from 'react';
 import Image from 'next/image';
 import {
   FieldNoteDetail,
   FieldNoteFigure,
   FieldNoteHeader,
+  FieldNoteProjectSummary,
   FieldNoteReader,
   FieldNoteSection,
 } from '../../field-notes/components/FieldNotePrimitives';
@@ -11,12 +11,12 @@ import FieldNoteScrollLink from '../../field-notes/components/FieldNoteScrollLin
 import styles from './digital-loom-case-study.module.css';
 
 const mapEntries = [
-  ['evidence', 'generated maps are evidence, not a material'],
-  ['source', 'one material core drives appearance and motion'],
-  ['scale', 'simulate structure; shade surface detail'],
-  ['controls', 'fewer controls create a wider believable range'],
-  ['export', 'the material should survive outside the tool'],
-  ['boundary', 'what the system cannot infer', 'retrospective'],
+  ['evidence', 'genAI as material input'],
+  ['source', 'shared material model'],
+  ['scale', 'cloth simulation and surface shading'],
+  ['controls', 'material controls'],
+  ['export', 'exports'],
+  ['boundary', 'inference limits', 'retrospective'],
 ] as const;
 
 const materialFacts = [
@@ -53,78 +53,105 @@ export default function DigitalLoomCaseStudy({
 
   return (
     <Root
-      className={`${inline ? 'project-case-study-inline-content' : 'responsive-padding'} ${styles.page}`}
-      style={{ '--field-accent': 'rgb(142, 86, 98)' } as CSSProperties}
+      className={`${inline ? 'project-case-study-inline-content' : 'responsive-padding'} case-study-reading-scope ${styles.page}`}
     >
       <article className={inline ? undefined : 'page-frame-wide'}>
-        <FieldNoteHeader
-          eyebrow="solo design + engineering"
-          title="digital loom"
-          deck="what does a generated fabric image need before it becomes a material you can trust, tune, simulate, and take elsewhere?"
-          meta={[
-            'built july 2026',
-            'photo-to-PBR material pipeline',
-            'custom rendering + XPBD cloth',
-            'in active development',
-          ]}
-          links={[
-            {
-              href: 'https://digital-loom-nine.vercel.app/',
-              label: 'open the studio ↗',
-            },
-          ]}
-          breadcrumbRoot={{ href: '/projects', label: 'selected work' }}
-          hideBreadcrumb={inline}
-          motif={
-            <div className={styles.heroMaps} aria-hidden="true">
-              <Image
-                src="/project-images/material-studies/loom/albedo.webp"
-                alt=""
-                width={720}
-                height={720}
-                priority
-              />
-              <Image
-                src="/project-images/material-studies/loom/normal.webp"
-                alt=""
-                width={720}
-                height={720}
-                priority
-              />
-              <Image
-                src="/project-images/material-studies/loom/roughness.webp"
-                alt=""
-                width={720}
-                height={720}
-                priority
+        <div className={styles.heroIntro}>
+          <FieldNoteHeader
+            eyebrow="solo design + engineering"
+            title="digital loom"
+            deck="Digital Loom tests GenAI as structured input to a traditional rendering system. One fabric photo becomes an editable material, live cloth, and portable exports."
+            meta={[]}
+            links={[
+              {
+                href: 'https://digital-loom-nine.vercel.app/',
+                label: 'open the studio ↗',
+              },
+            ]}
+            breadcrumbRoot={{ href: '/projects', label: 'selected work' }}
+            hideBreadcrumb={inline}
+          />
+
+          <figure className={styles.heroFigure}>
+            <div className={`${styles.heroVideo} media-clip-surface`}>
+              <video
+                src="/project-images/digital-loom/demo/material-studio.m4v"
+                poster="/project-images/covers/loom-cover.webp"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label="Digital Loom material studio switching fabric samples and inspecting live cloth up close"
               />
             </div>
-          }
+            <figcaption>
+              generated maps become a material that can be tuned, simulated,
+              and exported.
+            </figcaption>
+          </figure>
+        </div>
+
+        <FieldNoteProjectSummary
+          facts={[
+            ['role', 'solo designer and engineer'],
+            ['timeline', 'july–august 2026 · active development'],
+            ['team', 'solo project'],
+            ['outcome', 'GenAI input → editable renderer → portable export'],
+          ]}
+          keyDetails={[
+            'GenAI converts a fabric photo into structured PBR evidence instead of a final image',
+            'an opinionated seven-field fabric core supplies renderer and solver defaults',
+            'detailed transmission, weight, stiffness, and surface controls remain editable',
+            'exports include PBR textures, packed ORM, GLB, cloth settings, and provenance',
+          ]}
         />
 
-        <FieldNoteFigure
-          src="/project-images/covers/loom-cover.webp"
-          alt="Digital Loom interface showing fabric samples, cloth simulation, and material controls"
-          width={1920}
-          height={1231}
-          caption="one fabric source moving through map extraction, material authoring, live cloth, and portable export."
-          className={styles.heroFigure}
-          sizes="(max-width: 767px) 100vw, 70rem"
-          priority
-        />
-
-        <FieldNoteReader mapLabel="material argument" entries={mapEntries}>
+        <FieldNoteReader mapLabel="sections" entries={mapEntries}>
           <FieldNoteSection
             number="00"
             id="evidence"
-            title="generated maps are evidence, not a material"
+            title="genAI as material input"
             className={styles.section}
           >
             <p className={styles.lead}>
-              Patina can factor one fabric photograph into albedo, normal,
-              roughness, height, and metalness maps. Those maps describe
-              visible surface cues. They do not explain how the cloth should
-              bend, shear, transmit light, catch wind, or hold a crease.
+              GenAI is the input layer, not the final renderer. Patina turns a
+              fabric photo into structured PBR maps; Digital Loom passes those
+              maps into a deterministic material model, cloth solver, and
+              WebGL renderer.
+            </p>
+
+            <div className={styles.thesisFlow} aria-label="Digital Loom product approach">
+              <div>
+                <span>genAI input</span>
+                <strong>photo → PBR evidence</strong>
+                <small>generate structure, not a finished image</small>
+              </div>
+              <FlowArrow />
+              <div>
+                <span>opinionated framework</span>
+                <strong>fabric core + derived defaults</strong>
+                <small>start inside a believable material family</small>
+              </div>
+              <FlowArrow />
+              <div>
+                <span>traditional rendering</span>
+                <strong>XPBD cloth + WebGL surface</strong>
+                <small>deterministic, interactive, and inspectable</small>
+              </div>
+              <FlowArrow />
+              <div>
+                <span>preserved freedom</span>
+                <strong>manual controls + export</strong>
+                <small>override the defaults and take the result elsewhere</small>
+              </div>
+            </div>
+
+            <p>
+              The generated albedo, normal, roughness, height, and metalness
+              maps describe visible surface cues. They do not decide weight,
+              weave, bend, transmission, wind response, or crease behavior.
+              The framework adds those decisions while keeping them editable.
             </p>
 
             <div className={styles.mapContactSheet} aria-label="Extracted material maps">
@@ -150,24 +177,23 @@ export default function DigitalLoomCaseStudy({
             </div>
 
             <p>
-              I treat the generated maps as an intermediate representation.
-              They provide editable surface evidence; the graphics and
-              simulation system adds the material behavior the image cannot
-              contain.
+              I use the generated maps as a starting point. They give me color,
+              visible relief, and light spread. The cloth model still has to
+              decide how the material moves.
             </p>
           </FieldNoteSection>
 
           <FieldNoteSection
             number="01"
             id="source"
-            title="one material core drives appearance and motion"
+            title="shared material model"
             className={styles.section}
           >
             <p className={styles.lead}>
-              My first versions exposed rendering and simulation as separate
-              controls. That made it easy to create fabric that looked heavy
-              and moved weightlessly, or looked porous while transmitting no
-              light.
+              The editor needs separate controls for inspection and tuning.
+              The problem was starting a material from unrelated optical and
+              mechanical values, which made contradictory fabrics easy to
+              create by accident.
             </p>
 
             <div className={styles.sourceDiagram} aria-label="Material source of truth diagram">
@@ -199,21 +225,23 @@ export default function DigitalLoomCaseStudy({
             </div>
 
             <p>
-              I reduced the source of truth to seven physical facts. One
-              function derives both shader and solver values from them, so the
-              material remains coherent as someone tunes it.
+              Each fabric profile starts from seven physical facts. One
+              function derives renderer and solver defaults from them, then
+              applies sparse preset overrides. The editor still exposes the
+              lower-level controls; the shared core gives them a coherent
+              starting point.
             </p>
           </FieldNoteSection>
 
           <FieldNoteSection
             number="02"
             id="scale"
-            title="simulate structure; shade surface detail"
+            title="cloth simulation and surface shading"
             className={styles.section}
           >
             <p className={styles.lead}>
-              Fidelity did not require modeling every thread. It required
-              choosing the correct representation at each scale.
+              The XPBD mesh handles large-scale drape and creases. The shader
+              handles thread-scale relief, transmission, and highlights.
             </p>
 
             <div className={styles.scaleDiagram}>
@@ -238,12 +266,12 @@ export default function DigitalLoomCaseStudy({
 
             <p>
               A small XPBD mesh carries the causes of motion. Normal and height
-              maps reconstruct thread-scale relief in the renderer. Geometry
-              is spent where the cloth moves; shading is spent where the eye
-              reads fiber structure.
+              maps add thread-scale relief in the renderer. The mesh handles
+              drape and creases; the shader handles the fibers you only notice
+              when light moves across them.
             </p>
 
-            <FieldNoteDetail label="the solver">
+            <FieldNoteDetail label="cloth solver">
               <p>
                 The live studio uses Verlet integration with XPBD warp, weft,
                 shear, and bend constraints. More detailed dihedral-hinge
@@ -256,50 +284,50 @@ export default function DigitalLoomCaseStudy({
           <FieldNoteSection
             number="03"
             id="controls"
-            title="fewer controls create a wider believable range"
+            title="material controls"
             className={styles.section}
           >
             <p className={styles.lead}>
-              More sliders initially felt like more expressive power. In
-              practice they enlarged the space of contradictory materials.
+              The editor still includes detailed controls. The change was not
+              removing them; it was deciding what a material should start
+              from before someone tunes it.
             </p>
 
             <div className={styles.controlComparison}>
               <div>
-                <span>independent parameters</span>
-                <strong>roughness</strong>
-                <strong>bend stiffness</strong>
-                <strong>transmission</strong>
-                <strong>mass</strong>
-                <small>each control can contradict the others</small>
+                <span>derived starting point</span>
+                <strong>density + cover + thickness</strong>
+                <strong>fiber + weave + twist</strong>
+                <small>one profile supplies renderer and solver defaults</small>
               </div>
               <div className={styles.controlPreferred}>
-                <span>material intent</span>
-                <strong>fiber + weave + weight</strong>
+                <span>manual overrides</span>
+                <strong>transmission + weight</strong>
+                <strong>warp + weft + shear + bend</strong>
+                <strong>sheen + openness + surface depth</strong>
                 <small>
-                  coupled values keep optics and mechanics inside the same
-                  family
+                  detailed controls remain available and save with the material
                 </small>
               </div>
             </div>
 
             <p>
-              The useful authoring interface exposes perceptual and structural
-              intent, then derives lower-level parameters. A smaller source of
-              truth produces a larger range of materials that still feel like
-              fabric.
+              The fabric core provides the baseline used to resolve a
+              material. The studio layers independent controls over it, and
+              saves those choices with the material. The coupling is a
+              baseline, not a restriction.
             </p>
           </FieldNoteSection>
 
           <FieldNoteSection
             number="04"
             id="export"
-            title="the material should survive outside the tool"
+            title="exports"
             className={styles.section}
           >
             <p className={styles.lead}>
-              A convincing preview is not enough. The work becomes useful when
-              another renderer, tool, or person can understand what was made.
+              Export includes the information needed to reuse the material:
+              textures, a GLB, cloth settings, and provenance metadata.
             </p>
 
             <div className={styles.exportFlow}>
@@ -321,15 +349,15 @@ export default function DigitalLoomCaseStudy({
             <p>
               The studio exports named PBR maps, a packed ORM texture, a
               self-contained GLB, cloth-physics values, and provenance
-              metadata. Export is not the last button in the interface; it is
-              part of the material model.
+              metadata. The same material facts used in the preview leave with
+              the export instead of being trapped inside the studio.
             </p>
           </FieldNoteSection>
 
           <FieldNoteSection
             number="05"
             id="boundary"
-            title="what the system cannot infer"
+            title="inference limits"
             className={styles.section}
           >
             <p className={styles.lead}>

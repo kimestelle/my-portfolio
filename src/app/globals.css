@@ -21,6 +21,7 @@
   --type-lead: 1.125rem;
   --type-body: 1rem;
   --type-meta: 0.875rem;
+  --type-micro: 0.68rem;
   --text-primary: rgb(22, 22, 22);
   --text-secondary: rgba(22, 22, 22, 0.76);
   --text-meta: rgba(22, 22, 22, 0.58);
@@ -44,6 +45,7 @@
   --layout-wide: 52rem;
   --layout-reading: 42rem;
   --line-color: rgb(229, 231, 235);
+  --field-accent: var(--purple);
   --border-subtle: var(--line-color);
   --glass-outline: var(--line-color);
   --motion-mood-duration: 700ms;
@@ -331,6 +333,22 @@ code {
   line-height: 1.4;
 }
 
+.case-study-reading-scope {
+  --field-accent: var(--text-primary);
+  --type-page-title: clamp(2.25rem, 4vw, 2.75rem);
+  --type-section: clamp(1.3rem, 1.8vw, 1.45rem);
+  --type-body: 1.0625rem;
+  --type-meta: 0.95rem;
+  --type-lead: 1.2rem;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+}
+
+.case-study-reading-scope strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
 .project-story-list {
   list-style: disc;
   padding-left: 1rem;
@@ -502,21 +520,38 @@ summary::marker {
 }
 
 .project-row-trigger {
-  opacity: 0.82;
-  transition:
-    opacity 180ms ease,
-    background-color 180ms ease;
+  opacity: 1;
+  transform: translateX(0);
+  transition: transform 320ms var(--motion-mood-ease);
+  will-change: transform;
 }
 
 .project-row-trigger:hover,
 .project-row-trigger:focus-visible {
   opacity: 1;
+  transform: translateX(clamp(0.45rem, 1vw, 0.8rem));
+}
+
+.project-list,
+.project-row-shell {
+  overflow: visible;
 }
 
 .project-row-trigger:focus-visible {
   border-radius: var(--radius-control);
   outline: 1px solid rgba(22, 22, 22, 0.5);
   outline-offset: -1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-row-trigger {
+    transition: none;
+  }
+
+  .project-row-trigger:hover,
+  .project-row-trigger:focus-visible {
+    transform: none;
+  }
 }
 
 .homepage-project-window {
@@ -621,7 +656,7 @@ summary::marker {
 
 .responsive-padding {
   width: 100%;
-  padding: 6rem var(--layout-gutter) 3rem;
+  padding: 7rem var(--layout-gutter) 3rem;
   transition: 500ms cubic-bezier(1, 0, 0, 1);
 }
 
@@ -656,7 +691,7 @@ summary::marker {
   }
 
   .responsive-padding {
-    padding-top: 7rem;
+    padding-top: 9rem;
     padding-bottom: 4rem;
   }
 }

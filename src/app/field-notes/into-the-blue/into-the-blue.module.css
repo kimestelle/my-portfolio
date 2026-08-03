@@ -1,45 +1,5 @@
-.page {
-  --blue-soft: rgba(53, 126, 179, 0.1);
-  --blue-ink: rgb(28, 50, 68);
-}
-
 .page :where(a, summary) {
   text-underline-offset: 0.19em;
-}
-
-.heroArtifacts {
-  position: absolute;
-  top: 49%;
-  right: -4%;
-  width: min(29rem, 52%);
-  height: 20rem;
-  opacity: 0.11;
-  transform: translateY(-48%) rotate(-2deg);
-}
-
-.heroArtifacts img {
-  position: absolute;
-  width: 9.5rem;
-  height: auto;
-  filter: saturate(0.72);
-}
-
-.heroArtifacts img:nth-child(1) {
-  top: 2.5rem;
-  right: 0;
-  transform: rotate(8deg);
-}
-
-.heroArtifacts img:nth-child(2) {
-  top: 0;
-  right: 8.4rem;
-  transform: rotate(-7deg);
-}
-
-.heroArtifacts img:nth-child(3) {
-  top: 5.2rem;
-  right: 16rem;
-  transform: rotate(4deg);
 }
 
 .heroFigure {
@@ -90,7 +50,7 @@
   place-items: center;
   aspect-ratio: 5 / 6;
   border: 1px solid var(--line-color);
-  background: rgba(255, 255, 255, 0.64);
+  background: color-mix(in srgb, var(--text-primary) 2%, var(--background));
 }
 
 .artifactImage img {
@@ -271,12 +231,6 @@
 }
 
 @media (max-width: 720px) {
-  .heroArtifacts {
-    right: -34%;
-    width: 86%;
-    opacity: 0.08;
-  }
-
   .heroFigure {
     margin-bottom: 3.5rem;
   }
