@@ -230,7 +230,7 @@ export const INTERACTION_STUDIES: InteractionStudy[] = [
     date: 'Nov 2024',
     dateTime: '2024-11',
     explores:
-      'press-and-hold city building with weather and destruction states',
+      '(tornadoooo)',
     technical:
       'Press duration sets each block’s height. Weather and sky run as separate scene layers; a tornado scatters the placed blocks and sprites.',
     image: '/project-images/interaction-studies/city-skyline-poster.png',
