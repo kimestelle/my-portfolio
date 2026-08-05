@@ -22,8 +22,8 @@ export default function Cover() {
           </div>
 
           <p className="mt-3 text-[color:var(--text-secondary)]">
-            I work with teams to shape interaction models, then design and build
-            them for production.
+            I shape expressive product interactions and build them for
+            production.
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
@@ -39,7 +39,7 @@ export default function Cover() {
               href="mailto:kestelle@sas.upenn.edu"
               className="type-meta text-[color:var(--text-primary)] transition-transform duration-200 hover:-translate-y-px"
             >
-              email me ↗
+              email ↗
             </a>
             <span
               aria-hidden
