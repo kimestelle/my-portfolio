@@ -182,7 +182,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       indexLine:
         'Visitors enter descriptive words, move through a 3D graph, and inspect how people traveled between 300+ websites.',
       roleLine:
-        'technical lead · product, visualization, integration, and deployment',
+        'technical lead · product, visualization, integration, deployment',
       resultLine:
         '300+ sites · 1,000+ navigation edges · 40+ people at live demo',
     },

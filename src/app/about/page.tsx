@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { ShimmerText } from '../design-deets/text-shimmer/TextShimmer';
 import TmiCorner from './components/TmiCorner';
 
@@ -12,7 +13,7 @@ export default function About() {
           <div className="star-line-north">
             <span className="star-glyph-north" aria-hidden="true">✦</span>
             <ShimmerText as="span" className="star-copy-north">
-              I get excited by ideas and like figuring out how to make them real.
+              I work between early product decisions and the production build.
             </ShimmerText>
           </div>
         </header>
@@ -21,22 +22,66 @@ export default function About() {
           <div className="star-line-section">
             <span className="star-glyph-section" aria-hidden="true">✶</span>
             <ShimmerText as="h3" className="star-copy-section">
-              how i work
+              where i fit on a team
             </ShimmerText>
           </div>
           <div className="prose-stack">
             <p>
-              I get inspiration from all over: a material, an interaction, or a
-              question someone asks in a meeting. I like following those threads
-              until they turn into something people can actually use.
+              I join designers and product people while the interaction model is
+              still being decided. I help turn the shared idea into a concrete
+              mechanism, then work across graphics, frontend, and systems to ship
+              it.
             </p>
             <p>
-              On a team, I like understanding what we&apos;re making and why,
-              writing things down, and sharing what I learn as I go. The best
-              projects feel less like rationing work and more like learning
-              together.
+              Sometimes I originate the interaction, sometimes I strengthen
+              someone else&apos;s idea, and often I connect the pieces. I&apos;m flexible
+              about the layer or title: I like learning how everyone thinks,
+              asking questions early, and taking on the part that helps the
+              product move.
             </p>
           </div>
+
+          <dl className="glass-surface ui-radius-panel">
+            <div className="grid gap-2 border-b border-[color:var(--line-color)] p-4 sm:grid-cols-[9rem_1fr] sm:gap-5">
+              <dt>
+                <Link
+                  href="/projects/into-the-blue"
+                  className="underline decoration-black/20 underline-offset-4"
+                >
+                  Into the Blue ↗
+                </Link>
+              </dt>
+              <dd className="text-[color:var(--text-secondary)]">
+                Proposed the camera-to-sticker loop, built the capture and
+                storage pipeline, and co-defined an asset system with the lead
+                designer.
+              </dd>
+            </div>
+            <div className="grid gap-2 border-b border-[color:var(--line-color)] p-4 sm:grid-cols-[9rem_1fr] sm:gap-5">
+              <dt>
+                <Link
+                  href="/projects/internet-atlas"
+                  className="underline decoration-black/20 underline-offset-4"
+                >
+                  Internet Atlas ↗
+                </Link>
+              </dt>
+              <dd className="text-[color:var(--text-secondary)]">
+                Co-led the product, tested the complete data flow in 2D, and
+                connected the team&apos;s machine-learning work to a 3D graph
+                organized by visitor-chosen words.
+              </dd>
+            </div>
+            <div className="grid gap-2 p-4 sm:grid-cols-[9rem_1fr] sm:gap-5">
+              <dt>PayPal</dt>
+              <dd className="text-[color:var(--text-secondary)]">
+                Took over the frontend and UI layer of a senior engineer&apos;s
+                project, built the first production version of a central Next.js
+                visualization hub, and continue iterating with PMs, data
+                engineers, and software engineers.
+              </dd>
+            </div>
+          </dl>
 
           <div className="glass-surface ui-radius-panel grid md:grid-cols-[1.2fr_0.8fr]">
             <figure className="flex flex-col p-4">

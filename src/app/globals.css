@@ -603,7 +603,8 @@ summary::marker {
   opacity: var(--glass-paper-opacity);
 }
 
-.group:hover .homepage-project-window {
+.group:hover .homepage-project-window,
+.group[data-preview-active='true'] .homepage-project-window {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.66),
     inset 0 0 20px rgba(255, 255, 255, 0.16),
@@ -619,7 +620,8 @@ summary::marker {
 
   .glass-interactive:hover,
   .glass-interactive:active,
-  .group:hover .homepage-project-window {
+  .group:hover .homepage-project-window,
+  .group[data-preview-active='true'] .homepage-project-window {
     transform: none;
   }
 }
