@@ -13,7 +13,7 @@ export default function About() {
           <div className="star-line-north">
             <span className="star-glyph-north" aria-hidden="true">✦</span>
             <ShimmerText as="span" className="star-copy-north">
-              I work between early product decisions and the production build.
+              design engineer / frontend engineer
             </ShimmerText>
           </div>
         </header>
@@ -27,17 +27,15 @@ export default function About() {
           </div>
           <div className="prose-stack">
             <p>
-              I join designers and product people while the interaction model is
-              still being decided. I help turn the shared idea into a concrete
-              mechanism, then work across graphics, frontend, and systems to ship
-              it.
+              I like joining while the product and interaction are still being
+              worked out. I work with designers, engineers, and product people
+              to make decisions concrete, prototype them, and build the
+              frontend.
             </p>
             <p>
-              Sometimes I originate the interaction, sometimes I strengthen
-              someone else&apos;s idea, and often I connect the pieces. I&apos;m flexible
-              about the layer or title: I like learning how everyone thinks,
-              asking questions early, and taking on the part that helps the
-              product move.
+              I&apos;m equally comfortable bringing an interaction idea, developing
+              someone else&apos;s direction, or connecting systems that need to work
+              together. I ask questions early and share what I learn as I go.
             </p>
           </div>
 
@@ -52,9 +50,8 @@ export default function About() {
                 </Link>
               </dt>
               <dd className="text-[color:var(--text-secondary)]">
-                Proposed the camera-to-sticker loop, built the capture and
-                storage pipeline, and co-defined an asset system with the lead
-                designer.
+                Proposed the camera-to-sticker flow; built capture + offline
+                storage; worked with the lead designer on a shared asset system.
               </dd>
             </div>
             <div className="grid gap-2 border-b border-[color:var(--line-color)] p-4 sm:grid-cols-[9rem_1fr] sm:gap-5">
@@ -67,18 +64,16 @@ export default function About() {
                 </Link>
               </dt>
               <dd className="text-[color:var(--text-secondary)]">
-                Co-led the product, tested the complete data flow in 2D, and
-                connected the team&apos;s machine-learning work to a 3D graph
-                organized by visitor-chosen words.
+                Co-led the product; connected the team&apos;s ML pipeline to a 3D
+                graph organized by visitor-chosen words.
               </dd>
             </div>
             <div className="grid gap-2 p-4 sm:grid-cols-[9rem_1fr] sm:gap-5">
               <dt>PayPal</dt>
               <dd className="text-[color:var(--text-secondary)]">
-                Took over the frontend and UI layer of a senior engineer&apos;s
-                project, built the first production version of a central Next.js
-                visualization hub, and continue iterating with PMs, data
-                engineers, and software engineers.
+                Joined a senior engineer&apos;s existing project to build the
+                production frontend / UI for a Next.js data hub; now iterate with
+                PMs, data engineers, and software engineers.
               </dd>
             </div>
           </dl>
@@ -118,16 +113,14 @@ export default function About() {
           </div>
           <div className="prose-stack">
             <p>
-              I came to engineering a little sideways. Before computer science, I
-              spent most of my time organizing students, building coalitions, and
-              working in education policy. It taught me how to listen, make
-              complicated ideas easier to act on, and keep people moving toward
-              the same goal.
+              I came to engineering a little sideways. Before computer science,
+              I worked in student organizing and education policy. That taught
+              me to listen, clarify complicated ideas, and keep groups aligned.
             </p>
             <p>
-              Learning to code gave me another way to do something I already
-              loved: take a messy idea, give it structure, and bring it to life.
-              I ended up in interactive software because I like caring about both
+              I started coding in 2024, then moved from mobile apps and APIs into
+              C++, OpenGL, real-time graphics, and production frontend work. I
+              stayed with interactive software because I like caring about both
               the system and the person using it.
             </p>
           </div>
@@ -144,8 +137,8 @@ export default function About() {
                 as="span"
                 className="text-[color:var(--text-secondary)]"
               >
-                learned by building with friends: mobile interaction, APIs, user state,
-                persistence, and deployment
+                built City Skyline + Better Spelling Bee; learned React, APIs,
+                user state, persistence, and deployment
               </ShimmerText>
             </li>
             <li className="grid gap-1 border-b border-[color:var(--line-color)] p-4 sm:grid-cols-[8.5rem_1fr] sm:gap-5">
@@ -159,8 +152,8 @@ export default function About() {
                 as="span"
                 className="text-[color:var(--text-secondary)]"
               >
-                moved into C++, OpenGL, procedural systems, and real-time
-                graphics
+                built C++ / OpenGL projects around procedural systems +
+                real-time graphics
               </ShimmerText>
             </li>
             <li className="grid gap-1 border-b border-[color:var(--line-color)] p-4 sm:grid-cols-[8.5rem_1fr] sm:gap-5">
@@ -174,8 +167,7 @@ export default function About() {
                 as="span"
                 className="text-[color:var(--text-secondary)]"
               >
-                built two team products in parallel and learned how much good
-                integration depends on communication
+                shipped Into the Blue + Internet Atlas with two Penn Spark teams
               </ShimmerText>
             </li>
             <li className="grid gap-1 p-4 sm:grid-cols-[8.5rem_1fr] sm:gap-5">
@@ -189,8 +181,7 @@ export default function About() {
                 as="span"
                 className="text-[color:var(--text-secondary)]"
               >
-                turning focused graphics + media experiments into fuller
-                creative tools
+                building graphics + media experiments into fuller creative tools
               </ShimmerText>
             </li>
           </ol>
@@ -204,9 +195,8 @@ export default function About() {
             </ShimmerText>
           </div>
           <p>
-            I&apos;m rarely interested in only one thing at a time. Outside of
-            code, I&apos;m usually scouting wine bars in the city,
-            listening to three songs on repeat, collecting images of interesting textures, or reading books with new perspectives.
+            Outside code, I scout wine bars, listen to three songs on repeat,
+            collect texture references, and read.
           </p>
 
           <details className="glass-interactive ui-radius-panel p-4">
@@ -222,8 +212,7 @@ export default function About() {
 
         <section className="flex flex-col gap-2 border-t pt-8">
           <p>
-            If you&apos;re making something you care about and think we&apos;d
-            get along, let&apos;s talk at{' '}
+            Want to work together? Email me at{' '}
             <a
               href="mailto:kestelle@sas.upenn.edu"
               className="underline decoration-black/20 underline-offset-4"

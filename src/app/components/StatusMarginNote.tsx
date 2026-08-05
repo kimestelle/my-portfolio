@@ -41,7 +41,7 @@ export function StatusMarginNote() {
   return (
     <aside
       aria-label="Current status"
-      className="border-t border-[color:var(--line-color)] pt-5 md:relative md:mb-1 md:border-t-0 md:pb-1 md:pl-7 md:pt-0 md:before:absolute md:before:bottom-1 md:before:left-0 md:before:top-1 md:before:w-px md:before:bg-[color:var(--line-color)]"
+      className="border-t border-[color:var(--line-color)] pt-4 md:relative md:mb-1 md:border-t-0 md:pb-1 md:pl-7 md:pt-0 md:before:absolute md:before:bottom-1 md:before:left-0 md:before:top-1 md:before:w-px md:before:bg-[color:var(--line-color)]"
     >
       <motion.div
         variants={containerVariants}
@@ -55,7 +55,7 @@ export function StatusMarginNote() {
           currently
         </motion.p> */}
 
-        <ul className="mt-3 flex flex-col gap-2.5 text-[0.95rem] leading-snug text-[color:var(--text-secondary)]">
+        <ul className="flex flex-col gap-1.5 text-[0.9rem] leading-snug text-[color:var(--text-secondary)] md:mt-3 md:gap-2.5 md:text-[0.95rem]">
           {STATUS_ITEMS.map((item) => (
             <motion.li key={item} variants={itemVariants}>
               {item}
