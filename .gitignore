@@ -16,6 +16,9 @@
 # production
 /build
 
+# local generated exports
+/exports/
+
 # misc
 .DS_Store
 *.pem

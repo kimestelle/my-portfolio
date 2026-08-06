@@ -8,7 +8,7 @@ import { CursorTooltip } from './Tooltip';
 export default function Cover() {
   return (
     <div className="relative w-full pb-12 md:pb-16">
-      <header className="grid w-full gap-7 md:grid-cols-[minmax(0,1.33fr)_minmax(15rem,0.72fr)] md:items-end md:gap-14">
+      <header className="grid w-full gap-7 md:grid-cols-[minmax(0,1.33fr)_minmax(15rem,0.72fr)] md:items-end md:gap-10">
         <div className="w-full">
           <ShimmerText as="h1" className="type-identity">
             Estelle Kim
@@ -22,7 +22,7 @@ export default function Cover() {
           </div>
 
           <p className="mt-2.5 text-[color:var(--text-secondary)]">
-            I design and build expressive interfaces, from early ideas to shipped software.
+            I design and build expressive interfaces, from early ideas through production.
           </p>
 
           <div className="mt-3 flex flex-wrap items-center gap-x-3.5 gap-y-1.5 md:gap-x-4 md:gap-y-2">
