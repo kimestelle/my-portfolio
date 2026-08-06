@@ -22,8 +22,7 @@ export default function Cover() {
           </div>
 
           <p className="mt-2.5 text-[color:var(--text-secondary)]">
-            I shape expressive product interactions and build them for
-            production.
+            I design and build expressive interfaces, from early ideas to shipped software.
           </p>
 
           <div className="mt-3 flex flex-wrap items-center gap-x-3.5 gap-y-1.5 md:gap-x-4 md:gap-y-2">
