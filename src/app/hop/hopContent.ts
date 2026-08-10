@@ -17,7 +17,7 @@ export type PerformanceStats = {
 
 export const HOP_CONTENT = {
   metadata: {
-    title: 'Hoptimist | Estelle Kim',
+    title: 'hop!',
     description: 'A spring-powered interactive Hoptimist study.',
   },
   canvasLabel: 'Interactive frosted-glass Hoptimist',
