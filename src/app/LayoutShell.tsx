@@ -22,9 +22,17 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
   const pendingRouteRef = useRef<string | null>(null);
   const previousPathnameRef = useRef(pathname);
 
-  const shaderDisabled = useMemo(
+  const playgroundMode = useMemo(
     () => pathname.startsWith('/playground'),
     [pathname]
+  );
+  const hopMode = useMemo(
+    () => pathname.startsWith('/hop'),
+    [pathname]
+  );
+  const shaderDisabled = useMemo(
+    () => playgroundMode || hopMode,
+    [hopMode, playgroundMode]
   );
   const fieldNotesMode = useMemo(
     () => pathname.startsWith('/field-notes'),
@@ -220,11 +228,11 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
 
   return (
     <EntranceReadyProvider ready={entranceReady}>
-      {!fieldNotesMode && (
+      {!fieldNotesMode && !hopMode && (
         <NavBar
           shaderOn={shaderEnabled}
           cellAutomataOn={cellAutomataPref === true}
-          playground={shaderDisabled}
+          playground={playgroundMode}
           shaderDisabled={shaderDisabled}
           collapsingToPlayground={playgroundTransition === 'out'}
           playgroundTransitioning={playgroundTransition !== 'idle'}
@@ -246,13 +254,15 @@ export default function LayoutShell({ children }: { children: ReactNode }) {
         </div>
       </TextShimmerGroup>
       {!shaderDisabled && !fieldNotesMode && <Footer />}
-      <MoodRingBackground
-        enabled={shaderEnabled}
-        onFps={onFps}
-        onReady={onShaderReady}
-        cellAnimationPaused={!entranceReady}
-        playgroundTransition="idle"
-      />
+      {!hopMode && (
+        <MoodRingBackground
+          enabled={shaderEnabled}
+          onFps={onFps}
+          onReady={onShaderReady}
+          cellAnimationPaused={!entranceReady}
+          playgroundTransition="idle"
+        />
+      )}
     </EntranceReadyProvider>
   );
 }

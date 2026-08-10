@@ -42,6 +42,7 @@
   --radius-surface: calc(var(--radius-unit) * 4);
   --radius-pill: 999px;
   --layout-gutter: 1.5rem;
+  --layout-nav-top: 1.5rem;
   --layout-wide: 52rem;
   --layout-reading: 42rem;
   --line-color: rgb(229, 231, 235);

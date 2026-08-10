@@ -41,7 +41,7 @@ export default function NavBar({
 
   return (
     <nav className={`portfolio-nav${compact ? ' is-compact' : ''}${playgroundTransitioning ? ' is-transitioning' : ''}${hide ? ' is-hidden' : ''}`}>
-      <span className="portfolio-nav__shell" aria-hidden="true" />
+      <span className="glass-surface ui-radius-pill portfolio-nav__shell" aria-hidden="true" />
       <Link className="portfolio-nav__glyph" href="/" aria-label="Home" onClick={onRouteNavigate}>.*✦</Link>
       <div className="portfolio-nav__matter" aria-hidden={compact}>
         <Link tabIndex={compact ? -1 : undefined} href="/projects" onClick={onRouteNavigate}>projects</Link>
