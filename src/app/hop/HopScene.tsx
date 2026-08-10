@@ -2120,6 +2120,16 @@ export default function HopScene() {
 
     const onKeyDown = (event: KeyboardEvent) => {
       const target = event.target as HTMLElement | null;
+      const isEditableTarget = Boolean(
+        target?.closest('input, select, textarea, [contenteditable="true"]'),
+      );
+      if (event.code === 'Space') {
+        if (event.repeat || isEditableTarget) return;
+        event.preventDefault();
+        event.stopPropagation();
+        captureScene();
+        return;
+      }
       if (target?.closest('a, button, input, select, textarea, [contenteditable="true"]')) {
         return;
       }
@@ -2132,11 +2142,18 @@ export default function HopScene() {
         performanceFrameCount = 0;
         return;
       }
-      if (event.code !== 'Space' || event.repeat) return;
-      event.preventDefault();
-      captureScene();
     };
-    window.addEventListener('keydown', onKeyDown);
+    const onKeyUp = (event: KeyboardEvent) => {
+      if (event.code !== 'Space') return;
+      const target = event.target as HTMLElement | null;
+      if (target?.closest('input, select, textarea, [contenteditable="true"]')) {
+        return;
+      }
+      event.preventDefault();
+      event.stopPropagation();
+    };
+    window.addEventListener('keydown', onKeyDown, true);
+    window.addEventListener('keyup', onKeyUp, true);
 
     const resize = () => {
       const width = Math.max(1, mount.clientWidth);
@@ -2662,7 +2679,8 @@ export default function HopScene() {
       renderer.domElement.removeEventListener('pointermove', onPointerMove);
       renderer.domElement.removeEventListener('pointerup', releaseInteraction);
       renderer.domElement.removeEventListener('pointercancel', releaseInteraction);
-      window.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('keydown', onKeyDown, true);
+      window.removeEventListener('keyup', onKeyUp, true);
       window.clearTimeout(photoFeedbackTimer);
       window.clearTimeout(entranceChromeTimer);
       window.clearTimeout(touchHoldTimer);
