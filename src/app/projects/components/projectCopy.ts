@@ -683,10 +683,10 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
 ];
 
 export const FEATURED_PROJECT_IDS = [
-  'into-the-blue',
   'internet-atlas',
   'digital-loom',
   'tally',
+  'into-the-blue',
 ] as const;
 
 export const CASE_STUDY_PROJECT_IDS = [

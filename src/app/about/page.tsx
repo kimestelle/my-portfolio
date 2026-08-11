@@ -16,6 +16,23 @@ export default function About() {
               design engineer / frontend engineer
             </ShimmerText>
           </div>
+
+          <Link
+            href="/process"
+            className="glass-interactive ui-radius-panel group mt-3 grid gap-3 p-4 sm:grid-cols-[9rem_1fr_auto] sm:items-center sm:gap-5"
+          >
+            <span className="font-medium">how I build 0 → 1</span>
+            <span className="text-[color:var(--text-secondary)]">
+              How I turn an idea into working software, from the first question
+              to the final checks.
+            </span>
+            <span
+              className="type-meta text-[color:var(--text-decorative)] transition-transform duration-200 group-hover:-translate-y-px group-hover:translate-x-px"
+              aria-hidden="true"
+            >
+              ↗
+            </span>
+          </Link>
         </header>
 
         <section className="flex flex-col gap-6">
