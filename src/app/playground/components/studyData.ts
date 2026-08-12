@@ -20,6 +20,22 @@ export type InteractionStudy = {
 
 export const INTERACTION_STUDIES: InteractionStudy[] = [
   {
+    id: 'hoptimist',
+    name: 'Hoptimist',
+    category: 'interactive toy',
+    date: 'Aug 2026',
+    dateTime: '2026-08',
+    explores:
+      'a playful, physics-driven companion that reacts to user attention',
+    technical:
+      'A single 30fps ticker drives every small 2D canvas. The pixel orbits the active option, chases the pointer, and bursts on selection without giving each control its own animation loop.',
+    image: '/project-images/interaction-studies/hoptimist-poster.png',
+    imageAlt: 'A glossy red Hoptimist toy reacting inside a soft circular boundary',
+    video: '/project-images/interaction-studies/hoptimist.mp4',
+    liveUrl: 'https://estellekimdev.com/hop',
+    stage: 'current',
+  },
+  {
     id: 'pixel-state-machine',
     name: 'Pixel State Machine',
     category: 'companion interaction',
@@ -202,23 +218,6 @@ export const INTERACTION_STUDIES: InteractionStudy[] = [
     image: '/project-images/interaction-studies/duck-gameplay-poster.png',
     imageAlt: 'Better Spelling Bee ducks being arranged into a word',
     video: '/project-images/interaction-studies/duck-gameplay.m4v',
-    videoFit: 'contain',
-    githubUrl: 'https://github.com/kimestelle/better-spelling-bee',
-    stage: 'released',
-  },
-  {
-    id: 'duck-customization',
-    name: 'Duck Customization',
-    category: 'avatar customization',
-    date: 'Summer 2024',
-    dateTime: '2024-08',
-    explores:
-      'two color controls and swappable accessories for one duck avatar',
-    technical:
-      'Two color pickers update the duck’s SVG fill and gradient. Accessory state swaps paired front and side SVG layers.',
-    image: '/project-images/interaction-studies/duck-customization-poster.png',
-    imageAlt: 'Better Spelling Bee profile with duck color and accessory controls',
-    video: '/project-images/interaction-studies/duck-customization.m4v',
     videoFit: 'contain',
     githubUrl: 'https://github.com/kimestelle/better-spelling-bee',
     stage: 'released',
