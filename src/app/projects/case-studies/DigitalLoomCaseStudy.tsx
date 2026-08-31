@@ -65,7 +65,7 @@ export default function DigitalLoomCaseStudy({
             links={[
               {
                 href: 'https://digital-loom-nine.vercel.app/',
-                label: 'open the studio ↗',
+                label: 'open live ↗',
               },
             ]}
             breadcrumbRoot={{ href: '/projects', label: 'selected work' }}
