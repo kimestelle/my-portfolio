@@ -3,9 +3,9 @@
 import { motion, useReducedMotion } from 'framer-motion';
 
 const STATUS_ITEMS = [
-  'CS + Computer Graphics @ UPenn',
-  'prev. Frontend Intern @ PayPal',
-  'open to new opportunities!',
+  'computer graphics @ Penn',
+  'design eng @ Concentrate.ai',
+  'prev. eng @ PayPal',
 ];
 
 const containerVariants = {
