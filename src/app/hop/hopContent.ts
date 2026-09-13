@@ -43,9 +43,15 @@ export const HOP_CONTENT = {
     creditPrefix: 'inspired by',
     creditLogoAlt: 'Hoptimist',
   },
+  gestures: {
+    lift: 'lift',
+    liftDescription: 'Hold and drag the antenna',
+    hit: 'hit / touch',
+    hitDescription: 'Press and release the head',
+  },
   photo: {
     ariaLabel: 'Save a photo of the current Hoptimist pose',
-    idle: 'for photo',
+    idle: 'take photo',
     capturing: 'taking photo',
     saved: 'saved to downloads',
   },

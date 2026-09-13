@@ -541,29 +541,63 @@
   transform: scale(1);
 }
 
-.photoHint {
+.hopFooter {
   position: fixed;
   z-index: 4;
   bottom: max(var(--layout-gutter), env(safe-area-inset-bottom));
   left: 50%;
   display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  border: 0;
-  padding: 0.45rem 0.65rem;
-  background: transparent;
+  align-items: flex-end;
+  gap: 1rem;
+  /* Let the white Figma artboards merge with the scene ground. */
+  mix-blend-mode: multiply;
   color: var(--text-meta);
-  cursor: pointer;
   font: 300 var(--type-micro)/1 var(--font-body);
   letter-spacing: 0.04em;
   opacity: 0;
   pointer-events: none;
   transform: translate3d(-50%, 0.6rem, 0);
   transition:
-    color 180ms var(--motion-mood-ease),
     opacity var(--motion-mood-duration) var(--motion-mood-ease),
     transform var(--motion-mood-duration) var(--motion-mood-ease);
   white-space: nowrap;
+}
+
+.gestureHint,
+.photoHint {
+  display: flex;
+  min-width: 4.25rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.65rem;
+}
+
+.gestureHint {
+  pointer-events: none;
+  user-select: none;
+}
+
+.gestureGraphic,
+.photoKeyGraphic {
+  display: block;
+  width: 3rem;
+  height: 3rem;
+}
+
+.photoKeyGraphic {
+  display: grid;
+  place-items: center;
+}
+
+.photoHint {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: inherit;
+  transition: color 180ms var(--motion-mood-ease);
 }
 
 .photoHint:hover {
@@ -579,10 +613,9 @@
   display: inline-block;
   width: 2.75rem;
   height: 1.3rem;
-  border: 1px solid rgba(20, 20, 20, 0.24);
+  border: 0.5px solid #000;
   border-radius: var(--radius-control);
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: 0 2px 0 rgba(20, 20, 20, 0.12);
+  background: transparent;
 }
 
 .spacebarKey span {
@@ -591,9 +624,9 @@
   bottom: 0.32rem;
   left: 0.55rem;
   height: 0.3rem;
-  border-right: 1px solid rgba(20, 20, 20, 0.44);
-  border-bottom: 1px solid rgba(20, 20, 20, 0.44);
-  border-left: 1px solid rgba(20, 20, 20, 0.44);
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+  border-left: 0.5px solid #000;
   border-radius: 0 0 2px 2px;
 }
 
@@ -618,8 +651,16 @@
 }
 
 .hopNav.chromeVisible,
-.photoHint.chromeVisible {
+.hopFooter.chromeVisible {
   transform: translate3d(-50%, 0, 0);
+}
+
+.hopFooter.chromeVisible {
+  pointer-events: none;
+}
+
+.hopFooter.chromeVisible .photoHint {
+  pointer-events: auto;
 }
 
 .performanceHud {
@@ -818,10 +859,19 @@
     height: 2.5rem;
   }
 
-  .photoHint {
+  .hopFooter {
     bottom: max(1rem, env(safe-area-inset-bottom));
+    mix-blend-mode: normal;
+  }
+
+  .gestureHint {
+    display: none;
+  }
+
+  .photoHint {
     width: 2.75rem;
     height: 2.75rem;
+    min-width: 2.75rem;
     min-height: 2.75rem;
     justify-content: center;
     border: 1px solid var(--border-subtle);
@@ -834,7 +884,7 @@
     -webkit-backdrop-filter: blur(10px);
   }
 
-  .spacebarKey,
+  .photoKeyGraphic,
   .photoLabel {
     display: none;
   }
@@ -854,6 +904,7 @@
   .introOverlayLaunching .introLockup,
   .introOverlayHidden,
   .hopNav,
+  .hopFooter,
   .photoHint,
   .aboutOverlay,
   .aboutCard {

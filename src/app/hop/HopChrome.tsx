@@ -367,17 +367,16 @@ function HopAboutModal({
 }
 
 function PhotoControl({
-  chromeVisible,
   loading,
   photoFeedback,
   onCapture,
 }: Pick<
   HopChromeProps,
-  'chromeVisible' | 'loading' | 'photoFeedback' | 'onCapture'
+  'loading' | 'photoFeedback' | 'onCapture'
 >) {
   return (
     <button
-      className={`${styles.photoHint} ${chromeVisible ? styles.chromeVisible : ''} ${
+      className={`${styles.photoHint} ${
         photoFeedback === 'saved' ? styles.photoHintSaved : ''
       }`}
       type="button"
@@ -385,9 +384,11 @@ function PhotoControl({
       disabled={loading || photoFeedback === 'capturing'}
       aria-label={HOP_CONTENT.photo.ariaLabel}
     >
-      <kbd className={styles.spacebarKey} aria-hidden="true">
-        <span />
-      </kbd>
+      <span className={styles.photoKeyGraphic} aria-hidden="true">
+        <kbd className={styles.spacebarKey}>
+          <span />
+        </kbd>
+      </span>
       <svg
         className={styles.cameraGlyph}
         viewBox="0 0 24 24"
@@ -399,6 +400,41 @@ function PhotoControl({
       </svg>
       <span className={styles.photoLabel}>{HOP_CONTENT.photo[photoFeedback]}</span>
     </button>
+  );
+}
+
+function HopFooter({
+  chromeVisible,
+  ...photoProps
+}: Pick<HopChromeProps, 'chromeVisible' | 'loading' | 'photoFeedback' | 'onCapture'>) {
+  return (
+    <div
+      className={`${styles.hopFooter} ${chromeVisible ? styles.chromeVisible : ''}`}
+    >
+      <div className={styles.gestureHint}>
+        <Image
+          className={styles.gestureGraphic}
+          src="/hop/lift.svg"
+          alt={HOP_CONTENT.gestures.liftDescription}
+          width={48}
+          height={48}
+          draggable={false}
+        />
+        <span>{HOP_CONTENT.gestures.lift}</span>
+      </div>
+      <div className={styles.gestureHint}>
+        <Image
+          className={styles.gestureGraphic}
+          src="/hop/hit.svg"
+          alt={HOP_CONTENT.gestures.hitDescription}
+          width={48}
+          height={48}
+          draggable={false}
+        />
+        <span>{HOP_CONTENT.gestures.hit}</span>
+      </div>
+      <PhotoControl {...photoProps} />
+    </div>
   );
 }
 
@@ -444,7 +480,7 @@ export default function HopChrome({
         onSceneSize={onSceneSize}
       />
       <HopAboutModal open={aboutOpen} onClose={closeAbout} />
-      <PhotoControl
+      <HopFooter
         chromeVisible={chromeVisible}
         loading={loading}
         photoFeedback={photoFeedback}
