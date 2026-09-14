@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Ysabeau_Office, EB_Garamond } from "next/font/google";
+import { Analytics } from '@vercel/analytics/next';
 import LayoutShell from "./LayoutShell";
 import "./globals.css";
 
@@ -64,6 +65,7 @@ export default function RootLayout({
     >
       <body className="scroll-smooth">
         <LayoutShell>{children}</LayoutShell>
+        <Analytics />
       </body>
     </html>
   );
