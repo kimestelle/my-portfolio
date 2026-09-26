@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 
 const STATUS_ITEMS = [
   'computer graphics @ Penn',
-  'design eng @ Concentrate.ai',
+  'incoming @ Notion',
   'prev. eng @ PayPal',
 ];
 
