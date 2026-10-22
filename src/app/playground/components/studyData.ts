@@ -20,6 +20,22 @@ export type InteractionStudy = {
 
 export const INTERACTION_STUDIES: InteractionStudy[] = [
   {
+    id: 'softcopy',
+    name: 'Softcopy Studio',
+    category: 'interactive studio',
+    date: 'Oct 2026',
+    dateTime: '2026-10',
+    explores:
+      'image, motion, and material studies in a browsable studio',
+    technical:
+      'An interactive gallery of image, motion, and material studies.',
+    image: '/project-images/interaction-studies/softcopy-poster.png',
+    imageAlt: 'Softcopy Studio with blue image mosaics, flower figures, and scattered image fragments',
+    video: '/project-images/interaction-studies/softcopy.mp4',
+    liveUrl: 'https://softcopy.digital/',
+    stage: 'current',
+  },
+  {
     id: 'hoptimist',
     name: 'Hoptimist',
     category: 'interactive toy',
